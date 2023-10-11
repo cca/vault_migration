@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "vault-migration"
+version = "0.1.0"
+description = "tools, data, & ideas for EQUELLA -> Invenio migration"
+authors = ["phette23 <phette23@gmail.com>"]
+license = "ECL-2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+PyYAML = "^6.0.1"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
