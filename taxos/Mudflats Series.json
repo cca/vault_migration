@@ -1,0 +1,30 @@
+[
+  {
+    "term": "I. Documentation",
+    "fullTerm": "I. Documentation",
+    "uuid": "830cdb76-1572-4aa9-bb0e-0adbd886a65c",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "II. Images",
+    "fullTerm": "II. Images",
+    "uuid": "31b1e1a9-5eae-4ab2-b442-2297adc639c0",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "III. Oral Histories",
+    "fullTerm": "III. Oral Histories",
+    "uuid": "6551957f-6047-4678-9054-0182135b167f",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "IV. Related materials",
+    "fullTerm": "IV. Related materials",
+    "uuid": "a61c4145-b9d6-4fe0-9d0b-856c9e254390",
+    "index": 0,
+    "readonly": false
+  }
+]

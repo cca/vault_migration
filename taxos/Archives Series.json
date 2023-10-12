@@ -1,0 +1,72 @@
+[
+  {
+    "term": "I. Administrative Materials",
+    "fullTerm": "I. Administrative Materials",
+    "uuid": "13704d6f-24b9-4e3e-809e-ba30f315c5b7",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "II. Alumni Society Materials",
+    "fullTerm": "II. Alumni Society Materials",
+    "uuid": "45b9960b-02ba-44b3-bf14-8883e8a4d69b",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "III. College Life",
+    "fullTerm": "III. College Life",
+    "uuid": "9af103e7-6012-4753-8cec-29d49bb030ce",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "IV. Department Materials",
+    "fullTerm": "IV. Department Materials",
+    "uuid": "1f9097d4-b3a6-4f9e-9283-74b197590bb7",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "V. Exhibits and the CCA Art Collection",
+    "fullTerm": "V. Exhibits and the CCA Art Collection",
+    "uuid": "9aca14cd-63be-43d8-9bd8-94446a17e8fd",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "VI. Photographs",
+    "fullTerm": "VI. Photographs",
+    "uuid": "30e5b818-b4d6-46ef-ab50-6a02431fd225",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "VII. Press",
+    "fullTerm": "VII. Press",
+    "uuid": "7cd69fcb-564c-4e56-afc1-adffa99579d3",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "VIII. Periodicals and Other Publications",
+    "fullTerm": "VIII. Periodicals and Other Publications",
+    "uuid": "eb06a000-2188-4325-94ca-b3802cdb1025",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "IX. Graduate and Undergraduate Theses",
+    "fullTerm": "IX. Graduate and Undergraduate Theses",
+    "uuid": "17103aa2-f1b8-4e64-8127-e4cb15745d46",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "X. Buildings and Grounds",
+    "fullTerm": "X. Buildings and Grounds",
+    "uuid": "027c0727-659e-4d16-bbbd-406c56683d90",
+    "index": 0,
+    "readonly": false
+  }
+]

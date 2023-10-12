@@ -1,0 +1,401 @@
+[
+  {
+    "term": "agenda",
+    "fullTerm": "agenda",
+    "uuid": "10743ba2-dba6-40ad-b07f-53e663981bb3",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "album (book)",
+    "fullTerm": "album (book)",
+    "uuid": "e0f9d805-7d74-4475-b3e5-912ab22c0571",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "animation drawing",
+    "fullTerm": "animation drawing",
+    "uuid": "05e9ac11-5057-43e5-b732-181d02a0e5c5",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "art glass",
+    "fullTerm": "art glass",
+    "uuid": "76ae5fb0-e275-4b3d-80ec-5cb3a8714c57",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "article",
+    "fullTerm": "article",
+    "uuid": "c0a052c6-5707-480b-a0d8-bbf77be3b7b1",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "artist book",
+    "fullTerm": "artist book",
+    "uuid": "7701aceb-3ccf-4e86-82a0-02374e40002a",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "artist statement",
+    "fullTerm": "artist statement",
+    "uuid": "db431ac2-e990-4f87-9207-2a1bf7f0a801",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "black-and-white negative",
+    "fullTerm": "black-and-white negative",
+    "uuid": "5a941fc4-4d55-48dd-85fb-01ce733c5567",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "black-and-white photograph",
+    "fullTerm": "black-and-white photograph",
+    "uuid": "19c02e8a-6f14-4949-b0e8-31e43f4c093d",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "black-and-white print",
+    "fullTerm": "black-and-white print",
+    "uuid": "ad71eabf-d838-4374-bb53-9f794d0d0deb",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "black-and-white slide",
+    "fullTerm": "black-and-white slide",
+    "uuid": "42b93e82-a27f-4e72-8cff-996e64271e08",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "book jacket",
+    "fullTerm": "book jacket",
+    "uuid": "69df97bd-3607-4391-9358-31130af01d86",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "bulletins",
+    "fullTerm": "bulletins",
+    "uuid": "284ded10-a0bb-44f1-bf6a-97d53b48c889",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "business card",
+    "fullTerm": "business card",
+    "uuid": "986cb607-b814-4f9e-8cb5-1767f8e00c20",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "ceramic",
+    "fullTerm": "ceramic",
+    "uuid": "c1144835-4d34-4062-b21e-753ff9a68d64",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "certificate",
+    "fullTerm": "certificate",
+    "uuid": "89c7f42f-2753-4216-a2b3-31a6e4c61a59",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "collage",
+    "fullTerm": "collage",
+    "uuid": "e6f336a6-df3d-4021-b0bf-1793e07dcae6",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "color photograph",
+    "fullTerm": "color photograph",
+    "uuid": "cb6aa3a7-38ce-4192-bd3c-4be6aff722f5",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "color slide",
+    "fullTerm": "color slide",
+    "uuid": "1250fadc-b2a7-4a5f-b98c-051b9f7aff36",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "contact print",
+    "fullTerm": "contact print",
+    "uuid": "25544f0d-0db5-4a54-99bb-2950479b1be7",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "contact sheet",
+    "fullTerm": "contact sheet",
+    "uuid": "32f8a0dd-fb55-4bb9-ae8b-01e9406972b4",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "correspondence",
+    "fullTerm": "correspondence",
+    "uuid": "53c5732d-32b7-4a2f-a7b1-23961b0df562",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "dry collodion negative",
+    "fullTerm": "dry collodion negative",
+    "uuid": "63fefe3a-bbb0-4f7c-8423-1b8b5f19306c",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "experimental film",
+    "fullTerm": "experimental film",
+    "uuid": "7ac77a32-3412-4400-9130-5aec7a0c64bd",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "fiber art",
+    "fullTerm": "fiber art",
+    "uuid": "e7962806-2c58-4214-92cd-d1d73703b711",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "flag",
+    "fullTerm": "flag",
+    "uuid": "8d7522ac-6be5-44eb-aeca-5215cbe1c4a2",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "glass plate negative",
+    "fullTerm": "glass plate negative",
+    "uuid": "1469da58-e564-43b1-aad4-2db42591d117",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "illustration",
+    "fullTerm": "illustration",
+    "uuid": "7c023671-d1eb-4eac-9b29-930ddaa81da0",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "independent film",
+    "fullTerm": "independent film",
+    "uuid": "2e608c2f-b21f-497c-aa0d-d6db2901c43a",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "intaglio print",
+    "fullTerm": "intaglio print",
+    "uuid": "2ef24824-b62f-49b4-b750-6d7cee3c5940",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "lantern slide",
+    "fullTerm": "lantern slide",
+    "uuid": "faa02912-9dbd-4cf1-a0d6-c7cb408985f4",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "letterhead",
+    "fullTerm": "letterhead",
+    "uuid": "05d49334-c7fd-4ed2-a3c2-bdcea1f54550",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "linocut",
+    "fullTerm": "linocut",
+    "uuid": "37f4d89c-f84f-475c-8a4a-f31e97634c8f",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "lithograph",
+    "fullTerm": "lithograph",
+    "uuid": "7f5982dd-78aa-4eb3-84a0-6c39be44c11c",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "metalwork",
+    "fullTerm": "metalwork",
+    "uuid": "0b57caee-3399-4ee2-b8e8-1fb7f1322d4c",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "minutes",
+    "fullTerm": "minutes",
+    "uuid": "aebcc2f0-c906-4b07-ada8-4e655d8a9e92",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "monoprint",
+    "fullTerm": "monoprint",
+    "uuid": "12a987b3-a86c-4c6f-acc4-aa054fc5c7de",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "mural painting",
+    "fullTerm": "mural painting",
+    "uuid": "dcac43ce-9d16-446b-a1b6-23eb414cd2f6",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "oil painting",
+    "fullTerm": "oil painting",
+    "uuid": "70dc1de6-9386-480d-af53-3f17a37a0c13",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "page",
+    "fullTerm": "page",
+    "uuid": "326c8606-d892-4952-8eab-b75373704998",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "policy / procedure",
+    "fullTerm": "policy / procedure",
+    "uuid": "1abf8e29-a02d-4f5e-ad76-44848e90b369",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "press release",
+    "fullTerm": "press release",
+    "uuid": "ec735782-4913-4ba5-a888-3323bd8963fe",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "programs (documents)",
+    "fullTerm": "programs (documents)",
+    "uuid": "21cb08ab-5fbd-436d-a20f-b566053a1238",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "relief print",
+    "fullTerm": "relief print",
+    "uuid": "0564ff63-cbe3-4ec0-802e-4e8d4c8d7eac",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "scrapbook",
+    "fullTerm": "scrapbook",
+    "uuid": "04b017ea-387a-46f3-a20a-9fc3fa05b087",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "screen print",
+    "fullTerm": "screen print",
+    "uuid": "bc2dc32f-170b-4028-87bc-d706b5563ad9",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "serials (publications)",
+    "fullTerm": "serials (publications)",
+    "uuid": "12f1c26f-99b4-402a-92f7-65a2c92f877d",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "short subject",
+    "fullTerm": "short subject",
+    "uuid": "7c922b8a-7937-4829-9e2e-cd0d756b3fd5",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "speeches (documents)",
+    "fullTerm": "speeches (documents)",
+    "uuid": "87f0e297-e801-4ec2-8efc-e2751147ecd2",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "textile",
+    "fullTerm": "textile",
+    "uuid": "29deb00e-637f-41f7-bad0-79d08daf7b04",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "timelines (chronologies)",
+    "fullTerm": "timelines (chronologies)",
+    "uuid": "62a09223-b6a9-468b-b470-19d1e8bf1406",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "watercolor",
+    "fullTerm": "watercolor",
+    "uuid": "a9c203a7-9e67-4574-8adc-f486904cb14c",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "wet collodion negative",
+    "fullTerm": "wet collodion negative",
+    "uuid": "0f7ccdb8-379a-4f08-bafb-728eeeb2412f",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "wood engraving",
+    "fullTerm": "wood engraving",
+    "uuid": "736e5d1c-00aa-4fdb-a217-8a368b663c65",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "woodcut",
+    "fullTerm": "woodcut",
+    "uuid": "392f63a2-1472-4caf-8805-9d19c6f0370e",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "woodwork",
+    "fullTerm": "woodwork",
+    "uuid": "b7cb4518-2621-41a1-9f03-a8eb238d7a4a",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "work print",
+    "fullTerm": "work print",
+    "uuid": "3f4edc18-b32e-46f8-a47b-18ec43cd95eb",
+    "index": 0,
+    "readonly": false
+  }
+]

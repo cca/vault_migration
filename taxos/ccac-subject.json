@@ -1,0 +1,114 @@
+[
+  {
+    "term": "Administrative documents",
+    "fullTerm": "Administrative documents",
+    "uuid": "082fc3c2-321d-4f53-908b-24725ae720a3",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Alumni activities",
+    "fullTerm": "Alumni activities",
+    "uuid": "0356da3b-154f-4834-ba07-1b6fba1d982f",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Berkeley and before, pre-1925",
+    "fullTerm": "Berkeley and before, pre-1925",
+    "uuid": "cae90826-34bd-408d-b45f-84e3307e611f",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Campus views of buildings and architecture",
+    "fullTerm": "Campus views of buildings and architecture",
+    "uuid": "6589e8ef-6081-4b21-98e7-32a325bcb7b9",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "College activities",
+    "fullTerm": "College activities",
+    "uuid": "eea5cb24-6906-4533-9098-e48a9f93c9e7",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "College events",
+    "fullTerm": "College events",
+    "uuid": "bed2120d-1250-4939-a53f-f7376df28b8a",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "College merchandise",
+    "fullTerm": "College merchandise",
+    "uuid": "b6398a5c-fd89-4b91-9f7a-7ab2774134e3",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Faculty and students at work",
+    "fullTerm": "Faculty and students at work",
+    "uuid": "5df8e694-3743-4eee-a5ae-5c54dc44bd6f",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Miscellaneous",
+    "fullTerm": "Miscellaneous",
+    "uuid": "603992de-0204-454a-a6cc-b5cae987a94f",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Other non-CCA/C places",
+    "fullTerm": "Other non-CCA/C places",
+    "uuid": "f50a005b-0791-4d91-9499-8c4ea1ae16cd",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Portraits, class photos",
+    "fullTerm": "Portraits, class photos",
+    "uuid": "8608e0ee-8442-4207-9798-e4f76cdcc599",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Unidentified people",
+    "fullTerm": "Unidentified people",
+    "uuid": "a3bc64e4-84cc-4658-bae6-b7c09a77509f",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Work by alumni",
+    "fullTerm": "Work by alumni",
+    "uuid": "bf1d5eb1-1383-46a2-89fb-23d412201bfc",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Work by faculty",
+    "fullTerm": "Work by faculty",
+    "uuid": "b021fb57-b2b1-427a-a0cf-205ce7944e90",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Work by students",
+    "fullTerm": "Work by students",
+    "uuid": "8629ac8d-ceb4-40c5-bead-3b43296a379f",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Works and shows",
+    "fullTerm": "Works and shows",
+    "uuid": "d70b20ac-6d13-4e1e-b3b2-50da3b41c8a1",
+    "index": 0,
+    "readonly": false
+  }
+]

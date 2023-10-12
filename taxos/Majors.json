@@ -1,0 +1,268 @@
+[
+  {
+    "term": "Animation (BFA)",
+    "fullTerm": "Animation (BFA)",
+    "uuid": "b9a5d3de-77ce-40e7-a55d-20f9c7100f35",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Architecture (BArch)",
+    "fullTerm": "Architecture (BArch)",
+    "uuid": "f755a904-0d75-471d-9778-d19d1d9d7fc2",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Architecture (MAAD)",
+    "fullTerm": "Architecture (MAAD)",
+    "uuid": "fbe80390-dcd7-48c5-89f2-76cc7d423785",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Architecture (MArch)",
+    "fullTerm": "Architecture (MArch)",
+    "uuid": "bc516865-e32d-4c09-9c20-28a3f431f178",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Ceramics (BFA)",
+    "fullTerm": "Ceramics (BFA)",
+    "uuid": "d30c31f2-f1b7-4a27-b9b3-59f583ae52c6",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Civic Innovation (MBA)",
+    "fullTerm": "Civic Innovation (MBA)",
+    "uuid": "3e8fabc6-5873-49a2-bbad-26e99b4ee543",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Comics (MFA)",
+    "fullTerm": "Comics (MFA)",
+    "uuid": "a4c92af0-bb82-408b-8a20-ecaa2459f403",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Community Arts (BFA)",
+    "fullTerm": "Community Arts (BFA)",
+    "uuid": "4409bb93-6af0-4c10-94b5-24256ca6f220",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Curatorial Practice (MA)",
+    "fullTerm": "Curatorial Practice (MA)",
+    "uuid": "49664593-b060-4bc3-aaae-f2822d77a979",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Design (MFA)",
+    "fullTerm": "Design (MFA)",
+    "uuid": "ab28f400-effe-4b98-8a1c-f8ecb1281076",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Design Strategy (MBA)",
+    "fullTerm": "Design Strategy (MBA)",
+    "uuid": "1c2b0ae4-3b4d-4ce8-a7da-b7dff386391b",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Fashion Design (BFA)",
+    "fullTerm": "Fashion Design (BFA)",
+    "uuid": "0ee909f4-eebf-4f1c-b358-27178f9cbe09",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Film (BFA)",
+    "fullTerm": "Film (BFA)",
+    "uuid": "8b364ee1-f01c-40ba-ba44-0d52e6f6b4d5",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Film (MFA)",
+    "fullTerm": "Film (MFA)",
+    "uuid": "a8ea1be2-6549-4d53-a6ac-239dc4e6f21a",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Fine Arts (MFA)",
+    "fullTerm": "Fine Arts (MFA)",
+    "uuid": "d579cd9b-4181-4d5b-8991-530800bf52bd",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Furniture (BFA)",
+    "fullTerm": "Furniture (BFA)",
+    "uuid": "19f67ec1-568f-4f16-a868-e9fa08769281",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Glass (BFA)",
+    "fullTerm": "Glass (BFA)",
+    "uuid": "e9263d75-6c2f-47ce-8d57-9a11febc4d56",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Graphic Design (BFA)",
+    "fullTerm": "Graphic Design (BFA)",
+    "uuid": "d6b4d4ab-4b65-4796-9f52-c29c63616c31",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "History of Art and Visual Culture (BA)",
+    "fullTerm": "History of Art and Visual Culture (BA)",
+    "uuid": "3fd8b9a1-0199-4444-9c4d-6d14b492774d",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Illustration (BFA)",
+    "fullTerm": "Illustration (BFA)",
+    "uuid": "8b892e35-b5ca-45b5-b4a0-7e1bee23f900",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Individualized (BFA)",
+    "fullTerm": "Individualized (BFA)",
+    "uuid": "674fb0e8-9634-4738-91c3-71fa41cf7d32",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Industrial Design (BFA)",
+    "fullTerm": "Industrial Design (BFA)",
+    "uuid": "e55cdf42-6946-4dcd-a0e0-aed7d10e5391",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Interaction Design (BFA)",
+    "fullTerm": "Interaction Design (BFA)",
+    "uuid": "7b7b3fec-392c-4f38-95e5-1cbf3adae785",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Interaction Design (MDes)",
+    "fullTerm": "Interaction Design (MDes)",
+    "uuid": "cf1c745e-19bf-49df-b388-1923344b3238",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Interior Design (BFA)",
+    "fullTerm": "Interior Design (BFA)",
+    "uuid": "137dcee5-04ec-4a8f-aa4a-435fee572de1",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Jewelry / Metal Arts (BFA)",
+    "fullTerm": "Jewelry / Metal Arts (BFA)",
+    "uuid": "235a69b6-a163-4da6-89af-0f97b90d02ca",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Painting/Drawing (BFA)",
+    "fullTerm": "Painting/Drawing (BFA)",
+    "uuid": "33a0dc76-dd47-4a40-9431-a0020817dba4",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Photography (BFA)",
+    "fullTerm": "Photography (BFA)",
+    "uuid": "9bf91793-e048-46a7-924c-06229b55948e",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Printmedia (BFA)",
+    "fullTerm": "Printmedia (BFA)",
+    "uuid": "ad40a3b9-c9b9-48fb-8dba-2f78261ef66f",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Sculpture (BFA)",
+    "fullTerm": "Sculpture (BFA)",
+    "uuid": "074474bc-9c7a-4b0d-9cd9-15e1a0cc049b",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Social Practice & Public Forms (MA)",
+    "fullTerm": "Social Practice & Public Forms (MA)",
+    "uuid": "a5b2546a-1f55-4762-bb72-0fbd028a33d8",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Strategic Foresight (MBA)",
+    "fullTerm": "Strategic Foresight (MBA)",
+    "uuid": "d9b0be8f-a72b-4b73-a101-18e5c220e18c",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Textiles (BFA)",
+    "fullTerm": "Textiles (BFA)",
+    "uuid": "2e5c097e-bdbf-49f1-87cb-44cc1e669b9b",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Undecided",
+    "fullTerm": "Undecided",
+    "uuid": "fb32d3e0-3213-49c7-892f-d0e579ed7be0",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Visual & Critical Studies (MA)",
+    "fullTerm": "Visual & Critical Studies (MA)",
+    "uuid": "6c781a67-1195-4f5a-89f5-6fce356493d0",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Visual Studies (BA)",
+    "fullTerm": "Visual Studies (BA)",
+    "uuid": "bca35e4f-d487-48b4-9503-fb5d9c50eae1",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Writing and Literature (BA)",
+    "fullTerm": "Writing and Literature (BA)",
+    "uuid": "8e7a138e-3088-4998-9d45-f0cb512d6b92",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Writing (MFA)",
+    "fullTerm": "Writing (MFA)",
+    "uuid": "e6abd316-7726-45b8-ab28-eb3c2894ac70",
+    "index": 0,
+    "readonly": false
+  }
+]

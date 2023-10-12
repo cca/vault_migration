@@ -1,0 +1,23 @@
+[
+  {
+    "term": "local",
+    "fullTerm": "local",
+    "uuid": "a5c82066-e420-44f9-8b38-128513b9361a",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "ulan",
+    "fullTerm": "ulan",
+    "uuid": "131d1014-3bf8-43e1-9e78-dd88b0f95f3b",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "oclc",
+    "fullTerm": "oclc",
+    "uuid": "674b1735-9c04-4983-8113-f0514a1af793",
+    "index": 0,
+    "readonly": false
+  }
+]

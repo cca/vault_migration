@@ -1,0 +1,3895 @@
+{
+  "start": 0,
+  "length": 324,
+  "available": 324,
+  "results": [
+    {
+      "uuid": "f10a5ae0-5232-428b-8c1a-5fdf78e1f195",
+      "name": "CORES - COURSE LIST",
+      "nameStrings": {
+        "en": "CORES - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/f10a5ae0-5232-428b-8c1a-5fdf78e1f195"
+      }
+    },
+    {
+      "uuid": "1ccf4d37-e086-4ba3-b8d6-cf2647491aa4",
+      "name": "ARCH DIV - COURSE LIST",
+      "nameStrings": {
+        "en": "ARCH DIV - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/1ccf4d37-e086-4ba3-b8d6-cf2647491aa4"
+      }
+    },
+    {
+      "uuid": "5ce33bea-7075-4545-b506-58370d558fef",
+      "name": "CCA Departments & Programs",
+      "nameStrings": {
+        "en": "CCA Departments & Programs"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5ce33bea-7075-4545-b506-58370d558fef"
+      }
+    },
+    {
+      "uuid": "e926f336-055a-4ba1-8da8-a31ff2809c97",
+      "name": "Depicted Persons {end-user add}",
+      "nameStrings": {
+        "en": "Depicted Persons {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/e926f336-055a-4ba1-8da8-a31ff2809c97"
+      }
+    },
+    {
+      "uuid": "57884e14-9127-4c0a-b4f7-156f8cf10590",
+      "name": "Photographer, Videographer & Designers {end-user add}",
+      "nameStrings": {
+        "en": "Photographer, Videographer & Designers {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/57884e14-9127-4c0a-b4f7-156f8cf10590"
+      }
+    },
+    {
+      "uuid": "48c87257-2b2d-4682-b634-3bf96b1a1ee1",
+      "name": "CCA Publications",
+      "nameStrings": {
+        "en": "CCA Publications"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/48c87257-2b2d-4682-b634-3bf96b1a1ee1"
+      }
+    },
+    {
+      "uuid": "ab0c3582-65da-4e6e-bac5-4cd315240f0d",
+      "name": "Role of creator",
+      "nameStrings": {
+        "en": "Role of creator"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/ab0c3582-65da-4e6e-bac5-4cd315240f0d"
+      }
+    },
+    {
+      "uuid": "657fdbec-c17c-4497-aa31-5b4bc7d9e9e5",
+      "name": "LIBRARIES - subject name",
+      "nameStrings": {
+        "en": "LIBRARIES - subject name"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/657fdbec-c17c-4497-aa31-5b4bc7d9e9e5"
+      }
+    },
+    {
+      "uuid": "fc30d8be-8d10-462a-a6bc-523fb9fae57d",
+      "name": "GRAPH - COURSE LIST",
+      "nameStrings": {
+        "en": "GRAPH - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/fc30d8be-8d10-462a-a6bc-523fb9fae57d"
+      }
+    },
+    {
+      "uuid": "bc64efd6-3817-42fd-a4b7-7df9ea14533a",
+      "name": "PHOTO - COURSE LIST",
+      "nameStrings": {
+        "en": "PHOTO - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/bc64efd6-3817-42fd-a4b7-7df9ea14533a"
+      }
+    },
+    {
+      "uuid": "446bfb49-270d-405d-9cfe-148c23c1c744",
+      "name": "SYLLABUS - COURSE LIST",
+      "nameStrings": {
+        "en": "SYLLABUS - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/446bfb49-270d-405d-9cfe-148c23c1c744"
+      }
+    },
+    {
+      "uuid": "69100076-5bd9-40b7-ab52-2a44a603ae7c",
+      "name": "CORES - Studio electives (UNUSED)",
+      "nameStrings": {
+        "en": "CORES - Studio electives (UNUSED)"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/69100076-5bd9-40b7-ab52-2a44a603ae7c"
+      }
+    },
+    {
+      "uuid": "cabebfca-67c0-4677-b86a-b13735f939bd",
+      "name": "Media Outlets {end-user add}",
+      "nameStrings": {
+        "en": "Media Outlets {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/cabebfca-67c0-4677-b86a-b13735f939bd"
+      }
+    },
+    {
+      "uuid": "987f840a-efd5-4a50-93a5-e714253ff19e",
+      "name": "CORES - faculty",
+      "nameStrings": {
+        "en": "CORES - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/987f840a-efd5-4a50-93a5-e714253ff19e"
+      }
+    },
+    {
+      "uuid": "7634e5ee-2a70-4783-87ab-ad848e479cf0",
+      "name": "CORES - Assignment Titles",
+      "nameStrings": {
+        "en": "CORES - Assignment Titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/7634e5ee-2a70-4783-87ab-ad848e479cf0"
+      }
+    },
+    {
+      "uuid": "ec8a4d9f-ca5b-4de5-a333-1f47085795cb",
+      "name": "Event types {end-user add}",
+      "nameStrings": {
+        "en": "Event types {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/ec8a4d9f-ca5b-4de5-a333-1f47085795cb"
+      }
+    },
+    {
+      "uuid": "09eaf6d1-46bf-459d-a2fa-07c43010bfd9",
+      "name": "GRAPH - course titles",
+      "nameStrings": {
+        "en": "GRAPH - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/09eaf6d1-46bf-459d-a2fa-07c43010bfd9"
+      }
+    },
+    {
+      "uuid": "592a7a2c-958f-491e-ad78-e1f4c32d6227",
+      "name": "ARCH DIV - course titles",
+      "nameStrings": {
+        "en": "ARCH DIV - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/592a7a2c-958f-491e-ad78-e1f4c32d6227"
+      }
+    },
+    {
+      "uuid": "0f946011-afa1-4bc5-a738-3fb9eca83f82",
+      "name": "ARCH keywords {end-user add}",
+      "nameStrings": {
+        "en": "ARCH keywords {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/0f946011-afa1-4bc5-a738-3fb9eca83f82"
+      }
+    },
+    {
+      "uuid": "ef55dbdf-b32e-4ecd-8d94-83c24633d1a2",
+      "name": "Communications Tag List {end-user add}",
+      "nameStrings": {
+        "en": "Communications Tag List {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/ef55dbdf-b32e-4ecd-8d94-83c24633d1a2"
+      }
+    },
+    {
+      "uuid": "982ff1eb-0ae1-4890-a346-ed4810288801",
+      "name": "ARCH DIV - faculty",
+      "nameStrings": {
+        "en": "ARCH DIV - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/982ff1eb-0ae1-4890-a346-ed4810288801"
+      }
+    },
+    {
+      "uuid": "23903562-ab60-4155-8ed7-b6ccd41ed382",
+      "name": "ARCH DIV - course sections",
+      "nameStrings": {
+        "en": "ARCH DIV - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/23903562-ab60-4155-8ed7-b6ccd41ed382"
+      }
+    },
+    {
+      "uuid": "5e34ddc0-da3c-40a6-ab93-24b02b93bee3",
+      "name": "GRAPH - faculty",
+      "nameStrings": {
+        "en": "GRAPH - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5e34ddc0-da3c-40a6-ab93-24b02b93bee3"
+      }
+    },
+    {
+      "uuid": "c2aed125-ba24-477f-b65f-3e2a4387f1a2",
+      "name": "GRAPH - course sections",
+      "nameStrings": {
+        "en": "GRAPH - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/c2aed125-ba24-477f-b65f-3e2a4387f1a2"
+      }
+    },
+    {
+      "uuid": "b1cc6e6f-8d6c-41a1-af15-70080cd4ef2b",
+      "name": "Majors",
+      "nameStrings": {
+        "en": "Majors"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/b1cc6e6f-8d6c-41a1-af15-70080cd4ef2b"
+      }
+    },
+    {
+      "uuid": "c1850bee-f671-40ce-bb4a-ab03153cbd5d",
+      "name": "PHOTO photograph formats {end-user add}",
+      "nameStrings": {
+        "en": "PHOTO photograph formats {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/c1850bee-f671-40ce-bb4a-ab03153cbd5d"
+      }
+    },
+    {
+      "uuid": "7251f90a-277c-488d-b5c3-c7895d06b249",
+      "name": "HAAVC - COURSE LIST",
+      "nameStrings": {
+        "en": "HAAVC - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/7251f90a-277c-488d-b5c3-c7895d06b249"
+      }
+    },
+    {
+      "uuid": "88a926a8-0e90-4fc2-88d9-6dbd550d70c7",
+      "name": "HAAVC - course titles",
+      "nameStrings": {
+        "en": "HAAVC - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/88a926a8-0e90-4fc2-88d9-6dbd550d70c7"
+      }
+    },
+    {
+      "uuid": "ef8fd8ec-2741-4d18-bffa-95a0fb63f21d",
+      "name": "HAAVC - faculty",
+      "nameStrings": {
+        "en": "HAAVC - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/ef8fd8ec-2741-4d18-bffa-95a0fb63f21d"
+      }
+    },
+    {
+      "uuid": "783a074c-f013-4f96-b27c-a0aa34a75edb",
+      "name": "HAAVC - course sections",
+      "nameStrings": {
+        "en": "HAAVC - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/783a074c-f013-4f96-b27c-a0aa34a75edb"
+      }
+    },
+    {
+      "uuid": "60c72556-2d1f-4336-842b-7f81cb15a64f",
+      "name": "HAAVC - course names",
+      "nameStrings": {
+        "en": "HAAVC - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/60c72556-2d1f-4336-842b-7f81cb15a64f"
+      }
+    },
+    {
+      "uuid": "66f1475e-e2de-4b53-9140-d7f7d37ee7e1",
+      "name": "Mixed media terms {end-user add}",
+      "nameStrings": {
+        "en": "Mixed media terms {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/66f1475e-e2de-4b53-9140-d7f7d37ee7e1"
+      }
+    },
+    {
+      "uuid": "88eeb0bb-cf6a-4bfb-b799-a190c6ecbfee",
+      "name": "PHOTO - faculty",
+      "nameStrings": {
+        "en": "PHOTO - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/88eeb0bb-cf6a-4bfb-b799-a190c6ecbfee"
+      }
+    },
+    {
+      "uuid": "8efba002-b58f-492b-8540-df610c743a85",
+      "name": "PHOTO - course titles",
+      "nameStrings": {
+        "en": "PHOTO - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/8efba002-b58f-492b-8540-df610c743a85"
+      }
+    },
+    {
+      "uuid": "89523e90-069c-4a42-b3dc-f7336d0a9c21",
+      "name": "PHOTO - course sections",
+      "nameStrings": {
+        "en": "PHOTO - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/89523e90-069c-4a42-b3dc-f7336d0a9c21"
+      }
+    },
+    {
+      "uuid": "ffe1ad79-e505-4483-9516-14048c36ac0a",
+      "name": "GLASS - COURSE LIST",
+      "nameStrings": {
+        "en": "GLASS - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/ffe1ad79-e505-4483-9516-14048c36ac0a"
+      }
+    },
+    {
+      "uuid": "a68c58ad-0636-4a0f-a843-27e575aae1b4",
+      "name": "GLASS - faculty",
+      "nameStrings": {
+        "en": "GLASS - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/a68c58ad-0636-4a0f-a843-27e575aae1b4"
+      }
+    },
+    {
+      "uuid": "b194fb3b-7c85-483f-b0f4-2f27d5d12600",
+      "name": "GLASS - course titles",
+      "nameStrings": {
+        "en": "GLASS - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/b194fb3b-7c85-483f-b0f4-2f27d5d12600"
+      }
+    },
+    {
+      "uuid": "451eb2a8-2d72-4120-aeb7-07c360644849",
+      "name": "GLASS - course sections",
+      "nameStrings": {
+        "en": "GLASS - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/451eb2a8-2d72-4120-aeb7-07c360644849"
+      }
+    },
+    {
+      "uuid": "ee140bbf-5370-4e09-9046-462789b82fd9",
+      "name": "GLASS - other media",
+      "nameStrings": {
+        "en": "GLASS - other media"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/ee140bbf-5370-4e09-9046-462789b82fd9"
+      }
+    },
+    {
+      "uuid": "434d1a55-ceb2-4d8a-b0d9-2edea0a75cc4",
+      "name": "Paper/writing types {end-user add}",
+      "nameStrings": {
+        "en": "Paper/writing types {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/434d1a55-ceb2-4d8a-b0d9-2edea0a75cc4"
+      }
+    },
+    {
+      "uuid": "5b32e6c5-9946-45ff-ab0e-0975588e89c5",
+      "name": "HAAVC Assignment Titles {end-user add}",
+      "nameStrings": {
+        "en": "HAAVC Assignment Titles {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5b32e6c5-9946-45ff-ab0e-0975588e89c5"
+      }
+    },
+    {
+      "uuid": "ff4263ca-8037-4d73-aea7-3da4f40a4b92",
+      "name": "HAAVC Other assignment category {end-user add}",
+      "nameStrings": {
+        "en": "HAAVC Other assignment category {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/ff4263ca-8037-4d73-aea7-3da4f40a4b92"
+      }
+    },
+    {
+      "uuid": "a8bb822c-89ba-416e-907c-5e7d869789cf",
+      "name": "PHOTO keywords {end-user add}",
+      "nameStrings": {
+        "en": "PHOTO keywords {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/a8bb822c-89ba-416e-907c-5e7d869789cf"
+      }
+    },
+    {
+      "uuid": "22170643-a060-4c71-aadc-693d4f0e3518",
+      "name": "Scholarships {end-user add}",
+      "nameStrings": {
+        "en": "Scholarships {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/22170643-a060-4c71-aadc-693d4f0e3518"
+      }
+    },
+    {
+      "uuid": "029d3f96-484b-43d4-93c1-0fcf64a774a6",
+      "name": "WRLIT tags {end-user add}",
+      "nameStrings": {
+        "en": "WRLIT tags {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/029d3f96-484b-43d4-93c1-0fcf64a774a6"
+      }
+    },
+    {
+      "uuid": "f49bc344-7b87-4000-a2b5-0eb9f809f092",
+      "name": "WRLIT other analytical categories {end-user add}",
+      "nameStrings": {
+        "en": "WRLIT other analytical categories {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/f49bc344-7b87-4000-a2b5-0eb9f809f092"
+      }
+    },
+    {
+      "uuid": "7102a5d5-8398-42a2-b68b-0b32875192ad",
+      "name": "WRLIT - faculty",
+      "nameStrings": {
+        "en": "WRLIT - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/7102a5d5-8398-42a2-b68b-0b32875192ad"
+      }
+    },
+    {
+      "uuid": "877b6eee-0fae-4221-9e66-c8f349cc9a54",
+      "name": "WRLIT - course sections",
+      "nameStrings": {
+        "en": "WRLIT - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/877b6eee-0fae-4221-9e66-c8f349cc9a54"
+      }
+    },
+    {
+      "uuid": "6d1b1d1f-5f7f-43c0-8a75-54ffb976327f",
+      "name": "WRLIT - course titles",
+      "nameStrings": {
+        "en": "WRLIT - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/6d1b1d1f-5f7f-43c0-8a75-54ffb976327f"
+      }
+    },
+    {
+      "uuid": "0c9bdf4f-6be8-42b1-98a7-55173f6b37c8",
+      "name": "WRLIT - COURSE LIST",
+      "nameStrings": {
+        "en": "WRLIT - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/0c9bdf4f-6be8-42b1-98a7-55173f6b37c8"
+      }
+    },
+    {
+      "uuid": "48af53bc-838a-4e5b-985c-8dbf5cbe2e45",
+      "name": "Semesters",
+      "nameStrings": {
+        "en": "Semesters"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/48af53bc-838a-4e5b-985c-8dbf5cbe2e45"
+      }
+    },
+    {
+      "uuid": "4ddc8d8e-154f-404c-8d7c-7bc1540f9464",
+      "name": "INDUS tag/keyword terms {end-user add}",
+      "nameStrings": {
+        "en": "INDUS tag/keyword terms {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/4ddc8d8e-154f-404c-8d7c-7bc1540f9464"
+      }
+    },
+    {
+      "uuid": "a8adf5ef-a3db-4e00-ac2d-f5b62f03217b",
+      "name": "INDUS - COURSE LIST",
+      "nameStrings": {
+        "en": "INDUS - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/a8adf5ef-a3db-4e00-ac2d-f5b62f03217b"
+      }
+    },
+    {
+      "uuid": "a9173f76-6dc4-4149-a8fe-3d039dc8e7f8",
+      "name": "INDUS - course titles",
+      "nameStrings": {
+        "en": "INDUS - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/a9173f76-6dc4-4149-a8fe-3d039dc8e7f8"
+      }
+    },
+    {
+      "uuid": "3902e939-73a5-447d-8ad6-780f0c2a49a4",
+      "name": "INDUS - faculty",
+      "nameStrings": {
+        "en": "INDUS - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/3902e939-73a5-447d-8ad6-780f0c2a49a4"
+      }
+    },
+    {
+      "uuid": "1675e076-858f-4954-8fd4-5c121b2bce95",
+      "name": "INDUS - course sections",
+      "nameStrings": {
+        "en": "INDUS - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/1675e076-858f-4954-8fd4-5c121b2bce95"
+      }
+    },
+    {
+      "uuid": "90687d4a-0bfe-4714-840a-f2165ba79abd",
+      "name": "INDUS project topic {end-user add}",
+      "nameStrings": {
+        "en": "INDUS project topic {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/90687d4a-0bfe-4714-840a-f2165ba79abd"
+      }
+    },
+    {
+      "uuid": "82373b77-f20b-441f-93ef-efe7665db75f",
+      "name": "GLASS - course names",
+      "nameStrings": {
+        "en": "GLASS - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/82373b77-f20b-441f-93ef-efe7665db75f"
+      }
+    },
+    {
+      "uuid": "5cedc697-df53-4057-a100-7a6c0965e025",
+      "name": "ARCH DIV - course names",
+      "nameStrings": {
+        "en": "ARCH DIV - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5cedc697-df53-4057-a100-7a6c0965e025"
+      }
+    },
+    {
+      "uuid": "80764900-3e92-4341-9cb4-6321afc22363",
+      "name": "CORES - course titles",
+      "nameStrings": {
+        "en": "CORES - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/80764900-3e92-4341-9cb4-6321afc22363"
+      }
+    },
+    {
+      "uuid": "c61e2ae8-8fd5-4648-ae3c-7b49e72128bc",
+      "name": "CORES - course sections",
+      "nameStrings": {
+        "en": "CORES - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/c61e2ae8-8fd5-4648-ae3c-7b49e72128bc"
+      }
+    },
+    {
+      "uuid": "2e5d1b8e-1b56-46dd-b76f-37263dc59f62",
+      "name": "CORES - course names",
+      "nameStrings": {
+        "en": "CORES - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/2e5d1b8e-1b56-46dd-b76f-37263dc59f62"
+      }
+    },
+    {
+      "uuid": "00718b9a-4697-4723-95f7-3fa8f1c9036a",
+      "name": "GRAPH - course names",
+      "nameStrings": {
+        "en": "GRAPH - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/00718b9a-4697-4723-95f7-3fa8f1c9036a"
+      }
+    },
+    {
+      "uuid": "2eced2dc-2e65-4e83-a01c-1ae169375571",
+      "name": "INDUS - course names",
+      "nameStrings": {
+        "en": "INDUS - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/2eced2dc-2e65-4e83-a01c-1ae169375571"
+      }
+    },
+    {
+      "uuid": "190db5f9-afda-4e2c-8c46-93ae6c4c251e",
+      "name": "PHOTO - course names",
+      "nameStrings": {
+        "en": "PHOTO - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/190db5f9-afda-4e2c-8c46-93ae6c4c251e"
+      }
+    },
+    {
+      "uuid": "9d8bd540-b177-4d25-a773-ae494125e241",
+      "name": "WRLIT - course names",
+      "nameStrings": {
+        "en": "WRLIT - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/9d8bd540-b177-4d25-a773-ae494125e241"
+      }
+    },
+    {
+      "uuid": "e8673742-045a-4bc8-a208-a3aebd30cfeb",
+      "name": "FASHN - COURSE LIST",
+      "nameStrings": {
+        "en": "FASHN - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/e8673742-045a-4bc8-a208-a3aebd30cfeb"
+      }
+    },
+    {
+      "uuid": "44752a5d-e86c-48da-a060-3135e9b4d1e3",
+      "name": "FASHN keywords {end-user added}",
+      "nameStrings": {
+        "en": "FASHN keywords {end-user added}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/44752a5d-e86c-48da-a060-3135e9b4d1e3"
+      }
+    },
+    {
+      "uuid": "cf954a1f-2e84-4db8-a96c-f83c3a8c93eb",
+      "name": "FASHN specialization categories {end-user added}",
+      "nameStrings": {
+        "en": "FASHN specialization categories {end-user added}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/cf954a1f-2e84-4db8-a96c-f83c3a8c93eb"
+      }
+    },
+    {
+      "uuid": "74483697-0441-4224-8817-3fcc506472e2",
+      "name": "FASHN - course titles",
+      "nameStrings": {
+        "en": "FASHN - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/74483697-0441-4224-8817-3fcc506472e2"
+      }
+    },
+    {
+      "uuid": "619ad53f-d069-4140-9675-a4ad5b28a8dc",
+      "name": "FASHN - faculty",
+      "nameStrings": {
+        "en": "FASHN - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/619ad53f-d069-4140-9675-a4ad5b28a8dc"
+      }
+    },
+    {
+      "uuid": "86f4bf1e-6be7-4d17-8006-0a75be3f9114",
+      "name": "FASHN - course sections",
+      "nameStrings": {
+        "en": "FASHN - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/86f4bf1e-6be7-4d17-8006-0a75be3f9114"
+      }
+    },
+    {
+      "uuid": "d5bb63f0-1116-4d0d-ac97-e02eee63703e",
+      "name": "Fine Arts work types {end-user add}",
+      "nameStrings": {
+        "en": "Fine Arts work types {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/d5bb63f0-1116-4d0d-ac97-e02eee63703e"
+      }
+    },
+    {
+      "uuid": "ffd645a6-bf82-45bb-ba24-f314aa82bd48",
+      "name": "Fine Arts keywords {end-user added}",
+      "nameStrings": {
+        "en": "Fine Arts keywords {end-user added}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/ffd645a6-bf82-45bb-ba24-f314aa82bd48"
+      }
+    },
+    {
+      "uuid": "db0d0dd0-f01f-4736-b45e-fd3947ef8ff9",
+      "name": "ANIMA - COURSE LIST",
+      "nameStrings": {
+        "en": "ANIMA - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/db0d0dd0-f01f-4736-b45e-fd3947ef8ff9"
+      }
+    },
+    {
+      "uuid": "8a268cde-d20d-460b-b1fe-f860eb90a82b",
+      "name": "ANIMA assignment topics {end-user add}",
+      "nameStrings": {
+        "en": "ANIMA assignment topics {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/8a268cde-d20d-460b-b1fe-f860eb90a82b"
+      }
+    },
+    {
+      "uuid": "89e7ed6a-fac1-4848-9758-67be6a198a3c",
+      "name": "ANIMA method/software/process {end-user add}",
+      "nameStrings": {
+        "en": "ANIMA method/software/process {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/89e7ed6a-fac1-4848-9758-67be6a198a3c"
+      }
+    },
+    {
+      "uuid": "abd42879-5278-44ff-ac9b-e84e15db5998",
+      "name": "INDUS - senior thesis sections",
+      "nameStrings": {
+        "en": "INDUS - senior thesis sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/abd42879-5278-44ff-ac9b-e84e15db5998"
+      }
+    },
+    {
+      "uuid": "64a68e69-5bde-485a-ac0f-3b4a128bfe46",
+      "name": "SYLLABUS - course titles",
+      "nameStrings": {
+        "en": "SYLLABUS - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/64a68e69-5bde-485a-ac0f-3b4a128bfe46"
+      }
+    },
+    {
+      "uuid": "06ee5599-9eee-4eee-8c55-bbca857c8880",
+      "name": "SYLLABUS - course names",
+      "nameStrings": {
+        "en": "SYLLABUS - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/06ee5599-9eee-4eee-8c55-bbca857c8880"
+      }
+    },
+    {
+      "uuid": "6b96c208-dae0-49a2-abd4-392aee6a9697",
+      "name": "SYLLABUS - faculty",
+      "nameStrings": {
+        "en": "SYLLABUS - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/6b96c208-dae0-49a2-abd4-392aee6a9697"
+      }
+    },
+    {
+      "uuid": "8ee0e534-97bf-48e9-a5ab-04842b49cd9f",
+      "name": "SYLLABUS - course sections",
+      "nameStrings": {
+        "en": "SYLLABUS - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/8ee0e534-97bf-48e9-a5ab-04842b49cd9f"
+      }
+    },
+    {
+      "uuid": "aa1c368f-fe1d-49f2-bb19-c30819c908e7",
+      "name": "SYLLABUS - cross-list keys (XList)",
+      "nameStrings": {
+        "en": "SYLLABUS - cross-list keys (XList)"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/aa1c368f-fe1d-49f2-bb19-c30819c908e7"
+      }
+    },
+    {
+      "uuid": "2efb8f20-f071-4b3b-982d-2eeae0d1d432",
+      "name": "SYLLABUS - course categories",
+      "nameStrings": {
+        "en": "SYLLABUS - course categories"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/2efb8f20-f071-4b3b-982d-2eeae0d1d432"
+      }
+    },
+    {
+      "uuid": "95559927-6461-4218-b4e9-3216addef0fe",
+      "name": "SYLLABUS - dept codes",
+      "nameStrings": {
+        "en": "SYLLABUS - dept codes"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/95559927-6461-4218-b4e9-3216addef0fe"
+      }
+    },
+    {
+      "uuid": "54380cef-faba-4381-9da6-01c474cac013",
+      "name": "Lecture Series - Guest speakers",
+      "nameStrings": {
+        "en": "Lecture Series - Guest speakers"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/54380cef-faba-4381-9da6-01c474cac013"
+      }
+    },
+    {
+      "uuid": "ea8ad22c-2d3a-4aa5-b71e-081ba2b384da",
+      "name": "CCA Locations",
+      "nameStrings": {
+        "en": "CCA Locations"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/ea8ad22c-2d3a-4aa5-b71e-081ba2b384da"
+      }
+    },
+    {
+      "uuid": "26fa4ed9-e8c2-4c20-9857-308c3bbedd02",
+      "name": "Lecture Series - series type {end-user add}",
+      "nameStrings": {
+        "en": "Lecture Series - series type {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/26fa4ed9-e8c2-4c20-9857-308c3bbedd02"
+      }
+    },
+    {
+      "uuid": "eb666474-d057-4f5b-b35e-3610659cdd56",
+      "name": "ARCH DIV - cross-list keys",
+      "nameStrings": {
+        "en": "ARCH DIV - cross-list keys"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/eb666474-d057-4f5b-b35e-3610659cdd56"
+      }
+    },
+    {
+      "uuid": "e246ce46-ec0e-4765-bb43-99a9ec57bb16",
+      "name": "WRLIT Assignment Titles {end-user add}",
+      "nameStrings": {
+        "en": "WRLIT Assignment Titles {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/e246ce46-ec0e-4765-bb43-99a9ec57bb16"
+      }
+    },
+    {
+      "uuid": "2fadb876-002d-499d-b567-6179a1eac91f",
+      "name": "ArchDiv INTER keywords {end-user added}",
+      "nameStrings": {
+        "en": "ArchDiv INTER keywords {end-user added}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/2fadb876-002d-499d-b567-6179a1eac91f"
+      }
+    },
+    {
+      "uuid": "edc482ca-7b52-477d-bda7-2a83c0370616",
+      "name": "ANIMA awards and accolades {end-user added}",
+      "nameStrings": {
+        "en": "ANIMA awards and accolades {end-user added}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/edc482ca-7b52-477d-bda7-2a83c0370616"
+      }
+    },
+    {
+      "uuid": "d8eb67f2-cfd5-4326-b35c-ddcaeeb3fb01",
+      "name": "Internship Locations {end-user added}",
+      "nameStrings": {
+        "en": "Internship Locations {end-user added}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/d8eb67f2-cfd5-4326-b35c-ddcaeeb3fb01"
+      }
+    },
+    {
+      "uuid": "274ff1a8-9747-4aac-8036-06046577152f",
+      "name": "Internship contact people {end-user added}",
+      "nameStrings": {
+        "en": "Internship contact people {end-user added}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/274ff1a8-9747-4aac-8036-06046577152f"
+      }
+    },
+    {
+      "uuid": "1e143fd7-b6d3-4cb5-a116-211de991185d",
+      "name": "FASHN awards {end-user added}",
+      "nameStrings": {
+        "en": "FASHN awards {end-user added}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/1e143fd7-b6d3-4cb5-a116-211de991185d"
+      }
+    },
+    {
+      "uuid": "9584dc7d-1cdc-47fe-9d2d-51a840b7f122",
+      "name": "FASHN partners {end-user added}",
+      "nameStrings": {
+        "en": "FASHN partners {end-user added}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/9584dc7d-1cdc-47fe-9d2d-51a840b7f122"
+      }
+    },
+    {
+      "uuid": "14621942-ff01-41e0-a2e5-19f767ee0052",
+      "name": "FASHN special project names {end-user added}",
+      "nameStrings": {
+        "en": "FASHN special project names {end-user added}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/14621942-ff01-41e0-a2e5-19f767ee0052"
+      }
+    },
+    {
+      "uuid": "dcf28c8a-3a03-4dee-b968-e531393b258f",
+      "name": "GRAPH - cross-list keys XList",
+      "nameStrings": {
+        "en": "GRAPH - cross-list keys XList"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/dcf28c8a-3a03-4dee-b968-e531393b258f"
+      }
+    },
+    {
+      "uuid": "625765ae-fd22-4fe6-9cd6-2216f1a98ffa",
+      "name": "VAULT Documentation titles {end-user added}",
+      "nameStrings": {
+        "en": "VAULT Documentation titles {end-user added}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/625765ae-fd22-4fe6-9cd6-2216f1a98ffa"
+      }
+    },
+    {
+      "uuid": "b48fa05e-f36c-4fb5-8096-0daa7937be9a",
+      "name": "Fine Arts Junior Review students",
+      "nameStrings": {
+        "en": "Fine Arts Junior Review students"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/b48fa05e-f36c-4fb5-8096-0daa7937be9a"
+      }
+    },
+    {
+      "uuid": "3df5f61d-ecfe-4aad-934c-225bea90ae3b",
+      "name": "ANIMA - course sections",
+      "nameStrings": {
+        "en": "ANIMA - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/3df5f61d-ecfe-4aad-934c-225bea90ae3b"
+      }
+    },
+    {
+      "uuid": "f402afd1-74bd-4766-b8af-d6bf6e5defed",
+      "name": "ANIMA - faculty",
+      "nameStrings": {
+        "en": "ANIMA - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/f402afd1-74bd-4766-b8af-d6bf6e5defed"
+      }
+    },
+    {
+      "uuid": "eeb8e756-19df-4a56-8810-a3c85ddfa4f7",
+      "name": "ANIMA - course names",
+      "nameStrings": {
+        "en": "ANIMA - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/eeb8e756-19df-4a56-8810-a3c85ddfa4f7"
+      }
+    },
+    {
+      "uuid": "eedf1c81-be27-4726-b39c-fc2573cc8d85",
+      "name": "ANIMA - course titles",
+      "nameStrings": {
+        "en": "ANIMA - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/eedf1c81-be27-4726-b39c-fc2573cc8d85"
+      }
+    },
+    {
+      "uuid": "bc0ff4fd-b660-400a-a186-6786a873d399",
+      "name": "VAULT Collections",
+      "nameStrings": {
+        "en": "VAULT Collections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/bc0ff4fd-b660-400a-a186-6786a873d399"
+      }
+    },
+    {
+      "uuid": "873d9b20-0c68-4959-8f66-d4cc98598ac3",
+      "name": "Student Clubs {end-user add}",
+      "nameStrings": {
+        "en": "Student Clubs {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/873d9b20-0c68-4959-8f66-d4cc98598ac3"
+      }
+    },
+    {
+      "uuid": "34e112d1-619d-4b99-9c41-dbf09591ae01",
+      "name": "ANIMA work types {end-user add}",
+      "nameStrings": {
+        "en": "ANIMA work types {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/34e112d1-619d-4b99-9c41-dbf09591ae01"
+      }
+    },
+    {
+      "uuid": "f954a2cd-182c-485e-b440-dde718ea2d4a",
+      "name": "ANIMA - senior thesis sections",
+      "nameStrings": {
+        "en": "ANIMA - senior thesis sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/f954a2cd-182c-485e-b440-dde718ea2d4a"
+      }
+    },
+    {
+      "uuid": "a4e8efb8-bc97-431b-9f3e-ac6d7e917603",
+      "name": "FASHN career placement {end-user add}",
+      "nameStrings": {
+        "en": "FASHN career placement {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/a4e8efb8-bc97-431b-9f3e-ac6d7e917603"
+      }
+    },
+    {
+      "uuid": "c74f561c-457d-43c0-bb5e-2ed797f9f015",
+      "name": "FASHN - course names",
+      "nameStrings": {
+        "en": "FASHN - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/c74f561c-457d-43c0-bb5e-2ed797f9f015"
+      }
+    },
+    {
+      "uuid": "80ba3fde-2424-42f2-9169-80c921dbabe5",
+      "name": "First Year Portfolio Waiver Request Students",
+      "nameStrings": {
+        "en": "First Year Portfolio Waiver Request Students"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/80ba3fde-2424-42f2-9169-80c921dbabe5"
+      }
+    },
+    {
+      "uuid": "9a26c2ff-25a3-4a2f-a8d1-9ebb49315f81",
+      "name": "ETHST - COURSE LIST",
+      "nameStrings": {
+        "en": "ETHST - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/9a26c2ff-25a3-4a2f-a8d1-9ebb49315f81"
+      }
+    },
+    {
+      "uuid": "0f67b97a-f8df-4049-8b19-1e8527256d56",
+      "name": "Academic program admin document types {end-user add}",
+      "nameStrings": {
+        "en": "Academic program admin document types {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/0f67b97a-f8df-4049-8b19-1e8527256d56"
+      }
+    },
+    {
+      "uuid": "d45991cf-2edf-4b44-bc82-ae2477930ed9",
+      "name": "PHOTO - alumni [end-user add}",
+      "nameStrings": {
+        "en": "PHOTO - alumni [end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/d45991cf-2edf-4b44-bc82-ae2477930ed9"
+      }
+    },
+    {
+      "uuid": "b96c4636-0a2e-4045-b563-e19628672855",
+      "name": "Detailed Depicted Persons {{end-user add}}",
+      "nameStrings": {
+        "en": "Detailed Depicted Persons {{end-user add}}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/b96c4636-0a2e-4045-b563-e19628672855"
+      }
+    },
+    {
+      "uuid": "93d8c50b-98dc-4bce-ad28-8c2681bc012f",
+      "name": "CRTSD - COURSE LIST",
+      "nameStrings": {
+        "en": "CRTSD - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/93d8c50b-98dc-4bce-ad28-8c2681bc012f"
+      }
+    },
+    {
+      "uuid": "36a601f6-ca7f-4679-b085-07bc0a9904e4",
+      "name": "CRTST Other assignment category {end-user add}",
+      "nameStrings": {
+        "en": "CRTST Other assignment category {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/36a601f6-ca7f-4679-b085-07bc0a9904e4"
+      }
+    },
+    {
+      "uuid": "5cb8a220-6ff1-424f-b9a6-83e666188313",
+      "name": "CRTST Assignment Titles {end-user add}",
+      "nameStrings": {
+        "en": "CRTST Assignment Titles {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5cb8a220-6ff1-424f-b9a6-83e666188313"
+      }
+    },
+    {
+      "uuid": "34e45a42-3352-4a70-99bd-2a05da9bebb4",
+      "name": "Assessment / Accreditation Reviews",
+      "nameStrings": {
+        "en": "Assessment / Accreditation Reviews"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/34e45a42-3352-4a70-99bd-2a05da9bebb4"
+      }
+    },
+    {
+      "uuid": "81e9a026-734b-4b81-ac37-9b3b0be0b66b",
+      "name": "External Program Review: Program Portfolios",
+      "nameStrings": {
+        "en": "External Program Review: Program Portfolios"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/81e9a026-734b-4b81-ac37-9b3b0be0b66b"
+      }
+    },
+    {
+      "uuid": "6688f947-fe4b-403f-a88d-0a81d0907d53",
+      "name": "UDIST - COURSE LIST",
+      "nameStrings": {
+        "en": "UDIST - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/6688f947-fe4b-403f-a88d-0a81d0907d53"
+      }
+    },
+    {
+      "uuid": "0db906b7-4543-4185-b43f-13bb878fd0d9",
+      "name": "GRAPH - alumni {{end-user add}}",
+      "nameStrings": {
+        "en": "GRAPH - alumni {{end-user add}}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/0db906b7-4543-4185-b43f-13bb878fd0d9"
+      }
+    },
+    {
+      "uuid": "7a1f2eb4-ece2-4fad-8dca-f9db9c428eb0",
+      "name": "TEXTL - Materials {end-user add}",
+      "nameStrings": {
+        "en": "TEXTL - Materials {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/7a1f2eb4-ece2-4fad-8dca-f9db9c428eb0"
+      }
+    },
+    {
+      "uuid": "b542226f-6882-4dfa-b338-604f18b2a44c",
+      "name": "TEXTL - Senior Packet Faculty",
+      "nameStrings": {
+        "en": "TEXTL - Senior Packet Faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/b542226f-6882-4dfa-b338-604f18b2a44c"
+      }
+    },
+    {
+      "uuid": "9a62ab46-772f-4cbf-a4e7-3c08c2b997df",
+      "name": "TEXTL - tags/keywords {end-user add}",
+      "nameStrings": {
+        "en": "TEXTL - tags/keywords {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/9a62ab46-772f-4cbf-a4e7-3c08c2b997df"
+      }
+    },
+    {
+      "uuid": "03bb5ea0-823c-44c8-b478-89443726f133",
+      "name": "CCA Galleries",
+      "nameStrings": {
+        "en": "CCA Galleries"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/03bb5ea0-823c-44c8-b478-89443726f133"
+      }
+    },
+    {
+      "uuid": "1b285108-4e9a-4433-86a7-c1a350afab53",
+      "name": "INDIV - COURSE LIST",
+      "nameStrings": {
+        "en": "INDIV - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/1b285108-4e9a-4433-86a7-c1a350afab53"
+      }
+    },
+    {
+      "uuid": "cc7de066-7d1e-40e6-a90c-3e943e2f0aab",
+      "name": "DSMBA - COURSE LIST",
+      "nameStrings": {
+        "en": "DSMBA - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/cc7de066-7d1e-40e6-a90c-3e943e2f0aab"
+      }
+    },
+    {
+      "uuid": "f07e34c9-faca-49cb-b470-ac845bb133bc",
+      "name": "Accrediting Organizations",
+      "nameStrings": {
+        "en": "Accrediting Organizations"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/f07e34c9-faca-49cb-b470-ac845bb133bc"
+      }
+    },
+    {
+      "uuid": "df0fbe1a-0cc1-4ac5-b9ec-1f9d9a118b10",
+      "name": "Accreditation Documents {{end-user add}}",
+      "nameStrings": {
+        "en": "Accreditation Documents {{end-user add}}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/df0fbe1a-0cc1-4ac5-b9ec-1f9d9a118b10"
+      }
+    },
+    {
+      "uuid": "1d30d4bb-7ce9-4d84-baf5-637460d67b9c",
+      "name": "CERAM - faculty",
+      "nameStrings": {
+        "en": "CERAM - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/1d30d4bb-7ce9-4d84-baf5-637460d67b9c"
+      }
+    },
+    {
+      "uuid": "5a1d4b7b-b43e-44b9-bd7a-a3daf5c6ca38",
+      "name": "VISCR - faculty",
+      "nameStrings": {
+        "en": "VISCR - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5a1d4b7b-b43e-44b9-bd7a-a3daf5c6ca38"
+      }
+    },
+    {
+      "uuid": "3bc0e31c-7c7a-448f-b530-0257f0805de9",
+      "name": "IXDSN - COURSE LIST",
+      "nameStrings": {
+        "en": "IXDSN - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/3bc0e31c-7c7a-448f-b530-0257f0805de9"
+      }
+    },
+    {
+      "uuid": "a72d7cec-80f3-45d0-8e60-43fdef8e7374",
+      "name": "IXDSN - faculty",
+      "nameStrings": {
+        "en": "IXDSN - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/a72d7cec-80f3-45d0-8e60-43fdef8e7374"
+      }
+    },
+    {
+      "uuid": "1e11d6ba-40ca-4e7d-a8df-c5b2063ce3cf",
+      "name": "WRITE - faculty",
+      "nameStrings": {
+        "en": "WRITE - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/1e11d6ba-40ca-4e7d-a8df-c5b2063ce3cf"
+      }
+    },
+    {
+      "uuid": "4ed72ec8-c88b-4acd-b883-be562e314967",
+      "name": "VISCR - alum {end-user add}",
+      "nameStrings": {
+        "en": "VISCR - alum {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/4ed72ec8-c88b-4acd-b883-be562e314967"
+      }
+    },
+    {
+      "uuid": "0a37cc78-56a6-4f03-9852-e45c5df7e9f6",
+      "name": "VISCR - COURSE LIST",
+      "nameStrings": {
+        "en": "VISCR - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/0a37cc78-56a6-4f03-9852-e45c5df7e9f6"
+      }
+    },
+    {
+      "uuid": "0c671850-2db9-4e1d-b9c0-f67497678f06",
+      "name": "TEXTL - 'other' forms {end-user add}",
+      "nameStrings": {
+        "en": "TEXTL - 'other' forms {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/0c671850-2db9-4e1d-b9c0-f67497678f06"
+      }
+    },
+    {
+      "uuid": "a3d183b9-9380-4e2e-9af2-f9979e98664c",
+      "name": "Interdisciplinarity 'other' {end-user add}",
+      "nameStrings": {
+        "en": "Interdisciplinarity 'other' {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/a3d183b9-9380-4e2e-9af2-f9979e98664c"
+      }
+    },
+    {
+      "uuid": "8d60c707-b3bc-4bee-ab42-b9abd9e2d0f8",
+      "name": "TEXTL - Techniques",
+      "nameStrings": {
+        "en": "TEXTL - Techniques"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/8d60c707-b3bc-4bee-ab42-b9abd9e2d0f8"
+      }
+    },
+    {
+      "uuid": "f656d954-2590-417e-8d65-0b9eaf29ca4b",
+      "name": "TEXTL - concepts",
+      "nameStrings": {
+        "en": "TEXTL - concepts"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/f656d954-2590-417e-8d65-0b9eaf29ca4b"
+      }
+    },
+    {
+      "uuid": "a826242a-5adc-4e35-ba87-8e3a76acc638",
+      "name": "METAL - faculty",
+      "nameStrings": {
+        "en": "METAL - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/a826242a-5adc-4e35-ba87-8e3a76acc638"
+      }
+    },
+    {
+      "uuid": "14060ce3-27b0-4388-b86c-f50aa3080cde",
+      "name": "METAL - COURSE LIST",
+      "nameStrings": {
+        "en": "METAL - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/14060ce3-27b0-4388-b86c-f50aa3080cde"
+      }
+    },
+    {
+      "uuid": "dd84bc3f-822b-4251-ac03-eb0cb79d975d",
+      "name": "DSMBA - faculty",
+      "nameStrings": {
+        "en": "DSMBA - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/dd84bc3f-822b-4251-ac03-eb0cb79d975d"
+      }
+    },
+    {
+      "uuid": "a10020fc-0cfb-4d60-86d6-3810611a4757",
+      "name": "METAL - Materials {end-user add}",
+      "nameStrings": {
+        "en": "METAL - Materials {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/a10020fc-0cfb-4d60-86d6-3810611a4757"
+      }
+    },
+    {
+      "uuid": "ec9c03b8-a978-4945-a187-f360addd7365",
+      "name": "Interdisciplinarity",
+      "nameStrings": {
+        "en": "Interdisciplinarity"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/ec9c03b8-a978-4945-a187-f360addd7365"
+      }
+    },
+    {
+      "uuid": "36756d17-953a-4f08-90f3-036b8609c99a",
+      "name": "CERAM - Materials {end-user add}",
+      "nameStrings": {
+        "en": "CERAM - Materials {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/36756d17-953a-4f08-90f3-036b8609c99a"
+      }
+    },
+    {
+      "uuid": "424bbcc8-f692-4349-83aa-fa8630114044",
+      "name": "CERAM - Forms {end-user add}",
+      "nameStrings": {
+        "en": "CERAM - Forms {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/424bbcc8-f692-4349-83aa-fa8630114044"
+      }
+    },
+    {
+      "uuid": "51a499df-d35b-4889-b9ca-14817e7e6134",
+      "name": "ETHST - faculty",
+      "nameStrings": {
+        "en": "ETHST - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/51a499df-d35b-4889-b9ca-14817e7e6134"
+      }
+    },
+    {
+      "uuid": "5192fc1b-392e-4090-bd4e-9429c5ba90d9",
+      "name": "CORES - Studio Elective Departments",
+      "nameStrings": {
+        "en": "CORES - Studio Elective Departments"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5192fc1b-392e-4090-bd4e-9429c5ba90d9"
+      }
+    },
+    {
+      "uuid": "77c4a0be-f0a6-4a65-8614-5dd5aa7a27a4",
+      "name": "External Program Review (Curated): Program Portfolios",
+      "nameStrings": {
+        "en": "External Program Review (Curated): Program Portfolios"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/77c4a0be-f0a6-4a65-8614-5dd5aa7a27a4"
+      }
+    },
+    {
+      "uuid": "4e64f7e7-867d-4fe1-9e9e-3d04ce67c014",
+      "name": "COMAR - COURSE LIST",
+      "nameStrings": {
+        "en": "COMAR - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/4e64f7e7-867d-4fe1-9e9e-3d04ce67c014"
+      }
+    },
+    {
+      "uuid": "e0d5e149-01b9-47a4-a4df-8a535d77bdb1",
+      "name": "CRTSD - faculty",
+      "nameStrings": {
+        "en": "CRTSD - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/e0d5e149-01b9-47a4-a4df-8a535d77bdb1"
+      }
+    },
+    {
+      "uuid": "a6197871-2695-4441-8128-99d6dfc9e3cc",
+      "name": "COMAR - faculty",
+      "nameStrings": {
+        "en": "COMAR - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/a6197871-2695-4441-8128-99d6dfc9e3cc"
+      }
+    },
+    {
+      "uuid": "b614052a-2b88-4537-8750-f793de24f893",
+      "name": "COMAR - concepts",
+      "nameStrings": {
+        "en": "COMAR - concepts"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/b614052a-2b88-4537-8750-f793de24f893"
+      }
+    },
+    {
+      "uuid": "d45a858a-d6e4-4ff3-8a8d-fefebbff2f0e",
+      "name": "UDIST - faculty",
+      "nameStrings": {
+        "en": "UDIST - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/d45a858a-d6e4-4ff3-8a8d-fefebbff2f0e"
+      }
+    },
+    {
+      "uuid": "aaba1dca-0e80-4880-b7d9-d65a799791cb",
+      "name": "CERAM - COURSE LIST",
+      "nameStrings": {
+        "en": "CERAM - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/aaba1dca-0e80-4880-b7d9-d65a799791cb"
+      }
+    },
+    {
+      "uuid": "a618521d-1244-42be-81fd-fd9ec5e97a05",
+      "name": "CERAM - alumni {end-user add}",
+      "nameStrings": {
+        "en": "CERAM - alumni {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/a618521d-1244-42be-81fd-fd9ec5e97a05"
+      }
+    },
+    {
+      "uuid": "27ea32e6-f0a9-4cab-aa6f-2403618f423b",
+      "name": "INDUS - senior project themes",
+      "nameStrings": {
+        "en": "INDUS - senior project themes"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/27ea32e6-f0a9-4cab-aa6f-2403618f423b"
+      }
+    },
+    {
+      "uuid": "13822552-b7e7-474f-8faf-59e93b9f14f0",
+      "name": "PRINT - COURSE LIST",
+      "nameStrings": {
+        "en": "PRINT - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/13822552-b7e7-474f-8faf-59e93b9f14f0"
+      }
+    },
+    {
+      "uuid": "67c141f5-c629-4418-8bfc-949b7f2d7d68",
+      "name": "PRINT - faculty",
+      "nameStrings": {
+        "en": "PRINT - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/67c141f5-c629-4418-8bfc-949b7f2d7d68"
+      }
+    },
+    {
+      "uuid": "46634658-27a2-4ae5-acad-86e31d29688c",
+      "name": "PRINT - course titles",
+      "nameStrings": {
+        "en": "PRINT - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/46634658-27a2-4ae5-acad-86e31d29688c"
+      }
+    },
+    {
+      "uuid": "c24d08ca-8e52-49d2-a78c-1b613d26298f",
+      "name": "PRINT - course sections",
+      "nameStrings": {
+        "en": "PRINT - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/c24d08ca-8e52-49d2-a78c-1b613d26298f"
+      }
+    },
+    {
+      "uuid": "96ff34e7-ac4f-4f1c-9c41-2c555c500242",
+      "name": "PRINT - alums {end-user add}",
+      "nameStrings": {
+        "en": "PRINT - alums {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/96ff34e7-ac4f-4f1c-9c41-2c555c500242"
+      }
+    },
+    {
+      "uuid": "6dffb699-2952-496f-af08-2440060e608d",
+      "name": "FILMU - COURSE LIST",
+      "nameStrings": {
+        "en": "FILMU - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/6dffb699-2952-496f-af08-2440060e608d"
+      }
+    },
+    {
+      "uuid": "06c48b9c-0820-439f-98e8-da23d3a580a2",
+      "name": "FILMU - faculty",
+      "nameStrings": {
+        "en": "FILMU - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/06c48b9c-0820-439f-98e8-da23d3a580a2"
+      }
+    },
+    {
+      "uuid": "387890b4-19ef-469e-b89e-dd42d75b1d0b",
+      "name": "FILMU - course titles",
+      "nameStrings": {
+        "en": "FILMU - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/387890b4-19ef-469e-b89e-dd42d75b1d0b"
+      }
+    },
+    {
+      "uuid": "0dc4bdac-1215-44f1-945d-3e67ed4c36ff",
+      "name": "FILMU - alums {end-user add}",
+      "nameStrings": {
+        "en": "FILMU - alums {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/0dc4bdac-1215-44f1-945d-3e67ed4c36ff"
+      }
+    },
+    {
+      "uuid": "8c34aeae-7a0b-43b0-b045-54e5cb56f970",
+      "name": "FILMU - course sections",
+      "nameStrings": {
+        "en": "FILMU - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/8c34aeae-7a0b-43b0-b045-54e5cb56f970"
+      }
+    },
+    {
+      "uuid": "3afe39eb-6642-46df-9914-df813ad66df7",
+      "name": "PNTDR - COURSE LIST",
+      "nameStrings": {
+        "en": "PNTDR - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/3afe39eb-6642-46df-9914-df813ad66df7"
+      }
+    },
+    {
+      "uuid": "125bff21-49c3-4e99-a00e-119b7efe0e45",
+      "name": "PNTDR - alumni {end-user add}",
+      "nameStrings": {
+        "en": "PNTDR - alumni {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/125bff21-49c3-4e99-a00e-119b7efe0e45"
+      }
+    },
+    {
+      "uuid": "13e89038-e328-47ee-9930-4667e45960fb",
+      "name": "PNTDR - course names",
+      "nameStrings": {
+        "en": "PNTDR - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/13e89038-e328-47ee-9930-4667e45960fb"
+      }
+    },
+    {
+      "uuid": "1ee5b6e3-7819-4bc4-9048-c450142e3692",
+      "name": "PNTDR - course sections",
+      "nameStrings": {
+        "en": "PNTDR - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/1ee5b6e3-7819-4bc4-9048-c450142e3692"
+      }
+    },
+    {
+      "uuid": "00a18cd2-aa12-4527-8897-45be9106f28a",
+      "name": "PNTDR - course titles",
+      "nameStrings": {
+        "en": "PNTDR - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/00a18cd2-aa12-4527-8897-45be9106f28a"
+      }
+    },
+    {
+      "uuid": "f6baa2e4-2ebd-4e7d-98dc-a5a5cb19bbe4",
+      "name": "GLASS - alums {end-user add}",
+      "nameStrings": {
+        "en": "GLASS - alums {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/f6baa2e4-2ebd-4e7d-98dc-a5a5cb19bbe4"
+      }
+    },
+    {
+      "uuid": "1085c9aa-9030-40eb-80d7-b2b32cd0e777",
+      "name": "CIDA Standards",
+      "nameStrings": {
+        "en": "CIDA Standards"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/1085c9aa-9030-40eb-80d7-b2b32cd0e777"
+      }
+    },
+    {
+      "uuid": "54cfa0f3-4422-4e4d-993c-fd2e9a96a0e5",
+      "name": "SCULP - faculty",
+      "nameStrings": {
+        "en": "SCULP - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/54cfa0f3-4422-4e4d-993c-fd2e9a96a0e5"
+      }
+    },
+    {
+      "uuid": "605e1162-6ea6-414b-bb25-adb262cd13cd",
+      "name": "SCULP - COURSE LIST",
+      "nameStrings": {
+        "en": "SCULP - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/605e1162-6ea6-414b-bb25-adb262cd13cd"
+      }
+    },
+    {
+      "uuid": "276fee7e-10f6-48eb-bb56-76af43df6bdf",
+      "name": "SCULP - course titles",
+      "nameStrings": {
+        "en": "SCULP - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/276fee7e-10f6-48eb-bb56-76af43df6bdf"
+      }
+    },
+    {
+      "uuid": "e578d39e-fbb7-494b-b133-99120a949930",
+      "name": "SCULP - course sections",
+      "nameStrings": {
+        "en": "SCULP - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/e578d39e-fbb7-494b-b133-99120a949930"
+      }
+    },
+    {
+      "uuid": "0bd31463-2b77-40bc-9d2b-58994a513941",
+      "name": "SCULP - course names",
+      "nameStrings": {
+        "en": "SCULP - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/0bd31463-2b77-40bc-9d2b-58994a513941"
+      }
+    },
+    {
+      "uuid": "ceec2ab8-7f74-447a-a7f3-25322acb0448",
+      "name": "SCULP - alums {end-user add}",
+      "nameStrings": {
+        "en": "SCULP - alums {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/ceec2ab8-7f74-447a-a7f3-25322acb0448"
+      }
+    },
+    {
+      "uuid": "74681264-52d0-4d77-8457-22e90ceec34d",
+      "name": "SCULP - concepts",
+      "nameStrings": {
+        "en": "SCULP - concepts"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/74681264-52d0-4d77-8457-22e90ceec34d"
+      }
+    },
+    {
+      "uuid": "dd57bcc5-fe85-45c2-a86c-40a695748501",
+      "name": "COMAR - media",
+      "nameStrings": {
+        "en": "COMAR - media"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/dd57bcc5-fe85-45c2-a86c-40a695748501"
+      }
+    },
+    {
+      "uuid": "fc42fe9b-5db7-4a50-b976-77ebdabbf578",
+      "name": "TEXTL - almuni {end-user add}",
+      "nameStrings": {
+        "en": "TEXTL - almuni {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/fc42fe9b-5db7-4a50-b976-77ebdabbf578"
+      }
+    },
+    {
+      "uuid": "dc9a9d8d-b3c7-419d-b89a-087428ea71e4",
+      "name": "TEXTL - faculty",
+      "nameStrings": {
+        "en": "TEXTL - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/dc9a9d8d-b3c7-419d-b89a-087428ea71e4"
+      }
+    },
+    {
+      "uuid": "347c7b42-594a-4a7d-8d73-3054ab05a079",
+      "name": "LIBRARIES - Archives Series",
+      "nameStrings": {
+        "en": "LIBRARIES - Archives Series"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/347c7b42-594a-4a7d-8d73-3054ab05a079"
+      }
+    },
+    {
+      "uuid": "4aac7b12-58bc-4dda-a706-0a00a5e04f5a",
+      "name": "LIBRARIES - Work Type Broad",
+      "nameStrings": {
+        "en": "LIBRARIES - Work Type Broad"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/4aac7b12-58bc-4dda-a706-0a00a5e04f5a"
+      }
+    },
+    {
+      "uuid": "331741fb-16be-4192-a1ed-2434901c55ac",
+      "name": "COMIC - COURSE LIST",
+      "nameStrings": {
+        "en": "COMIC - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/331741fb-16be-4192-a1ed-2434901c55ac"
+      }
+    },
+    {
+      "uuid": "8643046d-4ed7-4ec2-9699-d76e3bd1e124",
+      "name": "COMIC - course titles",
+      "nameStrings": {
+        "en": "COMIC - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/8643046d-4ed7-4ec2-9699-d76e3bd1e124"
+      }
+    },
+    {
+      "uuid": "0d2a2199-374d-41a6-b8e5-6d9e413bdc77",
+      "name": "COMIC - faculty",
+      "nameStrings": {
+        "en": "COMIC - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/0d2a2199-374d-41a6-b8e5-6d9e413bdc77"
+      }
+    },
+    {
+      "uuid": "78010a39-ac02-45fc-bcdb-4a0b2e3e9f35",
+      "name": "COMIC - course names",
+      "nameStrings": {
+        "en": "COMIC - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/78010a39-ac02-45fc-bcdb-4a0b2e3e9f35"
+      }
+    },
+    {
+      "uuid": "5d1a711a-8c51-4902-b8ec-a697965d99a0",
+      "name": "COMIC - course sections",
+      "nameStrings": {
+        "en": "COMIC - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5d1a711a-8c51-4902-b8ec-a697965d99a0"
+      }
+    },
+    {
+      "uuid": "d02a90dc-0049-4350-b4c1-0d2264aab85e",
+      "name": "TEXTL - COURSE LIST",
+      "nameStrings": {
+        "en": "TEXTL - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/d02a90dc-0049-4350-b4c1-0d2264aab85e"
+      }
+    },
+    {
+      "uuid": "6d90ba39-e398-45c6-a8ed-b1b623e4a8ab",
+      "name": "TEXTL - course titles",
+      "nameStrings": {
+        "en": "TEXTL - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/6d90ba39-e398-45c6-a8ed-b1b623e4a8ab"
+      }
+    },
+    {
+      "uuid": "5fe0cf79-7e34-4084-aed3-9c711d1b478e",
+      "name": "TEXTL - course sections",
+      "nameStrings": {
+        "en": "TEXTL - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5fe0cf79-7e34-4084-aed3-9c711d1b478e"
+      }
+    },
+    {
+      "uuid": "e75c8576-3fb6-4304-a1fd-416b20522168",
+      "name": "TEXTL - course names",
+      "nameStrings": {
+        "en": "TEXTL - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/e75c8576-3fb6-4304-a1fd-416b20522168"
+      }
+    },
+    {
+      "uuid": "295c867f-2e6e-4962-952c-9be9e2d81436",
+      "name": "COMIC - genre {end-user add}",
+      "nameStrings": {
+        "en": "COMIC - genre {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/295c867f-2e6e-4962-952c-9be9e2d81436"
+      }
+    },
+    {
+      "uuid": "203387f3-78e0-4183-9ffa-cce3085229bc",
+      "name": "INDIV - faculty",
+      "nameStrings": {
+        "en": "INDIV - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/203387f3-78e0-4183-9ffa-cce3085229bc"
+      }
+    },
+    {
+      "uuid": "fb5e1743-e9b0-43e9-aee2-e317fb2a6011",
+      "name": "INDIV - course titles",
+      "nameStrings": {
+        "en": "INDIV - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/fb5e1743-e9b0-43e9-aee2-e317fb2a6011"
+      }
+    },
+    {
+      "uuid": "8965a455-f2b1-4847-940c-d78fbe8784c4",
+      "name": "IXDSN - course titles",
+      "nameStrings": {
+        "en": "IXDSN - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/8965a455-f2b1-4847-940c-d78fbe8784c4"
+      }
+    },
+    {
+      "uuid": "5c5d57b2-eb99-43a9-bec4-b8347e8246c4",
+      "name": "METAL - course titles",
+      "nameStrings": {
+        "en": "METAL - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5c5d57b2-eb99-43a9-bec4-b8347e8246c4"
+      }
+    },
+    {
+      "uuid": "41ab9480-391a-48e6-b0aa-0da4cc2c1f3a",
+      "name": "PNTDR - faculty",
+      "nameStrings": {
+        "en": "PNTDR - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/41ab9480-391a-48e6-b0aa-0da4cc2c1f3a"
+      }
+    },
+    {
+      "uuid": "45c7b74a-1e00-4fd9-87e6-ff7ae89eef8d",
+      "name": "WRITE - COURSE LIST",
+      "nameStrings": {
+        "en": "WRITE - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/45c7b74a-1e00-4fd9-87e6-ff7ae89eef8d"
+      }
+    },
+    {
+      "uuid": "461a7090-1659-4e98-b90b-506997be5312",
+      "name": "UDIST - course names",
+      "nameStrings": {
+        "en": "UDIST - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/461a7090-1659-4e98-b90b-506997be5312"
+      }
+    },
+    {
+      "uuid": "b7272ac2-7859-432e-92ea-cebfd6e1271f",
+      "name": "UDIST - course titles",
+      "nameStrings": {
+        "en": "UDIST - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/b7272ac2-7859-432e-92ea-cebfd6e1271f"
+      }
+    },
+    {
+      "uuid": "4ea8bdfb-9856-44fe-9265-2ec463b204ea",
+      "name": "UDIST - course sections",
+      "nameStrings": {
+        "en": "UDIST - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/4ea8bdfb-9856-44fe-9265-2ec463b204ea"
+      }
+    },
+    {
+      "uuid": "63becfca-067d-4cd1-b548-0ed72e90a23f",
+      "name": "VISCR - keywords {end-user add}",
+      "nameStrings": {
+        "en": "VISCR - keywords {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/63becfca-067d-4cd1-b548-0ed72e90a23f"
+      }
+    },
+    {
+      "uuid": "d6145d2a-c2d4-46c3-83e7-11867e54e00d",
+      "name": "FURNT - COURSE LIST",
+      "nameStrings": {
+        "en": "FURNT - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/d6145d2a-c2d4-46c3-83e7-11867e54e00d"
+      }
+    },
+    {
+      "uuid": "4c7df0cc-2fce-4993-b3c0-9d91fa8efe4c",
+      "name": "FURNT - faculty",
+      "nameStrings": {
+        "en": "FURNT - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/4c7df0cc-2fce-4993-b3c0-9d91fa8efe4c"
+      }
+    },
+    {
+      "uuid": "49367d11-f5d2-47aa-b154-e0fe9db77f77",
+      "name": "ILLUS - COURSE LIST",
+      "nameStrings": {
+        "en": "ILLUS - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/49367d11-f5d2-47aa-b154-e0fe9db77f77"
+      }
+    },
+    {
+      "uuid": "03cd1985-b32e-45c8-a2ad-d26b87401d51",
+      "name": "ILLUS - faculty",
+      "nameStrings": {
+        "en": "ILLUS - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/03cd1985-b32e-45c8-a2ad-d26b87401d51"
+      }
+    },
+    {
+      "uuid": "5e8b4943-2dc9-4f89-9438-143b39bac30e",
+      "name": "FINAR - faculty",
+      "nameStrings": {
+        "en": "FINAR - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5e8b4943-2dc9-4f89-9438-143b39bac30e"
+      }
+    },
+    {
+      "uuid": "0f6fd4d5-1c6f-435c-8587-62fa9ee09808",
+      "name": "FINAR - COURSE LIST",
+      "nameStrings": {
+        "en": "FINAR - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/0f6fd4d5-1c6f-435c-8587-62fa9ee09808"
+      }
+    },
+    {
+      "uuid": "5db113de-2ae4-4b54-846d-f8a40110e91f",
+      "name": "CRTSD - alumni {end-user add}",
+      "nameStrings": {
+        "en": "CRTSD - alumni {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5db113de-2ae4-4b54-846d-f8a40110e91f"
+      }
+    },
+    {
+      "uuid": "c5074440-ca9f-45d6-af29-8de198220f96",
+      "name": "ARCH DIV - alumni {end-user add}",
+      "nameStrings": {
+        "en": "ARCH DIV - alumni {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/c5074440-ca9f-45d6-af29-8de198220f96"
+      }
+    },
+    {
+      "uuid": "29d821b4-bb67-4405-b021-59da0b4907d8",
+      "name": "CURPR - COURSE LIST",
+      "nameStrings": {
+        "en": "CURPR - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/29d821b4-bb67-4405-b021-59da0b4907d8"
+      }
+    },
+    {
+      "uuid": "3edbd0ab-5b9f-4203-ad29-2a65051e6627",
+      "name": "CURPR - faculty",
+      "nameStrings": {
+        "en": "CURPR - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/3edbd0ab-5b9f-4203-ad29-2a65051e6627"
+      }
+    },
+    {
+      "uuid": "f166ac04-5afb-4d1a-8540-d217cb66883a",
+      "name": "DESGN - COURSE LIST",
+      "nameStrings": {
+        "en": "DESGN - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/f166ac04-5afb-4d1a-8540-d217cb66883a"
+      }
+    },
+    {
+      "uuid": "27d9f893-c043-47f2-8c10-5b20249ace72",
+      "name": "DESGN - faculty",
+      "nameStrings": {
+        "en": "DESGN - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/27d9f893-c043-47f2-8c10-5b20249ace72"
+      }
+    },
+    {
+      "uuid": "afb1ba09-838f-4133-8443-5f5820d37748",
+      "name": "FILMG - COURSE LIST",
+      "nameStrings": {
+        "en": "FILMG - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/afb1ba09-838f-4133-8443-5f5820d37748"
+      }
+    },
+    {
+      "uuid": "dd39fd1c-213a-476d-a83e-e117d32000f4",
+      "name": "FILMG - faculty",
+      "nameStrings": {
+        "en": "FILMG - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/dd39fd1c-213a-476d-a83e-e117d32000f4"
+      }
+    },
+    {
+      "uuid": "b07a77f8-228c-4331-9eda-b2f24cfd2eba",
+      "name": "IXDGR - COURSE LIST",
+      "nameStrings": {
+        "en": "IXDGR - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/b07a77f8-228c-4331-9eda-b2f24cfd2eba"
+      }
+    },
+    {
+      "uuid": "37fe4035-3dd1-4414-8ab3-72322d7f4b8b",
+      "name": "IXDGR - faculty",
+      "nameStrings": {
+        "en": "IXDGR - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/37fe4035-3dd1-4414-8ab3-72322d7f4b8b"
+      }
+    },
+    {
+      "uuid": "29087161-a37c-4c7f-a2a3-2a5418b3a367",
+      "name": "WRITE - alumni {end-user add}",
+      "nameStrings": {
+        "en": "WRITE - alumni {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/29087161-a37c-4c7f-a2a3-2a5418b3a367"
+      }
+    },
+    {
+      "uuid": "498a7cbe-ee23-4843-9a90-61eabd3190e8",
+      "name": "WRLIT - alumni {end-user add}",
+      "nameStrings": {
+        "en": "WRLIT - alumni {end-user add}"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/498a7cbe-ee23-4843-9a90-61eabd3190e8"
+      }
+    },
+    {
+      "uuid": "b0034685-fd8b-4eb4-80b4-9b68a3b9439c",
+      "name": "ENGAGE - COURSE LIST",
+      "nameStrings": {
+        "en": "ENGAGE - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/b0034685-fd8b-4eb4-80b4-9b68a3b9439c"
+      }
+    },
+    {
+      "uuid": "5297d91e-f801-4f21-97a7-0586d64f3721",
+      "name": "FURNT - course titles",
+      "nameStrings": {
+        "en": "FURNT - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5297d91e-f801-4f21-97a7-0586d64f3721"
+      }
+    },
+    {
+      "uuid": "0d5701ef-1eb0-41f5-9830-c5e35eb16170",
+      "name": "Portfolio Review - Undergraduate Majors",
+      "nameStrings": {
+        "en": "Portfolio Review - Undergraduate Majors"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/0d5701ef-1eb0-41f5-9830-c5e35eb16170"
+      }
+    },
+    {
+      "uuid": "d610bb14-eb1a-43bd-8727-de691f7afc60",
+      "name": "FURNT - tags",
+      "nameStrings": {
+        "en": "FURNT - tags"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/d610bb14-eb1a-43bd-8727-de691f7afc60"
+      }
+    },
+    {
+      "uuid": "fb5c1080-5220-4967-a2ec-4d71bb6012d6",
+      "name": "COMIC - alumni",
+      "nameStrings": {
+        "en": "COMIC - alumni"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/fb5c1080-5220-4967-a2ec-4d71bb6012d6"
+      }
+    },
+    {
+      "uuid": "c386044b-567c-4187-a1b1-afc0a6639967",
+      "name": "SOCPR - COURSE LIST",
+      "nameStrings": {
+        "en": "SOCPR - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/c386044b-567c-4187-a1b1-afc0a6639967"
+      }
+    },
+    {
+      "uuid": "646012ac-c81c-4184-a4f8-e9c5d5541799",
+      "name": "SOCPR - faculty",
+      "nameStrings": {
+        "en": "SOCPR - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/646012ac-c81c-4184-a4f8-e9c5d5541799"
+      }
+    },
+    {
+      "uuid": "1d29061e-7a71-4df8-841d-d2e00f196d0f",
+      "name": "SOCPR - course titles",
+      "nameStrings": {
+        "en": "SOCPR - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/1d29061e-7a71-4df8-841d-d2e00f196d0f"
+      }
+    },
+    {
+      "uuid": "a16a91d2-c266-4c2f-9bc4-14c60530a357",
+      "name": "SOCPR - course sections",
+      "nameStrings": {
+        "en": "SOCPR - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/a16a91d2-c266-4c2f-9bc4-14c60530a357"
+      }
+    },
+    {
+      "uuid": "19a8b5d8-4b47-4918-a504-c9adff29c83c",
+      "name": "SOCPR - course names",
+      "nameStrings": {
+        "en": "SOCPR - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/19a8b5d8-4b47-4918-a504-c9adff29c83c"
+      }
+    },
+    {
+      "uuid": "5f5602d3-6f61-4ae0-8744-c8308638c6ac",
+      "name": "CERAM - course titles",
+      "nameStrings": {
+        "en": "CERAM - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5f5602d3-6f61-4ae0-8744-c8308638c6ac"
+      }
+    },
+    {
+      "uuid": "4fa5e31a-b0dd-4d47-bd59-789a53fbf34d",
+      "name": "CERAM - course sections",
+      "nameStrings": {
+        "en": "CERAM - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/4fa5e31a-b0dd-4d47-bd59-789a53fbf34d"
+      }
+    },
+    {
+      "uuid": "ea90774a-e922-49b3-8bd8-f260dce3301b",
+      "name": "CERAM - course names",
+      "nameStrings": {
+        "en": "CERAM - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/ea90774a-e922-49b3-8bd8-f260dce3301b"
+      }
+    },
+    {
+      "uuid": "fc610507-0cc4-4374-b2af-54dd82c1551b",
+      "name": "COMAR - course titles",
+      "nameStrings": {
+        "en": "COMAR - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/fc610507-0cc4-4374-b2af-54dd82c1551b"
+      }
+    },
+    {
+      "uuid": "2c53c10c-d8dc-4c6c-89d6-074778df0659",
+      "name": "COMAR - course sections",
+      "nameStrings": {
+        "en": "COMAR - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/2c53c10c-d8dc-4c6c-89d6-074778df0659"
+      }
+    },
+    {
+      "uuid": "7bbecb8b-363f-4af6-8a8a-e14258838962",
+      "name": "COMAR - course names",
+      "nameStrings": {
+        "en": "COMAR - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/7bbecb8b-363f-4af6-8a8a-e14258838962"
+      }
+    },
+    {
+      "uuid": "5cd6e4e2-8365-4b8e-abcb-b41791f5d84f",
+      "name": "CURPR - course titles",
+      "nameStrings": {
+        "en": "CURPR - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5cd6e4e2-8365-4b8e-abcb-b41791f5d84f"
+      }
+    },
+    {
+      "uuid": "5f78ba2e-517c-4f9e-bb9d-db86d8264918",
+      "name": "CURPR - course sections",
+      "nameStrings": {
+        "en": "CURPR - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5f78ba2e-517c-4f9e-bb9d-db86d8264918"
+      }
+    },
+    {
+      "uuid": "b90a5617-0f82-4d85-bf7a-3e3929695ee0",
+      "name": "CURPR - course names",
+      "nameStrings": {
+        "en": "CURPR - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/b90a5617-0f82-4d85-bf7a-3e3929695ee0"
+      }
+    },
+    {
+      "uuid": "a9f52366-c58f-4f8d-a086-08a3af5a0d3d",
+      "name": "DESGN - course titles",
+      "nameStrings": {
+        "en": "DESGN - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/a9f52366-c58f-4f8d-a086-08a3af5a0d3d"
+      }
+    },
+    {
+      "uuid": "d4e4653e-ad59-463f-87b1-b00f8fe7cb32",
+      "name": "DESGN - course sections",
+      "nameStrings": {
+        "en": "DESGN - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/d4e4653e-ad59-463f-87b1-b00f8fe7cb32"
+      }
+    },
+    {
+      "uuid": "cc1e06ae-9a3d-42b2-97d6-92f5c4f0e0c6",
+      "name": "DESGN - course names",
+      "nameStrings": {
+        "en": "DESGN - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/cc1e06ae-9a3d-42b2-97d6-92f5c4f0e0c6"
+      }
+    },
+    {
+      "uuid": "cec6f978-d3ec-4dfd-bf6d-be94893a549a",
+      "name": "DSMBA - course titles",
+      "nameStrings": {
+        "en": "DSMBA - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/cec6f978-d3ec-4dfd-bf6d-be94893a549a"
+      }
+    },
+    {
+      "uuid": "1790e59b-e618-4dcd-ae2d-bcd95380e22c",
+      "name": "DSMBA - course sections",
+      "nameStrings": {
+        "en": "DSMBA - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/1790e59b-e618-4dcd-ae2d-bcd95380e22c"
+      }
+    },
+    {
+      "uuid": "6457e41f-e99b-421a-9c0d-13582e17b59f",
+      "name": "DSMBA - course names",
+      "nameStrings": {
+        "en": "DSMBA - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/6457e41f-e99b-421a-9c0d-13582e17b59f"
+      }
+    },
+    {
+      "uuid": "22e204cd-1420-4217-a5fc-e478b370d238",
+      "name": "LIBRARIES - Mudflats Series",
+      "nameStrings": {
+        "en": "LIBRARIES - Mudflats Series"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/22e204cd-1420-4217-a5fc-e478b370d238"
+      }
+    },
+    {
+      "uuid": "d764ce7f-e7f5-464c-a24b-7336220d9521",
+      "name": "ILLUS - course sections",
+      "nameStrings": {
+        "en": "ILLUS - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/d764ce7f-e7f5-464c-a24b-7336220d9521"
+      }
+    },
+    {
+      "uuid": "b45bb61e-90e5-4f0d-8df5-0a80f047a483",
+      "name": "ILLUS - course names",
+      "nameStrings": {
+        "en": "ILLUS - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/b45bb61e-90e5-4f0d-8df5-0a80f047a483"
+      }
+    },
+    {
+      "uuid": "51f8e355-9f11-4946-ae6e-1b09244460fa",
+      "name": "ILLUS - course titles",
+      "nameStrings": {
+        "en": "ILLUS - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/51f8e355-9f11-4946-ae6e-1b09244460fa"
+      }
+    },
+    {
+      "uuid": "dea00314-b3f9-45ce-bd57-5e0ef517ad7b",
+      "name": "CRTSD - course titles",
+      "nameStrings": {
+        "en": "CRTSD - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/dea00314-b3f9-45ce-bd57-5e0ef517ad7b"
+      }
+    },
+    {
+      "uuid": "31bf8cb2-3950-4c48-8b47-42540417357f",
+      "name": "CRTSD - course names",
+      "nameStrings": {
+        "en": "CRTSD - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/31bf8cb2-3950-4c48-8b47-42540417357f"
+      }
+    },
+    {
+      "uuid": "ac37cbe6-5da0-4e34-890c-00c3bd74ba13",
+      "name": "CRTSD - course sections",
+      "nameStrings": {
+        "en": "CRTSD - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/ac37cbe6-5da0-4e34-890c-00c3bd74ba13"
+      }
+    },
+    {
+      "uuid": "bc1ab892-f11a-44a1-9473-a3bdb7e7fccf",
+      "name": "ETHST - course titles",
+      "nameStrings": {
+        "en": "ETHST - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/bc1ab892-f11a-44a1-9473-a3bdb7e7fccf"
+      }
+    },
+    {
+      "uuid": "3932e1a9-a6c8-44da-8012-660b965838a8",
+      "name": "ETHST - course names",
+      "nameStrings": {
+        "en": "ETHST - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/3932e1a9-a6c8-44da-8012-660b965838a8"
+      }
+    },
+    {
+      "uuid": "5a2e47c5-cda2-436e-9efa-695f1f00af41",
+      "name": "ETHST - course sections",
+      "nameStrings": {
+        "en": "ETHST - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5a2e47c5-cda2-436e-9efa-695f1f00af41"
+      }
+    },
+    {
+      "uuid": "9e82d1a6-a6af-49a4-9c2c-512db3a30672",
+      "name": "FILMG - course titles",
+      "nameStrings": {
+        "en": "FILMG - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/9e82d1a6-a6af-49a4-9c2c-512db3a30672"
+      }
+    },
+    {
+      "uuid": "d2828738-bd4c-495f-9186-d50976ffc725",
+      "name": "FILMG - course names",
+      "nameStrings": {
+        "en": "FILMG - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/d2828738-bd4c-495f-9186-d50976ffc725"
+      }
+    },
+    {
+      "uuid": "2a570493-4da3-46c9-9b1d-1c48ee254226",
+      "name": "FILMG - course sections",
+      "nameStrings": {
+        "en": "FILMG - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/2a570493-4da3-46c9-9b1d-1c48ee254226"
+      }
+    },
+    {
+      "uuid": "02d90577-2f79-4dc5-a885-9326edaf090f",
+      "name": "WRITE - course sections",
+      "nameStrings": {
+        "en": "WRITE - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/02d90577-2f79-4dc5-a885-9326edaf090f"
+      }
+    },
+    {
+      "uuid": "196e6d9b-0cb6-4186-9613-fc59693b2e16",
+      "name": "WRITE - course names",
+      "nameStrings": {
+        "en": "WRITE - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/196e6d9b-0cb6-4186-9613-fc59693b2e16"
+      }
+    },
+    {
+      "uuid": "e402137c-c0d2-4f80-a130-1c4843ff4db8",
+      "name": "WRITE - course titles",
+      "nameStrings": {
+        "en": "WRITE - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/e402137c-c0d2-4f80-a130-1c4843ff4db8"
+      }
+    },
+    {
+      "uuid": "7aac442d-12a9-409d-abbe-08cf605709da",
+      "name": "VISCR - course sections",
+      "nameStrings": {
+        "en": "VISCR - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/7aac442d-12a9-409d-abbe-08cf605709da"
+      }
+    },
+    {
+      "uuid": "3ebaa38a-d320-4df8-b1f9-4224750b36c3",
+      "name": "VISCR - course names",
+      "nameStrings": {
+        "en": "VISCR - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/3ebaa38a-d320-4df8-b1f9-4224750b36c3"
+      }
+    },
+    {
+      "uuid": "a5e22c1d-222b-4cfc-9fd0-2fb27def6dd0",
+      "name": "VISCR - course titles",
+      "nameStrings": {
+        "en": "VISCR - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/a5e22c1d-222b-4cfc-9fd0-2fb27def6dd0"
+      }
+    },
+    {
+      "uuid": "127a1835-1775-4416-a56f-ba3c728a1a1e",
+      "name": "PRINT - course names",
+      "nameStrings": {
+        "en": "PRINT - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/127a1835-1775-4416-a56f-ba3c728a1a1e"
+      }
+    },
+    {
+      "uuid": "cd27abd7-49ab-4536-9a11-b65df417bec9",
+      "name": "METAL - course sections",
+      "nameStrings": {
+        "en": "METAL - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/cd27abd7-49ab-4536-9a11-b65df417bec9"
+      }
+    },
+    {
+      "uuid": "babbef26-3c93-4c27-914e-2e91701a1e45",
+      "name": "METAL - course names",
+      "nameStrings": {
+        "en": "METAL - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/babbef26-3c93-4c27-914e-2e91701a1e45"
+      }
+    },
+    {
+      "uuid": "de21689b-b4a3-4bd6-a296-380d03c882a0",
+      "name": "IXDSN - course sections",
+      "nameStrings": {
+        "en": "IXDSN - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/de21689b-b4a3-4bd6-a296-380d03c882a0"
+      }
+    },
+    {
+      "uuid": "39ad6f6c-99fb-4d2e-aaf7-3d33763b6d75",
+      "name": "IXDSN - course names",
+      "nameStrings": {
+        "en": "IXDSN - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/39ad6f6c-99fb-4d2e-aaf7-3d33763b6d75"
+      }
+    },
+    {
+      "uuid": "a1505e02-1d1b-4bdc-a880-67916d738092",
+      "name": "IXDGR - course sections",
+      "nameStrings": {
+        "en": "IXDGR - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/a1505e02-1d1b-4bdc-a880-67916d738092"
+      }
+    },
+    {
+      "uuid": "53f131d1-c3cc-49fa-859f-40a784fa6720",
+      "name": "IXDGR - course names",
+      "nameStrings": {
+        "en": "IXDGR - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/53f131d1-c3cc-49fa-859f-40a784fa6720"
+      }
+    },
+    {
+      "uuid": "c99c5c0a-2e3d-44a7-86b6-cbc996024e46",
+      "name": "IXDGR - course titles",
+      "nameStrings": {
+        "en": "IXDGR - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/c99c5c0a-2e3d-44a7-86b6-cbc996024e46"
+      }
+    },
+    {
+      "uuid": "f5bdb254-c427-451e-ada4-ab87d42116a0",
+      "name": "INDIV - course sections",
+      "nameStrings": {
+        "en": "INDIV - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/f5bdb254-c427-451e-ada4-ab87d42116a0"
+      }
+    },
+    {
+      "uuid": "c95646a2-5283-4a10-9e8a-530c11615f26",
+      "name": "INDIV - course names",
+      "nameStrings": {
+        "en": "INDIV - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/c95646a2-5283-4a10-9e8a-530c11615f26"
+      }
+    },
+    {
+      "uuid": "59a4573b-1b1c-4fb9-95d3-51ea79a1d2c3",
+      "name": "FILMU - course names",
+      "nameStrings": {
+        "en": "FILMU - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/59a4573b-1b1c-4fb9-95d3-51ea79a1d2c3"
+      }
+    },
+    {
+      "uuid": "f2a83026-103d-4241-a181-46eb3babaf48",
+      "name": "FINAR - course titles",
+      "nameStrings": {
+        "en": "FINAR - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/f2a83026-103d-4241-a181-46eb3babaf48"
+      }
+    },
+    {
+      "uuid": "4d178547-298f-4a6e-956b-e6fa061c9218",
+      "name": "FINAR - course names",
+      "nameStrings": {
+        "en": "FINAR - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/4d178547-298f-4a6e-956b-e6fa061c9218"
+      }
+    },
+    {
+      "uuid": "48a183af-542f-4da5-b33a-7499981cd49e",
+      "name": "FINAR - course sections",
+      "nameStrings": {
+        "en": "FINAR - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/48a183af-542f-4da5-b33a-7499981cd49e"
+      }
+    },
+    {
+      "uuid": "c05f8176-6894-4e0e-ae66-864519ad10fe",
+      "name": "FURNT - course names",
+      "nameStrings": {
+        "en": "FURNT - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/c05f8176-6894-4e0e-ae66-864519ad10fe"
+      }
+    },
+    {
+      "uuid": "5d4778d2-ed72-4d55-833e-827315defc85",
+      "name": "FURNT - course sections",
+      "nameStrings": {
+        "en": "FURNT - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5d4778d2-ed72-4d55-833e-827315defc85"
+      }
+    },
+    {
+      "uuid": "e6b77845-9f20-4d6e-a6f8-45409f6f12c2",
+      "name": "CRAFT - faculty",
+      "nameStrings": {
+        "en": "CRAFT - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/e6b77845-9f20-4d6e-a6f8-45409f6f12c2"
+      }
+    },
+    {
+      "uuid": "3b100aea-1c05-4d36-9741-d669d580f459",
+      "name": "CRAFT - COURSE LIST",
+      "nameStrings": {
+        "en": "CRAFT - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/3b100aea-1c05-4d36-9741-d669d580f459"
+      }
+    },
+    {
+      "uuid": "5e9465dc-12f4-4872-81bc-ac756f7b1289",
+      "name": "CRAFT - course sections",
+      "nameStrings": {
+        "en": "CRAFT - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5e9465dc-12f4-4872-81bc-ac756f7b1289"
+      }
+    },
+    {
+      "uuid": "7a412c17-a389-42af-aa3c-97acd7b31e5c",
+      "name": "CRAFT - course titles",
+      "nameStrings": {
+        "en": "CRAFT - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/7a412c17-a389-42af-aa3c-97acd7b31e5c"
+      }
+    },
+    {
+      "uuid": "fe598304-97f8-4801-85e5-5fd44e99c6a8",
+      "name": "CRAFT - course names",
+      "nameStrings": {
+        "en": "CRAFT - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/fe598304-97f8-4801-85e5-5fd44e99c6a8"
+      }
+    },
+    {
+      "uuid": "3db12012-b23b-4caf-8db2-0abbe3a98051",
+      "name": "CCA Learning Outcomes",
+      "nameStrings": {
+        "en": "CCA Learning Outcomes"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/3db12012-b23b-4caf-8db2-0abbe3a98051"
+      }
+    },
+    {
+      "uuid": "0b277f34-8430-4f4d-b37d-bd1258d615b6",
+      "name": "CRITI - COURSE LIST",
+      "nameStrings": {
+        "en": "CRITI - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/0b277f34-8430-4f4d-b37d-bd1258d615b6"
+      }
+    },
+    {
+      "uuid": "213fa89e-a379-49ea-bcfa-65ec2c521ef5",
+      "name": "CRITI - course titles",
+      "nameStrings": {
+        "en": "CRITI - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/213fa89e-a379-49ea-bcfa-65ec2c521ef5"
+      }
+    },
+    {
+      "uuid": "7da691f3-dc60-40bd-8443-9eb6e63b8f76",
+      "name": "CRITI - faculty",
+      "nameStrings": {
+        "en": "CRITI - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/7da691f3-dc60-40bd-8443-9eb6e63b8f76"
+      }
+    },
+    {
+      "uuid": "372e8d89-c84e-4d38-aff8-2236f232b513",
+      "name": "CRITI - course names",
+      "nameStrings": {
+        "en": "CRITI - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/372e8d89-c84e-4d38-aff8-2236f232b513"
+      }
+    },
+    {
+      "uuid": "5d3b2876-6972-4e9c-942b-44b4183644c2",
+      "name": "CRITI - course sections",
+      "nameStrings": {
+        "en": "CRITI - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/5d3b2876-6972-4e9c-942b-44b4183644c2"
+      }
+    },
+    {
+      "uuid": "eb6f5f28-0bc2-4883-95dd-090c17ad5ece",
+      "name": "Learning Outcomes",
+      "nameStrings": {
+        "en": "Learning Outcomes"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/eb6f5f28-0bc2-4883-95dd-090c17ad5ece"
+      }
+    },
+    {
+      "uuid": "3ba46e1c-51c0-4ccb-97b8-af1771e31eac",
+      "name": "Tags for Course Materials",
+      "nameStrings": {
+        "en": "Tags for Course Materials"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/3ba46e1c-51c0-4ccb-97b8-af1771e31eac"
+      }
+    },
+    {
+      "uuid": "40a77685-2964-44f6-a441-6523748fae26",
+      "name": "LIBRARIES - Work Type Specific",
+      "nameStrings": {
+        "en": "LIBRARIES - Work Type Specific"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/40a77685-2964-44f6-a441-6523748fae26"
+      }
+    },
+    {
+      "uuid": "7efef3ae-cae9-4cfe-8f84-b029cca4528d",
+      "name": "TESTS",
+      "nameStrings": {
+        "en": "TESTS"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/7efef3ae-cae9-4cfe-8f84-b029cca4528d"
+      }
+    },
+    {
+      "uuid": "e66758b4-03a6-485f-826c-3f45666d7b78",
+      "name": "EXTED - course sections",
+      "nameStrings": {
+        "en": "EXTED - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/e66758b4-03a6-485f-826c-3f45666d7b78"
+      }
+    },
+    {
+      "uuid": "df49a45e-7d08-42dd-8826-71c912d9b220",
+      "name": "EXTED - course names",
+      "nameStrings": {
+        "en": "EXTED - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/df49a45e-7d08-42dd-8826-71c912d9b220"
+      }
+    },
+    {
+      "uuid": "3e4944ab-bd44-4ff5-bd1e-7f0e859795a3",
+      "name": "EXTED - course titles",
+      "nameStrings": {
+        "en": "EXTED - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/3e4944ab-bd44-4ff5-bd1e-7f0e859795a3"
+      }
+    },
+    {
+      "uuid": "f6f3da8a-ddc5-44b3-965f-622df38924fb",
+      "name": "EXTED - faculty",
+      "nameStrings": {
+        "en": "EXTED - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/f6f3da8a-ddc5-44b3-965f-622df38924fb"
+      }
+    },
+    {
+      "uuid": "666b1dbc-10a6-461e-927c-0d434ca65de7",
+      "name": "EXTED - COURSE LIST",
+      "nameStrings": {
+        "en": "EXTED - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/666b1dbc-10a6-461e-927c-0d434ca65de7"
+      }
+    },
+    {
+      "uuid": "4faadda8-a0d5-4b1e-bd03-998163bbc542",
+      "name": "TESTS - COURSE LIST",
+      "nameStrings": {
+        "en": "TESTS - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/4faadda8-a0d5-4b1e-bd03-998163bbc542"
+      }
+    },
+    {
+      "uuid": "ce355e3a-eb76-4d14-95b1-1a2494e005d2",
+      "name": "LIBRARIES - temporal subjects",
+      "nameStrings": {
+        "en": "LIBRARIES - temporal subjects"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/ce355e3a-eb76-4d14-95b1-1a2494e005d2"
+      }
+    },
+    {
+      "uuid": "3e402af2-52e2-4ca6-9e1f-6afa405f9952",
+      "name": "LIBRARIES - cca/c subject",
+      "nameStrings": {
+        "en": "LIBRARIES - cca/c subject"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/3e402af2-52e2-4ca6-9e1f-6afa405f9952"
+      }
+    },
+    {
+      "uuid": "bf3b0bd0-5c02-45ad-b191-8c60487bd03d",
+      "name": "TESTS - course names",
+      "nameStrings": {
+        "en": "TESTS - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/bf3b0bd0-5c02-45ad-b191-8c60487bd03d"
+      }
+    },
+    {
+      "uuid": "c8e2a447-2335-43f9-a927-431d215a4c04",
+      "name": "TESTS - course titles",
+      "nameStrings": {
+        "en": "TESTS - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/c8e2a447-2335-43f9-a927-431d215a4c04"
+      }
+    },
+    {
+      "uuid": "f150437d-d122-495c-bf4e-ac5b30a97574",
+      "name": "TESTS - course sections",
+      "nameStrings": {
+        "en": "TESTS - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/f150437d-d122-495c-bf4e-ac5b30a97574"
+      }
+    },
+    {
+      "uuid": "f13da807-faa8-4c39-afef-2f50b8931ad8",
+      "name": "TESTS - faculty",
+      "nameStrings": {
+        "en": "TESTS - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/f13da807-faa8-4c39-afef-2f50b8931ad8"
+      }
+    },
+    {
+      "uuid": "de0af7d3-3039-48bd-91a7-d610113ff3b3",
+      "name": "GAMES - COURSE LIST",
+      "nameStrings": {
+        "en": "GAMES - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/de0af7d3-3039-48bd-91a7-d610113ff3b3"
+      }
+    },
+    {
+      "uuid": "4132b51e-0769-4cd5-8e44-5a4938002144",
+      "name": "GAMES - course names",
+      "nameStrings": {
+        "en": "GAMES - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/4132b51e-0769-4cd5-8e44-5a4938002144"
+      }
+    },
+    {
+      "uuid": "3f196d70-16a5-4099-bba3-54a308866b83",
+      "name": "GAMES - course sections",
+      "nameStrings": {
+        "en": "GAMES - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/3f196d70-16a5-4099-bba3-54a308866b83"
+      }
+    },
+    {
+      "uuid": "0762db4b-6bbb-49bd-94b8-8d94eced75ec",
+      "name": "GAMES - course titles",
+      "nameStrings": {
+        "en": "GAMES - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/0762db4b-6bbb-49bd-94b8-8d94eced75ec"
+      }
+    },
+    {
+      "uuid": "6fc25efc-58b0-4b28-894d-aaf78bb5f464",
+      "name": "GAMES - faculty",
+      "nameStrings": {
+        "en": "GAMES - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/6fc25efc-58b0-4b28-894d-aaf78bb5f464"
+      }
+    },
+    {
+      "uuid": "45cc897d-f0bd-472c-9bc6-fb102cc5cd95",
+      "name": "COMIX - faculty",
+      "nameStrings": {
+        "en": "COMIX - faculty"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/45cc897d-f0bd-472c-9bc6-fb102cc5cd95"
+      }
+    },
+    {
+      "uuid": "d8e53ae4-ec9b-4bee-8ffe-5658159b1f6a",
+      "name": "COMIX - course sections",
+      "nameStrings": {
+        "en": "COMIX - course sections"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/d8e53ae4-ec9b-4bee-8ffe-5658159b1f6a"
+      }
+    },
+    {
+      "uuid": "aa7b283e-0f2f-4dab-b8ed-ff94e9892238",
+      "name": "COMIX - course titles",
+      "nameStrings": {
+        "en": "COMIX - course titles"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/aa7b283e-0f2f-4dab-b8ed-ff94e9892238"
+      }
+    },
+    {
+      "uuid": "71e31bcd-936c-47a0-92a7-b0b7c1b47a84",
+      "name": "COMIX - COURSE LIST",
+      "nameStrings": {
+        "en": "COMIX - COURSE LIST"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/71e31bcd-936c-47a0-92a7-b0b7c1b47a84"
+      }
+    },
+    {
+      "uuid": "eaecbbdd-f84f-443a-9ff5-043d6131f8ef",
+      "name": "COMIX - course names",
+      "nameStrings": {
+        "en": "COMIX - course names"
+      },
+      "readonly": false,
+      "dataSource": "internal",
+      "links": {
+        "self": "https://vault.cca.edu/api/taxonomy/eaecbbdd-f84f-443a-9ff5-043d6131f8ef"
+      }
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+[
+  {
+    "term": "2020-2029",
+    "fullTerm": "2020-2029",
+    "uuid": "0a520fce-44cf-49d8-80d8-9f90fd930cca",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "2010-2019",
+    "fullTerm": "2010-2019",
+    "uuid": "5ba88617-0c96-4fb1-94fa-eede0dd939e1",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "2000-2009",
+    "fullTerm": "2000-2009",
+    "uuid": "a02efc25-78fb-4fc4-a712-5b77cdcac018",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "1990-1999",
+    "fullTerm": "1990-1999",
+    "uuid": "8d304abf-bc91-4d65-9dbe-c18e5e075398",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "1980-1989",
+    "fullTerm": "1980-1989",
+    "uuid": "5d4c01c8-c6f2-44db-9305-2e7d456c9a3b",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "1970-1979",
+    "fullTerm": "1970-1979",
+    "uuid": "7a506e4b-58f7-4de8-bf58-0b84ca17c65a",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "1960-1969",
+    "fullTerm": "1960-1969",
+    "uuid": "44fd67f1-a779-47b7-85e7-4b7ee9044224",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "1950-1959",
+    "fullTerm": "1950-1959",
+    "uuid": "a59264cc-6d24-4567-a7f1-0d56847c63de",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "1936-1949",
+    "fullTerm": "1936-1949",
+    "uuid": "41ad4a66-f1db-4906-940a-31be4db7b431",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "1922-1935",
+    "fullTerm": "1922-1935",
+    "uuid": "21dc5d3d-598b-41f2-84fd-59fabf10b70e",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "1906-1921",
+    "fullTerm": "1906-1921",
+    "uuid": "33738dcd-a928-4d3b-a149-4d45070335d7",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "1900-1905",
+    "fullTerm": "1900-1905",
+    "uuid": "0a79370c-624a-4168-928b-ef26cc58cddd",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "1870-1899",
+    "fullTerm": "1870-1899",
+    "uuid": "4fe35fd6-cf2a-40ca-a098-b9d80ddff438",
+    "index": 0,
+    "readonly": false
+  }
+]

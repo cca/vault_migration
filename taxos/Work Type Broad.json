@@ -1,0 +1,247 @@
+[
+  {
+    "term": "administrative record",
+    "fullTerm": "administrative record",
+    "uuid": "4e66b6a5-fe7c-48ce-98a7-f65a8acb108f",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "announcement",
+    "fullTerm": "announcement",
+    "uuid": "b276f198-22a4-4563-bd11-0da814b95841",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "architectural drawing",
+    "fullTerm": "architectural drawing",
+    "uuid": "473a37fc-bd37-4597-8625-896f9bcdde9f",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "archival materials",
+    "fullTerm": "archival materials",
+    "uuid": "762b088d-b081-4bba-b432-7bff62db0a77",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "article",
+    "fullTerm": "article",
+    "uuid": "697ba90b-b24c-4b44-8f3e-4734ab763963",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "artists' books (books)",
+    "fullTerm": "artists' books (books)",
+    "uuid": "69671a13-e5ef-4a6d-a999-ec1e2c42ef3b",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "billboard art",
+    "fullTerm": "billboard art",
+    "uuid": "a794237c-d8b4-488a-8a91-9dc54d03199f",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "books",
+    "fullTerm": "books",
+    "uuid": "94386755-288f-4d43-ab83-48e3ed58bde9",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "ceramic ware",
+    "fullTerm": "ceramic ware",
+    "uuid": "2c02dd56-73a7-43a4-bc16-2c79207460cc",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "correspondence",
+    "fullTerm": "correspondence",
+    "uuid": "984e6b31-8a00-4f5b-919e-0e4bd0ce76d1",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "document",
+    "fullTerm": "document",
+    "uuid": "9a0d9064-bdab-4768-b240-bc95392419bb",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "drawing",
+    "fullTerm": "drawing",
+    "uuid": "39febb4b-5ebb-4242-912f-6bd5b3d8e081",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "ephemera",
+    "fullTerm": "ephemera",
+    "uuid": "80fa3c0c-9dbe-4882-ad2a-df5517c9a685",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "fanzines",
+    "fullTerm": "fanzines",
+    "uuid": "46e0ed9b-7287-4da1-9667-7db20babed55",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "installations (visual works)",
+    "fullTerm": "installations (visual works)",
+    "uuid": "5249176b-eeae-49d8-bdc5-6b948ff1768f",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "instructional material",
+    "fullTerm": "instructional material",
+    "uuid": "ae14aa12-be1c-4b70-a011-b26e91abf613",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "legal documents",
+    "fullTerm": "legal documents",
+    "uuid": "4fdc3661-8b86-4a65-a9b8-e30a09005941",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "maps",
+    "fullTerm": "maps",
+    "uuid": "a618b858-19de-4074-bd8a-5c31177079b3",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "masters theses",
+    "fullTerm": "masters theses",
+    "uuid": "30dadf5a-0e44-47f6-9f5a-9a546b4761d2",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "mixed media",
+    "fullTerm": "mixed media",
+    "uuid": "3a0bfd18-fa5d-41ef-911e-52af0c68e476",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "motion pictures",
+    "fullTerm": "motion pictures",
+    "uuid": "10e52a92-8c18-41be-ae95-9437ee095f8d",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "multimedia",
+    "fullTerm": "multimedia",
+    "uuid": "d4850726-7097-4de5-bd5b-f3549fe773c6",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "oral history",
+    "fullTerm": "oral history",
+    "uuid": "20bbfbb3-275d-4259-b1c7-f11f7612b48e",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "painting",
+    "fullTerm": "painting",
+    "uuid": "febd586b-3eb6-4c8b-98fd-96b36afe52aa",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "photograph",
+    "fullTerm": "photograph",
+    "uuid": "19bbc962-2d57-4249-a4a9-c2304815981a",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "program (document)",
+    "fullTerm": "program (document)",
+    "uuid": "d6cc1fbd-a5ad-4c14-898f-67edd056be26",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "projections",
+    "fullTerm": "projections",
+    "uuid": "f384ea8e-b759-4ddc-9fe9-70bded76e44b",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "proposals",
+    "fullTerm": "proposals",
+    "uuid": "25bff389-b035-48aa-9312-b1de8ac611fd",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "publication",
+    "fullTerm": "publication",
+    "uuid": "95e831ac-6ec4-419d-a90e-c1c0630dc13b",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "realia",
+    "fullTerm": "realia",
+    "uuid": "a8db8ba0-20d4-4b20-8eda-f52402ea5015",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "report",
+    "fullTerm": "report",
+    "uuid": "0b129da8-179b-4453-b6f2-51cdc6d11427",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "sculpture",
+    "fullTerm": "sculpture",
+    "uuid": "68ed41fb-fdf7-4e60-8f11-68b0a2c479dc",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "social practice",
+    "fullTerm": "social practice",
+    "uuid": "602221ea-f467-4c39-bd3f-a0bd21a24f1c",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "textile art",
+    "fullTerm": "textile art",
+    "uuid": "a159fcb4-3e25-42b8-9166-7b43c6fab54b",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "press release",
+    "fullTerm": "press release",
+    "uuid": "e0dfecd7-0a9f-451c-b7b9-cdbad84b28d5",
+    "index": 0,
+    "readonly": false
+  }
+]
