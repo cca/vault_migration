@@ -1,5 +1,6 @@
 """ Convert EQUELLA taxonomy export into Invenio names vocab
 https://inveniordm.docs.cern.ch/customize/vocabularies/names/
+TODO: CCA affiliations? We would have to manually add or use item records
 """
 import argparse
 import json
