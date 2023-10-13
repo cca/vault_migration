@@ -43,16 +43,16 @@ def main(args):
     with args.file:
         terms = json.load(args.file)
 
-    names = []
-    for term in terms:
-        names.append(convert(term))
+    names = [convert(term) for term in terms]
 
     with open("vocab/names.yaml", "w") as f:
         yaml.dump(names, f, allow_unicode=True)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description="Convert our Libraries subject name taxonomy in VAULT to Invenio names.yaml vocabulary"
+    )
     parser.add_argument(
         "file",
         default="taxos/subject-name-complete.json",
