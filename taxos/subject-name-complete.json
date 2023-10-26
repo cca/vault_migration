@@ -5747,20 +5747,6 @@
   "readonly": false
 },
 {
-  "term": "Person, Name 1903-1999",
-  "fullTerm": "ulan\\personal\\Person, Name 1903-1999",
-  "uuid": "6c872bce-1214-4086-a7cb-0bc1b5eda002",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Name, N 1903-1999",
-  "fullTerm": "ulan\\personal\\Name, N 1903-1999",
-  "uuid": "4cd96236-fe35-463b-b016-acd8d44c7b41",
-  "index": 0,
-  "readonly": false
-},
-{
   "term": "Ferrea, Elizabeth, 1880-1925",
   "fullTerm": "oclc\\personal\\Ferrea, Elizabeth, 1880-1925",
   "uuid": "f98a3c05-9cd1-4b59-a054-74a8797b8f15",
