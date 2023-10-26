@@ -17,9 +17,9 @@ def convert(term):
     Returns:
         dict: { "family_name": "Wang", "given_name": "Wayne" }
     """
-    # names vocab supports identifiers but we have no URIs, have to look them up manually
-    # we do assume no one has a comma in their name
+    # we assume no one has a comma in their name
     # Some names were entered improperly, without commas
+    # TODO trim the birth/death years of the end of the name
     if "," in term["term"]:
         name_split = term["term"].split(",")
         name = {
@@ -36,6 +36,12 @@ def convert(term):
         raise Exception(
             f'Unable to parse given and family names for name "${term["term"]}"'
         )
+
+    # TODO many are CCA, have to manually add
+    name["affiliations"] = []
+    # TODO names vocab supports identifiers but we have no URIs, have to look them up manually
+    # ! identifiers is required even if it's empty otherwise import cmd fails
+    name["identifiers"] = [{"scheme": "local", "identifier": term["term"].lower()}]
     return name
 
 
