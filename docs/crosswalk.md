@@ -2,11 +2,14 @@
 
 For upcoming VAULT migration. This page uses a <a href="https://mermaid.js.org/">Mermaid</a> <a href="https://mermaid.js.org/syntax/flowchart.html">flowchart</a>.
 
-## MODS Mappings
+## Diagrams
 
 These start at /xml/mods.
 
-```mermaid
+```mermaid {.mermaid}
+---
+title: MODS Mappings
+---
 flowchart LR
     ABSTRACTS[abstract] ---> |1st instance| DESCRIPTION["Description (0-1)"]
     ABSTRACTS --> |2+ instances| ADTYPE["Attributes imply desc type, default other"]
@@ -18,7 +21,10 @@ flowchart LR
 
 These start at /xml/local.
 
-```mermaid
+```mermaid {.}
+---
+title: Local Mappings
+---
 flowchart LR
     viewlevel[viewLevel] --> |Many, many translations| ACCESS["Access restricted/public"]
 ```

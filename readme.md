@@ -66,7 +66,7 @@ Schemas:
 - https://cca.github.io/vault_schema/
 - https://inveniordm.docs.cern.ch/reference/metadata/
 
-It's likely out schema is outdated/inaccurate in places.
+It's likely our schema is outdated/inaccurate in places.
 
 ## LICENSE
 
