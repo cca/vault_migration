@@ -1,16 +1,21 @@
 <html>
-<body>
+    <title>VAULT Crosswalk</title>
+<!-- body id for specificity in CSS below -->
+<body id="body">
     <h1>EQUELLA -> InvenioRDM Crosswalk</h1>
-    <p>For upcoming VAULT migration. This page uses a <a href="https://mermaid.js.org/">Mermaid</a> <a href="https://mermaid.js.org/syntax/flowchart.html">flowchart</a>.</p>
+    <p>For our VAULT migration. This page uses <a href="https://mermaid.js.org/">Mermaid</a> <a href="https://mermaid.js.org/syntax/flowchart.html">flowcharts</a>. The left-side nodes are EQUELLA XML paths or a JSON path for the non-XML diagram. They progress to <a href="https://inveniordm.docs.cern.ch/reference/metadata/">the Invenio field</a> on the right, which has its cardinality in parentheses.</p>
 
     <pre class="mermaid">
         ---
         title: MODS (/xml/mods) Mappings
         ---
         flowchart LR
+            TITLE[titleInfo/title] --> |titles <i>after the 1st</i>, type based on @type attribute| ATITLETYPE["type defaults to other"]
+            SUBTITLE[titleInfo/subtitle] -->|type = subtitle| ATITLETYPE
+            ATITLETYPE --> ADTITLE["Additional Titles (0-n)"]
             ABSTRACTS[abstract] ---> |1st instance| DESCRIPTION["Description (0-1)"]
-            ABSTRACTS --> |2+ instances| ADTYPE["Attributes imply desc type, default other"]
-            NOTES[noteWrapper/note] --> ADTYPE
+            ABSTRACTS --> |abstracts <i>after the 1st</i>| ADTYPE["Attributes imply desc type, default = other"]
+            NOTES[noteWrapper/note] -->|See <a href="https://www.loc.gov/standards/mods/mods-notes.html">MODS note types</a>| ADTYPE
             ADTYPE --> ADDLDESC["Additional Descriptions (0-n)"]
     </pre>
 
@@ -22,19 +27,32 @@
         viewlevel[viewLevel] --> |Many, many translations| ACCESS["Access restricted/public"]
     </pre>
 
-    <p>There's additional, mostly administrative, metadata in the EQUELLA item JSON outside the XML.</p>
-
     <pre class="mermaid">
         ---
         title: Non-XML Mappings
         ---
         flowchart LR
-        OWNER["owner.id"] -->|Map CCA username to Invenio numeric ID| PARENT["parent.owned_by.id"]
+        NAME["item.name"] --> |Use 'Untitled' if absent| TITLE["Title (1)"]
+        OWNER["item.owner.id"] -->|Map CCA username to Invenio numeric ID| PARENT["parent.owned_by.id"]
     </pre>
+
+    <p>There's additional, mostly administrative, metadata in the EQUELLA item JSON outside the XML. We can represent file/attachment operations here, too.</p>
 
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ startOnLoad: true });
     </script>
+
+    <style>
+        body {
+            font-size: 18px;
+            max-width: 60rem;
+        }
+
+        #body .mermaid .flowchartTitleText {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    </style>
 </body>
 </html>

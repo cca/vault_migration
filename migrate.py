@@ -46,16 +46,15 @@ class Record:
         # Types: https://127.0.0.1:5000/api/vocabularies/titletypes
         # alternative-title, other, subtitle, translated-title
         atitles = []
-        print(self.xml)
-        print(self.xml.get("mods", {}))
         titleinfos = mklist(self.xml.get("mods", {}).get("titleInfo"))
-        for ti_idx, titleinfo in enumerate(titleinfos):
+        for idx, titleinfo in enumerate(titleinfos):
             # all subtitles
             for subtitle in mklist(titleinfo.get("subTitle")):
                 atitles.append({"title": subtitle, "type": {"id": "subtitle"}})
-            # other titles other than the first
-            for t_idx, title in enumerate(mklist(titleinfo.get("title"))):
-                if ti_idx > 0 and t_idx > 0:
+            # titles other than the first
+            for title in mklist(titleinfo.get("title")):
+                print(self.xml)
+                if idx > 0:
                     atype = titleinfo.get("@type")
                     if atype == "alternative":
                         atitles.append(
