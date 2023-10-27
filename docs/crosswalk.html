@@ -15,9 +15,8 @@
             SUBTITLE[titleInfo/subtitle] -->|type = subtitle| ATITLETYPE
             ATITLETYPE --> ADTITLE["Additional Titles (0-n)"]
             ABSTRACTS[abstract] ---> |1st instance| DESCRIPTION["Description (0-1)"]
-            ABSTRACTS --> |abstracts <i>after the 1st</i>| ADTYPE["Attributes imply desc type, default = other"]
-            NOTES[noteWrapper/note] -->|See <a href="https://www.loc.gov/standards/mods/mods-notes.html">MODS note types</a>| ADTYPE
-            ADTYPE --> ADDLDESC["Additional Descriptions (0-n)"]
+            ABSTRACTS --> |abstracts <i>after the 1st</i>, type = abstract| ADDLDESC["Additional Descriptions (0-n)"]
+            NOTES[noteWrapper/note] -->|See <a href="https://www.loc.gov/standards/mods/mods-notes.html">MODS note types</a>, type = other| ADDLDESC
             %% TYPE["Resource Type (1)"]
             %% CREATORS["Creators (1-n)"]
             %% CONTRIBUTORS["Contributors (0-n)"]

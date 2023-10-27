@@ -41,6 +41,23 @@ def test_desc(input, expect):
 
 
 # Additional Descriptions
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        (x("<mods><abstract>foo</abstract></mods>"), []),
+        (  # second abstract
+            x("<mods><abstract>foo</abstract><abstract>bar</abstract></mods>"),
+            [{"type": "abstract", "description": "bar"}],
+        ),
+        (  # note
+            x("<mods><noteWrapper><note>foo</note></noteWrapper></mods>"),
+            [{"type": "other", "description": "foo"}],
+        ),
+    ],
+)
+def test_addl_desc(input, expect):
+    r = Record(input)
+    assert m(r)["additional_descriptions"] == expect
 
 
 # Title

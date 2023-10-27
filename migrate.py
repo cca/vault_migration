@@ -49,16 +49,14 @@ class Record:
         # we ensure there's at least one abstract (see def abstracts)
         desc = [{"type": "abstract", "description": a} for a in self.abstracts[1:]]
 
+        # MODS note types: https://www.loc.gov/standards/mods/mods-notes.html
+        # Mudflats has only handwritten & identification notes
+        # All our note values: acquisition, action, additional artists, additional performers, additional physical form, depicted persons, exhibitions, funding, handwritten, identification, local, medium, original location, publications, source identifier, venue, version, version identification
         notes = mklist(self.xml.get("mods", {}).get("noteWrapper", {}).get("note"))
         for note in notes:
-            # MODS note types: https://www.loc.gov/standards/mods/mods-notes.html
-            # Mudflats has only handwritten & identification notes
-            type = note.get("@type")
-            if type == "content":
-                desc.append(
-                    {"type": "table-of-contents", "description": note.get("#text")}
-                )
-            else:
+            if type(note) == str:
+                desc.append({"type": "other", "description": note})
+            elif type(note) == dict:
                 desc.append({"type": "other", "description": note.get("#text")})
 
         return desc
