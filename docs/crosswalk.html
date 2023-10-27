@@ -1,0 +1,40 @@
+<html>
+<body>
+    <h1>EQUELLA -> InvenioRDM Crosswalk</h1>
+    <p>For upcoming VAULT migration. This page uses a <a href="https://mermaid.js.org/">Mermaid</a> <a href="https://mermaid.js.org/syntax/flowchart.html">flowchart</a>.</p>
+
+    <pre class="mermaid">
+        ---
+        title: MODS (/xml/mods) Mappings
+        ---
+        flowchart LR
+            ABSTRACTS[abstract] ---> |1st instance| DESCRIPTION["Description (0-1)"]
+            ABSTRACTS --> |2+ instances| ADTYPE["Attributes imply desc type, default other"]
+            NOTES[noteWrapper/note] --> ADTYPE
+            ADTYPE --> ADDLDESC["Additional Descriptions (0-n)"]
+    </pre>
+
+    <pre class="mermaid">
+        ---
+        title: Local (/xml/local) Mappings
+        ---
+        flowchart LR
+        viewlevel[viewLevel] --> |Many, many translations| ACCESS["Access restricted/public"]
+    </pre>
+
+    <p>There's additional, mostly administrative, metadata in the EQUELLA item JSON outside the XML.</p>
+
+    <pre class="mermaid">
+        ---
+        title: Non-XML Mappings
+        ---
+        flowchart LR
+        OWNER["owner.id"] -->|Map CCA username to Invenio numeric ID| PARENT["parent.owned_by.id"]
+    </pre>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>
