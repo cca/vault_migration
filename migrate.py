@@ -125,7 +125,11 @@ class Record:
 if __name__ == "__main__":
     # we assume first arg is path to the item JSON
     with open(sys.argv[1]) as f:
-        item = json.load(f)
+        if f.name.endswith(".xml"):
+            xml = f.read()
+            item = {"metadata": xml}
+        else:
+            item = json.load(f)
         record = Record(item)
     # JSON pretty print record
     json.dump(record.get(), sys.stdout, indent=2)
