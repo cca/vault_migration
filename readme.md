@@ -57,6 +57,17 @@ We could write scripts to directly take an item from EQUELLA using its API, perf
 
 We need to load the necessary fixtures, including user accounts, before adding to Invenio. For instance, the item owner needs to already be in Invenio before we can add them as owner of a record. I'm not sure what the effect of loading a record with a subject that doesn't exist in a vocabulary yet.
 
+## Metadata Crosswalk
+
+We can use the `item.metadata` XML of existing VAULT items for testing. We need an approach to visualizing and documenting the crosswalk other than in code, potentially a spreadsheet or diagram. Much complexity comes from the fact that different fields may need to be treated differently depending on their value or context (e.g. collection).
+
+Schemas:
+
+- https://cca.github.io/vault_schema/
+- https://inveniordm.docs.cern.ch/reference/metadata/
+
+It's likely out schema is outdated/inaccurate in places.
+
 ## LICENSE
 
 [ECL Version 2.0](https://opensource.org/licenses/ECL-2.0)
