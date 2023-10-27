@@ -2,6 +2,14 @@
 
 Tools, ideas, and data.
 
+## Setup & Tests
+
+```sh
+poetry install # get dependencies
+poetry shell # enter venv
+pytest -v tests.py # run tests
+```
+
 ## Vocabularies
 
 Invenio uses vocabularies to represent a number of fixtures beyond just subject headings, like names and user accounts. They're stored in the app_data directory and loaded only when an instance is initialized. Lists in contribution wizards and EQUELLA taxonomies might be mapped to vocabularies.
@@ -59,7 +67,7 @@ We need to load the necessary fixtures, including user accounts, before adding t
 
 ## Metadata Crosswalk
 
-We can use the `item.metadata` XML of existing VAULT items for testing. We need an approach to visualizing and documenting the crosswalk other than in code, potentially a spreadsheet or diagram. Much complexity comes from the fact that different fields may need to be treated differently depending on their value or context (e.g. collection).
+We can use the `item.metadata` XML of existing VAULT items for testing. Generally, `poetry run python migrate.py items/item.json | jq` to see the JSON Invenio record. See [our crosswalk diagrams](https://cca.github.io/vault_migration/crosswalk.html).
 
 Schemas:
 
@@ -67,6 +75,13 @@ Schemas:
 - https://inveniordm.docs.cern.ch/reference/metadata/
 
 It's likely our schema is outdated/inaccurate in places.
+
+How to map a field:
+
+- Add a brief description to the mermaid diagram in [docs/crosswalk.html](docs/crosswalk.html)
+- Write a test in tests.py with your input XML and expected record output
+- Write a `Record` method in migrate.py & use it in the `Record::get()` dict
+- Run tests, optionally run a record migration as described above
 
 ## LICENSE
 
