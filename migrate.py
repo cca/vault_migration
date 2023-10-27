@@ -40,6 +40,30 @@ class Record:
         return mklist(abs)
 
     @property
+    def descriptions(self):
+        # extra /mods/abstract entries, mods/noteWrapper/note
+        # https://inveniordm.docs.cern.ch/reference/metadata/#additional-descriptions-0-n
+        # https://127.0.0.1:5000/api/vocabularies/descriptiontypes
+        # types: abstract, methods, series-information, table-of-contents, technical-info, other
+
+        # we ensure there's at least one abstract (see def abstracts)
+        desc = [{"type": "abstract", "description": a} for a in self.abstracts[1:]]
+
+        notes = mklist(self.xml.get("mods", {}).get("noteWrapper", {}).get("note"))
+        for note in notes:
+            # MODS note types: https://www.loc.gov/standards/mods/mods-notes.html
+            # Mudflats has only handwritten & identification notes
+            type = note.get("@type")
+            if type == "content":
+                desc.append(
+                    {"type": "table-of-contents", "description": note.get("#text")}
+                )
+            else:
+                desc.append({"type": "other", "description": note.get("#text")})
+
+        return desc
+
+    @property
     def addl_titles(self):
         # extra /mods/titleInfo/title entries, titleInfo/subtitle
         # https://inveniordm.docs.cern.ch/reference/metadata/#additional-titles-0-n
@@ -67,6 +91,14 @@ class Record:
                         atitles.append({"title": title, "type": {"id": "other"}})
         return atitles
 
+    @property
+    def type(self):
+        # https://127.0.0.1:5000/api/vocabularies/resourcetypes
+        # our subset of the full list of resource types:
+        # bachelors-thesis, publication, event, image, publication-article,
+        # masters-thesis, other, thesis, video
+        pass
+
     def get(self):
         return {
             # TODO restricted access based on local/viewLevel value
@@ -82,17 +114,15 @@ class Record:
                 "order": [],
             },
             "metadata": {
-                # mods/abtract after the 1st (self.abstracts[1:]), notes
-                # addl desc can have a type (abstract is one of types) but root desc cannot
-                # https://inveniordm.docs.cern.ch/reference/metadata/#additional-descriptions-0-n
-                # https://127.0.0.1:5000/api/vocabularies/descriptiontypes
-                "additional_descriptions": [],
+                "additional_descriptions": self.descriptions,
                 "additional_titles": self.addl_titles,
                 # mods/name/namePart, non-creator contributors
+                # contributor/creator roles: contactperson, datacollector, datacurator, datamanager, distributor, editor, hostinginstitution, other, producer, projectleader, projectmanager, projectmember, registrationagency, registrationauthority, relatedperson, researchgroup, researcher, rightsholder, sponsor, supervisor, workpackageleader
                 "contributors": [],
                 # https://inveniordm.docs.cern.ch/reference/metadata/#creators-1-n
                 "creators": [],
                 # additional NON-PUBLICATION dates
+                # date types: accepted, available, collected, copyrighted, created, issued, other, submitted, updated, valid, withdrawn
                 "dates": [],
                 "description": self.abstracts[0],
                 "formats": [],
@@ -101,6 +131,8 @@ class Record:
                 # https://inveniordm.docs.cern.ch/reference/metadata/#publication-date-1
                 "publication_date": "",
                 "publisher": "",
+                # relation types: cites, compiles, continues, describes, documents, haspart, hasversion, iscitedby, iscompiledby, iscontinuedby, isderivedfrom, isdescribedby, isdocumentedby, isidenticalto, isnewversionof, isobsoletedby, isoriginalformof, ispartof, ispreviousversionof, isreferencedby, isrequiredby, isreviewedby, issourceof, issupplementto, issupplementedby
+                "related_identifiers": [],
                 # options defined in resource_types.yaml fixture
                 # https://inveniordm.docs.cern.ch/reference/metadata/#resource-type-1
                 "resource_type": {},
