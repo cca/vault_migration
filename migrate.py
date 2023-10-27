@@ -18,15 +18,25 @@ def mklist(x):
         return [x]
     elif x is None:
         return []
+    # ? should we raise a TypeError here?
+
+
+def postprocessor(path, key, value):
+    """XML postprocessor, ensure that empty XML nodes like <foo></foo> are empty
+    dicts, not None, so we can continue chaining .get() calls on the result."""
+    if value is None:
+        return (key, {})
+    return (key, value)
 
 
 class Record:
     def __init__(self, item):
-        self.xml = xmltodict.parse(item["metadata"])["xml"]
+        self.xml = xmltodict.parse(item["metadata"], postprocessor=postprocessor)["xml"]
+        self.title = item.get("name", "Untitled")
 
     @property
     def abstracts(self):
-        abs = self.xml.get("mods", {}).get("abstract", None)
+        abs = self.xml.get("mods", {}).get("abstract", "")
         return mklist(abs)
 
     @property
@@ -36,6 +46,8 @@ class Record:
         # Types: https://127.0.0.1:5000/api/vocabularies/titletypes
         # alternative-title, other, subtitle, translated-title
         atitles = []
+        print(self.xml)
+        print(self.xml.get("mods", {}))
         titleinfos = mklist(self.xml.get("mods", {}).get("titleInfo"))
         for ti_idx, titleinfo in enumerate(titleinfos):
             # all subtitles
@@ -84,7 +96,6 @@ class Record:
                 "creators": [],
                 # additional NON-PUBLICATION dates
                 "dates": [],
-                # mods/abstract?
                 "description": self.abstracts[0],
                 # date created, add other/additional dates to dates[]
                 # https://inveniordm.docs.cern.ch/reference/metadata/#publication-date-1
@@ -98,7 +109,7 @@ class Record:
                 # options defined in licenses.csv fixture
                 "rights": [],
                 "subjects": [],
-                "title": item["name"],
+                "title": self.title,
             },
             # https://inveniordm.docs.cern.ch/reference/metadata/#parent
             # ? Does adding a parent community while creating the draft work or do
