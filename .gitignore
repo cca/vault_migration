@@ -1,5 +1,6 @@
 __pycache__
-data/*
-items/*
-records/*
-vocab/*
+data/
+items/
+records/
+vocab/
+.tmp/
