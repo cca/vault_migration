@@ -53,7 +53,6 @@ class Record:
                 atitles.append({"title": subtitle, "type": {"id": "subtitle"}})
             # titles other than the first
             for title in mklist(titleinfo.get("title")):
-                print(self.xml)
                 if idx > 0:
                     atype = titleinfo.get("@type")
                     if atype == "alternative":
@@ -96,9 +95,12 @@ class Record:
                 # additional NON-PUBLICATION dates
                 "dates": [],
                 "description": self.abstracts[0],
+                "formats": [],
+                "locations": [],
                 # date created, add other/additional dates to dates[]
                 # https://inveniordm.docs.cern.ch/reference/metadata/#publication-date-1
                 "publication_date": "",
+                "publisher": "",
                 # options defined in resource_types.yaml fixture
                 # https://inveniordm.docs.cern.ch/reference/metadata/#resource-type-1
                 "resource_type": {},
@@ -107,6 +109,7 @@ class Record:
                 # https://inveniordm.docs.cern.ch/reference/metadata/#rights-licenses-0-n
                 # options defined in licenses.csv fixture
                 "rights": [],
+                "sizes": [],
                 "subjects": [],
                 "title": self.title,
             },

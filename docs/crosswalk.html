@@ -4,6 +4,7 @@
 <body id="body">
     <h1>EQUELLA -> InvenioRDM Crosswalk</h1>
     <p>For our VAULT migration. This page uses <a href="https://mermaid.js.org/">Mermaid</a> <a href="https://mermaid.js.org/syntax/flowchart.html">flowcharts</a>. The left-side nodes are EQUELLA XML paths or a JSON path for the non-XML diagram. They progress to <a href="https://inveniordm.docs.cern.ch/reference/metadata/">the Invenio field</a> on the right, which has its cardinality in parentheses.</p>
+    <p>Dotted lines / rounded nodes represent fields we're not using (see <code>item.version</code> in the non-XML diagram, for example).</p>
 
     <pre class="mermaid">
         ---
@@ -17,7 +18,22 @@
             ABSTRACTS --> |abstracts <i>after the 1st</i>| ADTYPE["Attributes imply desc type, default = other"]
             NOTES[noteWrapper/note] -->|See <a href="https://www.loc.gov/standards/mods/mods-notes.html">MODS note types</a>| ADTYPE
             ADTYPE --> ADDLDESC["Additional Descriptions (0-n)"]
+            %% TYPE["Resource Type (1)"]
+            %% CREATORS["Creators (1-n)"]
+            %% CONTRIBUTORS["Contributors (0-n)"]
+            %% PUBDATE["Publication Date (1)"]
+            %% RIGHTS["Rights (Licenses) (0-n)"]
+            %% SUBJECTS["Subjects (0-n)"]
+            %% DATES["Dates (0-n)"]
+            %% PUBLISHER["Publisher (0-1)"]
+            %% REL["Related Identifiers/Works (0-n)"]
+            %% EXTENT --> SIZES["Sizes (0-n)"]
+            %% MIME[mods/physicalDescription/internetMediaType] -->|deduplicate| FORMATS["Formats (0-n)"]
+            %% LOCATIONS["Locations. We only have place names, no IDs. (0-n)"]
+            ID[identifier] -->|@type = DOI in Faculty Research collection| ALTID("Alternate Identifiers (0-n)")
     </pre>
+
+    <p>We are not using the Funders or References fields. Few (no?) VAULT items have funding information and none have the identifiers that Invenio expects. We don't have References lists for any items.</p>
 
     <pre class="mermaid">
         ---
@@ -33,10 +49,14 @@
         ---
         flowchart LR
         NAME["item.name"] --> |Use 'Untitled' if absent| TITLE["Title (1)"]
+        UUID["item.uuid"] -->|May need a custom scheme for this identifier| ALTID("Alternate Identifiers (0-n)")
+        VERSION["item.version"] -. We're not using item version .->IVERSION("Version (0-1).")
         OWNER["item.owner.id"] -->|Map CCA username to Invenio numeric ID| PARENT["parent.owned_by.id"]
     </pre>
 
     <p>There's additional, mostly administrative, metadata in the EQUELLA item JSON outside the XML. We can represent file/attachment operations here, too.</p>
+
+    <p>While VAULT has version information, we plan only to migrate the most recent (live) versions of items, so displaying the version number with no way to access prior iterations can only lead to confusion. The version number will still be accessible in the metadata copies of we store on migrated items.</p>
 
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
@@ -47,6 +67,10 @@
         body {
             font-size: 18px;
             max-width: 60rem;
+        }
+
+        body pre {
+            max-width: 100%;
         }
 
         #body .mermaid .flowchartTitleText {
