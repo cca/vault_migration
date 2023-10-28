@@ -92,10 +92,43 @@ class Record:
     @property
     def type(self):
         # https://127.0.0.1:5000/api/vocabularies/resourcetypes
-        # our subset of the full list of resource types:
-        # bachelors-thesis, publication, event, image, publication-article,
-        # masters-thesis, other, thesis, video
-        pass
+        # Our subset of the full list of Invenio resource types: bachelors-thesis, publication, event, image, publication-article, masters-thesis, other, video (Video/Audio)
+        # Our values for typeOfResource: Event documentation, Event promotion, Group Field Trip, Hold Harmless, Media Release, cartographic, mixed material, moving image, sound recording, sound recording-nonmusical, still image, text
+        resource_type_map = {
+            "Event documentation": "event",
+            "Event promotion": "event",
+            "Group Field Trip": "event",
+            "Hold Harmless": "publication",
+            "Media Release": "publication",
+            "cartographic": "publication",
+            "mixed material": "other",
+            "moving image": "image",
+            "sound recording": "video",
+            "sound recording-nonmusical": "video",
+            "still image": "video",
+            "text": "publication",
+        }
+        # There are many fields that could be used to determine the resource type. Priority:
+        # 1. mods/typeOfResource, 2. local/courseWorkType, 3. TBD (there are more...)
+        # mods/typeOfResourceWrapper/typeOfResource
+        wrapper = self.xml.get("mods", {}).get("typeOfResourceWrapper", [])
+        if type(wrapper) == list:
+            rtype = wrapper[0].get("typeOfResource")
+            if type(rtype) == dict:
+                rtype = rtype.get("#text")
+            if rtype in resource_type_map:
+                return {"id": resource_type_map[rtype]}
+        elif type(wrapper) == dict:
+            rtype = wrapper.get("typeOfResource")
+            if type(rtype) == dict:
+                rtype = rtype.get("#text")
+            if rtype in resource_type_map:
+                return {"id": resource_type_map[rtype]}
+
+        # TODO local/courseWorkType
+
+        # default to publication
+        return {"id": "publication"}
 
     def get(self):
         return {
@@ -133,7 +166,7 @@ class Record:
                 "related_identifiers": [],
                 # options defined in resource_types.yaml fixture
                 # https://inveniordm.docs.cern.ch/reference/metadata/#resource-type-1
-                "resource_type": {},
+                "resource_type": self.type,
                 # mods/accessCondition with license URL in href attribute
                 # https://127.0.0.1:5000/api/vocabularies/licenses
                 # https://inveniordm.docs.cern.ch/reference/metadata/#rights-licenses-0-n
