@@ -113,3 +113,30 @@ def test_title(input, expect):
 def test_addl_titles(input, expect):
     r = Record(input)
     assert m(r)["additional_titles"] == expect
+
+
+# Resource Type
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        (  # regular mapping
+            x(
+                "<mods><typeOfResourceWrapper><typeOfResource>Event documentation</typeOfResource></typeOfResourceWrapper></mods>"
+            ),
+            {"id": "event"},
+        ),
+        (  # multiple <typeOfResource> elements
+            x(
+                "<mods><typeOfResourceWrapper><typeOfResource>moving image</typeOfResource><typeOfResource>mixed material</typeOfResource></typeOfResourceWrapper></mods>"
+            ),
+            {"id": "image"},
+        ),
+        (  # default to publication
+            x("<mods></mods>"),
+            {"id": "publication"},
+        ),
+    ],
+)
+def test_type(input, expect):
+    r = Record(input)
+    assert m(r)["resource_type"] == expect

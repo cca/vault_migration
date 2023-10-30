@@ -111,15 +111,14 @@ class Record:
         # There are many fields that could be used to determine the resource type. Priority:
         # 1. mods/typeOfResource, 2. local/courseWorkType, 3. TBD (there are more...)
         # mods/typeOfResourceWrapper/typeOfResource
-        wrapper = self.xml.get("mods", {}).get("typeOfResourceWrapper", [])
+        # Take the first typeOfResource value we find
+        wrapper = self.xml.get("mods", {}).get("typeOfResourceWrapper")
         if type(wrapper) == list:
-            rtype = wrapper[0].get("typeOfResource")
-            if type(rtype) == dict:
-                rtype = rtype.get("#text")
-            if rtype in resource_type_map:
-                return {"id": resource_type_map[rtype]}
-        elif type(wrapper) == dict:
+            wrapper = wrapper[0]
+        if type(wrapper) == dict:
             rtype = wrapper.get("typeOfResource")
+            if type(rtype) == list:
+                rtype = rtype[0]
             if type(rtype) == dict:
                 rtype = rtype.get("#text")
             if rtype in resource_type_map:
