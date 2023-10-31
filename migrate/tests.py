@@ -32,7 +32,7 @@ def m(r):
     "input, expect",
     [
         ("Phetteplace, Eric", {"family_name": "Phetteplace", "given_name": "Eric"}),
-        ("Eric Phetteplace", {"family_name": "Phetteplace", "given_name": "Eric"}),
+        ("Stephen Beal", {"family_name": "Beal", "given_name": "Stephen"}),
         (
             "Phetteplace, Eric, 1984-",
             {"family_name": "Phetteplace", "given_name": "Eric"},
@@ -45,6 +45,37 @@ def m(r):
         (
             "CCA Student Council",
             {"name": "CCA Student Council"},
+        ),
+        (
+            "Teri Dowling, John Smith, Annemarie Haar",
+            [
+                {"family_name": "Dowling", "given_name": "Teri"},
+                {"family_name": "Smith", "given_name": "John"},
+                {"family_name": "Haar", "given_name": "Annemarie"},
+            ],
+        ),
+        (
+            "Maria Rodriguez; Natalie Portman; Audre Lorde",
+            [
+                {"family_name": "Rodriguez", "given_name": "Maria"},
+                {"family_name": "Portman", "given_name": "Natalie"},
+                {"family_name": "Lorde", "given_name": "Audre"},
+            ],
+        ),
+        (
+            "Carland, Tammy Rae + Hanna, Kathleen",
+            [
+                {"family_name": "Carland", "given_name": "Tammy Rae"},
+                {"family_name": "Hanna", "given_name": "Kathleen"},
+            ],
+        ),
+        (
+            "California College of Arts and Crafts (Oakland, Calif.)",
+            {"name": "California College of Arts and Crafts (Oakland, Calif.)"},
+        ),
+        (
+            "CCAC Libraries; CCA Sputnik",
+            [{"name": "CCAC Libraries"}, {"name": "CCA Sputnik"}],
         ),
     ],
 )
