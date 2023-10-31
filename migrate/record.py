@@ -89,8 +89,24 @@ class Record:
         names = mklist(self.xml.get("mods", {}).get("name"))
         creators = []
         for name in names:
-            # TODO
-            creators.append(parse_name(name["namePart"]))
+            # @usage = primary, secondary | ignoring this but could say sec. -> contributor, not creator
+            # ! @type = personal, corporate, conference | hint whether name is a person or organization
+            creator = {}
+            parts = name.get("namePart")
+            if type(parts) == str:
+                # TODO role
+                # TODO affiliation
+                creator = parse_name(parts)
+                creators.append(creator)
+            elif type(parts) == list:
+                # if we have a list of nameParts then the other mods/name fields & attributes must not
+                # be present, but check this assumption
+                if name.get("role") or name.get("subNameWrapper") or name.get("type"):
+                    raise Exception(
+                        "Unexpected mods/name structure with list of nameParts but also other fields: {name}"
+                    )
+                for part in parts:
+                    creators.append(parse_name(part))
         return creators
 
     @property

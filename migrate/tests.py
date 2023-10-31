@@ -102,6 +102,30 @@ def test_parse_name(input, expect):
     assert parse_name(input) == expect
 
 
+# Creators (names in context of a Record)
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        (
+            x("<mods><name><namePart>Joe Jonas</namePart></name></mods>"),
+            [{"type": "personal", "given_name": "Joe", "family_name": "Jonas"}],
+        ),
+        (
+            x(
+                "<mods><name><namePart>Taylor Swift</namePart><namePart>Joe Pesci</namePart></name></mods>"
+            ),
+            [
+                {"type": "personal", "given_name": "Taylor", "family_name": "Swift"},
+                {"type": "personal", "given_name": "Joe", "family_name": "Pesci"},
+            ],
+        ),
+    ],
+)
+def test_creators(input, expect):
+    r = Record(input)
+    assert m(r)["creators"] == expect
+
+
 # Description
 # test one abstract, multiple abstracts, no abstracts
 @pytest.mark.parametrize(
