@@ -38,6 +38,14 @@ def m(r):
             {"family_name": "Phetteplace", "given_name": "Eric"},
         ),
         ("Joyce, James, 1882-1941", {"family_name": "Joyce", "given_name": "James"}),
+        (
+            "CCA Alumni Association",
+            {"name": "CCA Alumni Association"},
+        ),
+        (
+            "CCA Student Council",
+            {"name": "CCA Student Council"},
+        ),
     ],
 )
 def test_parse_name(input, expect):

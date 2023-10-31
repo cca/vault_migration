@@ -3,20 +3,18 @@ import re
 import spacy
 
 nlp = spacy.load("en_core_web_lg")
+nlp.select_pipes(enable=["ner"])
 
 
 def ner(str):
     # return a list of named PERSON or ORG entities from a string
     # https://spacy.io/usage/linguistic-features#named-entities
-    with nlp.disable_pipes(
-        ["tok2vec", "tagger", "parser", "attribute_ruler", "lemmatizer"]
-    ):
-        doc = nlp(str)
-        return [
-            {"entity": e.text, "type": e.label_}
-            for e in doc.ents
-            if e.label_ in ("PERSON", "ORG")
-        ]
+    doc = nlp(str)
+    return [
+        {"entity": e.text, "type": e.label_}
+        for e in doc.ents
+        if e.label_ in ("PERSON", "ORG")
+    ]
 
 
 def entity_to_name(entity, namePart):
@@ -68,8 +66,10 @@ def parse_name(namePart):
             if len(entities) == 0:
                 # no entities, most likely an organization
                 return {"name": namePart}
-            elif len(entities) == 1:
+            elif len(entities) == 1 and entities[0]["type"] == "PERSON":
                 return {"given_name": " ".join(parts[0:2]), "family_name": parts[2]}
+            elif len(entities) == 1 and entities[0]["type"] == "ORG":
+                return {"name": namePart}
             # more than one entity but they're all PERSON, assume one name
             elif len(entities) > 1 and len(
                 [e for e in entities if e["type"] == "PERSON"]
