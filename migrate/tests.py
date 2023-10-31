@@ -1,6 +1,7 @@
 import pytest
 
-from migrate import *
+from record import Record
+from utils import mklist
 
 
 @pytest.mark.parametrize(

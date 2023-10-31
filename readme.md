@@ -7,6 +7,7 @@ Tools, ideas, and data.
 ```sh
 poetry install # get dependencies
 poetry shell # enter venv
+python -m spacy download en_core_web_lg # download spacy model for Named Entity Recognition
 pytest -v tests.py # run tests
 ```
 

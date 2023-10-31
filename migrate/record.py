@@ -9,16 +9,9 @@ import sys
 
 import xmltodict
 
-
-def mklist(x):
-    # ensure value is a list
-    if type(x) == list:
-        return x
-    elif type(x) == str or type(x) == dict:
-        return [x]
-    elif x is None:
-        return []
-    # ? should we raise a TypeError here?
+from names import parse_name
+from maps import role_map
+from utils import mklist
 
 
 def postprocessor(path, key, value):
@@ -90,6 +83,17 @@ class Record:
         return atitles
 
     @property
+    def creators(self):
+        # mods/name
+        # https://inveniordm.docs.cern.ch/reference/metadata/#creators-1-n
+        names = mklist(self.xml.get("mods", {}).get("name"))
+        creators = []
+        for name in names:
+            # TODO
+            creators.append(parse_name(name["namePart"]))
+        return creators
+
+    @property
     def type(self):
         # https://127.0.0.1:5000/api/vocabularies/resourcetypes
         # Our subset of the full list of Invenio resource types: bachelors-thesis, publication, event, image, publication-article, masters-thesis, other, video (Video/Audio)
@@ -150,7 +154,7 @@ class Record:
                 # contributor/creator roles: contactperson, datacollector, datacurator, datamanager, distributor, editor, hostinginstitution, other, producer, projectleader, projectmanager, projectmember, registrationagency, registrationauthority, relatedperson, researchgroup, researcher, rightsholder, sponsor, supervisor, workpackageleader
                 "contributors": [],
                 # https://inveniordm.docs.cern.ch/reference/metadata/#creators-1-n
-                "creators": [],
+                "creators": self.creators,
                 # additional NON-PUBLICATION dates
                 # date types: accepted, available, collected, copyrighted, created, issued, other, submitted, updated, valid, withdrawn
                 "dates": [],
