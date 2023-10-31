@@ -31,51 +31,70 @@ def m(r):
 @pytest.mark.parametrize(
     "input, expect",
     [
-        ("Phetteplace, Eric", {"family_name": "Phetteplace", "given_name": "Eric"}),
-        ("Stephen Beal", {"family_name": "Beal", "given_name": "Stephen"}),
+        (
+            "Phetteplace, Eric",
+            {"family_name": "Phetteplace", "given_name": "Eric", "type": "personal"},
+        ),
+        (
+            "Stephen Beal",
+            {"family_name": "Beal", "given_name": "Stephen", "type": "personal"},
+        ),
         (
             "Phetteplace, Eric, 1984-",
-            {"family_name": "Phetteplace", "given_name": "Eric"},
+            {"family_name": "Phetteplace", "given_name": "Eric", "type": "personal"},
         ),
-        ("Joyce, James, 1882-1941", {"family_name": "Joyce", "given_name": "James"}),
+        (
+            "Joyce, James, 1882-1941",
+            {"family_name": "Joyce", "given_name": "James", "type": "personal"},
+        ),
         (
             "CCA Alumni Association",
-            {"name": "CCA Alumni Association"},
+            {"name": "CCA Alumni Association", "type": "organizational"},
         ),
         (
             "CCA Student Council",
-            {"name": "CCA Student Council"},
+            {"name": "CCA Student Council", "type": "organizational"},
         ),
         (
             "Teri Dowling, John Smith, Annemarie Haar",
             [
-                {"family_name": "Dowling", "given_name": "Teri"},
-                {"family_name": "Smith", "given_name": "John"},
-                {"family_name": "Haar", "given_name": "Annemarie"},
+                {"family_name": "Dowling", "given_name": "Teri", "type": "personal"},
+                {"family_name": "Smith", "given_name": "John", "type": "personal"},
+                {"family_name": "Haar", "given_name": "Annemarie", "type": "personal"},
             ],
         ),
         (
             "Maria Rodriguez; Natalie Portman; Audre Lorde",
             [
-                {"family_name": "Rodriguez", "given_name": "Maria"},
-                {"family_name": "Portman", "given_name": "Natalie"},
-                {"family_name": "Lorde", "given_name": "Audre"},
+                {"family_name": "Rodriguez", "given_name": "Maria", "type": "personal"},
+                {"family_name": "Portman", "given_name": "Natalie", "type": "personal"},
+                {"family_name": "Lorde", "given_name": "Audre", "type": "personal"},
             ],
         ),
         (
             "Carland, Tammy Rae + Hanna, Kathleen",
             [
-                {"family_name": "Carland", "given_name": "Tammy Rae"},
-                {"family_name": "Hanna", "given_name": "Kathleen"},
+                {
+                    "family_name": "Carland",
+                    "given_name": "Tammy Rae",
+                    "type": "personal",
+                },
+                {"family_name": "Hanna", "given_name": "Kathleen", "type": "personal"},
             ],
         ),
         (
             "California College of Arts and Crafts (Oakland, Calif.)",
-            {"name": "California College of Arts and Crafts (Oakland, Calif.)"},
+            {
+                "name": "California College of Arts and Crafts (Oakland, Calif.)",
+                "type": "organizational",
+            },
         ),
         (
             "CCAC Libraries; CCA Sputnik",
-            [{"name": "CCAC Libraries"}, {"name": "CCA Sputnik"}],
+            [
+                {"name": "CCAC Libraries", "type": "organizational"},
+                {"name": "CCA Sputnik", "type": "organizational"},
+            ],
         ),
     ],
 )
