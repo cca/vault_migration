@@ -1,5 +1,6 @@
 import pytest
 
+from names import parse_name
 from record import Record
 from utils import mklist
 
@@ -24,6 +25,23 @@ def x(s):
 def m(r):
     """helper, alias for Record.get()["metadata"]"""
     return r.get()["metadata"]
+
+
+# Name
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        ("Phetteplace, Eric", {"family_name": "Phetteplace", "given_name": "Eric"}),
+        ("Eric Phetteplace", {"family_name": "Phetteplace", "given_name": "Eric"}),
+        (
+            "Phetteplace, Eric, 1984-",
+            {"family_name": "Phetteplace", "given_name": "Eric"},
+        ),
+        ("Joyce, James, 1882-1941", {"family_name": "Joyce", "given_name": "James"}),
+    ],
+)
+def test_parse_name(input, expect):
+    assert parse_name(input) == expect
 
 
 # Description

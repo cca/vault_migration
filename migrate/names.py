@@ -38,11 +38,11 @@ def parse_name(namePart):
     # usually Surname, Givenname but sometimes other things
     if "," in namePart:
         # last, first
-        parts = namePart.split(",")
+        parts = namePart.split(", ")
         if len(parts) == 2:
             return {"given_name": parts[1], "family_name": parts[0]}
         # name with a DOB/dath date string after a second comma
-        if len(parts) == 3 and re.match("\d{4}\-(\d{4})?", parts[2].strip()):
+        if len(parts) == 3 and re.match(r"[0-9]{4}\-([0-9]{4})?", parts[2].strip()):
             return {"given_name": parts[1], "family_name": parts[0]}
         # two or more commas, maybe we have a comma-separated list of names?
         if len(parts) > 2:
