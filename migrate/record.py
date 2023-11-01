@@ -5,6 +5,7 @@ Eventually this will accept a _directory_ containing the item's JSON and its
 attachments, but for staters we are taking just JSON.
 """
 import json
+import re
 import sys
 
 import xmltodict
@@ -86,27 +87,66 @@ class Record:
     def creators(self):
         # mods/name
         # https://inveniordm.docs.cern.ch/reference/metadata/#creators-1-n
-        names = mklist(self.xml.get("mods", {}).get("name"))
+        namesx = mklist(self.xml.get("mods", {}).get("name"))
         creators = []
-        for name in names:
+        for namex in namesx:
             # @usage = primary, secondary | ignoring this but could say sec. -> contributor, not creator
             # ! @type = personal, corporate, conference | hint whether name is a person or organization
-            creator = {}
-            parts = name.get("namePart")
-            if type(parts) == str:
+            partsx = namex.get("namePart")
+            if type(partsx) == str:
+                # initialize, use affiliation set to dedupe them
+                creator = {"affiliations": set()}
                 # TODO role
+                role = None
+                # creators can only have one role, take the first one we find in our map
+                for rolex in mklist(namex.get("role", {}).get("roleTerm")):
+                    rolex = rolex.lower()
+                    if rolex in role_map:
+                        creator["role"] = {"id": role_map[rolex]}
+                        break
+
                 # TODO affiliation
-                creator = parse_name(parts)
-                creators.append(creator)
-            elif type(parts) == list:
+                subnamesx = mklist(
+                    namex.get(
+                        "subNameWrapper",
+                    )
+                )
+                for subnamex in subnamesx:
+                    if subnamex.get("ccaAffiliated"):
+                        creator["affiliations"].add("California College of the Arts")
+                        # skip our false positives of ccaAffiliated: No | affiliation: CCA
+                        # TODO still does not work, see Joey Enos on Doug Minkler record
+                    elif subnamex.get("affiliation") and not re.match(
+                        r"CCAC?", subnamex.get("affiliation", [None])[0]
+                    ):
+                        creator["affiliations"].add(subnamex.get("affiliation"))
+                # convert the affiliations set to {"name": affiliation} dicts"
+                creator["affiliations"] = [
+                    {"name": aff} for aff in creator["affiliations"]
+                ]
+
+                names = parse_name(partsx)
+                if type(names) == dict:
+                    creators.append({**creator, **names})
+                # implies type(names) == list, similar to below, if parse_name returns a
+                # list of names but we have role/affiliation then something is wrong
+                elif creator.get("role") or len(creator.get("affiliation", [])):
+                    raise Exception(
+                        "Unexpected mods/name structure: parse_name(namePart) returned a list but we also have role/affiliation. Name: {name}"
+                    )
+                else:
+                    for name in names:
+                        creators.append(name)
+            elif type(partsx) == list:
                 # if we have a list of nameParts then the other mods/name fields & attributes must not
                 # be present, but check this assumption
                 if name.get("role") or name.get("subNameWrapper") or name.get("type"):
                     raise Exception(
                         "Unexpected mods/name structure with list of nameParts but also other fields: {name}"
                     )
-                for part in parts:
-                    creators.append(parse_name(part))
+                for partx in partsx:
+                    for name in mklist(parse_name(partx)):
+                        creators.append(name)
         return creators
 
     @property
