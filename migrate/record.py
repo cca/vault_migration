@@ -177,11 +177,11 @@ class Record:
         if type(wrapper) == list:
             wrapper = wrapper[0]
         if type(wrapper) == dict:
-            rtype = wrapper.get("typeOfResource")
+            rtype = wrapper.get("typeOfResource", "")
             if type(rtype) == list:
                 rtype = rtype[0]
             if type(rtype) == dict:
-                rtype = rtype.get("#text")
+                rtype = rtype.get("#text", "")
             if rtype in resource_type_map:
                 return {"id": resource_type_map[rtype]}
 
