@@ -1,4 +1,4 @@
-def mklist(x):
+def mklist(x) -> list:
     # ensure value is a list
     if type(x) == list:
         return x
@@ -6,4 +6,5 @@ def mklist(x):
         return [x]
     elif x is None:
         return []
-    # ? should we raise a TypeError here?
+    else:
+        raise TypeError(f"mklist: invalid type: {type(x)}")
