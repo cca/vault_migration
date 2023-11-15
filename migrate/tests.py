@@ -124,7 +124,7 @@ def test_parse_name(input, expect):
 )
 def test_creators(input, expect):
     r = Record(input)
-    assert m(r)["creators"] == expect
+    assert [c["person_or_org"] for c in m(r)["creators"]] == expect
 
 
 # Creator with roles

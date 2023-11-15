@@ -95,7 +95,7 @@ class Record:
             partsx = namex.get("namePart")
             if type(partsx) == str:
                 # initialize, use affiliation set to dedupe them
-                creator = {"affiliations": [], "role": {}}
+                creator = {"person_or_org": {}, "affiliations": [], "role": {}}
                 # Role: creators can only have one role, take the first one we find in our map
                 for rolex in mklist(namex.get("role", {}).get("roleTerm")):
                     role: str = rolex if type(rolex) == str else rolex.get("#text")
@@ -123,7 +123,13 @@ class Record:
 
                 names = parse_name(partsx)
                 if type(names) == dict:
-                    creators.append({**creator, **names})
+                    creators.append(
+                        {
+                            "person_or_org": names,
+                            "role": creator["role"],
+                            "affiliations": creator["affiliations"],
+                        }
+                    )
                 # implies type(names) == list, similar to below, if parse_name returns a
                 # list of names but we have role/affiliation then something is wrong
                 elif creator.get("role") or len(creator.get("affiliation", [])):
@@ -132,7 +138,7 @@ class Record:
                     )
                 elif type(names) == list:
                     for name in names:
-                        creators.append(name)
+                        creators.append({"person_or_org": name})
             elif type(partsx) == list:
                 # if we have a list of nameParts then the other mods/name fields & attributes must not
                 # be present, but check this assumption
@@ -146,7 +152,7 @@ class Record:
                     )
                 for partx in partsx:
                     for name in mklist(parse_name(partx)):
-                        creators.append(name)
+                        creators.append({"person_or_org": name})
         return creators
 
     @property
