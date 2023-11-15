@@ -98,9 +98,10 @@ class Record:
                 creator = {"affiliations": [], "role": {}}
                 # Role: creators can only have one role, take the first one we find in our map
                 for rolex in mklist(namex.get("role", {}).get("roleTerm")):
-                    rolex = rolex.lower()
-                    if rolex in role_map:
-                        creator["role"] = {"id": role_map[rolex]}
+                    role: str = rolex if type(rolex) == str else rolex.get("#text")
+                    role = role.lower()
+                    if role in role_map:
+                        creator["role"]["id"] = role_map[role]
                         break
                 # ? should we default to role.id=creator if we don't find a match? does it matter?
 
@@ -152,6 +153,7 @@ class Record:
     def type(self):
         # https://127.0.0.1:5000/api/vocabularies/resourcetypes
         # Our subset of the full list of Invenio resource types: bachelors-thesis, publication, event, image, publication-article, masters-thesis, other, video (Video/Audio)
+        # TODO move to maps.py
         # Our values for typeOfResource: Event documentation, Event promotion, Group Field Trip, Hold Harmless, Media Release, cartographic, mixed material, moving image, sound recording, sound recording-nonmusical, still image, text
         resource_type_map = {
             "Event documentation": "event",
