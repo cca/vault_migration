@@ -95,35 +95,30 @@ class Record:
             partsx = namex.get("namePart")
             if type(partsx) == str:
                 # initialize, use affiliation set to dedupe them
-                creator = {"affiliations": set()}
-                # TODO role
-                role = None
-                # creators can only have one role, take the first one we find in our map
+                creator = {"affiliations": [], "role": {}}
+                # Role: creators can only have one role, take the first one we find in our map
                 for rolex in mklist(namex.get("role", {}).get("roleTerm")):
                     rolex = rolex.lower()
                     if rolex in role_map:
                         creator["role"] = {"id": role_map[rolex]}
                         break
+                # ? should we default to role.id=creator if we don't find a match? does it matter?
 
-                # TODO affiliation
-                subnamesx = mklist(
-                    namex.get(
-                        "subNameWrapper",
-                    )
-                )
+                # Affiliations
+                affs = set()
+                subnamesx = mklist(namex.get("subNameWrapper"))
                 for subnamex in subnamesx:
-                    if subnamex.get("ccaAffiliated"):
-                        creator["affiliations"].add("California College of the Arts")
+                    if subnamex.get("ccaAffiliated") == "Yes":
+                        affs.add("California College of the Arts")
                         # skip our false positives of ccaAffiliated: No | affiliation: CCA
                         # TODO still does not work, see Joey Enos on Doug Minkler record
-                    elif subnamex.get("affiliation") and not re.match(
-                        r"CCAC?", subnamex.get("affiliation", [None])[0]
-                    ):
-                        creator["affiliations"].add(subnamex.get("affiliation"))
+                    elif subnamex.get("affiliation"):
+                        affsx = mklist(subnamex.get("affiliation"))
+                        for affx in affsx:
+                            if not re.match(r"CCAC?", affx, flags=re.IGNORECASE):
+                                affs.add(subnamex.get("affiliation"))
                 # convert the affiliations set to {"name": affiliation} dicts"
-                creator["affiliations"] = [
-                    {"name": aff} for aff in creator["affiliations"]
-                ]
+                creator["affiliations"] = [{"name": aff} for aff in affs]
 
                 names = parse_name(partsx)
                 if type(names) == dict:
@@ -132,15 +127,19 @@ class Record:
                 # list of names but we have role/affiliation then something is wrong
                 elif creator.get("role") or len(creator.get("affiliation", [])):
                     raise Exception(
-                        "Unexpected mods/name structure: parse_name(namePart) returned a list but we also have role/affiliation. Name: {name}"
+                        f"Unexpected mods/name structure: parse_name(namePart) returned a list but we also have role/affiliation. Name: {namex}"
                     )
-                else:
+                elif type(names) == list:
                     for name in names:
                         creators.append(name)
             elif type(partsx) == list:
                 # if we have a list of nameParts then the other mods/name fields & attributes must not
                 # be present, but check this assumption
-                if name.get("role") or name.get("subNameWrapper") or name.get("type"):
+                if (
+                    namex.get("role")
+                    or namex.get("subNameWrapper")
+                    or namex.get("type")
+                ):
                     raise Exception(
                         "Unexpected mods/name structure with list of nameParts but also other fields: {name}"
                     )
