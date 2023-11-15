@@ -12,7 +12,7 @@ import xmltodict
 
 from names import parse_name
 from maps import role_map
-from utils import mklist
+from utils import find_items, mklist
 
 
 def postprocessor(path, key, value):
@@ -253,12 +253,9 @@ class Record:
 
 if __name__ == "__main__":
     # we assume first arg is path to the item JSON
-    with open(sys.argv[1]) as f:
-        if f.name.endswith(".xml"):
-            xml = f.read()
-            item = {"metadata": xml}
-        else:
-            item = json.load(f)
-        record = Record(item)
-    # JSON pretty print record
-    json.dump(record.get(), sys.stdout, indent=2)
+    for file in sys.argv[1:]:
+        items = find_items(file)
+        for item in items:
+            r = Record(item)
+            # JSON pretty print record
+            json.dump(r.get(), sys.stdout, indent=2)
