@@ -3,6 +3,7 @@
 # MODS (which uses MARC list): https://www.loc.gov/marc/relators/relaterm.html
 # Invenio roles: https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/roles.yaml
 # contactperson, datacollector, datacurator, datamanager, distributor, editor, hostinginstitution, other, producer, projectleader, projectmanager, projectmember, registrationagency, registrationauthority, relatedperson, researchgroup, researcher, rightsholder, sponsor, supervisor, workpackageleader
+# ? Can we add our roles to the Invenio vocab? They're missing a lot.
 role_map = {
     "academic partner": "",
     "architect": "",

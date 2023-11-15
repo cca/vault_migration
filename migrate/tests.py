@@ -126,6 +126,52 @@ def test_creators(input, expect):
     assert m(r)["creators"] == expect
 
 
+# Creator with roles
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        (
+            x(
+                "<mods><name><namePart>A B</namePart><subNameWrapper><ccaAffiliated>Yes</ccaAffiliated></subNameWrapper></name></mods>"
+            ),
+            [[{"name": "California College of the Arts"}]],
+        ),
+        (  # common inconsistency, non-CCA still has CCA listed in affiliations
+            x(
+                "<mods><name><namePart>A B</namePart><subNameWrapper><ccaAffiliated>No</ccaAffiliated><affiliation>CCA</affiliation></subNameWrapper></name></mods>"
+            ),
+            [[]],
+        ),
+        (
+            x(
+                "<mods><name><namePart>A B</namePart><subNameWrapper><affiliation>Other Place</affiliation></subNameWrapper></name></mods>"
+            ),
+            [[{"name": "Other Place"}]],
+        ),
+        (
+            x(
+                "<mods><name><namePart>A B</namePart><subNameWrapper><ccaAffiliated>Yes</ccaAffiliated></subNameWrapper><subNameWrapper><affiliation>Other Place</affiliation></subNameWrapper></name></mods>"
+            ),
+            [[{"name": "Other Place"}, {"name": "California College of the Arts"}]],
+        ),
+        # multiple creators
+        (
+            x(
+                "<mods><name><namePart>A B</namePart><subNameWrapper><ccaAffiliated>Yes</ccaAffiliated></subNameWrapper></name><name><namePart>A B</namePart><subNameWrapper><affiliation>Other Place</affiliation></subNameWrapper></name></mods>"
+            ),
+            [
+                [{"name": "California College of the Arts"}],
+                [{"name": "Other Place"}],
+            ],
+        ),
+    ],
+)
+def test_creator_affiliations(input, expect):
+    r = Record(input)
+    # flatten to a list of all creators' affiliations
+    assert [c["affiliations"] for c in m(r)["creators"]] == expect
+
+
 # Description
 # test one abstract, multiple abstracts, no abstracts
 @pytest.mark.parametrize(
