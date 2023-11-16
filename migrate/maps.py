@@ -1,57 +1,25 @@
-# Mapping our mods/name/role/roleTerms to Invenio roles
+# creator/contributor roles
 # ! NOTE cast terms to LOWERCASE before using this map. Our metadata is inconsistent between title case and lowercase.
-# MODS (which uses MARC list): https://www.loc.gov/marc/relators/relaterm.html
+# MODS (uses MARC list): https://www.loc.gov/marc/relators/relaterm.html
 # Invenio roles: https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/roles.yaml
-# contactperson, datacollector, datacurator, datamanager, distributor, editor, hostinginstitution, other, producer, projectleader, projectmanager, projectmember, registrationagency, registrationauthority, relatedperson, researchgroup, researcher, rightsholder, sponsor, supervisor, workpackageleader
+# Maps from our existing values of mods/name/role/roleTerm to terms either in the MARC relator list of the Invenio roles vocab.
 # ? Can we add our roles to the Invenio vocab? They're missing a lot.
 role_map = {
-    # "academic partner": "",
-    # "architect": "",
-    # "artist": "",
-    # "associated name": "",
-    # "author": "",
-    # "author of introduction, etc.": "",
-    # "book designer": "",
-    # "bookjacket designer": "",
-    # "calligrapher": "",
-    # "cinematographer": "",
-    # "collaborator": "",
-    # "compiler": "",
-    # "creator": "",
-    # "curator": "",
-    # "curator assistant": "",
-    # "designer": "",
-    "editor": "editor",
-    # "founder": "",
-    # "illustrator": "",
-    # "installation artist": "",
-    # "instructor assistant": "",
-    # "instructor/curator": "",
-    # "interviewee": "",
-    # "interviewer": "",
-    # "manufacturer": "",
-    # "minute taker": "",
-    # "narrator": "",
-    # "organizer": "",
-    # "organizer of meeting": "",
-    # "painter": "",
-    # "performance artist": "",
-    # "performer": "",
-    # "photographer": "",
-    # "platemaker": "",
-    # "poet": "",
-    # "printer": "",
-    # "printmaker": "",
-    # "producer": "",
-    # "professor": "",
-    # "publisher": "",
-    # "recording engineer": "",
-    "researcher": "researcher",
-    # "reviewer": "",
-    # "sculptor": "",
-    # "singer songwriter": "",
-    # "speaker": "",
-    # "teacher": "",
-    # "transcriber": "",
-    # "writer": "",
+    # 2 FASHN items, person is creator/artist
+    "academicpartner": "artist",
+    "collaborator": "contributor",
+    "curatorassistant": "curator",
+    "installationartist": "artist",
+    "instructorassistant": "teacher",
+    # 2 class shows in CCA/C Archives; in context of item, prof is a curator
+    "instructor/curator": "curator",
+    # MARC says to user "organizer"
+    "organizerofmeeting": "organizer",
+    "painter": "artist",
+    "performanceartist": "arti",
+    "poet": "author",
+    "professor": "teacher",
+    # 1 item where person already has two other roles
+    "singersongwriter": "artist",
+    "writer": "author",
 }

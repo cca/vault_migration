@@ -96,14 +96,17 @@ class Record:
             if type(partsx) == str:
                 # initialize, use affiliation set to dedupe them
                 creator = {"person_or_org": {}, "affiliations": [], "role": {}}
-                # Role: creators can only have one role, take the first one we find in our map
-                for rolex in mklist(namex.get("role", {}).get("roleTerm")):
+
+                # Role: creators can only have one role, take the first one
+                rolex = mklist(namex.get("role", {}).get("roleTerm"))
+                if len(rolex):
+                    rolex = rolex[0]
                     role: str = rolex if type(rolex) == str else rolex.get("#text")
-                    role = role.lower()
+                    role = role.lower().replace(" ", "")
                     if role in role_map:
                         creator["role"]["id"] = role_map[role]
-                        break
-                # ? should we default to role.id=creator if we don't find a match? does it matter?
+                    else:
+                        creator["role"]["id"] = role
 
                 # Affiliations
                 affs = set()
@@ -225,6 +228,7 @@ class Record:
                 "locations": [],
                 # date created, add other/additional dates to dates[]
                 # https://inveniordm.docs.cern.ch/reference/metadata/#publication-date-1
+                # ! publication date is the only required field we've not implemented yet
                 "publication_date": "",
                 "publisher": "",
                 # relation types: cites, compiles, continues, describes, documents, haspart, hasversion, iscitedby, iscompiledby, iscontinuedby, isderivedfrom, isdescribedby, isdocumentedby, isidenticalto, isnewversionof, isobsoletedby, isoriginalformof, ispartof, ispreviousversionof, isreferencedby, isrequiredby, isreviewedby, issourceof, issupplementto, issupplementedby

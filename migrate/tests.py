@@ -183,17 +183,21 @@ def test_creator_affiliations(input, expect):
             ),
             [{"id": "editor"}],
         ),
-        (
+        (  # test a mapped role
             x(
-                '<mods><name><namePart>A B</namePart><role><roleTerm type="text">fake role</roleTerm></role></name></mods>'
+                '<mods><name><namePart>A B</namePart><role><roleTerm type="text">curatorassistant</roleTerm></role></name></mods>'
             ),
-            [{}],
+            [{"id": "curator"}],
         ),
         (
             x(
                 '<mods><name><namePart>A B</namePart><role><roleTerm type="text">publisher</roleTerm></role></name><name><namePart>A B</namePart><role><roleTerm type="text">editor</roleTerm></role></name></mods>'
             ),
-            [{}, {"id": "editor"}],
+            [{"id": "publisher"}, {"id": "editor"}],
+        ),
+        (  # name without a role
+            x("<mods><name><namePart>A B</namePart></name></mods>"),
+            [{}],
         ),
     ],
 )
