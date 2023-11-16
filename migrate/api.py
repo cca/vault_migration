@@ -32,6 +32,8 @@ def post(r: Record):
     response.raise_for_status()
     record = response.json()
     print(record["links"]["self"])
+    # TODO publish record? Currently posted as draft
+    # ? is there a way to post directly to published?
     return record
 
 

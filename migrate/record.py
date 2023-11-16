@@ -112,11 +112,10 @@ class Record:
                     if subnamex.get("ccaAffiliated") == "Yes":
                         affs.add("California College of the Arts")
                         # skip our false positives of ccaAffiliated: No | affiliation: CCA
-                        # TODO still does not work, see Joey Enos on Doug Minkler record
                     elif subnamex.get("affiliation"):
                         affsx = mklist(subnamex.get("affiliation"))
                         for affx in affsx:
-                            if not re.match(r"CCAC?", affx, flags=re.IGNORECASE):
+                            if not re.match(r"CCA/?C?", affx, flags=re.IGNORECASE):
                                 affs.add(subnamex.get("affiliation"))
                 # convert the affiliations set to {"name": affiliation} dicts"
                 creator["affiliations"] = [{"name": aff} for aff in affs]
