@@ -181,26 +181,26 @@ def test_creator_affiliations(input, expect):
             x(
                 '<mods><name><namePart>A B</namePart><role><roleTerm type="text">editor</roleTerm><roleTerm type="text">illustrator</roleTerm></role></name></mods>'
             ),
-            ["editor"],
+            [{"id": "editor"}],
         ),
         (
             x(
                 '<mods><name><namePart>A B</namePart><role><roleTerm type="text">fake role</roleTerm></role></name></mods>'
             ),
-            [""],
+            [{}],
         ),
         (
             x(
                 '<mods><name><namePart>A B</namePart><role><roleTerm type="text">publisher</roleTerm></role></name><name><namePart>A B</namePart><role><roleTerm type="text">editor</roleTerm></role></name></mods>'
             ),
-            ["", "editor"],
+            [{}, {"id": "editor"}],
         ),
     ],
 )
 def test_creator_roles(input, expect):
     r = Record(input)
     # flatten to a list of all creators' roles
-    assert [c["role"].get("id", "") for c in m(r)["creators"]] == expect
+    assert [c["role"] for c in m(r)["creators"]] == expect
 
 
 # Description
