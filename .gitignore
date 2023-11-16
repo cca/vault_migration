@@ -4,4 +4,5 @@ items/
 records/
 vocab/
 .tmp/
+.env
 .python-version
