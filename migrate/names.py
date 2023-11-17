@@ -25,7 +25,7 @@ def entity_to_name(entity, namePart):
         return {"name": namePart}
 
 
-def n(d):
+def n(d) -> dict[str, str]:
     """add person/org type to name dict"""
     if (
         d.get("name")

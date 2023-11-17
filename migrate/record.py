@@ -27,6 +27,7 @@ class Record:
     def __init__(self, item):
         self.xml = xmltodict.parse(item["metadata"], postprocessor=postprocessor)["xml"]
         self.title = item.get("name", "Untitled")
+        self.dateCreated = item.get("dateCreated")
 
     @property
     def abstracts(self):
@@ -91,7 +92,6 @@ class Record:
         creators = []
         for namex in namesx:
             # @usage = primary, secondary | ignoring this but could say sec. -> contributor, not creator
-            # ! @type = personal, corporate, conference | hint whether name is a person or organization
             partsx = namex.get("namePart")
             if type(partsx) == str:
                 # initialize, use affiliation set to dedupe them
@@ -156,6 +156,24 @@ class Record:
                     for name in mklist(parse_name(partx)):
                         creators.append({"person_or_org": name})
         return creators
+
+    @property
+    def publication_date(self):
+        # TODO convert date into level 0 EDTF e.g. YYYY, YYYY-MM, YYYY-MM-DD or a range YYYY/YYYY, YYYY-MM/YYYY-MM, YYYY-MM-DD/YYYY-MM-DD
+        # mods/originfo/dateCreatedWrapper/dateCreated (note lowercase origininfo) or item.createdDate
+        origininfosx = self.xml.get("mods", {}).get("origininfo", {})
+        for origininfox in origininfosx:
+            # dateCreatedWrapper/dateCreated -> pub date
+            dateCreatedWrappersx = mklist(origininfox.get("dateCreatedWrapper"))
+            for wrapper in dateCreatedWrappersx:
+                dateCreatedsx = mklist(wrapper.get("dateCreated"))
+                for dateCreated in dateCreatedsx:
+                    if type(dateCreated) == str:
+                        return dateCreated
+                    elif type(dateCreated) == dict:
+                        return dateCreated.get("#text")
+        # fall back on when the VAULT record was made (item.createdDate)
+        return self.dateCreated
 
     @property
     def type(self):
