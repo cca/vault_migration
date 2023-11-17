@@ -13,7 +13,7 @@ from typing import Any
 import xmltodict
 
 from names import parse_name
-from maps import role_map
+from maps import resource_type_map, role_map
 from utils import find_items, mklist, to_edtf
 
 
@@ -192,23 +192,6 @@ class Record:
     @property
     def type(self) -> dict[str, str]:
         # https://127.0.0.1:5000/api/vocabularies/resourcetypes
-        # Our subset of the full list of Invenio resource types: bachelors-thesis, publication, event, image, publication-article, masters-thesis, other, video (Video/Audio)
-        # TODO move to maps.py
-        # Our values for typeOfResource: Event documentation, Event promotion, Group Field Trip, Hold Harmless, Media Release, cartographic, mixed material, moving image, sound recording, sound recording-nonmusical, still image, text
-        resource_type_map = {
-            "Event documentation": "event",
-            "Event promotion": "event",
-            "Group Field Trip": "event",
-            "Hold Harmless": "publication",
-            "Media Release": "publication",
-            "cartographic": "publication",
-            "mixed material": "other",
-            "moving image": "image",
-            "sound recording": "video",
-            "sound recording-nonmusical": "video",
-            "still image": "video",
-            "text": "publication",
-        }
         # There are many fields that could be used to determine the resource type. Priority:
         # 1. mods/typeOfResource, 2. local/courseWorkType, 3. TBD (there are more...)
         # mods/typeOfResourceWrapper/typeOfResource
