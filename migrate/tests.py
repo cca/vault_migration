@@ -390,11 +390,40 @@ def test_addl_titles(input, expect):
             ),
             "2017-09-23/2020-11",
         ),
+        (  # semesterCreated
+            x(
+                "<mods><origininfo><semesterCreated>Spring 2014</semesterCreated></origininfo></mods>"
+            ),
+            "2014-02",
+        ),
     ],
 )
 def test_publication_date(input, expect):
     r = Record(input)
     assert m(r)["publication_date"] == expect
+
+
+# Dates
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        (  # dateCaptured
+            x(
+                "<mods><origininfo><dateCaptured>2020-03-03</dateCaptured></origininfo></mods>"
+            ),
+            [
+                {
+                    "date": "2020-03-03",
+                    "type": {"id": "collected"},
+                    "description": "date captured",
+                }
+            ],
+        )
+    ],
+)
+def test_dates(input, expect):
+    r = Record(input)
+    assert sorted(m(r)["dates"], key=lambda d: d["date"]) == expect
 
 
 # Resource Type

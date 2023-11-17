@@ -162,13 +162,13 @@ class Record:
 
     @property
     def publication_date(self):
-        # date created, add other/additional dates to dates[]
+        # date created, add other/additional dates to self.dates[]
         # level 0 EDTF date (YYYY,  YYYY-MM, YYYY-MM-DD or slash separated range between 2 of these)
         # https://inveniordm.docs.cern.ch/reference/metadata/#publication-date-1
         # mods/originfo/dateCreatedWrapper/dateCreated (note lowercase origininfo) or item.createdDate
         origininfosx = mklist(self.xml.get("mods", {}).get("origininfo", {}))
         for origininfox in origininfosx:
-            # dateCreatedWrapper/dateCreated -> pub date
+            # use dateCreatedWrapper/dateCreated if we have it
             dateCreatedWrappersx = mklist(origininfox.get("dateCreatedWrapper"))
             for wrapper in dateCreatedWrappersx:
                 dateCreatedsx = mklist(wrapper.get("dateCreated"))
@@ -180,14 +180,49 @@ class Record:
                             return to_edtf(dateCreated)
                         elif type(dateCreated) == dict:
                             return to_edtf(dateCreated.get("#text"))
+
                 # maybe we have a range with pointStart and pointEnd elements?
                 start = wrapper.get("pointStart")
                 end = wrapper.get("pointEnd")
                 if start and end:
                     # edtf.text_to_edtf(f"{start}/{end}") returns None for valid dates so we do this
                     return f"{to_edtf(start)}/{to_edtf(end)}"
+
+            # maybe we have mods/origininfo/semesterCreated, which is always a string (no children)
+            semesterCreated = origininfox.get("semesterCreated")
+            if semesterCreated:
+                return to_edtf(semesterCreated)
+
         # fall back on when the VAULT record was made (item.createdDate)
         return to_edtf(self.dateCreated)
+
+    @property
+    def dates(self) -> list[dict[str, Any]]:
+        dates = []
+        # https://inveniordm.docs.cern.ch/reference/metadata/#dates-0-n
+        # _additional_ (non-publication) dates structured like
+        # { "date": "EDTF lvl 0 date", type: { "id": "TYPE" }, "description": "free text" }
+        # types: accepted, available, collected, copyrighted, created, issued, other, submitted, updated, valid, withdrawn
+
+        # dateCreatedWrapper/dateCaptured
+        # ? should we add a "captured" date type? is "collected" close enough?
+        datesCapturedx = mklist(
+            self.xml.get("mods", {}).get("origininfo", {}).get("dateCaptured")
+        )
+        for dc in datesCapturedx:
+            # work with strings and dicts
+            dc = dc.get("#text") if type(dc) == dict else dc
+            if dc:  # could be empty string
+                dates.append(
+                    {
+                        "date": to_edtf(dc),
+                        "type": {"id": "collected"},
+                        "description": "date captured",
+                    }
+                )
+
+        # TODO origininfo/dateOtherWrapper
+        return dates
 
     @property
     def type(self) -> dict[str, str]:
@@ -231,13 +266,9 @@ class Record:
                 "additional_descriptions": self.descriptions,
                 "additional_titles": self.addl_titles,
                 # mods/name/namePart, non-creator contributors
-                # contributor/creator roles: contactperson, datacollector, datacurator, datamanager, distributor, editor, hostinginstitution, other, producer, projectleader, projectmanager, projectmember, registrationagency, registrationauthority, relatedperson, researchgroup, researcher, rightsholder, sponsor, supervisor, workpackageleader
                 "contributors": [],
-                # https://inveniordm.docs.cern.ch/reference/metadata/#creators-1-n
                 "creators": self.creators,
-                # additional NON-PUBLICATION dates
-                # date types: accepted, available, collected, copyrighted, created, issued, other, submitted, updated, valid, withdrawn
-                "dates": [],
+                "dates": self.dates,
                 "description": self.abstracts[0],
                 "formats": [],
                 "locations": [],
