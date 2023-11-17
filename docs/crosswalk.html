@@ -20,11 +20,14 @@
         RTYPE[typeOfResourceWrapper/typeOfResource] -->|1st one, map| TYPE["Resource Type (1)"]
         NAMES[mods/name/namePart] -->|Parse, org or person, 1 or many| NAMEDETAILS["roleTerm -> role, subName affiliations"]
         NAMEDETAILS --> CREATORS["Creators (1-n)"]
-        DATECREATED[origininfo/dateCreatedWrapper/dateCreated] -->|use VAULT record creation if no dateCreated| PUBDATE["Publication Date (1)"]
+        DATECREATED[origininfo/dateCreatedWrapper/dateCreated] -->DATELOGIC["Use MODS if present else item.dateCreated"]
+        SEMCREATED[origininfo/semesterCreated] -->DATELOGIC
+        DATELOGIC -->PUBDATE["Publication Date (1)"]
+        DATECAPT["origininfo/dateCaptured"] -->|"date.type = collected"| DATES["Dates (0-n)"]
+        DATEOTHER["origininfo/dateOtherWrapper/dateOther"] -->|"date.type = other"| DATES
         %% CONTRIBUTORS["Contributors (0-n)"]
         %% RIGHTS["Rights (Licenses) (0-n)"]
         %% SUBJECTS["Subjects (0-n)"]
-        %% DATES["Dates (0-n)"]
         %% PUBLISHER["Publisher (0-1)"]
         %% REL["Related Identifiers/Works (0-n)"]
         %% EXTENT --> SIZES["Sizes (0-n)"]
@@ -50,14 +53,15 @@
         ---
         flowchart LR
         NAME["item.name"] --> |Use 'Untitled' if absent| TITLE["Title (1)"]
-        UUID["item.uuid"] -->|May need a custom scheme for this identifier| ALTID("Alternate Identifiers (0-n)")
-        VERSION["item.version"] -. We're not using item version .->IVERSION("Version (0-1).")
-        OWNER["item.owner.id"] -->|Map CCA username to Invenio numeric ID| PARENT["parent.owned_by.id"]
+        UUID["item.uuid"] -->|TODO may need a custom scheme for this identifier| ALTID("Alternate Identifiers (0-n)")
+        VERSION["item.version"] -. TODO We're not using item version .->IVERSION("Version (0-1).")
+        OWNER["item.owner.id"] -->|TODO map CCA username to Invenio numeric ID| PARENT["parent.owned_by.id"]
+        DATECREATED["item.dateCreated"] -->|Use item creation timestamp if no date in MODS| PUBDATE["Publication Date (1)"]
     </pre>
 
     <p>There's additional, mostly administrative, metadata in the EQUELLA item JSON outside the XML. We can represent file/attachment operations here, too.</p>
 
-    <p>While VAULT has version information, we plan only to migrate the most recent (live) versions of items, so displaying the version number with no way to access prior iterations can only lead to confusion. The version number will still be accessible in the metadata copies of we store on migrated items.</p>
+    <p>While VAULT has version information, we plan only to migrate the most recent (live) versions of items, so displaying the version number with no way to access prior iterations can only lead to confusion. The version number will still be accessible in the copies of VAULT metadata we store on migrated items.</p>
 
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
