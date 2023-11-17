@@ -4,10 +4,12 @@ Convert an EQUELLA item into an Invenio record.
 Eventually this will accept a _directory_ containing the item's JSON and its
 attachments, but for staters we are taking just JSON.
 """
+from datetime import date
 import json
 import re
 import sys
 
+from edtf import text_to_edtf
 import xmltodict
 
 from names import parse_name
@@ -27,7 +29,8 @@ class Record:
     def __init__(self, item):
         self.xml = xmltodict.parse(item["metadata"], postprocessor=postprocessor)["xml"]
         self.title = item.get("name", "Untitled")
-        self.dateCreated = item.get("dateCreated")
+        # default to current date in ISO 8601 format
+        self.dateCreated = item.get("dateCreated", date.today().isoformat())
 
     @property
     def abstracts(self):
@@ -159,9 +162,11 @@ class Record:
 
     @property
     def publication_date(self):
-        # TODO convert date into level 0 EDTF e.g. YYYY, YYYY-MM, YYYY-MM-DD or a range YYYY/YYYY, YYYY-MM/YYYY-MM, YYYY-MM-DD/YYYY-MM-DD
+        # date created, add other/additional dates to dates[]
+        # level 0 EDTF date (YYYY,  YYYY-MM, YYYY-MM-DD or slash separated range between 2 of these)
+        # https://inveniordm.docs.cern.ch/reference/metadata/#publication-date-1
         # mods/originfo/dateCreatedWrapper/dateCreated (note lowercase origininfo) or item.createdDate
-        origininfosx = self.xml.get("mods", {}).get("origininfo", {})
+        origininfosx = mklist(self.xml.get("mods", {}).get("origininfo", {}))
         for origininfox in origininfosx:
             # dateCreatedWrapper/dateCreated -> pub date
             dateCreatedWrappersx = mklist(origininfox.get("dateCreatedWrapper"))
@@ -169,11 +174,11 @@ class Record:
                 dateCreatedsx = mklist(wrapper.get("dateCreated"))
                 for dateCreated in dateCreatedsx:
                     if type(dateCreated) == str:
-                        return dateCreated
+                        return text_to_edtf(dateCreated)
                     elif type(dateCreated) == dict:
-                        return dateCreated.get("#text")
+                        return text_to_edtf(dateCreated.get("#text"))
         # fall back on when the VAULT record was made (item.createdDate)
-        return self.dateCreated
+        return text_to_edtf(self.dateCreated)
 
     @property
     def type(self):
@@ -244,10 +249,7 @@ class Record:
                 "description": self.abstracts[0],
                 "formats": [],
                 "locations": [],
-                # date created, add other/additional dates to dates[]
-                # https://inveniordm.docs.cern.ch/reference/metadata/#publication-date-1
-                # ! publication date is the only required field we've not implemented yet
-                "publication_date": "",
+                "publication_date": self.publication_date,
                 "publisher": "",
                 # relation types: cites, compiles, continues, describes, documents, haspart, hasversion, iscitedby, iscompiledby, iscontinuedby, isderivedfrom, isdescribedby, isdocumentedby, isidenticalto, isnewversionof, isobsoletedby, isoriginalformof, ispartof, ispreviousversionof, isreferencedby, isrequiredby, isreviewedby, issourceof, issupplementto, issupplementedby
                 "related_identifiers": [],

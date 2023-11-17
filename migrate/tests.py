@@ -315,6 +315,36 @@ def test_addl_titles(input, expect):
     assert m(r)["additional_titles"] == expect
 
 
+# Publication Date
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        (
+            x(
+                "<mods><origininfo><dateCreatedWrapper><dateCreated>1996</dateCreated></dateCreatedWrapper></origininfo></mods>"
+            ),
+            "1996",
+        ),
+        (
+            x(
+                '<mods><origininfo><dateType>dateCreated</dateType><dateCreatedWrapper><dateCreated keyDate="yes">1979-04-28</dateCreated><pointStart/><pointEnd/></dateCreatedWrapper></origininfo></mods>'
+            ),
+            "1979-04-28",
+        ),
+        (  # item with dateCreated but nothing in MODS XML
+            {
+                "metadata": "<xml><mods></mods></xml>",
+                "dateCreated": "2019-04-25T16:22:52.704-07:00",
+            },
+            "2019-04-25",
+        ),
+    ],
+)
+def test_publication_date(input, expect):
+    r = Record(input)
+    assert m(r)["publication_date"] == expect
+
+
 # Resource Type
 @pytest.mark.parametrize(
     "input, expect",
