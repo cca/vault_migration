@@ -206,10 +206,10 @@ class Record:
 
         # dateCreatedWrapper/dateCaptured
         # ? should we add a "captured" date type? is "collected" close enough?
-        datesCapturedx = mklist(
+        dates_capturedx = mklist(
             self.xml.get("mods", {}).get("origininfo", {}).get("dateCaptured")
         )
-        for dc in datesCapturedx:
+        for dc in dates_capturedx:
             # work with strings and dicts
             dc = dc.get("#text") if type(dc) == dict else dc
             if dc:  # could be empty string
@@ -222,6 +222,30 @@ class Record:
                 )
 
         # TODO origininfo/dateOtherWrapper
+        # we always have exactly one dateOtherWrapper and 0-1 dateOther, praise be
+        date_other = (
+            self.xml.get("mods", {})
+            .get("origininfo", {})
+            .get("dateOtherWrapper", {})
+            .get("dateOther")
+        )
+        if type(date_other) == dict:
+            date_other_text = to_edtf(date_other.get("#text"))
+            if date_other_text:
+                # the only types we have are Agreement and E/exhibit (case sensitive)
+                date_type = date_other.get("@type", "")
+                dates.append(
+                    {
+                        "date": date_other_text,
+                        "type": {"id": "other"},
+                        "description": date_type.capitalize(),
+                    }
+                )
+        else:
+            # dateOther with no attributes
+            date_other_text = to_edtf(date_other)
+            if date_other_text:
+                dates.append({"date": date_other_text, "type": {"id": "other"}})
         return dates
 
     @property
