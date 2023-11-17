@@ -10,12 +10,11 @@ import re
 import sys
 from typing import Any
 
-from edtf import text_to_edtf
 import xmltodict
 
 from names import parse_name
 from maps import role_map
-from utils import find_items, mklist
+from utils import find_items, mklist, to_edtf
 
 
 def postprocessor(path, key, value):
@@ -174,13 +173,21 @@ class Record:
             for wrapper in dateCreatedWrappersx:
                 dateCreatedsx = mklist(wrapper.get("dateCreated"))
                 for dateCreated in dateCreatedsx:
-                    # ! if a date isn't parseable then this will return None
-                    if type(dateCreated) == str:
-                        return text_to_edtf(dateCreated)
-                    elif type(dateCreated) == dict:
-                        return text_to_edtf(dateCreated.get("#text"))
+                    # work around empty str or dict
+                    if dateCreated:
+                        # ! if a date isn't parseable then this will return None
+                        if type(dateCreated) == str:
+                            return to_edtf(dateCreated)
+                        elif type(dateCreated) == dict:
+                            return to_edtf(dateCreated.get("#text"))
+                # maybe we have a range with pointStart and pointEnd elements?
+                start = wrapper.get("pointStart")
+                end = wrapper.get("pointEnd")
+                if start and end:
+                    # edtf.text_to_edtf(f"{start}/{end}") returns None for valid dates so we do this
+                    return f"{to_edtf(start)}/{to_edtf(end)}"
         # fall back on when the VAULT record was made (item.createdDate)
-        return text_to_edtf(self.dateCreated)
+        return to_edtf(self.dateCreated)
 
     @property
     def type(self) -> dict[str, str]:

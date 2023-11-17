@@ -171,7 +171,12 @@ def test_creators(input, expect):
             x(
                 "<mods><name><namePart>A B</namePart><subNameWrapper><ccaAffiliated>Yes</ccaAffiliated></subNameWrapper><subNameWrapper><affiliation>Other Place</affiliation></subNameWrapper></name></mods>"
             ),
-            [[{"name": "Other Place"}, {"name": "California College of the Arts"}]],
+            [
+                [
+                    {"name": "California College of the Arts"},
+                    {"name": "Other Place"},
+                ]
+            ],
         ),
         # multiple creators
         (
@@ -187,8 +192,11 @@ def test_creators(input, expect):
 )
 def test_creator_affiliations(input, expect):
     r = Record(input)
-    # flatten to a list of all creators' affiliations
-    assert [c["affiliations"] for c in m(r)["creators"]] == expect
+    # flatten to a list of all creators' affiliations and sort
+    # order of affiliations can vary depending how tests are run (lol?)
+    assert [
+        sorted(c["affiliations"], key=lambda d: d["name"]) for c in m(r)["creators"]
+    ] == expect
 
 
 # Creator roles
@@ -337,6 +345,50 @@ def test_addl_titles(input, expect):
                 "dateCreated": "2019-04-25T16:22:52.704-07:00",
             },
             "2019-04-25",
+        ),
+        (  # some dates are not in ISO 8601 format
+            x(
+                '<mods><origininfo><dateCreatedWrapper><dateCreated encoding="w3cdtf" keyDate="yes">10/1/93</dateCreated></dateCreatedWrapper></origininfo></mods>'
+            ),
+            "1993-10-01",
+        ),
+        (  # empty dateCreated element
+            {
+                "metadata": "<xml><mods><origininfo><dateCreatedWrapper><dateCreated></dateCreated></dateCreatedWrapper></origininfo></mods></xml>",
+                "dateCreated": "2023-11-15T12:22:52.704-07:00",
+            },
+            "2023-11-15",
+        ),
+        (  # date range
+            x(
+                "<mods><origininfo><dateCreatedWrapper><dateCreated></dateCreated><pointStart>2016-09</pointStart><pointEnd>2017-05</pointEnd></dateCreatedWrapper></origininfo></mods>"
+            ),
+            "2016-09/2017-05",
+        ),
+        (  # empty date range should default to item.dateCreated
+            {
+                "metadata": "<xml><mods><origininfo><dateCreatedWrapper><dateCreated></dateCreated><pointStart></pointStart><pointEnd></pointEnd></dateCreatedWrapper></origininfo></mods></xml>",
+                "dateCreated": "2016-11-15T14:42:52.804-07:00",
+            },
+            "2016-11-15",
+        ),
+        (
+            x(
+                "<mods><origininfo><dateCreatedWrapper><dateCreated>fall 2017</dateCreated></dateCreatedWrapper></origininfo></mods>"
+            ),
+            "2017-08",
+        ),
+        (
+            x(
+                "<mods><origininfo><dateCreatedWrapper><dateCreated>winter 2020</dateCreated></dateCreatedWrapper></origininfo></mods>"
+            ),
+            "2020-11",
+        ),
+        (  # complex date range
+            x(
+                "<mods><origininfo><dateCreatedWrapper><dateCreated></dateCreated><pointStart>2017-09-23</pointStart><pointEnd>winter 2020</pointEnd></dateCreatedWrapper></origininfo></mods>"
+            ),
+            "2017-09-23/2020-11",
         ),
     ],
 )
