@@ -1,3 +1,4 @@
+from edtf import text_to_edtf
 import pytest
 
 from names import parse_name
@@ -16,6 +17,23 @@ from utils import mklist
 )
 def test_mklist(input, expect):
     assert mklist(input) == expect
+
+
+@pytest.mark.parametrize(  # ensure edtf library works with our date formats
+    "input, expect",
+    [
+        # different types of ISO 8601 dates
+        ("1996", "1996"),
+        ("1984-11", "1984-11"),
+        ("2020-03-14", "2020-03-14"),
+        # format of item.dateCreated string
+        ("2019-04-25T16:22:52.704-07:00", "2019-04-25"),
+        # date range
+        ("1996-1997", "1996/1997"),
+    ],
+)
+def test_edtf(input, expect):
+    assert text_to_edtf(input) == expect
 
 
 def x(s):
