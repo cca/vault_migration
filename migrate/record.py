@@ -8,6 +8,7 @@ from datetime import date
 import json
 import re
 import sys
+from typing import Any
 
 from edtf import text_to_edtf
 import xmltodict
@@ -33,12 +34,12 @@ class Record:
         self.dateCreated = item.get("dateCreated", date.today().isoformat())
 
     @property
-    def abstracts(self):
+    def abstracts(self) -> list:
         abs = self.xml.get("mods", {}).get("abstract", "")
         return mklist(abs)
 
     @property
-    def descriptions(self):
+    def descriptions(self) -> list[dict[str, Any]]:
         # extra /mods/abstract entries, mods/noteWrapper/note
         # https://inveniordm.docs.cern.ch/reference/metadata/#additional-descriptions-0-n
         # https://127.0.0.1:5000/api/vocabularies/descriptiontypes
@@ -60,7 +61,7 @@ class Record:
         return desc
 
     @property
-    def addl_titles(self):
+    def addl_titles(self) -> list[dict[str, str]]:
         # extra /mods/titleInfo/title entries, titleInfo/subtitle
         # https://inveniordm.docs.cern.ch/reference/metadata/#additional-titles-0-n
         # Types: https://127.0.0.1:5000/api/vocabularies/titletypes
@@ -88,7 +89,7 @@ class Record:
         return atitles
 
     @property
-    def creators(self):
+    def creators(self) -> list[dict[str, Any]]:
         # mods/name
         # https://inveniordm.docs.cern.ch/reference/metadata/#creators-1-n
         namesx = mklist(self.xml.get("mods", {}).get("name"))
@@ -173,6 +174,7 @@ class Record:
             for wrapper in dateCreatedWrappersx:
                 dateCreatedsx = mklist(wrapper.get("dateCreated"))
                 for dateCreated in dateCreatedsx:
+                    # ! if a date isn't parseable then this will return None
                     if type(dateCreated) == str:
                         return text_to_edtf(dateCreated)
                     elif type(dateCreated) == dict:
@@ -181,7 +183,7 @@ class Record:
         return text_to_edtf(self.dateCreated)
 
     @property
-    def type(self):
+    def type(self) -> dict[str, str]:
         # https://127.0.0.1:5000/api/vocabularies/resourcetypes
         # Our subset of the full list of Invenio resource types: bachelors-thesis, publication, event, image, publication-article, masters-thesis, other, video (Video/Audio)
         # TODO move to maps.py
@@ -221,7 +223,7 @@ class Record:
         # default to publication
         return {"id": "publication"}
 
-    def get(self):
+    def get(self) -> dict[str, Any]:
         return {
             # TODO restricted access based on local/viewLevel value
             "access": {
