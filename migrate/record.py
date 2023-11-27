@@ -112,6 +112,7 @@ class Record:
                         creator["role"]["id"] = role
 
                 # Affiliations
+                # TODO once we have CCA ROR in our vocab, use an identifier & not name string
                 affs = set()
                 subnamesx = mklist(namex.get("subNameWrapper"))
                 for subnamex in subnamesx:
