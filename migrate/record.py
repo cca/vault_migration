@@ -34,8 +34,12 @@ class Record:
 
     @property
     def abstracts(self) -> list:
-        abs = self.xml.get("mods", {}).get("abstract", "")
-        return mklist(abs)
+        abs = mklist(self.xml.get("mods", {}).get("abstract", ""))
+        # filter out all empty strings except the first one
+        for idx, a in enumerate(abs):
+            if idx > 0 and not a:
+                abs.remove(a)
+        return abs
 
     @property
     def descriptions(self) -> list[dict[str, Any]]:
@@ -44,18 +48,23 @@ class Record:
         # https://127.0.0.1:5000/api/vocabularies/descriptiontypes
         # types: abstract, methods, series-information, table-of-contents, technical-info, other
 
-        # we ensure there's at least one abstract (see def abstracts)
-        desc = [{"type": "abstract", "description": a} for a in self.abstracts[1:]]
+        desc = []
+        if len(self.abstracts) > 1:
+            desc.extend(
+                [{"type": "abstract", "description": a} for a in self.abstracts[1:]]
+            )
 
         # MODS note types: https://www.loc.gov/standards/mods/mods-notes.html
         # Mudflats has only handwritten & identification notes
         # All our note values: acquisition, action, additional artists, additional performers, additional physical form, depicted persons, exhibitions, funding, handwritten, identification, local, medium, original location, publications, source identifier, venue, version, version identification
         notes = mklist(self.xml.get("mods", {}).get("noteWrapper", {}).get("note"))
         for note in notes:
-            if type(note) == str:
+            if type(note) == str and note:
                 desc.append({"type": "other", "description": note})
             elif type(note) == dict:
-                desc.append({"type": "other", "description": note.get("#text")})
+                note = note.get("#text")
+                if note:
+                    desc.append({"type": "other", "description": note.get("#text")})
 
         return desc
 

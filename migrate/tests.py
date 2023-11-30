@@ -262,6 +262,14 @@ def test_desc(input, expect):
             x("<mods><noteWrapper><note>foo</note></noteWrapper></mods>"),
             [{"type": "other", "description": "foo"}],
         ),
+        (  # empty note does not get added
+            x("<mods><noteWrapper><note></note></noteWrapper></mods>"),
+            [],
+        ),
+        (  # empty second abstract does not get added
+            x("<mods><abstract>foo</abstract><abstract></abstract></mods>"),
+            [],
+        ),
     ],
 )
 def test_addl_desc(input, expect):
