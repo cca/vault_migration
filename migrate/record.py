@@ -112,20 +112,29 @@ class Record:
                         creator["role"]["id"] = role
 
                 # Affiliations
-                # TODO once we have CCA ROR in our vocab, use an identifier & not name string
-                affs = set()
+                affs = []
                 subnamesx = mklist(namex.get("subNameWrapper"))
                 for subnamex in subnamesx:
                     if subnamex.get("ccaAffiliated") == "Yes":
-                        affs.add("California College of the Arts")
-                        # skip our false positives of ccaAffiliated: No | affiliation: CCA
+                        affs.append({"id": "01mmcf932"})
                     elif subnamex.get("affiliation"):
                         affsx = mklist(subnamex.get("affiliation"))
+                        # skip our false positives of ccaAffiliated: No | affiliation: CCA
                         for affx in affsx:
-                            if not re.match(r"CCA/?C?", affx, flags=re.IGNORECASE):
-                                affs.add(subnamex.get("affiliation"))
-                # convert the affiliations set to {"name": affiliation} dicts"
-                creator["affiliations"] = [{"name": aff} for aff in affs]
+                            if (
+                                affx
+                                and not re.match(r"CCA/?C?", affx, flags=re.IGNORECASE)
+                                and not re.match(
+                                    r"California College of (the)? Arts (and Crafts)?",
+                                    affx,
+                                    flags=re.IGNORECASE,
+                                )
+                            ):
+                                affs.append({"name": affx})
+                # dedupe list of dictionaries
+                creator["affiliations"] = list(
+                    {frozenset(d.items()): d for d in affs}.values()
+                )
 
                 names = parse_name(partsx)
                 if type(names) == dict:

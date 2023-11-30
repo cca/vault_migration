@@ -153,7 +153,7 @@ def test_creators(input, expect):
             x(
                 "<mods><name><namePart>A B</namePart><subNameWrapper><ccaAffiliated>Yes</ccaAffiliated></subNameWrapper></name></mods>"
             ),
-            [[{"name": "California College of the Arts"}]],
+            [[{"id": "01mmcf932"}]],
         ),
         (  # common inconsistency, non-CCA still has CCA listed in affiliations
             x(
@@ -173,7 +173,7 @@ def test_creators(input, expect):
             ),
             [
                 [
-                    {"name": "California College of the Arts"},
+                    {"id": "01mmcf932"},
                     {"name": "Other Place"},
                 ]
             ],
@@ -184,7 +184,7 @@ def test_creators(input, expect):
                 "<mods><name><namePart>A B</namePart><subNameWrapper><ccaAffiliated>Yes</ccaAffiliated></subNameWrapper></name><name><namePart>A B</namePart><subNameWrapper><affiliation>Other Place</affiliation></subNameWrapper></name></mods>"
             ),
             [
-                [{"name": "California College of the Arts"}],
+                [{"id": "01mmcf932"}],
                 [{"name": "Other Place"}],
             ],
         ),
@@ -195,7 +195,8 @@ def test_creator_affiliations(input, expect):
     # flatten to a list of all creators' affiliations and sort
     # order of affiliations can vary depending how tests are run (lol?)
     assert [
-        sorted(c["affiliations"], key=lambda d: d["name"]) for c in m(r)["creators"]
+        sorted(c["affiliations"], key=lambda d: d.get("name", "0"))
+        for c in m(r)["creators"]
     ] == expect
 
 
