@@ -22,19 +22,27 @@ def post(r: Record):
         "Authorization": "Bearer {}".format(token),
     }
     # create metadata-only draft
-    response = requests.post(
+    draft_response = requests.post(
         "https://127.0.0.1:5000/api/records",
         json=r.get(),
         verify=False,
         headers=headers,
     )
-    print("HTTP {}".format(response.status_code))
-    response.raise_for_status()
-    record = response.json()
-    print(record["links"]["self"])
-    # TODO publish record? Currently posted as draft
-    # ? is there a way to post directly to published?
-    return record
+    print("HTTP {}".format(draft_response.status_code))
+    draft_response.raise_for_status()
+    draft_record = draft_response.json()
+    print(draft_record["links"]["self"])
+    # publish
+    publish_response = requests.post(
+        f"https://127.0.0.1:5000/api/records/{draft_record['id']}/draft/actions/publish",
+        headers=headers,
+        verify=False,
+    )
+    print("HTTP {}".format(publish_response.status_code))
+    publish_response.raise_for_status()
+    published_record = publish_response.json()
+    print(published_record["links"]["self"])
+    return published_record
 
 
 if __name__ == "__main__":
