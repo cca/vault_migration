@@ -6,6 +6,7 @@ attachments, but for staters we are taking just JSON.
 """
 from datetime import date
 import json
+import mimetypes
 import re
 import sys
 from typing import Any
@@ -28,6 +29,7 @@ def postprocessor(path, key, value):
 class Record:
     def __init__(self, item):
         self.xml = xmltodict.parse(item["metadata"], postprocessor=postprocessor)["xml"]
+        self.files = [a for a in item.get("attachments", []) if a["type"] == "file"]
         self.title = item.get("name", "Untitled")
         # default to current date in ISO 8601 format
         self.dateCreated = item.get("dateCreated", date.today().isoformat())
@@ -67,6 +69,15 @@ class Record:
                     desc.append({"type": "other", "description": note.get("#text")})
 
         return desc
+
+    @property
+    def formats(self) -> list[str]:
+        formats = set()
+        for file in self.files:
+            type = mimetypes.guess_type(file["filename"], strict=False)[0]
+            if type:
+                formats.add(type)
+        return list(formats)
 
     @property
     def addl_titles(self) -> list[dict[str, str]]:
@@ -302,7 +313,7 @@ class Record:
             "custom_fields": {},
             # TODO add files, figure out best one to show first (prefer image formats?)
             "files": {
-                "enabled": False,
+                "enabled": False,  # bool(len(self.files)),
                 "order": [],
             },
             "metadata": {
@@ -313,7 +324,7 @@ class Record:
                 "creators": self.creators,
                 "dates": self.dates,
                 "description": self.abstracts[0],
-                "formats": [],
+                "formats": self.formats,
                 "locations": [],
                 "publication_date": self.publication_date,
                 "publisher": "",

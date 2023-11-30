@@ -277,6 +277,43 @@ def test_addl_desc(input, expect):
     assert m(r)["additional_descriptions"] == expect
 
 
+# File Formats
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        (  # one format
+            {
+                "metadata": "<xml></xml>",
+                "attachments": [{"type": "file", "filename": "syllabus.pdf"}],
+            },
+            ["application/pdf"],
+        ),
+        (  # multiple formats
+            {
+                "metadata": "<xml></xml>",
+                "attachments": [
+                    {"type": "file", "filename": "image.jpg"},
+                    {"type": "file", "filename": "image.tiff"},
+                ],
+            },
+            ["image/jpeg", "image/tiff"],
+        ),
+        (  # no files => empty list
+            x("<mods></mods>"),
+            [],
+        ),
+        (  # non-file attachment => empty list
+            {"metadata": "<xml></xml>", "attachments": [{"type": "other"}]},
+            [],
+        ),
+    ],
+)
+def test_file_formats(input, expect):
+    r = Record(input)
+    # sort to ensure order is consistent
+    assert sorted(m(r)["formats"]) == expect
+
+
 # Title
 @pytest.mark.parametrize(
     "input, expect",
