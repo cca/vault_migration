@@ -279,6 +279,14 @@ class Record:
         return dates
 
     @property
+    def publisher(self) -> str:
+        # DBR articles have a variable publisher depending on date
+        # CCA/C archives is published by CCA
+        # Press Clips will have different publishing organizations
+        # Student work has no publisher
+        return ""
+
+    @property
     def type(self) -> dict[str, str]:
         # https://127.0.0.1:5000/api/vocabularies/resourcetypes
         # There are many fields that could be used to determine the resource type. Priority:
