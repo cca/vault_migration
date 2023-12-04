@@ -280,10 +280,14 @@ class Record:
 
     @property
     def publisher(self) -> str:
-        # DBR articles have a variable publisher depending on date
-        # CCA/C archives is published by CCA
-        # Press Clips will have different publishing organizations
-        # Student work has no publisher
+        # 1) DBR articles have a variable publisher depending on date:
+        #     Winter 1983 - Spring 1990: Design Book Review
+        #     Winter 1991 - Winter/Spring 1995: MIT Press
+        #     Winter 1996/1997: Design Book Review
+        #     1997 - on: California College of the Arts
+        # 2) CCA/C archives is published by CCA
+        # 3) Press Clips will have different publishing organizations
+        # 4) Student work has no publisher
         return ""
 
     @property
