@@ -515,3 +515,22 @@ def test_dates(input, expect):
 def test_type(input, expect):
     r = Record(input)
     assert m(r)["resource_type"] == expect
+
+
+# Publisher
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        (  # publisher in originInfo
+            x("<mods><originInfo><publisher>foo</publisher></originInfo></mods>"),
+            "foo",
+        ),
+        (  # no publisher
+            x("<mods></mods>"),
+            "",
+        ),
+    ],
+)
+def test_publisher(input, expect):
+    r = Record(input)
+    assert m(r)["publisher"] == expect

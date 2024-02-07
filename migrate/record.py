@@ -280,15 +280,28 @@ class Record:
 
     @property
     def publisher(self) -> str:
+        # https://inveniordm.docs.cern.ch/reference/metadata/#publisher-0-1
+        publisher = ""
         # 1) DBR articles have a variable publisher depending on date:
         #     Winter 1983 - Spring 1990: Design Book Review
         #     Winter 1991 - Winter/Spring 1995: MIT Press
         #     Winter 1996/1997: Design Book Review
         #     1997 - on: California College of the Arts
+        # https://vault.cca.edu/items/bd3b483b-52b9-423c-a96e-d37863511d75/1/%3CXML%3E
+        # mods/relatedItem[@type="host"]/titleInfo/title == DBR
+        # ri = self.xml.get("mods", {}).get("relatedItem", {})
+
         # 2) CCA/C archives has publisher info mods/originInfo/publisher
-        # 3) Press Clips will have different publishing organizations
+        # https://vault.cca.edu/items/c4583fe6-2e85-4613-a1bc-774824b3e826/1/%3CXML%3E
+        oipub = (
+            self.xml.get("mods", {}).get("originInfo", {}).get("publisher", "")
+        ).strip()
+        if oipub:
+            publisher = oipub
+
+        # 3) Press Clips items are not CCA but have only publication, not publisher, info
         # 4) Student work has no publisher
-        return ""
+        return publisher
 
     @property
     def type(self) -> dict[str, str]:
@@ -339,8 +352,9 @@ class Record:
                 "formats": self.formats,
                 "locations": [],
                 "publication_date": self.publication_date,
-                "publisher": "",
+                "publisher": self.publisher,
                 # relation types: cites, compiles, continues, describes, documents, haspart, hasversion, iscitedby, iscompiledby, iscontinuedby, isderivedfrom, isdescribedby, isdocumentedby, isidenticalto, isnewversionof, isobsoletedby, isoriginalformof, ispartof, ispreviousversionof, isreferencedby, isrequiredby, isreviewedby, issourceof, issupplementto, issupplementedby
+                # ? use old VAULT item URL here? Might be useful for redirects somehow
                 "related_identifiers": [],
                 # options defined in resource_types.yaml fixture
                 # https://inveniordm.docs.cern.ch/reference/metadata/#resource-type-1
