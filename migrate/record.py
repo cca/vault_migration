@@ -281,7 +281,7 @@ class Record:
     @property
     def publisher(self) -> str:
         # https://inveniordm.docs.cern.ch/reference/metadata/#publisher-0-1
-        publisher = ""
+
         # 1) DBR articles have a variable publisher depending on date:
         #     Winter 1983 - Spring 1990: Design Book Review
         #     Winter 1991 - Winter/Spring 1995: MIT Press
@@ -289,19 +289,34 @@ class Record:
         #     1997 - on: California College of the Arts
         # https://vault.cca.edu/items/bd3b483b-52b9-423c-a96e-d37863511d75/1/%3CXML%3E
         # mods/relatedItem[@type="host"]/titleInfo/title == DBR
-        # ri = self.xml.get("mods", {}).get("relatedItem", {})
+        related_item = self.xml.get("mods", {}).get("relatedItem", {})
+        related_title_infos = mklist(related_item.get("titleInfo"))
+        for ti in related_title_infos:
+            if ti.get("title") == "Design Book Review":
+                issue = related_item.get("part", {}).get("detail", {}).get("number")
+                if issue:
+                    # there are some double issues with numbers like 37/38
+                    issue = int(issue[:2])
+                    if issue < 19:
+                        return "Design Book Review"
+                    elif issue < 36:
+                        return "MIT Press"
+                    elif issue < 39:
+                        return "Design Book Review"
+                    else:
+                        return "California College of the Arts"
 
         # 2) CCA/C archives has publisher info mods/originInfo/publisher
         # https://vault.cca.edu/items/c4583fe6-2e85-4613-a1bc-774824b3e826/1/%3CXML%3E
-        oipub = (
+        publisher = (
             self.xml.get("mods", {}).get("originInfo", {}).get("publisher", "")
         ).strip()
-        if oipub:
-            publisher = oipub
+        if publisher:
+            return publisher
 
         # 3) Press Clips items are not CCA but have only publication, not publisher, info
         # 4) Student work has no publisher
-        return publisher
+        return ""
 
     @property
     def type(self) -> dict[str, str]:

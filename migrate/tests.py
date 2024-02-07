@@ -529,6 +529,31 @@ def test_type(input, expect):
             x("<mods></mods>"),
             "",
         ),
+        # various DBR publishers depending on issue
+        (
+            x(
+                "<mods><relatedItem type='host'><titleInfo><title>Design Book Review</title></titleInfo><part><detail type='number'><number>12</number></detail></part></relatedItem></mods>"
+            ),
+            "Design Book Review",
+        ),
+        (
+            x(
+                "<mods><relatedItem type='host'><titleInfo><title>Design Book Review</title></titleInfo><part><detail type='number'><number>29/30</number></detail></part></relatedItem></mods>"
+            ),
+            "MIT Press",
+        ),
+        (
+            x(
+                "<mods><relatedItem type='host'><titleInfo><title>Design Book Review</title></titleInfo><part><detail type='number'><number>37/38</number></detail></part></relatedItem></mods>"
+            ),
+            "Design Book Review",
+        ),
+        (
+            x(
+                "<mods><relatedItem type='host'><titleInfo><title>Design Book Review</title></titleInfo><part><detail type='number'><number>43</number></detail></part></relatedItem></mods>"
+            ),
+            "California College of the Arts",
+        ),
     ],
 )
 def test_publisher(input, expect):
