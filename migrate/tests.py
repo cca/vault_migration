@@ -464,7 +464,25 @@ def test_publication_date(input, expect):
                     "description": "date captured",
                 }
             ],
-        )
+        ),
+        (  # dateOther with no type
+            x(
+                "<mods><origininfo><dateOtherWrapper><dateOther>2009</dateOther></dateOtherWrapper></origininfo></mods>"
+            ),
+            [{"date": "2009", "type": {"id": "other"}}],
+        ),
+        (  # dateOther with type
+            x(
+                "<mods><origininfo><dateOtherWrapper><dateOther type='Exhibit'>2017</dateOther></dateOtherWrapper></origininfo></mods>"
+            ),
+            [{"date": "2017", "type": {"id": "other"}, "description": "Exhibit"}],
+        ),
+        (  # dateOther with attributes but no text
+            x(
+                "<mods><origininfo><dateOtherWrapper><dateOther encoding='w3cdtf' type='Agreement'></dateOther></dateOtherWrapper></origininfo></mods>"
+            ),
+            [],
+        ),
     ],
 )
 def test_dates(input, expect):

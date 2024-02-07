@@ -4,6 +4,7 @@ Convert an EQUELLA item into an Invenio record.
 Eventually this will accept a _directory_ containing the item's JSON and its
 attachments, but for staters we are taking just JSON.
 """
+
 from datetime import date
 import json
 import mimetypes
@@ -251,7 +252,6 @@ class Record:
                     }
                 )
 
-        # TODO origininfo/dateOtherWrapper
         # we always have exactly one dateOtherWrapper and 0-1 dateOther, praise be
         date_other = (
             self.xml.get("mods", {})
@@ -285,7 +285,7 @@ class Record:
         #     Winter 1991 - Winter/Spring 1995: MIT Press
         #     Winter 1996/1997: Design Book Review
         #     1997 - on: California College of the Arts
-        # 2) CCA/C archives is published by CCA
+        # 2) CCA/C archives has publisher info mods/originInfo/publisher
         # 3) Press Clips will have different publishing organizations
         # 4) Student work has no publisher
         return ""
