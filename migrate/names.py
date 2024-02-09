@@ -2,6 +2,7 @@ import re
 
 import spacy
 
+# TODO add env var to skip loading spacy model when not needed (for faster testing)
 nlp = spacy.load("en_core_web_lg")
 nlp.select_pipes(enable=["ner"])
 

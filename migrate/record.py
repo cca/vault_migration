@@ -425,11 +425,8 @@ class Record:
                 "title": self.title,
             },
             # https://inveniordm.docs.cern.ch/reference/metadata/#parent
-            # ? Does adding a parent community while creating the draft work or do
-            # ? we have to use additional API calls afterwards?
-            # ? Can we specifiy parent.access.owned_by here to set the owner?
-            # collection, mods/relatedItem?
-            "parent": {"communities": {}},
+            # API ignores this, cannot define owner nor community in initial request
+            # "parent": {},
         }
 
 
