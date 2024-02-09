@@ -559,3 +559,46 @@ def test_type(input, expect):
 def test_publisher(input, expect):
     r = Record(input)
     assert m(r)["publisher"] == expect
+
+
+# Rights
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        (  # accessCondition program rights
+            x(
+                "<mods><accessCondition type='use and reproduction'>For rights relating to this resource, please contact the CCA First Year Office.</accessCondition></mods>"
+            ),
+            "copyright",
+        ),
+        (  # accessCondition CC text
+            x("<mods><accessCondition>CC BY 4.0</accessCondition></mods>"),
+            "cc-by-4.0",
+        ),
+        (  # accessCondition with © href
+            x(
+                "<mods><accessCondition href='http://rightsstatements.org/vocab/InC/1.0/'>does not matter what we put here</accessCondition></mods>"
+            ),
+            "copyright",
+        ),
+        (  # accessCondition with CC href
+            x(
+                "<mods><accessCondition href='https://creativecommons.org/licenses/by-nc/4.0/'>CCA Libraries blah blah blah</accessCondition></mods>"
+            ),
+            "cc-by-nc-4.0",
+        ),
+        (  # accessCondition with CC text but no href
+            x(
+                "<mods><accessCondition>This content is licensed CC-BY-NC per the terms at https://creativecommons.org/licenses/by-nc/4.0/ . You may not use the material for commercial purposes without permission and must give appropriate credit. Contact the CCA Libraries with questions about licensing or attribution.</accessCondition></mods>"
+            ),
+            "cc-by-nc-4.0",
+        ),
+        (  # no accessCondition
+            x("<mods></mods>"),
+            "copyright",
+        ),
+    ],
+)
+def test_rights(input, expect):
+    r = Record(input)
+    assert m(r)["rights"][0]["id"] == expect  # we only use one rights element

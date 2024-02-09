@@ -26,7 +26,7 @@
         DATECAPT["origininfo/dateCaptured"] -->|"date.type = collected"| DATES["Dates (0-n)"]
         DATEOTHER["origininfo/dateOtherWrapper/dateOther"] -->|"date.type = other"| DATES
         %% CONTRIBUTORS["Contributors (0-n)"]
-        %% RIGHTS["Rights (Licenses) (0-n)"]
+        ACCESSCONDITION["mods/accessCondition"] -->|default to copyright if no license| RIGHTS["Rights (Licenses) (0-n)"]
         %% SUBJECTS["Subjects (0-n)"]
         OIPUB["originInfo/publisher"] --> PUBLISHER["Publisher (0-1)"]
         DBR["relatedItem/title = Design Book Review"] --> |different depending on date| PUBLISHER
