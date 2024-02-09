@@ -406,11 +406,16 @@ class Record:
                 "additional_descriptions": self.descriptions,
                 "additional_titles": self.addl_titles,
                 # mods/name/namePart, non-creator contributors
+                # https://inveniordm.docs.cern.ch/reference/metadata/#contributors-0-n
+                # "persons or organisations that have contributed, but which should not be credited for citation purposes"
+                # ? is this ever relevant for us?
                 "contributors": [],
                 "creators": self.creators,
                 "dates": self.dates,
                 "description": self.abstracts[0],
                 "formats": self.formats,
+                # https://inveniordm.docs.cern.ch/reference/metadata/#locations-0-n
+                # ? as with sizes, not on deposit form, does this display anywhere?
                 "locations": [],
                 "publication_date": self.publication_date,
                 "publisher": self.publisher,
@@ -425,6 +430,7 @@ class Record:
                 # https://inveniordm.docs.cern.ch/reference/metadata/#rights-licenses-0-n
                 # options defined in licenses.csv fixture
                 "rights": self.rights,
+                # ? not on deposit form, does this display anywhere?
                 "sizes": self.sizes,
                 "subjects": [],
                 "title": self.title,
