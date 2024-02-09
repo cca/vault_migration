@@ -8,8 +8,10 @@ Tools, ideas, and data.
 poetry install # get dependencies
 poetry shell # enter venv
 python -m spacy download en_core_web_lg # download spacy model for Named Entity Recognition
-pytest -v tests.py # run tests
+pytest -v migrate/tests.py # run tests
 ```
+
+The migrate/record.py file is a class for Invenio records. On the command line, you can pass it JSON EQUELLA item(s) and it will return a JSON Invenio record(s). The migrate/api.py file will create Invenio records from EQUELLA items and attempt to POST them to a local Invenio instance. It requires an `INVENIO_TOKEN` or `TOKEN` environment variable. To create a token: sign in as an admin and go to Applications > Personal access tokens.
 
 ## Vocabularies
 

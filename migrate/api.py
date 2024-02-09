@@ -1,3 +1,5 @@
+# see https://github.com/inveniosoftware/docs-invenio-rdm-restapi-example
+# and https://inveniordm.docs.cern.ch/reference/rest_api_index/
 import os
 import sys
 import urllib3
@@ -9,7 +11,7 @@ from utils import find_items
 
 # shut up urllib3 SSL verification warning
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-token = os.environ.get("TOKEN", False) or os.environ.get("INVENIO_TOKEN", False)
+token = os.environ.get("INVENIO_TOKEN") or os.environ.get("TOKEN")
 if not token:
     raise Exception(
         "Error: provide a personal access token in the TOKEN or INVENIO_TOKEN env var"
@@ -19,7 +21,7 @@ if not token:
 def post(r: Record):
     headers = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer {}".format(token),
+        "Authorization": f"Bearer {token}",
     }
     # create metadata-only draft
     draft_response = requests.post(
@@ -29,6 +31,8 @@ def post(r: Record):
         headers=headers,
     )
     print("HTTP {}".format(draft_response.status_code))
+    if draft_response.status_code > 201:
+        print(draft_response.text)
     draft_response.raise_for_status()
     draft_record = draft_response.json()
     print(draft_record["links"]["self"])
@@ -39,9 +43,14 @@ def post(r: Record):
         verify=False,
     )
     print("HTTP {}".format(publish_response.status_code))
+    if publish_response.status_code > 201:
+        print(publish_response.text)
     publish_response.raise_for_status()
     published_record = publish_response.json()
     print(published_record["links"]["self"])
+
+    # you can use /api/records/<id>/communities
+    # see https://github.com/inveniosoftware/invenio-rdm-records/blob/master/tests/resources/test_resources_communities.py#L32
     return published_record
 
 
