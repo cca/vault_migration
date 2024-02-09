@@ -308,11 +308,12 @@ class Record:
 
         # 2) CCA/C archives has publisher info mods/originInfo/publisher
         # https://vault.cca.edu/items/c4583fe6-2e85-4613-a1bc-774824b3e826/1/%3CXML%3E
-        publisher = (
-            self.xml.get("mods", {}).get("originInfo", {}).get("publisher", "")
-        ).strip()
-        if publisher:
-            return publisher
+        # records have multiple originInfo nodes
+        originInfos = mklist(self.xml.get("mods", {}).get("originInfo"))
+        for originInfo in originInfos:
+            publisher: str = originInfo.get("publisher", "").strip()
+            if publisher:
+                return publisher
 
         # 3) Press Clips items are not CCA but have only publication, not publisher, info
         # 4) Student work has no publisher
@@ -344,6 +345,7 @@ class Record:
 
     @property
     def rights(self) -> List[dict[str, str | dict[str, str]]]:
+        # TODO add maps to maps.py
         # https://inveniordm.docs.cern.ch/reference/metadata/#rights-licenses-0-n
         # ! returned id values MUST be IDs from licenses.csv in cca/cca_invenio
         # CCA/C Archives uses CC-BY-NC4.0 in mods/accessCondition

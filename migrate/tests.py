@@ -525,6 +525,12 @@ def test_type(input, expect):
             x("<mods><originInfo><publisher>foo</publisher></originInfo></mods>"),
             "foo",
         ),
+        (  # multiple originInfo nodes
+            x(
+                "<mods><originInfo><dateType>dateCreated</dateType></originInfo><originInfo><publisher>foo</publisher></originInfo></mods>"
+            ),
+            "foo",
+        ),
         (  # no publisher
             x("<mods></mods>"),
             "",
