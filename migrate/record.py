@@ -22,6 +22,9 @@ from utils import find_items, mklist, to_edtf
 def postprocessor(path, key, value):
     """XML postprocessor, ensure that empty XML nodes like <foo></foo> are empty
     dicts, not None, so we can continue chaining .get() calls on the result."""
+    # ? is this actually helpful? It's creating problems in places like with
+    # ? publisher <originInfo><publisher/></originInfo> b/c publisher would
+    # ? otherwise always be a string but now is a dict or str
     if value is None:
         return (key, {})
     return (key, value)
@@ -311,9 +314,11 @@ class Record:
         # records have multiple originInfo nodes
         originInfos = mklist(self.xml.get("mods", {}).get("originInfo"))
         for originInfo in originInfos:
-            publisher: str = originInfo.get("publisher", "").strip()
+            publisher = originInfo.get("publisher")
+            if type(publisher) == dict:
+                publisher = publisher.get("#text")
             if publisher:
-                return publisher
+                return publisher.strip()
 
         # 3) Press Clips items are not CCA but have only publication, not publisher, info
         # 4) Student work has no publisher

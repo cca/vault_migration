@@ -525,9 +525,9 @@ def test_type(input, expect):
             x("<mods><originInfo><publisher>foo</publisher></originInfo></mods>"),
             "foo",
         ),
-        (  # multiple originInfo nodes
+        (  # multiple originInfo nodes, empty publisher node used to cause an error
             x(
-                "<mods><originInfo><dateType>dateCreated</dateType></originInfo><originInfo><publisher>foo</publisher></originInfo></mods>"
+                "<mods><originInfo><publisher/></originInfo><originInfo><publisher>foo</publisher></originInfo></mods>"
             ),
             "foo",
         ),
