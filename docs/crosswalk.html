@@ -31,7 +31,7 @@
         OIPUB["originInfo/publisher"] --> PUBLISHER["Publisher (0-1)"]
         DBR["relatedItem/title = Design Book Review"] --> |different depending on date| PUBLISHER
         %% REL["Related Identifiers/Works (0-n)"]
-        %% EXTENT --> SIZES["Sizes (0-n)"]
+        EXTENT["physicalDescription/extent"] --> SIZES["Sizes (0-n)"]
         %% LOCATIONS["Locations. We only have place names, no IDs. (0-n)"]
         ID[identifier] -->|@type = DOI in Faculty Research collection| ALTID["Alternate Identifiers (0-n)"]
     </pre>

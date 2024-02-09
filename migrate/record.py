@@ -373,6 +373,21 @@ class Record:
         # default to copyright
         return [{"id": "copyright"}]
 
+    @property
+    def sizes(self) -> list[str]:
+        # mods/physicalDescription/extent
+        # https://inveniordm.docs.cern.ch/reference/metadata/#sizes-0-n
+        extents = []
+
+        extent = self.xml.get("mods", {}).get("physicalDescription", {}).get("extent")
+        if type(extent) == dict:
+            extent = extent.get("#text")
+        if extent:
+            extents.append(extent)
+
+        # TODO there will be /local extent values in student work items
+        return extents
+
     def get(self) -> dict[str, Any]:
         return {
             # TODO restricted access based on local/viewLevel value
@@ -410,7 +425,7 @@ class Record:
                 # https://inveniordm.docs.cern.ch/reference/metadata/#rights-licenses-0-n
                 # options defined in licenses.csv fixture
                 "rights": self.rights,
-                "sizes": [],
+                "sizes": self.sizes,
                 "subjects": [],
                 "title": self.title,
             },

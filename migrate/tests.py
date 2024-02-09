@@ -608,3 +608,25 @@ def test_publisher(input, expect):
 def test_rights(input, expect):
     r = Record(input)
     assert m(r)["rights"][0]["id"] == expect  # we only use one rights element
+
+
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        (  # physical description but no extent
+            x(
+                "<mods><physicalDescription><formBroad>document</formBroad></physicalDescription></mods>"
+            ),
+            [],
+        ),
+        (  # one extent
+            x(
+                "<mods><physicalDescription><extent>58 unnumbered leaves, bound ; 12 in.</extent></physicalDescription></mods>"
+            ),
+            ["58 unnumbered leaves, bound ; 12 in."],
+        ),
+    ],
+)
+def test_sizes(input, expect):
+    r = Record(input)
+    assert sorted(m(r)["sizes"]) == expect
