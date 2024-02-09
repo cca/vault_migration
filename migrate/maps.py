@@ -1,4 +1,21 @@
-# Maps: simple dict maps of values from MODS metadata to InvenioRDM
+######################################################
+# Maps                                               #
+# simple dict maps from MODS metadata to InvenioRDM  #
+######################################################
+
+# CCA/C Archives uses CC-BY-NC4.0 in mods/accessCondition
+# There are a few other CC licenses used
+license_href_map: dict[str, str] = {
+    "http://rightsstatements.org/vocab/InC/1.0/": "copyright",
+    "https://creativecommons.org/licenses/by-nc/4.0/": "cc-by-nc-4.0",
+}
+
+license_text_map: dict[str, str] = {
+    "CC BY 4.0": "cc-by-4.0",
+    "CC BY-NC-ND 4.0": "cc-by-nc-nd-4.0",
+    "CC BY-NC-SA 4.0": "cc-by-nc-sa-4.0",
+    "https://creativecommons.org/licenses/by-nc/4.0/": "cc-by-nc-4.0",
+}
 
 # mods typeOfResource => our Invenio resource types
 # Our subset of the full list of Invenio resource types: bachelors-thesis, publication, event, image, publication-article, masters-thesis, other, video (Video/Audio)

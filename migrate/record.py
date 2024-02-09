@@ -15,7 +15,7 @@ from typing import Any, List
 import xmltodict
 
 from names import parse_name
-from maps import resource_type_map, role_map
+from maps import *
 from utils import find_items, mklist, to_edtf
 
 
@@ -350,21 +350,8 @@ class Record:
 
     @property
     def rights(self) -> List[dict[str, str | dict[str, str]]]:
-        # TODO add maps to maps.py
         # https://inveniordm.docs.cern.ch/reference/metadata/#rights-licenses-0-n
         # ! returned id values MUST be IDs from licenses.csv in cca/cca_invenio
-        # CCA/C Archives uses CC-BY-NC4.0 in mods/accessCondition
-        # There are a few other CC licenses used
-        license_href_map: dict[str, str] = {
-            "http://rightsstatements.org/vocab/InC/1.0/": "copyright",
-            "https://creativecommons.org/licenses/by-nc/4.0/": "cc-by-nc-4.0",
-        }
-        license_text_map: dict[str, str] = {
-            "CC BY 4.0": "cc-by-4.0",
-            "CC BY-NC-ND 4.0": "cc-by-nc-nd-4.0",
-            "CC BY-NC-SA 4.0": "cc-by-nc-sa-4.0",
-            "https://creativecommons.org/licenses/by-nc/4.0/": "cc-by-nc-4.0",
-        }
         # We always have exactly one accessCondition node, str or dict
         accessCondition = self.xml.get("mods", {}).get("accessCondition", "")
         if type(accessCondition) == dict:
