@@ -225,7 +225,10 @@ class Record:
         # MODS note types: https://www.loc.gov/standards/mods/mods-notes.html
         # Mudflats has only handwritten & identification notes
         # All our note values: acquisition, action, additional artists, additional performers, additional physical form, depicted persons, exhibitions, funding, handwritten, identification, local, medium, original location, publications, source identifier, venue, version, version identification
-        notes = mklist(self.xml.get("mods", {}).get("noteWrapper", {}).get("note"))
+        noteWrappers = mklist(self.xml.get("mods", {}).get("noteWrapper", []))
+        notes = []
+        for wrapper in noteWrappers:
+            notes = notes + mklist(wrapper.get("note", []))
         for note in notes:
             if type(note) == str and note:
                 desc.append({"type": "other", "description": note})
