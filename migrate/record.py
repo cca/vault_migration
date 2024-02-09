@@ -232,7 +232,7 @@ class Record:
             elif type(note) == dict:
                 note = note.get("#text")
                 if note:
-                    desc.append({"type": "other", "description": note.get("#text")})
+                    desc.append({"type": "other", "description": note.strip()})
 
         return desc
 
