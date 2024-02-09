@@ -48,42 +48,6 @@ class Record:
         return abs
 
     @property
-    def descriptions(self) -> list[dict[str, Any]]:
-        # extra /mods/abstract entries, mods/noteWrapper/note
-        # https://inveniordm.docs.cern.ch/reference/metadata/#additional-descriptions-0-n
-        # https://127.0.0.1:5000/api/vocabularies/descriptiontypes
-        # types: abstract, methods, series-information, table-of-contents, technical-info, other
-
-        desc = []
-        if len(self.abstracts) > 1:
-            desc.extend(
-                [{"type": "abstract", "description": a} for a in self.abstracts[1:]]
-            )
-
-        # MODS note types: https://www.loc.gov/standards/mods/mods-notes.html
-        # Mudflats has only handwritten & identification notes
-        # All our note values: acquisition, action, additional artists, additional performers, additional physical form, depicted persons, exhibitions, funding, handwritten, identification, local, medium, original location, publications, source identifier, venue, version, version identification
-        notes = mklist(self.xml.get("mods", {}).get("noteWrapper", {}).get("note"))
-        for note in notes:
-            if type(note) == str and note:
-                desc.append({"type": "other", "description": note})
-            elif type(note) == dict:
-                note = note.get("#text")
-                if note:
-                    desc.append({"type": "other", "description": note.get("#text")})
-
-        return desc
-
-    @property
-    def formats(self) -> list[str]:
-        formats = set()
-        for file in self.files:
-            type = mimetypes.guess_type(file["filename"], strict=False)[0]
-            if type:
-                formats.add(type)
-        return list(formats)
-
-    @property
     def addl_titles(self) -> list[dict[str, str]]:
         # extra /mods/titleInfo/title entries, titleInfo/subtitle
         # https://inveniordm.docs.cern.ch/reference/metadata/#additional-titles-0-n
@@ -195,42 +159,6 @@ class Record:
         return creators
 
     @property
-    def publication_date(self):
-        # date created, add other/additional dates to self.dates[]
-        # level 0 EDTF date (YYYY,  YYYY-MM, YYYY-MM-DD or slash separated range between 2 of these)
-        # https://inveniordm.docs.cern.ch/reference/metadata/#publication-date-1
-        # mods/originfo/dateCreatedWrapper/dateCreated (note lowercase origininfo) or item.createdDate
-        origininfosx = mklist(self.xml.get("mods", {}).get("origininfo", {}))
-        for origininfox in origininfosx:
-            # use dateCreatedWrapper/dateCreated if we have it
-            dateCreatedWrappersx = mklist(origininfox.get("dateCreatedWrapper"))
-            for wrapper in dateCreatedWrappersx:
-                dateCreatedsx = mklist(wrapper.get("dateCreated"))
-                for dateCreated in dateCreatedsx:
-                    # work around empty str or dict
-                    if dateCreated:
-                        # ! if a date isn't parseable then this will return None
-                        if type(dateCreated) == str:
-                            return to_edtf(dateCreated)
-                        elif type(dateCreated) == dict:
-                            return to_edtf(dateCreated.get("#text"))
-
-                # maybe we have a range with pointStart and pointEnd elements?
-                start = wrapper.get("pointStart")
-                end = wrapper.get("pointEnd")
-                if start and end:
-                    # edtf.text_to_edtf(f"{start}/{end}") returns None for valid dates so we do this
-                    return f"{to_edtf(start)}/{to_edtf(end)}"
-
-            # maybe we have mods/origininfo/semesterCreated, which is always a string (no children)
-            semesterCreated = origininfox.get("semesterCreated")
-            if semesterCreated:
-                return to_edtf(semesterCreated)
-
-        # fall back on when the VAULT record was made (item.createdDate)
-        return to_edtf(self.dateCreated)
-
-    @property
     def dates(self) -> list[dict[str, Any]]:
         dates = []
         # https://inveniordm.docs.cern.ch/reference/metadata/#dates-0-n
@@ -282,6 +210,78 @@ class Record:
         return dates
 
     @property
+    def descriptions(self) -> list[dict[str, Any]]:
+        # extra /mods/abstract entries, mods/noteWrapper/note
+        # https://inveniordm.docs.cern.ch/reference/metadata/#additional-descriptions-0-n
+        # https://127.0.0.1:5000/api/vocabularies/descriptiontypes
+        # types: abstract, methods, series-information, table-of-contents, technical-info, other
+
+        desc = []
+        if len(self.abstracts) > 1:
+            desc.extend(
+                [{"type": "abstract", "description": a} for a in self.abstracts[1:]]
+            )
+
+        # MODS note types: https://www.loc.gov/standards/mods/mods-notes.html
+        # Mudflats has only handwritten & identification notes
+        # All our note values: acquisition, action, additional artists, additional performers, additional physical form, depicted persons, exhibitions, funding, handwritten, identification, local, medium, original location, publications, source identifier, venue, version, version identification
+        notes = mklist(self.xml.get("mods", {}).get("noteWrapper", {}).get("note"))
+        for note in notes:
+            if type(note) == str and note:
+                desc.append({"type": "other", "description": note})
+            elif type(note) == dict:
+                note = note.get("#text")
+                if note:
+                    desc.append({"type": "other", "description": note.get("#text")})
+
+        return desc
+
+    @property
+    def formats(self) -> list[str]:
+        formats = set()
+        for file in self.files:
+            type = mimetypes.guess_type(file["filename"], strict=False)[0]
+            if type:
+                formats.add(type)
+        return list(formats)
+
+    @property
+    def publication_date(self):
+        # date created, add other/additional dates to self.dates[]
+        # level 0 EDTF date (YYYY,  YYYY-MM, YYYY-MM-DD or slash separated range between 2 of these)
+        # https://inveniordm.docs.cern.ch/reference/metadata/#publication-date-1
+        # mods/originfo/dateCreatedWrapper/dateCreated (note lowercase origininfo) or item.createdDate
+        origininfosx = mklist(self.xml.get("mods", {}).get("origininfo", {}))
+        for origininfox in origininfosx:
+            # use dateCreatedWrapper/dateCreated if we have it
+            dateCreatedWrappersx = mklist(origininfox.get("dateCreatedWrapper"))
+            for wrapper in dateCreatedWrappersx:
+                dateCreatedsx = mklist(wrapper.get("dateCreated"))
+                for dateCreated in dateCreatedsx:
+                    # work around empty str or dict
+                    if dateCreated:
+                        # ! if a date isn't parseable then this will return None
+                        if type(dateCreated) == str:
+                            return to_edtf(dateCreated)
+                        elif type(dateCreated) == dict:
+                            return to_edtf(dateCreated.get("#text"))
+
+                # maybe we have a range with pointStart and pointEnd elements?
+                start = wrapper.get("pointStart")
+                end = wrapper.get("pointEnd")
+                if start and end:
+                    # edtf.text_to_edtf(f"{start}/{end}") returns None for valid dates so we do this
+                    return f"{to_edtf(start)}/{to_edtf(end)}"
+
+            # maybe we have mods/origininfo/semesterCreated, which is always a string (no children)
+            semesterCreated = origininfox.get("semesterCreated")
+            if semesterCreated:
+                return to_edtf(semesterCreated)
+
+        # fall back on when the VAULT record was made (item.createdDate)
+        return to_edtf(self.dateCreated)
+
+    @property
     def publisher(self) -> str:
         # https://inveniordm.docs.cern.ch/reference/metadata/#publisher-0-1
 
@@ -325,7 +325,7 @@ class Record:
         return ""
 
     @property
-    def type(self) -> dict[str, str]:
+    def resource_type(self) -> dict[str, str]:
         # https://127.0.0.1:5000/api/vocabularies/resourcetypes
         # There are many fields that could be used to determine the resource type. Priority:
         # 1. mods/typeOfResource, 2. local/courseWorkType, 3. TBD (there are more...)
@@ -414,7 +414,7 @@ class Record:
                 "related_identifiers": [],
                 # options defined in resource_types.yaml fixture
                 # https://inveniordm.docs.cern.ch/reference/metadata/#resource-type-1
-                "resource_type": self.type,
+                "resource_type": self.resource_type,
                 # mods/accessCondition with license URL in href attribute
                 # https://127.0.0.1:5000/api/vocabularies/licenses
                 # https://inveniordm.docs.cern.ch/reference/metadata/#rights-licenses-0-n
