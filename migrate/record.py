@@ -287,6 +287,10 @@ class Record:
     @property
     def publisher(self) -> str:
         # https://inveniordm.docs.cern.ch/reference/metadata/#publisher-0-1
+        # ! In DataCite 4.5 the publisher field supports identifiers
+        # https://datacite.org/blog/introducing-datacite-metadata-schema-4-5/#:~:text=text%20resourceType%20field.-,Identifiers%20for%20Publishers,-The%20DataCite%20Metadata
+        # Invenio will probably need to change it to a { id, name } dict & we
+        # can use CCA's ROR ID but no idea how long that will take to happen
 
         # 1) DBR articles have a variable publisher depending on date:
         #     Winter 1983 - Spring 1990: Design Book Review
