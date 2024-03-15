@@ -419,8 +419,8 @@ class Record:
                 "description": self.abstracts[0],
                 "formats": self.formats,
                 # https://inveniordm.docs.cern.ch/reference/metadata/#locations-0-n
-                # ? as with sizes, not on deposit form, does this display anywhere?
-                "locations": [],
+                # not available on deposit form and does not display anywhere, skip for now
+                "locations": { "features": [], },
                 "publication_date": self.publication_date,
                 "publisher": self.publisher,
                 # relation types: cites, compiles, continues, describes, documents, haspart, hasversion, iscitedby, iscompiledby, iscontinuedby, isderivedfrom, isdescribedby, isdocumentedby, isidenticalto, isnewversionof, isobsoletedby, isoriginalformof, ispartof, ispreviousversionof, isreferencedby, isrequiredby, isreviewedby, issourceof, issupplementto, issupplementedby
@@ -434,7 +434,7 @@ class Record:
                 # https://inveniordm.docs.cern.ch/reference/metadata/#rights-licenses-0-n
                 # options defined in licenses.csv fixture
                 "rights": self.rights,
-                # ? not on deposit form, does this display anywhere?
+                # not on deposit form but displays in right-side Details under resource type and formats
                 "sizes": self.sizes,
                 "subjects": [],
                 "title": self.title,
