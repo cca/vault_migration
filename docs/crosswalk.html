@@ -30,7 +30,6 @@
         %% SUBJECTS["Subjects (0-n)"]
         OIPUB["originInfo/publisher"] --> PUBLISHER["Publisher (0-1)"]
         DBR["relatedItem/title = Design Book Review"] --> |different depending on date| PUBLISHER
-        %% REL["Related Identifiers/Works (0-n)"]
         EXTENT["physicalDescription/extent"] --> SIZES["Sizes (0-n)"]
         %% We don't have structured location information & it does not display in Invenio, skip
         %% LOCATIONS["Locations. We only have place names, no IDs or coordinates. (0-n)"]
@@ -54,8 +53,7 @@
         ---
         flowchart LR
         NAME["item.name"] --> |Use 'Untitled' if absent| TITLE["Title (1)"]
-        UUID["item.uuid"] -->|TODO may need a custom scheme for this identifier| ALTID["Alternate Identifiers (0-n)"]
-        VERSION["item.version"] -. TODO We're not using item version .->IVERSION("Version (0-1).")
+        VAULTID["item.uuid + item.version"] -->|"'is new version of' VAULT URL"| REL["Related Identifiers/Works (0-n)"]
         OWNER["item.owner.id"] -->|TODO map CCA username to Invenio numeric ID| PARENT["parent.owned_by.id"]
         DATECREATED["item.dateCreated"] -->|Use item creation timestamp if no date in MODS| PUBDATE["Publication Date (1)"]
         MIME[item.attachments] -->|guess MIME type from filename| FORMATS["Formats (0-n)"]

@@ -567,6 +567,34 @@ def test_publisher(input, expect):
     assert m(r)["publisher"] == expect
 
 
+# Related Identifiers
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        (   # no VAULT item information, no related identifiers
+            x("<mods/>"),
+            [],
+        ),
+        (
+            {"uuid": "ec839536-06f9-4fd2-8a80-42ee8a5cf891", "version": 1, "metadata": "<xml></xml>"},
+            [
+                {
+                    "identifier": "https://vault.cca.edu/items/ec839536-06f9-4fd2-8a80-42ee8a5cf891/1/",
+                    "relation_type": {
+                    "id": "isnewversionof",
+                    "title": {
+                        "en": "Is new version of"
+                    }
+                    },
+                    "scheme": "url"
+                }
+            ]
+        )
+    ])
+def test_related_identifiers(input, expect):
+    r = Record(input)
+    assert m(r)["related_identifiers"] == expect
+
 # Rights
 @pytest.mark.parametrize(
     "input, expect",

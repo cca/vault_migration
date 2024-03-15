@@ -339,6 +339,8 @@ class Record:
     def related_identifiers(self) -> list[dict[str, str|dict[str, str]]]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#related-identifiersworks-0-n
         # # relation types: cites, compiles, continues, describes, documents, haspart, hasversion, iscitedby, iscompiledby, iscontinuedby, isderivedfrom, isdescribedby, isdocumentedby, isidenticalto, isnewversionof, isobsoletedby, isoriginalformof, ispartof, ispreviousversionof, isreferencedby, isrequiredby, isreviewedby, issourceof, issupplementto, issupplementedby
+        # related_identifiers don't seem to be indexed in the search engine, searches like
+        # _exists_:metadata.related_identifiers returns items but metadata.related_identifiers:($URL) does not
         ri = []
         if self.vault_url:
             # add a URL identifier for the old VAULT item
