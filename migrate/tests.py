@@ -595,6 +595,7 @@ def test_related_identifiers(input, expect):
     r = Record(input)
     assert m(r)["related_identifiers"] == expect
 
+
 # Rights
 @pytest.mark.parametrize(
     "input, expect",

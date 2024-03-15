@@ -352,6 +352,9 @@ class Record:
                 },
                 "scheme": "url",
             })
+        # TODO there are probably other relations we can add, like mods/relatedItem|relateditem
+        # but if a VAULT item is related to another VAULT item, we need to know both their new
+        # IDs in Invenio to create the relation
         return ri
 
 
