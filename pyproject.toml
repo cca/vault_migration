@@ -1,13 +1,14 @@
 [tool.poetry]
 name = "vault-migration"
 version = "0.1.0"
+package-mode = false
 description = "tools, data, & ideas for EQUELLA -> Invenio migration"
 authors = ["phette23 <phette23@gmail.com>"]
 license = "ECL-2.0"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.7,<3.12"
+python = ">=3.7,<3.13"
 PyYAML = "^6.0.1"
 requests = "^2.31.0"
 xmltodict = "^0.13.0"
