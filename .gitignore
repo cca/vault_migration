@@ -6,3 +6,5 @@ vocab/
 .tmp/
 .env
 .python-version
+.tmp.driveupload/
+vm/
