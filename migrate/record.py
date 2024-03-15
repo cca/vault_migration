@@ -37,6 +37,10 @@ class Record:
         self.title = item.get("name", "Untitled")
         # default to current date in ISO 8601 format
         self.dateCreated = item.get("dateCreated", date.today().isoformat())
+        if item.get("uuid") and item.get("version"):
+            self.vault_url = f"https://vault.cca.edu/items/{item['uuid']}/{item['version']}/"
+        else:
+            self.vault_url = None
 
     @property
     def abstracts(self) -> list:
@@ -332,6 +336,24 @@ class Record:
         return ""
 
     @property
+    def related_identifiers(self) -> list[dict[str, str|dict[str, str]]]:
+        # https://inveniordm.docs.cern.ch/reference/metadata/#related-identifiersworks-0-n
+        # # relation types: cites, compiles, continues, describes, documents, haspart, hasversion, iscitedby, iscompiledby, iscontinuedby, isderivedfrom, isdescribedby, isdocumentedby, isidenticalto, isnewversionof, isobsoletedby, isoriginalformof, ispartof, ispreviousversionof, isreferencedby, isrequiredby, isreviewedby, issourceof, issupplementto, issupplementedby
+        ri = []
+        if self.vault_url:
+            # add a URL identifier for the old VAULT item
+            ri.append({
+                "identifier": self.vault_url,
+                "relation_type": {
+                    "id": "isnewversionof",
+                    "title": { "en": "Is new version of" },
+                },
+                "scheme": "url",
+            })
+        return ri
+
+
+    @property
     def resource_type(self) -> dict[str, str]:
         # https://127.0.0.1:5000/api/vocabularies/resourcetypes
         # There are many fields that could be used to determine the resource type. Priority:
@@ -423,9 +445,7 @@ class Record:
                 "locations": { "features": [], },
                 "publication_date": self.publication_date,
                 "publisher": self.publisher,
-                # relation types: cites, compiles, continues, describes, documents, haspart, hasversion, iscitedby, iscompiledby, iscontinuedby, isderivedfrom, isdescribedby, isdocumentedby, isidenticalto, isnewversionof, isobsoletedby, isoriginalformof, ispartof, ispreviousversionof, isreferencedby, isrequiredby, isreviewedby, issourceof, issupplementto, issupplementedby
-                # ? use old VAULT item URL here? Might be useful for redirects somehow
-                "related_identifiers": [],
+                "related_identifiers": self.related_identifiers,
                 # options defined in resource_types.yaml fixture
                 # https://inveniordm.docs.cern.ch/reference/metadata/#resource-type-1
                 "resource_type": self.resource_type,
