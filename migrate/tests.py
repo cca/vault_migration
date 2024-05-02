@@ -1,8 +1,10 @@
 from edtf import text_to_edtf
 import pytest
+import xmltodict
 
 from names import parse_name
 from record import Record
+from subjects import find_subjects, subjects_from_xmldict, Subject, TYPES
 from utils import mklist
 
 
@@ -571,26 +573,29 @@ def test_publisher(input, expect):
 @pytest.mark.parametrize(
     "input, expect",
     [
-        (   # no VAULT item information, no related identifiers
+        (  # no VAULT item information, no related identifiers
             x("<mods/>"),
             [],
         ),
         (
-            {"uuid": "ec839536-06f9-4fd2-8a80-42ee8a5cf891", "version": 1, "metadata": "<xml></xml>"},
+            {
+                "uuid": "ec839536-06f9-4fd2-8a80-42ee8a5cf891",
+                "version": 1,
+                "metadata": "<xml></xml>",
+            },
             [
                 {
                     "identifier": "https://vault.cca.edu/items/ec839536-06f9-4fd2-8a80-42ee8a5cf891/1/",
                     "relation_type": {
-                    "id": "isnewversionof",
-                    "title": {
-                        "en": "Is new version of"
-                    }
+                        "id": "isnewversionof",
+                        "title": {"en": "Is new version of"},
                     },
-                    "scheme": "url"
+                    "scheme": "url",
                 }
-            ]
-        )
-    ])
+            ],
+        ),
+    ],
+)
 def test_related_identifiers(input, expect):
     r = Record(input)
     assert m(r)["related_identifiers"] == expect
@@ -659,3 +664,73 @@ def test_rights(input, expect):
 def test_sizes(input, expect):
     r = Record(input)
     assert sorted(m(r)["sizes"]) == expect
+
+
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        # empty, no subjects
+        ("<subject></subject>", []),
+        ("<subject><name/></subject>", []),
+        ("<mods></mods>", []),
+        # single subject
+        (
+            "<subject><subjectType>topic</subjectType><topic>Trees</topic></subject>",
+            [Subject("Topic", "Trees")],
+        ),
+        (
+            "<subject><subjectType>geographic</subjectType><geographic authority='lcsh'>Berkeley, Calif.</geographic></subject>",
+            [Subject("Geographic", "Berkeley, Calif.", "lcsh")],
+        ),
+        # normalize capitalization
+        (
+            "<subject><subjectType>topic</subjectType><topic>poetry</topic></subject>",
+            [Subject("Topic", "Poetry")],
+        ),
+        # translate topicCona
+        (
+            "<subject><topicCona>performance</topicCona></subject>",
+            [Subject("Topic", "Performance")],
+        ),
+        # genre
+        (
+            "<genreWrapper><genre>creative non-fiction</genre></genreWrapper>",
+            [Subject("Genre", "Creative Non-Fiction")],
+        ),
+        # multiple subjects
+        (
+            "<subject><topic>Art</topic><topic>Design</topic></subject>",
+            [Subject("Topic", "Art"), Subject("Topic", "Design")],
+        ),
+        # multiple genres
+        (
+            "<genreWrapper><genre>creative non-fiction</genre><genre authority='aat'>poetry</genre></genreWrapper>",
+            [
+                Subject("Genre", "Creative Non-Fiction"),
+                Subject("Genre", "Poetry", "aat"),
+            ],
+        ),
+    ],
+)
+def test_subjects_from_xmldict(input, expect):
+    xml = xmltodict.parse(input)
+    subjects = []
+    for s in mklist(xml.get("subject")):
+        for t in TYPES:  # check for every subject type
+            for sub in mklist(s.get(t)):
+                subjects.extend(subjects_from_xmldict(t, sub))
+    for g in mklist(xml.get("genreWrapper", {}).get("genre")):
+        subjects.extend(subjects_from_xmldict("genre", g))
+    assert sorted(subjects) == expect
+
+
+def test_find_subjects():
+    xml = xmltodict.parse(
+        "<xml><mods><subject><topic>Art</topic><topic>Design</topic></subject><genreWrapper><genre>creative non-fiction</genre><genre>poetry</genre></genreWrapper></mods></xml>"
+    )
+    assert sorted(find_subjects(xml)) == [
+        Subject("Genre", "Creative Non-Fiction"),
+        Subject("Genre", "Poetry"),
+        Subject("Topic", "Art"),
+        Subject("Topic", "Design"),
+    ]
