@@ -682,20 +682,15 @@ def test_sizes(input, expect):
             "<subject><subjectType>geographic</subjectType><geographic authority='lcsh'>Berkeley, Calif.</geographic></subject>",
             [Subject("Geographic", "Berkeley, Calif.", "lcsh")],
         ),
-        # normalize capitalization
-        (
-            "<subject><subjectType>topic</subjectType><topic>poetry</topic></subject>",
-            [Subject("Topic", "Poetry")],
-        ),
         # translate topicCona
         (
             "<subject><topicCona>performance</topicCona></subject>",
-            [Subject("Topic", "Performance")],
+            [Subject("Topic", "performance")],
         ),
         # genre
         (
             "<genreWrapper><genre>creative non-fiction</genre></genreWrapper>",
-            [Subject("Genre", "Creative Non-Fiction")],
+            [Subject("Genre", "creative non-fiction")],
         ),
         # multiple subjects
         (
@@ -706,8 +701,8 @@ def test_sizes(input, expect):
         (
             "<genreWrapper><genre>creative non-fiction</genre><genre authority='aat'>poetry</genre></genreWrapper>",
             [
-                Subject("Genre", "Creative Non-Fiction"),
-                Subject("Genre", "Poetry", "aat"),
+                Subject("Genre", "creative non-fiction"),
+                Subject("Genre", "poetry", "aat"),
             ],
         ),
     ],
@@ -730,8 +725,8 @@ def test_subjects_from_xmldict(input, expect):
         (
             "<xml><mods><subject><topic>Art</topic><topic>Design</topic></subject><genreWrapper><genre>creative non-fiction</genre><genre>poetry</genre></genreWrapper></mods></xml>",
             [
-                Subject("Genre", "Creative Non-Fiction"),
-                Subject("Genre", "Poetry"),
+                Subject("Genre", "creative non-fiction"),
+                Subject("Genre", "poetry"),
                 Subject("Topic", "Art"),
                 Subject("Topic", "Design"),
             ],

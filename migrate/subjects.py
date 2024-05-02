@@ -13,7 +13,7 @@ from utils import find_items, mklist
 class Subject:
     def __init__(self, type, value, auth="") -> None:
         self.type = type.title()
-        self.value = value.title()
+        self.value = value
         # auths we use: 'LC', 'LOCAL', 'LC-NACO', 'ULAN', 'LCSH', 'AAT'
         self.authority = auth.upper()
 
