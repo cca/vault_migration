@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # extract subjects from VAULT metadata
 # meant to be run like: python e.py *.json
+import csv
 import sys
 
 import xmltodict
@@ -71,20 +72,21 @@ def subjects_from_xmldict(type: str, tree: dict | str) -> list[Subject]:
 def find_subjects(xml: dict) -> set[Subject]:
     # looks for subjects in mods/subject and mods/genreWrapper/genre
     subjects = set()
-    for s in mklist(xml.get("xml", {}).get("mods", {}).get("subject")):
-        for t in TYPES:  # check for every subject type
-            for sub in mklist(s.get(t)):
-                subjects.update(subjects_from_xmldict(t, sub))
+    mods = xml.get("xml", {}).get("mods", {})
+    for s in mklist(mods.get("subject")):
+        if s:  # empty <subject/> alongside actual ones will be None
+            for t in TYPES:  # check for every subject type
+                for sub in mklist(s.get(t)):
+                    subjects.update(subjects_from_xmldict(t, sub))
 
-    for s in mklist(
-        xml.get("xml", {}).get("mods", {}).get("genreWrapper").get("genre")
-    ):
-        subjects.update(subjects_from_xmldict("genre", s))
+    for wrapper in mklist(mods.get("genreWrapper", {})):
+        for genre in mklist(wrapper.get("genre")):
+            subjects.update(subjects_from_xmldict("genre", genre))
     return subjects
 
 
 if __name__ == "__main__":
-    # CLI usage: python migrate/subjects.py vm/*.json
+    # CLI usage: python migrate/subjects.py vm/json/*.json
     # Prints a list of subjects found in the metadata
     subjects = set()
     for file in sys.argv:
@@ -92,5 +94,6 @@ if __name__ == "__main__":
             xml = xmltodict.parse(item["metadata"])
             subjects.update(find_subjects(xml))
 
+    # print sorted subjects
     for s in sorted(subjects):
         print(s)

@@ -724,13 +724,30 @@ def test_subjects_from_xmldict(input, expect):
     assert sorted(subjects) == expect
 
 
-def test_find_subjects():
-    xml = xmltodict.parse(
-        "<xml><mods><subject><topic>Art</topic><topic>Design</topic></subject><genreWrapper><genre>creative non-fiction</genre><genre>poetry</genre></genreWrapper></mods></xml>"
-    )
-    assert sorted(find_subjects(xml)) == [
-        Subject("Genre", "Creative Non-Fiction"),
-        Subject("Genre", "Poetry"),
-        Subject("Topic", "Art"),
-        Subject("Topic", "Design"),
-    ]
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        (
+            "<xml><mods><subject><topic>Art</topic><topic>Design</topic></subject><genreWrapper><genre>creative non-fiction</genre><genre>poetry</genre></genreWrapper></mods></xml>",
+            [
+                Subject("Genre", "Creative Non-Fiction"),
+                Subject("Genre", "Poetry"),
+                Subject("Topic", "Art"),
+                Subject("Topic", "Design"),
+            ],
+        ),
+        # real subject alongside empty subject tag
+        (
+            "<xml><mods><subject><topic>Art</topic></subject><subject/></mods></xml>",
+            [Subject("Topic", "Art")],
+        ),
+        # empty genreWrapper
+        (
+            "<xml><mods><genreWrapper/></mods></xml>",
+            [],
+        ),
+    ],
+)
+def test_find_subjects(input, expect):
+    xml = xmltodict.parse(input)
+    assert sorted(find_subjects(xml)) == expect
