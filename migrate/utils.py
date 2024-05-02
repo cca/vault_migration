@@ -30,11 +30,8 @@ def find_items(file) -> list:
         with open(file) as f:
             xml = f.read()
             return [{"metadata": xml}]
-    else:
-        print(
-            f'find_items: not sure what to do with "{file}" that is not .json or .xml, skipping'
-        )
-        return []
+    # non-data file (like .py or .txt) so skip gracefully
+    return []
 
 
 # EDTF seasons conversion
