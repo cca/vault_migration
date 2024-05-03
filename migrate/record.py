@@ -38,7 +38,9 @@ class Record:
         # default to current date in ISO 8601 format
         self.dateCreated = item.get("dateCreated", date.today().isoformat())
         if item.get("uuid") and item.get("version"):
-            self.vault_url = f"https://vault.cca.edu/items/{item['uuid']}/{item['version']}/"
+            self.vault_url = (
+                f"https://vault.cca.edu/items/{item['uuid']}/{item['version']}/"
+            )
         else:
             self.vault_url = None
 
@@ -336,7 +338,7 @@ class Record:
         return ""
 
     @property
-    def related_identifiers(self) -> list[dict[str, str|dict[str, str]]]:
+    def related_identifiers(self) -> list[dict[str, str | dict[str, str]]]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#related-identifiersworks-0-n
         # # relation types: cites, compiles, continues, describes, documents, haspart, hasversion, iscitedby, iscompiledby, iscontinuedby, isderivedfrom, isdescribedby, isdocumentedby, isidenticalto, isnewversionof, isobsoletedby, isoriginalformof, ispartof, ispreviousversionof, isreferencedby, isrequiredby, isreviewedby, issourceof, issupplementto, issupplementedby
         # related_identifiers don't seem to be indexed in the search engine, searches like
@@ -344,19 +346,20 @@ class Record:
         ri = []
         if self.vault_url:
             # add a URL identifier for the old VAULT item
-            ri.append({
-                "identifier": self.vault_url,
-                "relation_type": {
-                    "id": "isnewversionof",
-                    "title": { "en": "Is new version of" },
-                },
-                "scheme": "url",
-            })
+            ri.append(
+                {
+                    "identifier": self.vault_url,
+                    "relation_type": {
+                        "id": "isnewversionof",
+                        "title": {"en": "Is new version of"},
+                    },
+                    "scheme": "url",
+                }
+            )
         # TODO there are probably other relations we can add, like mods/relatedItem|relateditem
         # but if a VAULT item is related to another VAULT item, we need to know both their new
         # IDs in Invenio to create the relation
         return ri
-
 
     @property
     def resource_type(self) -> dict[str, str]:
@@ -419,6 +422,15 @@ class Record:
         # TODO there will be /local extent values in student work items
         return extents
 
+    @property
+    def subjects(self) -> list[dict[str, str]]:
+        # https://inveniordm.docs.cern.ch/reference/metadata/#subjects-0-n
+        # Subjects are {id, scheme, subject} or {subject} dicts
+
+        # TODO subjects.find_subjects can get them for us but we still need
+        # TODO to map them to Invenio subject IDs
+        return []
+
     def get(self) -> dict[str, Any]:
         return {
             # TODO restricted access based on local/viewLevel value
@@ -447,7 +459,9 @@ class Record:
                 "formats": self.formats,
                 # https://inveniordm.docs.cern.ch/reference/metadata/#locations-0-n
                 # not available on deposit form and does not display anywhere, skip for now
-                "locations": { "features": [], },
+                "locations": {
+                    "features": [],
+                },
                 "publication_date": self.publication_date,
                 "publisher": self.publisher,
                 "related_identifiers": self.related_identifiers,
@@ -461,7 +475,7 @@ class Record:
                 "rights": self.rights,
                 # not on deposit form but displays in right-side Details under resource type and formats
                 "sizes": self.sizes,
-                "subjects": [],
+                "subjects": self.subjects,
                 "title": self.title,
             },
             # https://inveniordm.docs.cern.ch/reference/metadata/#parent
