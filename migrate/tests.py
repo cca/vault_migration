@@ -746,3 +746,48 @@ def test_subjects_from_xmldict(input, expect):
 def test_find_subjects(input, expect):
     xml = xmltodict.parse(input)
     assert sorted(find_subjects(xml)) == expect
+
+
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        # no subjects
+        (x("<mods></mods>"), []),
+        # keyword subject
+        (
+            x(
+                "<mods><subject><subjectType>topic</subjectType><topic>Subject not in our mapping</topic></subject></mods>"
+            ),
+            [{"subject": "Subject not in our mapping"}],
+        ),
+        # temporal subject
+        (
+            x(
+                "<mods><subject><subjectType>temporal</subjectType><temporal>2010-2019</temporal></subject></mods>"
+            ),
+            [{"id": "2010-2019"}],
+        ),
+        # LC subject
+        (
+            x(
+                "<mods><subject><subjectType>geographic</subjectType><geographic authority='lcsh'>Emeryville (Calif.)</geographic></subject></mods>"
+            ),
+            [{"id": "https://id.loc.gov/authorities/names/n81081214.html"}],
+        ),
+        # multiple subjects, one genre
+        (
+            x(
+                "<mods><subject><subjectType>topic</subjectType><topic>Subject not in our mapping</topic></subject><genreWrapper><genre>Graphic Novel</genre></genreWrapper></mods>"
+            ),
+            [
+                {
+                    "id": "https://id.loc.gov/authorities/genreForms/gf2014026362.html",
+                },
+                {"subject": "Subject not in our mapping"},
+            ],
+        ),
+    ],
+)
+def test_subjects(input, expect):
+    r = Record(input)
+    assert m(r)["subjects"] == expect
