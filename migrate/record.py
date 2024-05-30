@@ -364,6 +364,7 @@ class Record:
 
     @property
     def resource_type(self) -> dict[str, str]:
+        # https://inveniordm.docs.cern.ch/reference/metadata/#resource-type-1
         # https://127.0.0.1:5000/api/vocabularies/resourcetypes
         # There are many fields that could be used to determine the resource type. Priority:
         # 1. mods/typeOfResource, 2. local/courseWorkType, 3. TBD (there are more...)
@@ -389,6 +390,7 @@ class Record:
     @property
     def rights(self) -> List[dict[str, str | dict[str, str]]]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#rights-licenses-0-n
+        # https://127.0.0.1:5000/api/vocabularies/licenses
         # ! returned id values MUST be IDs from licenses.csv in cca/cca_invenio
         # We always have exactly one accessCondition node, str or dict
         accessCondition = self.xml.get("mods", {}).get("accessCondition", "")
@@ -463,13 +465,7 @@ class Record:
                 "publication_date": self.publication_date,
                 "publisher": self.publisher,
                 "related_identifiers": self.related_identifiers,
-                # options defined in resource_types.yaml fixture
-                # https://inveniordm.docs.cern.ch/reference/metadata/#resource-type-1
                 "resource_type": self.resource_type,
-                # mods/accessCondition with license URL in href attribute
-                # https://127.0.0.1:5000/api/vocabularies/licenses
-                # https://inveniordm.docs.cern.ch/reference/metadata/#rights-licenses-0-n
-                # options defined in licenses.csv fixture
                 "rights": self.rights,
                 # not on deposit form but displays in right-side Details under resource type and formats
                 "sizes": self.sizes,
