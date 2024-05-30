@@ -10,10 +10,8 @@
 # It is meant to be run from the project root like this. The 2 YAML files are written to the vocab directory
 # and the JSON file is written to the migrate directory.
 import csv
-from io import TextIOWrapper
 import json
 import sys
-from typing import Literal
 import uuid
 
 import yaml
@@ -58,7 +56,7 @@ def main(file: str):
                 subject["id"] = row["Auth URI"]
                 subject["scheme"] = "lc"
 
-            subjects_map[row["VAULT value"]] = subject["id"]
+            subjects_map[row["VAULT value"].lower()] = subject["id"]
             # combined terms are not added to the final vocab files (but are in the map)
             if status == "done":
                 locals()[subject["scheme"]].append(subject)
