@@ -748,6 +748,8 @@ def test_find_subjects(input, expect):
     assert sorted(find_subjects(xml)) == expect
 
 
+# ! These tests depend on having a migrate/subjects_map.json file with term text -> URI mappings
+# ! for a few terms (e.g. Emeryville, Graphic Novel)
 @pytest.mark.parametrize(
     "input, expect",
     [
