@@ -49,7 +49,11 @@ class Subject:
         return (self.type, self.value) < (other.type, other.value)
 
     def to_invenio(self) -> dict[str, str]:
-        # returns either { id: invenio subj id in map } or { subject: term }
+        # Returns either { id: invenio subj id in map } or { subject: term }
+        # Temporal IDs are just the term
+        if self.type == "Temporal":
+            return {"id": self.value}
+
         if not subjects_map:
             raise Exception(
                 "subjects_map.json not found, unable to convert Subject to Invenio format"
@@ -93,7 +97,9 @@ def subjects_from_xmldict(type: str, tree: dict | str) -> list[Subject]:
 def find_subjects(xml: dict) -> set[Subject]:
     # looks for subjects in mods/subject and mods/genreWrapper/genre
     subjects = set()
-    mods = xml.get("xml", {}).get("mods", {})
+    # work from either root or <xml> starting point
+    xml = xml.get("xml", xml)
+    mods = xml.get("mods", {})
     for s in mklist(mods.get("subject")):
         if s:  # empty <subject/> alongside actual ones will be None
             for t in TYPES:  # check for every subject type

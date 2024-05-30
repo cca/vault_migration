@@ -17,6 +17,7 @@ import xmltodict
 from names import parse_name
 from maps import *
 from utils import find_items, mklist, to_edtf
+from subjects import find_subjects, Subject
 
 
 def postprocessor(path, key, value):
@@ -426,10 +427,9 @@ class Record:
     def subjects(self) -> list[dict[str, str]]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#subjects-0-n
         # Subjects are {id} or {subject} dicts
-
-        # TODO subjects.find_subjects can get them for us but we still need
-        # TODO to map them to Invenio subject IDs
-        return []
+        # find_subjects pulls from mods/subject and mods/genreWrapper/genre
+        subjects: set[Subject] = find_subjects(self.xml)
+        return [s.to_invenio() for s in subjects]
 
     def get(self) -> dict[str, Any]:
         return {
@@ -459,9 +459,7 @@ class Record:
                 "formats": self.formats,
                 # https://inveniordm.docs.cern.ch/reference/metadata/#locations-0-n
                 # not available on deposit form and does not display anywhere, skip for now
-                "locations": {
-                    "features": [],
-                },
+                "locations": {"features": []},
                 "publication_date": self.publication_date,
                 "publisher": self.publisher,
                 "related_identifiers": self.related_identifiers,
