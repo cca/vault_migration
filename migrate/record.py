@@ -425,7 +425,7 @@ class Record:
     @property
     def subjects(self) -> list[dict[str, str]]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#subjects-0-n
-        # Subjects are {id, scheme, subject} or {subject} dicts
+        # Subjects are {id} or {subject} dicts
 
         # TODO subjects.find_subjects can get them for us but we still need
         # TODO to map them to Invenio subject IDs

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # extract subjects from VAULT metadata
-# meant to be run like: python e.py *.json
-import csv
+# can be imported or run like: python subjects.py *.json
 import sys
 
 import xmltodict
