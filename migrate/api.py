@@ -25,7 +25,7 @@ def post(r: Record):
     }
     # create metadata-only draft
     draft_response = requests.post(
-        "https://127.0.0.1:5000/api/records",
+        "https://127.0.0.1:5000/api/records",  # TODO config for domain, port
         json=r.get(),
         verify=False,
         headers=headers,
@@ -47,7 +47,7 @@ def post(r: Record):
         print(publish_response.text)
     publish_response.raise_for_status()
     published_record = publish_response.json()
-    print(published_record["links"]["self"])
+    print(published_record["links"]["self_html"])
 
     # you can use /api/records/<id>/communities
     # see https://github.com/inveniosoftware/invenio-rdm-records/blob/master/tests/resources/test_resources_communities.py#L32
