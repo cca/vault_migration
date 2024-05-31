@@ -34,6 +34,7 @@ def postprocessor(path, key, value):
 class Record:
     def __init__(self, item):
         self.xml = xmltodict.parse(item["metadata"], postprocessor=postprocessor)["xml"]
+        # TODO attachments or is that mostly work in api.py?
         self.files = [a for a in item.get("attachments", []) if a["type"] == "file"]
         self.title = item.get("name", "Untitled")
         # default to current date in ISO 8601 format
@@ -445,9 +446,13 @@ class Record:
             "custom_fields": {},
             # TODO add files, figure out best one to show first (prefer image formats?)
             "files": {
-                "enabled": False,  # bool(len(self.files)),
+                "enabled": False,
                 "order": [],
             },
+            # "files": {
+            #     "enabled": bool(len(self.files)),
+            #     "order": self.files,
+            # },
             "metadata": {
                 "additional_descriptions": self.descriptions,
                 "additional_titles": self.addl_titles,

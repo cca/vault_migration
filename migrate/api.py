@@ -36,6 +36,7 @@ def post(r: Record):
     draft_response.raise_for_status()
     draft_record = draft_response.json()
     print(draft_record["links"]["self"])
+    # TODO add files to draft record
     # publish
     publish_response = requests.post(
         f"https://127.0.0.1:5000/api/records/{draft_record['id']}/draft/actions/publish",
