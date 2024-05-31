@@ -62,6 +62,34 @@ rm *.tmp.json
 
 Download our [subjects sheet](https://docs.google.com/spreadsheets/d/1la_wsFPOkHLjpv4-f3tWwMsCd0_xzuqZ5xp_p1zAAoA/edit#gid=1465207925) and run `python migrate/convert_subjects.py subjects.csv` to create the YAML vocabularies in the vocab dir (lc.yaml and cca_local.yaml) as well as the migrate/subjects_map.json file which is used to convert the text of VAULT subject terms into Invenio IDs or ID-less keyword subjects.
 
+## Creating Records in Invenio
+
+This repo contains scripts to create JSON record files and then `POST` them to a locally running Invenio instance. First, create a personal access token for an administrator account in Invenio:
+
+1. Sign in as an admin
+2. Go to **Applications** > **Personal access tokens**
+3. Create one—name and the solitary `user:email` scope (as of v11) do not matter
+4. Copy it to your clipboard and **Save**
+5. Set it as an environment variable e.g. `export INVENIO_TOKEN=your_token_here` in bash or `set -x INVENIO_TOKEN=xyz` in fish
+
+Below, we migrate a VAULT item to an Invenio record and post it to Invenio.
+
+```sh
+set -x INVENIO_TOKEN=your_token_here
+poetry run python migrate/api.py items/item.json # example output below
+HTTP 201
+https://127.0.0.1:5000/api/records/k7qk8-fqq15/draft
+HTTP 202
+{"id": "k7qk8-fqq15", "created": "2024-05-31T15:26:17.972009+00:00", ...
+https://127.0.0.1:5000/records/k7qk8-fqq15
+```
+
+The api.py script uses the `Record` class in migrate/record.py to convent the provided VAULT item JSON into Invenio record JSON. It then does dual API calls to create a draft and publish it.
+
+You can sometimes trip over yourself because Poetry automatically loads the `.env` file in the project root, which might contain an outdated personal access token. If API calls fail with 403 errors, check that the `TOKEN` and/or `INVENIO_TOKEN` environment variables are set correctly.
+
+Rerunning the script will with the same input will create multiple records, not update existing ones.
+
 ## Items
 
 We could write scripts to directly take an item from EQUELLA using its API, perform a metadata crosswalk, and post it to Invenio. Alternatively, we could work with local copies of items, perhaps created by the equella_scripts collection export tool.
