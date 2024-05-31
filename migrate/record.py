@@ -270,7 +270,7 @@ class Record:
                 for dateCreated in dateCreatedsx:
                     # work around empty str or dict
                     if dateCreated:
-                        # ! if a date isn't parseable then this will return None
+                        # ! if a date isn't parseable then this returns None
                         if type(dateCreated) == str:
                             return to_edtf(dateCreated)
                         elif type(dateCreated) == dict:
@@ -429,6 +429,7 @@ class Record:
     def subjects(self) -> list[dict[str, str]]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#subjects-0-n
         # Subjects are {id} or {subject} dicts
+        # TODO handling name subjects (right now they're added as keywords)
         # find_subjects pulls from mods/subject and mods/genreWrapper/genre
         subjects: set[Subject] = find_subjects(self.xml)
         return [s.to_invenio() for s in subjects]
