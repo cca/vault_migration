@@ -258,11 +258,16 @@ def test_desc(input, expect):
         (x("<mods><abstract>foo</abstract></mods>"), []),
         (  # second abstract
             x("<mods><abstract>foo</abstract><abstract>bar</abstract></mods>"),
-            [{"type": "abstract", "description": "bar"}],
+            [
+                {
+                    "type": {"id": "abstract", "title": {"en": "Abstract"}},
+                    "description": "bar",
+                }
+            ],
         ),
         (  # note
             x("<mods><noteWrapper><note>foo</note></noteWrapper></mods>"),
-            [{"type": "other", "description": "foo"}],
+            [{"type": {"id": "other", "title": {"en": "Other"}}, "description": "foo"}],
         ),
         (  # empty note does not get added
             x("<mods><noteWrapper><note></note></noteWrapper></mods>"),

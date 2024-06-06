@@ -227,7 +227,13 @@ class Record:
         desc = []
         if len(self.abstracts) > 1:
             desc.extend(
-                [{"type": "abstract", "description": a} for a in self.abstracts[1:]]
+                [
+                    {
+                        "type": {"id": "abstract", "title": {"en": "Abstract"}},
+                        "description": a,
+                    }
+                    for a in self.abstracts[1:]
+                ]
             )
 
         # MODS note types: https://www.loc.gov/standards/mods/mods-notes.html
@@ -239,11 +245,21 @@ class Record:
             notes = notes + mklist(wrapper.get("note", []))
         for note in notes:
             if type(note) == str and note:
-                desc.append({"type": "other", "description": note})
+                desc.append(
+                    {
+                        "type": {"id": "other", "title": {"en": "Other"}},
+                        "description": note.strip(),
+                    }
+                )
             elif type(note) == dict:
                 note = note.get("#text")
                 if note:
-                    desc.append({"type": "other", "description": note.strip()})
+                    desc.append(
+                        {
+                            "type": {"id": "other", "title": {"en": "Other"}},
+                            "description": note.strip(),
+                        }
+                    )
 
         return desc
 
