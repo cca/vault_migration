@@ -11,7 +11,7 @@ python -m spacy download en_core_web_lg # download spacy model for Named Entity 
 pytest -v migrate/tests.py # run tests
 ```
 
-The migrate/record.py file is a class for Invenio records. On the command line, you can pass it JSON EQUELLA item(s) and it will return a JSON Invenio record(s). The migrate/api.py file will create Invenio records from EQUELLA items and attempt to POST them to a local Invenio instance. It requires an `INVENIO_TOKEN` or `TOKEN` environment variable. To create a token: sign in as an admin and go to Applications > Personal access tokens.
+The migrate/record.py file is a class for Invenio records. On the command line, you can pass it JSON EQUELLA item(s) and it will return a JSON Invenio record(s). The migrate/api.py file will create Invenio records from EQUELLA items and attempt to POST them to a local Invenio instance. It requires `INVENIO_TOKEN` or `TOKEN` variable in our environment or .env file. To create a token: sign in as an admin and go to Applications > Personal access tokens.
 
 ## Vocabularies
 
@@ -43,7 +43,7 @@ mlr --json cat *.tmp.json > taxo.json
 rm *.tmp.json
 ```
 
-Personal names are nested two layers deep in the LIBRARIES - subject name taxonomy: authority > personal or conference > name, e.g. "oclc\personal\Ferrea, Elizabeth, 1880-1925".
+Personal names are nested two layers deep in the "LIBRARIES - subject name" taxonomy: authority > personal or conference > name, e.g. "oclc\personal\Ferrea, Elizabeth, 1880-1925".
 
 ```sh
 eq tax 657fdbec-c17c-4497-aa31-5b4bc7d9e9e5 --terms > "subject name.json"
@@ -56,11 +56,11 @@ mlr --json cat *.tmp.json > taxo.json
 rm *.tmp.json
 ```
 
-`mlr` is [miller](https://miller.readthedocs.io/) (`brew install miller`). It'd be possible to concatenate the JSON files with `jq` or editing them together, but not as easy.
+`mlr` is [miller](https://miller.readthedocs.io/) (`brew install miller`). It's possible to concatenate the JSON files with `jq` or editing them together, but not as easy.
 
 ## Subjects
 
-Download our [subjects sheet](https://docs.google.com/spreadsheets/d/1la_wsFPOkHLjpv4-f3tWwMsCd0_xzuqZ5xp_p1zAAoA/edit#gid=1465207925) and run `python migrate/convert_subjects.py subjects.csv` to create the YAML vocabularies in the vocab dir (lc.yaml and cca_local.yaml) as well as the migrate/subjects_map.json file which is used to convert the text of VAULT subject terms into Invenio IDs or ID-less keyword subjects.
+Download our [subjects sheet](https://docs.google.com/spreadsheets/d/1la_wsFPOkHLjpv4-f3tWwMsCd0_xzuqZ5xp_p1zAAoA/edit#gid=1465207925) and run `python migrate/convert_subjects.py subjects.csv` to create the YAML vocabularies in the vocab dir (lc.yaml and cca_local.yaml) as well as the migrate/subjects_map.json file which is used to convert the text of VAULT subject terms into Invenio IDs or ID-less keyword subjects. Copy the YAML files into the app_data/vocabularies directory of our Invenio instance. The site needs to be rebuilt to load the changes (`invenio-cli services destroy` and then `invenio-cli services setup` again).
 
 ## Creating Records in Invenio
 
@@ -88,13 +88,29 @@ The api.py script uses the `Record` class in migrate/record.py to convent the pr
 
 You can sometimes trip over yourself because Poetry automatically loads the `.env` file in the project root, which might contain an outdated personal access token. If API calls fail with 403 errors, check that the `TOKEN` and/or `INVENIO_TOKEN` environment variables are set correctly.
 
-Rerunning the script will with the same input will create multiple records, not update existing ones.
+Rerunning the script with the same input creates multiple records, it doesn't update existing ones.
 
 ## Items
 
 We could write scripts to directly take an item from EQUELLA using its API, perform a metadata crosswalk, and post it to Invenio. Alternatively, we could work with local copies of items, perhaps created by the equella_scripts collection export tool.
 
-We need to load the necessary fixtures, including user accounts, before adding to Invenio. For instance, the item owner needs to already be in Invenio before we can add them as owner of a record. I'm not sure what the effect of loading a record with a subject that doesn't exist in a vocabulary yet.
+We need to load the necessary fixtures, including user accounts, before adding to Invenio. For instance, the item owner needs to already be in Invenio before we can add them as owner of a record. If we attempt to load a record with a subject `id` that doesn't exist yet, we get a 500 error.
+
+We can download metadata for all items using equella-cli and a script like this:
+
+```sh
+#!/usr/bin/env fish
+set total (eq search -l 1 | jq '.available')
+set length 50 # can only download up to 50 at a time
+set pages (math floor $total / $length)
+for i in (seq 0 $pages)
+  set start (math $i \* $length)
+  echo "Downloading items $start to" (math $start + $length)
+  # NOTE: no attachment info, use "--info all" for both attachments & metadata
+  eq search -l $length --info metadata --start $start > json/$i.json
+end
+
+```
 
 ## Metadata Crosswalk
 
