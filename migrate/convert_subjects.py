@@ -11,7 +11,9 @@
 # and the JSON file is written to the migrate directory.
 import csv
 import json
+from pathlib import Path
 import sys
+from typing import Iterator
 import uuid
 
 import yaml
@@ -60,6 +62,15 @@ def main(file: str):
             # combined terms are not added to the final vocab files (but are in the map)
             if status == "done":
                 locals()[subject["scheme"]].append(subject)
+
+        # premade sub-vocabs to be added to cca_local
+        for filename in ["programs.yaml"]:
+            with open(Path("vocab") / filename, "r") as fh:
+                terms = yaml.load(fh, Loader=yaml.FullLoader)
+                for term in terms:
+                    assert type(term) == dict
+                    subjects_map[term["subject"].lower()] = term["id"]
+                    locals()[term["scheme"]].append(term)
 
         dump_all(subjects_map, cca_local, lc)
 
