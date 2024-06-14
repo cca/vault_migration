@@ -6,14 +6,14 @@
 # - lc.yaml: a YAML file of Library of Congress subjects (from multiple authorities)
 #
 # Usage:
-# python migrate/convert_subjects.py subjects.csv
-# It is meant to be run from the project root like this. The 2 YAML files are written to the vocab directory
-# and the JSON file is written to the migrate directory.
+# python migrate/mk_subjects.py subjects.csv
+# It is meant to be run from the project root like this. It takes additional static vocabularies we made
+# in the "vocabs" dir and includes them in the cca_local subject. The 2 YAML files are written to the
+# vocab directory and the JSON file is written to the migrate directory.
 import csv
 import json
 from pathlib import Path
 import sys
-from typing import Iterator
 import uuid
 
 import yaml
@@ -64,11 +64,11 @@ def main(file: str):
                 locals()[subject["scheme"]].append(subject)
 
         # premade sub-vocabs to be added to cca_local
-        for filename in ["programs.yaml"]:
+        for filename in ["programs.yaml"]:  # TODO: accreditation terms, archives series
             with open(Path("vocab") / filename, "r") as fh:
                 terms = yaml.load(fh, Loader=yaml.FullLoader)
                 for term in terms:
-                    assert type(term) == dict
+                    assert type(term) == dict  # solely for type hinting
                     subjects_map[term["subject"].lower()] = term["id"]
                     locals()[term["scheme"]].append(term)
 

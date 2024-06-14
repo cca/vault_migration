@@ -60,7 +60,9 @@ rm *.tmp.json
 
 ## Subjects
 
-Download our [subjects sheet](https://docs.google.com/spreadsheets/d/1la_wsFPOkHLjpv4-f3tWwMsCd0_xzuqZ5xp_p1zAAoA/edit#gid=1465207925) and run `python migrate/convert_subjects.py subjects.csv` to create the YAML vocabularies in the vocab dir (lc.yaml and cca_local.yaml) as well as the migrate/subjects_map.json file which is used to convert the text of VAULT subject terms into Invenio IDs or ID-less keyword subjects. Copy the YAML files into the app_data/vocabularies directory of our Invenio instance. The site needs to be rebuilt to load the changes (`invenio-cli services destroy` and then `invenio-cli services setup` again).
+Download our [subjects sheet](https://docs.google.com/spreadsheets/d/1la_wsFPOkHLjpv4-f3tWwMsCd0_xzuqZ5xp_p1zAAoA/edit#gid=1465207925) and run `python migrate/mk_subjects.py subjects.csv` to create the YAML vocabularies in the vocab dir (lc.yaml and cca_local.yaml) as well as the migrate/subjects_map.json file which is used to convert the text of VAULT subject terms into Invenio IDs or ID-less keyword subjects.
+
+Copy the YAML files into the app_data/vocabularies directory of our Invenio instance. The site needs to be rebuilt to load the changes (`invenio-cli services destroy` and then `invenio-cli services setup` again). Eventually (Invenio v12) there will be CLI terms to alter vocabularies without rebuilding the site.
 
 ## Creating Records in Invenio
 
