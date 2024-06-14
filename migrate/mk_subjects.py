@@ -45,6 +45,12 @@ def main(file: str):
                 continue
 
             if auth.upper() == "LOCAL":
+                # Combined local subjects _must_ have a new value
+                if status == "combine":
+                    if not row["New Value"]:
+                        raise ValueError(
+                            f"Combined local subject without a New Value: {term}"
+                        )
                 # TODO use real identifiers, NS_URL chosen b/c there's no ideal option
                 subject["id"] = str(uuid.uuid5(uuid.NAMESPACE_URL, term))
                 subject["scheme"] = "cca_local"
