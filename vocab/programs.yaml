@@ -1,111 +1,74 @@
-# copied from Portal "friendly program" model (with an exception for WRITE), see
-# {Django admin URL}/programs/friendlyprogram/
-- id: program_animation
-  scheme: cca_local
+# Originally copied from Portal "friendly program" but with edits since
+# UUIDs will be assigned by migrate/mk_subjects.py
+- scheme: cca_local
   subject: Animation Program
-- id: program_architecture
-  scheme: cca_local
+- scheme: cca_local
   subject: Architecture Program
-- id: program_ceramics
-  scheme: cca_local
+- scheme: cca_local
   subject: Ceramics Program
-- id: program_comics
-  scheme: cca_local
+- scheme: cca_local
   subject: Comics Program
-- id: program_community_arts
-  scheme: cca_local
+- scheme: cca_local
   subject: Community Arts Program
-- id: program_critical_studies
-  scheme: cca_local
+- scheme: cca_local
+  subject: Critical Ethnic Studies Program
+- scheme: cca_local
   subject: Critical Studies Program
-- id: program_curatorial_practice
-  scheme: cca_local
+- scheme: cca_local
   subject: Curatorial Practice Program
-- id: program_design_mba
-  scheme: cca_local
+- scheme: cca_local
   subject: Design MBA Program
-- id: program_diversity_studies
-  scheme: cca_local
-  subject: Diversity Studies Program
-- id: program_fashion
-  scheme: cca_local
+- scheme: cca_local
   subject: Fashion Program
-- id: program_film
-  scheme: cca_local
+- scheme: cca_local
   subject: Film Program
-- id: program_fine_arts
-  scheme: cca_local
+- scheme: cca_local
   subject: Fine Arts Program
-- id: program_first_year
-  scheme: cca_local
+- scheme: cca_local
   subject: First Year Program
-- id: program_furniture_design
-  scheme: cca_local
+- scheme: cca_local
   subject: Furniture Design Program
-- id: program_game_arts
-  scheme: cca_local
+- scheme: cca_local
   subject: Game Arts Program
-- id: program_glass
-  scheme: cca_local
+- scheme: cca_local
   subject: Glass Program
-- id: program_grad_comics
-  scheme: cca_local
+- scheme: cca_local
   subject: Grad Comics Program
-- id: program_grad_design
-  scheme: cca_local
+- scheme: cca_local
   subject: Grad Design Program
-- id: program_graphic_design
-  scheme: cca_local
+- scheme: cca_local
   subject: Graphic Design Program
-- id: program_illustration
-  scheme: cca_local
+- scheme: cca_local
+  subject: History of Art and Visual Culture Program
+- scheme: cca_local
   subject: Illustration Program
-- id: program_individualized_studies
-  scheme: cca_local
+- scheme: cca_local
   subject: Individualized Studies Program
-- id: program_industrial_design
-  scheme: cca_local
+- scheme: cca_local
   subject: Industrial Design Program
-- id: program_interaction_design
-  scheme: cca_local
+- scheme: cca_local
   subject: Interaction Design Program
-- id: program_interdisciplinary
-  scheme: cca_local
+- scheme: cca_local
   subject: Interdisciplinary Program
-- id: program_interior_design
-  scheme: cca_local
+- scheme: cca_local
   subject: Interior Design Program
-- id: program_jewelry_metal_arts
-  scheme: cca_local
+- scheme: cca_local
   subject: Jewelry/Metal Arts Program
-- id: program_masters_of_architecture
-  scheme: cca_local
+- scheme: cca_local
   subject: Masters of Architecture Program
-- id: program_painting_drawing
-  scheme: cca_local
+- scheme: cca_local
   subject: Painting/Drawing Program
-- id: program_photography
-  scheme: cca_local
+- scheme: cca_local
   subject: Photography Program
-- id: program_printmaking
-  scheme: cca_local
-  subject: Printmaking Program
-- id: program_sculpture
-  scheme: cca_local
+- scheme: cca_local
+  subject: Printmedia Program
+- scheme: cca_local
   subject: Sculpture Program
-- id: program_textiles
-  scheme: cca_local
+- scheme: cca_local
   subject: Textiles Program
-- id: program_visual_and_critical_studies
-  scheme: cca_local
+- scheme: cca_local
   subject: Visual and Critical Studies Program
-- id: program_visual_studies
-  scheme: cca_local
-  subject: Visual Studies Program
-# this is the one exception: "Writing Program" is easily confused with WRLIT so we append MFA
-- id: program_writing_mfa
-  scheme: cca_local
+- scheme: cca_local
   subject: Writing MFA Program
-- id: program_writing_literature
-  scheme: cca_local
+- scheme: cca_local
   subject: Writing & Literature Program
