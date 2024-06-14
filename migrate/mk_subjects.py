@@ -19,6 +19,11 @@ import uuid
 import yaml
 
 
+def get_uuid(term: str) -> str:
+    # TODO use real identifiers, NS_URL chosen b/c there's no ideal option
+    return str(uuid.uuid5(uuid.NAMESPACE_URL, term))
+
+
 def dump_all(subjects_map, cca_local, lc):
     with open("migrate/subjects_map.json", "w") as file:
         json.dump(subjects_map, file, indent=2)
@@ -51,8 +56,7 @@ def main(file: str):
                         raise ValueError(
                             f"Combined local subject without a New Value: {term}"
                         )
-                # TODO use real identifiers, NS_URL chosen b/c there's no ideal option
-                subject["id"] = str(uuid.uuid5(uuid.NAMESPACE_URL, term))
+                subject["id"] = get_uuid(term)
                 subject["scheme"] = "cca_local"
 
             # Covers multiple LC authorities: LCNAF, LCSH, LCGFT
@@ -75,6 +79,8 @@ def main(file: str):
                 terms = yaml.load(fh, Loader=yaml.FullLoader)
                 for term in terms:
                     assert type(term) == dict  # solely for type hinting
+                    # assign an ID that matches what we have in the map from combined subjects.csv terms
+                    term["id"] = get_uuid(term["subject"])
                     subjects_map[term["subject"].lower()] = term["id"]
                     locals()[term["scheme"]].append(term)
 
