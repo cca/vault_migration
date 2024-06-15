@@ -1,0 +1,149 @@
+[
+  {
+    "term": "Accreditation review",
+    "fullTerm": "Accreditation review",
+    "uuid": "5b386ab8-17eb-4e7c-8e3a-74e344c79e02",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Annual report",
+    "fullTerm": "Annual report",
+    "uuid": "70859bc4-ae4c-43e2-a344-ede5d618bc5c",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Assessment Report",
+    "fullTerm": "Assessment Report",
+    "uuid": "3947d6c8-71ca-4653-8d41-20c44784a361",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Contract",
+    "fullTerm": "Contract",
+    "uuid": "d432cb8c-9b85-4329-9711-70d9ab6734e1",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "External Review Action Report",
+    "fullTerm": "External Review Action Report",
+    "uuid": "602df1e7-4f6a-4886-a705-b8a5abfa6340",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "External Review Response",
+    "fullTerm": "External Review Response",
+    "uuid": "3012fd15-7b1a-48dd-8d7f-9e49ac8a0506",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "External Reviewer's Report",
+    "fullTerm": "External Reviewer's Report",
+    "uuid": "eee60f22-52e1-452c-97a9-45e5230efd01",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Faculty Bio",
+    "fullTerm": "Faculty Bio",
+    "uuid": "0f84541c-b26f-4c8b-b30b-9f0ffa0e52be",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Institutional Proposal",
+    "fullTerm": "Institutional Proposal",
+    "uuid": "a170a6c5-5d29-4305-bb51-b4d5a463bec6",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Institutional Report",
+    "fullTerm": "Institutional Report",
+    "uuid": "1deeabc1-3ac3-416f-b2a5-ed4e7d0d8a8b",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Interim Report",
+    "fullTerm": "Interim Report",
+    "uuid": "36790d3c-4acb-4e6d-9473-02fd7a1bd901",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Letter",
+    "fullTerm": "Letter",
+    "uuid": "4f74215d-1fae-46e8-b7bb-2fee1679dbd9",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "New Program Implementation Form",
+    "fullTerm": "New Program Implementation Form",
+    "uuid": "86eaecac-2af5-40ea-844c-4cdb3eefa856",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Plan Approval",
+    "fullTerm": "Plan Approval",
+    "uuid": "b04c26c8-9113-4cc4-833a-76bf3f44265f",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Plan Approval Application",
+    "fullTerm": "Plan Approval Application",
+    "uuid": "fe707aee-5a78-4ad4-841d-3f684b091cee",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Self-study",
+    "fullTerm": "Self-study",
+    "uuid": "75a9ebf7-fbb7-4106-8950-7705e4d8b1df",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Site visit",
+    "fullTerm": "Site visit",
+    "uuid": "e5755d80-fc51-45f7-adc9-008ad61f3b82",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Substantive program changes",
+    "fullTerm": "Substantive program changes",
+    "uuid": "dd78b50d-4941-4a89-8c19-a6ad43f63782",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Testing",
+    "fullTerm": "Testing",
+    "uuid": "db2ef395-9f3a-45e6-9d9d-c74937a5a38b",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Visiting Team Report",
+    "fullTerm": "Visiting Team Report",
+    "uuid": "a98b1ebd-2d80-45e3-af3d-4118a6a429f2",
+    "index": 0,
+    "readonly": false
+  },
+  {
+    "term": "Year-end assessment report",
+    "fullTerm": "Year-end assessment report",
+    "uuid": "5b60ee10-098e-4d80-8152-2b40a68deb14",
+    "index": 0,
+    "readonly": false
+  }
+]
