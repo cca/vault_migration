@@ -463,7 +463,7 @@ class Record:
             "custom_fields": {},
             # TODO add files, figure out best one to show first (prefer image formats?)
             "files": {
-                "enabled": False,
+                "enabled": bool(len(self.files)),
                 "order": [],
             },
             # "files": {
