@@ -57,7 +57,9 @@
         VAULTID["item.uuid + item.version"] -->|"'is new version of' VAULT URL"| REL["Related Identifiers/Works (0-n)"]
         OWNER["item.owner.id"] -->|TODO map CCA username to Invenio numeric ID| PARENT["parent.owned_by.id"]
         DATECREATED["item.dateCreated"] -->|Use item creation timestamp if no date in MODS| PUBDATE["Publication Date (1)"]
-        MIME[item.attachments] -->|guess MIME type from filename| FORMATS["Formats (0-n)"]
+        ATTACHMENTS[item.attachments] -->|guess MIME type from filename| FORMATS["Formats (0-n)"]
+        ATTACHMENTS -->|Non-URL, file attachments| FILES["Files (0-n)"]
+        ATTACHMENTS -->|TODO treat URL attachments as related works?| REL
     </pre>
 
     <p>There's additional, mostly administrative, metadata in the EQUELLA item JSON outside the XML. We can represent file/attachment operations here, too.</p>
@@ -66,7 +68,15 @@
 
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-        mermaid.initialize({ startOnLoad: true });
+        mermaid.run({
+            querySelector: '.mermaid',
+            // find all "TODO" strings in labels and make them bold
+            postRenderCallback: id => {
+                document.querySelectorAll('.edgeLabel').forEach(el => {
+                    el.innerHTML = el.innerHTML.replace(/TODO/g, '<strong class="todo">TODO</strong>')
+                })
+            }
+        })
     </script>
 
     <style>
@@ -82,6 +92,10 @@
         #body .mermaid .flowchartTitleText {
             font-size: 1.5rem;
             font-weight: bold;
+        }
+
+        .todo {
+            color: maroon;
         }
     </style>
 </body>
