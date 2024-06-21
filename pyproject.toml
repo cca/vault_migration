@@ -8,7 +8,7 @@ license = "ECL-2.0"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.12"
+python = ">=3.10,<3.12"
 PyYAML = "^6.0.1"
 requests = "^2.31.0"
 xmltodict = "^0.13.0"
