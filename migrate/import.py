@@ -48,7 +48,7 @@ def create_draft(record: dict) -> dict:
         verify=verify,
         headers=headers,
     )
-    verbose_print(f"HTTP {draft_response.status_code}")
+    verbose_print(f"HTTP {draft_response.status_code} {draft_response.url}")
     if draft_response.status_code > 201:
         click.echo(draft_response.text, err=True)
     draft_response.raise_for_status()
@@ -68,9 +68,10 @@ def add_files(dir: Path, attachments: list[dict], draft: dict):
         headers=headers,
         verify=verify,
     )
+    verbose_print(f"HTTP {init_response.status_code} {init_response.url}")
     init_response.raise_for_status()
     init_data = init_response.json()
-    # print(json.dumps(init_data))
+    # click.echo(json.dumps(init_data))
 
     # upload one by one
     # TODO use httpx to do in parallel?
@@ -84,6 +85,7 @@ def add_files(dir: Path, attachments: list[dict], draft: dict):
                 headers=binary_headers,
                 verify=verify,
             )
+            verbose_print(f"HTTP {upload_response.status_code} {upload_response.url}")
             upload_response.raise_for_status()
 
     # commit one by one
@@ -94,6 +96,7 @@ def add_files(dir: Path, attachments: list[dict], draft: dict):
             headers=headers,
             verify=verify,
         )
+        verbose_print(f"HTTP {commit_response.status_code} {commit_response.url}")
         commit_response.raise_for_status()
 
 
@@ -107,7 +110,7 @@ def publish(draft: dict) -> dict:
         headers=headers,
         verify=verify,
     )
-    verbose_print(f"HTTP {publish_response.status_code}")
+    verbose_print(f"HTTP {publish_response.status_code} {publish_response.url}")
     if publish_response.status_code > 201:
         click.echo(publish_response.text, err=True)
     publish_response.raise_for_status()
