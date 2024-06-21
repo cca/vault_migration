@@ -5,7 +5,7 @@ import xmltodict
 from names import parse_name
 from record import Record
 from subjects import find_subjects, subjects_from_xmldict, Subject, TYPES
-from utils import mklist
+from utils import mklist, visual_mime_type_sort
 
 
 @pytest.mark.parametrize(
@@ -19,6 +19,61 @@ from utils import mklist
 )
 def test_mklist(input, expect):
     assert mklist(input) == expect
+
+
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        ([], []),
+        ([{"filename": "file.py"}], [{"filename": "file.py"}]),
+        (
+            [{"filename": "binary.gzip"}, {"filename": "film.mov"}],
+            [{"filename": "film.mov"}, {"filename": "binary.gzip"}],
+        ),
+        (
+            [{"filename": "print.pdf"}, {"filename": "word.docx"}],
+            [{"filename": "print.pdf"}, {"filename": "word.docx"}],
+        ),
+        (
+            [
+                {"filename": "image.jpg"},
+                {"filename": "highres.tiff"},
+                {"filename": "archive.tgz"},
+            ],
+            [
+                {"filename": "highres.tiff"},
+                {"filename": "image.jpg"},
+                {"filename": "archive.tgz"},
+            ],
+        ),
+        (
+            [
+                {"filename": "unknown"},
+                {"filename": "plain.txt"},
+                {"filename": "img.tiff"},
+                {"filename": "img.webp"},
+                {"filename": "doc.pdf"},
+                {"filename": "movie.mp4"},
+                {"filename": "song.mp3"},
+                {"filename": "app.exe"},
+                {"filename": "zip.zip"},
+            ],
+            [
+                {"filename": "img.tiff"},
+                {"filename": "img.webp"},
+                {"filename": "movie.mp4"},
+                {"filename": "doc.pdf"},
+                {"filename": "plain.txt"},
+                {"filename": "song.mp3"},
+                {"filename": "app.exe"},
+                {"filename": "zip.zip"},
+                {"filename": "unknown"},
+            ],
+        ),
+    ],
+)
+def test_visual_mime_type_sort(input, expect):
+    assert sorted(input, key=visual_mime_type_sort) == expect
 
 
 @pytest.mark.parametrize(  # ensure edtf library works with our date formats

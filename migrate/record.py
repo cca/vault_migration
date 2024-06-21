@@ -16,7 +16,7 @@ import xmltodict
 
 from names import parse_name
 from maps import *
-from utils import find_items, mklist, to_edtf
+from utils import find_items, mklist, to_edtf, visual_mime_type_sort
 from subjects import find_subjects, Subject
 
 
@@ -34,9 +34,11 @@ def postprocessor(path, key, value):
 class Record:
     def __init__(self, item):
         self.xml = xmltodict.parse(item["metadata"], postprocessor=postprocessor)["xml"]
-        # TODO attachments or is that mostly work in api.py?
-        # ? call EQUELLA files "attachments" and Invenio files "files" to distinguish?
-        self.files = [a for a in item.get("attachments", []) if a["type"] == "file"]
+        # TODO remote (url, other item) attachments
+        self.files = sorted(
+            [a for a in item.get("attachments", []) if a["type"] == "file"],
+            key=visual_mime_type_sort,
+        )
         self.title = item.get("name", "Untitled")
         # default to current date in ISO 8601 format
         self.dateCreated = item.get("dateCreated", date.today().isoformat())
