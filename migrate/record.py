@@ -35,6 +35,7 @@ class Record:
     def __init__(self, item):
         self.xml = xmltodict.parse(item["metadata"], postprocessor=postprocessor)["xml"]
         # TODO attachments or is that mostly work in api.py?
+        # ? call EQUELLA files "attachments" and Invenio files "files" to distinguish?
         self.files = [a for a in item.get("attachments", []) if a["type"] == "file"]
         self.title = item.get("name", "Untitled")
         # default to current date in ISO 8601 format
@@ -464,7 +465,6 @@ class Record:
             # TODO add files, figure out best one to show first (prefer image formats?)
             "files": {
                 "enabled": bool(len(self.files)),
-                "order": [],
             },
             # "files": {
             #     "enabled": bool(len(self.files)),

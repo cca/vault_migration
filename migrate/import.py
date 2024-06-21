@@ -24,6 +24,11 @@ load_dotenv()
 port: str | None = os.environ.get("PORT")
 domain: str = f"https://{os.environ['HOST']}{f':{port}' if port else ''}"
 verify: bool = os.environ.get("HTTPS_VERIFY", "").lower() == "true"
+headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {token}",
+}
 
 
 def verbose_print(*args) -> None:
@@ -37,10 +42,6 @@ def get_item(itemjson: Path) -> dict:
 
 
 def create_draft(record: dict) -> dict:
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {token}",
-    }
     draft_response = requests.post(
         f"{domain}/api/records",
         json=record,
@@ -53,6 +54,47 @@ def create_draft(record: dict) -> dict:
     draft_response.raise_for_status()
     draft_record = draft_response.json()
     return draft_record
+
+
+def add_files(dir: Path, attachments: list[dict], draft: dict):
+    # add files to draft record
+    # three steps: initiate, upload, and commit
+
+    # initiate all at once
+    keys = [{"key": attachment["filename"]} for attachment in attachments]
+    init_response: requests.Response = requests.post(
+        draft["links"]["files"],
+        data=json.dumps(keys),
+        headers=headers,
+        verify=verify,
+    )
+    init_response.raise_for_status()
+    init_data = init_response.json()
+    # print(json.dumps(init_data))
+
+    # upload one by one
+    # TODO use httpx to do in parallel?
+    for attachment in attachments:
+        binary_headers: dict[str, str] = headers
+        binary_headers["Content-Type"] = "application/octet-stream"
+        with open(dir / attachment["filename"], "rb") as f:
+            upload_response: requests.Response = requests.put(
+                f"{domain}/api/records/{draft['id']}/draft/files/{attachment['filename']}/content",
+                data=f,
+                headers=binary_headers,
+                verify=verify,
+            )
+            upload_response.raise_for_status()
+
+    # commit one by one
+    # TODO httpx parallel
+    for commit_link in [entry["links"]["commit"] for entry in init_data["entries"]]:
+        commit_response: requests.Response = requests.post(
+            commit_link,
+            headers=headers,
+            verify=verify,
+        )
+        commit_response.raise_for_status()
 
 
 def publish(draft: dict) -> dict:
@@ -90,7 +132,7 @@ def main(dir: str, is_verbose: bool):
     record = Record(item)
     click.echo(f"Importing {record.title} from {dir}...")
     draft = create_draft(record.get())
-    # TODO add files
+    add_files(Path(dir), record.files, draft)
     published_record = publish(draft)
     # TODO add to community
     click.echo(f"Published: {published_record['links']['self_html']}")
