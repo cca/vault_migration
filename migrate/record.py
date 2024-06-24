@@ -464,9 +464,11 @@ class Record:
             },
             # ! blocked until we know what custom fields we'll have
             "custom_fields": {},
-            # TODO add files, figure out best one to show first (prefer image formats?)
             "files": {
                 "enabled": bool(len(self.files)),
+                # ! API drops these, whether we define before adding files or after
+                "order": [att["filename"] for att in self.files],
+                "default_preview": self.files[0]["filename"] if len(self.files) else "",
             },
             # "files": {
             #     "enabled": bool(len(self.files)),

@@ -56,12 +56,13 @@ def create_draft(record: dict) -> dict:
     return draft_record
 
 
-def add_files(dir: Path, attachments: list[dict], draft: dict):
+def add_files(dir: Path, record: Record, draft: dict):
     # add files to draft record
     # three steps: initiate, upload, and commit
+    # ! Unable to set files order or default_preview like API docs suggest
 
     # initiate all at once
-    keys = [{"key": attachment["filename"]} for attachment in attachments]
+    keys = [{"key": att["filename"]} for att in record.files]
     init_response: requests.Response = requests.post(
         draft["links"]["files"],
         data=json.dumps(keys),
@@ -75,8 +76,8 @@ def add_files(dir: Path, attachments: list[dict], draft: dict):
 
     # upload one by one
     # TODO use httpx to do in parallel?
-    for attachment in attachments:
-        binary_headers: dict[str, str] = headers
+    for attachment in record.files:
+        binary_headers: dict[str, str] = headers.copy()
         binary_headers["Content-Type"] = "application/octet-stream"
         with open(dir / attachment["filename"], "rb") as f:
             upload_response: requests.Response = requests.put(
@@ -126,17 +127,24 @@ def publish(draft: dict) -> dict:
 )
 @click.help_option("-h", "--help")
 @click.argument("dir", type=click.Path(exists=True), required=True)
+# TODO option to ignore errors which skips assert statements & response.raise_for_status()
 # @click.option("--ignore-errors", "-i", help="Ignore errors and continue", is_flag=True)
 @click.option("--verbose", "-v", "is_verbose", help="Print more output", is_flag=True)
 def main(dir: str, is_verbose: bool):
     global verbose
     verbose = is_verbose
+
     item = get_item(Path(dir) / "metadata" / "item.json")
     record = Record(item)
+
     click.echo(f"Importing {record.title} from {dir}...")
     draft = create_draft(record.get())
-    add_files(Path(dir), record.files, draft)
+
+    if len(record.files):
+        add_files(Path(dir), record, draft)
+
     published_record = publish(draft)
+
     # TODO add to community
     click.echo(f"Published: {published_record['links']['self_html']}")
 

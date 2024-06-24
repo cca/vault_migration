@@ -59,25 +59,25 @@ def to_edtf(s) -> str | None:
 
 
 def visual_mime_type_sort(attachment) -> int:
-    # Sort EQUELLA attachment dicts by MIME type, prefer visual types
-    # Order: TIFF > Other images > Video > PDF > Other Text > Binary ("application") > Unknown
+    # Sort EQUELLA attachment dicts by MIME type, types previewable in Invenio
+    # which is (according to readme): PDF, ZIP, CSV, MARKDOWN, XML, JSON, PNG, JPG, GIF
+    # https://github.com/inveniosoftware/invenio-previewer
+    # Order: TIFF > Non-HEIC/WBEP Images > PDF > Markdown, CSV, XML > JSON > ZIP > Everything else (not previewable)
     # https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#types
     mt: str | None = mimetypes.guess_type(attachment["filename"])[0]
     type, subtype = mt.split("/") if mt else ("unknown", "unknown")
     match type, subtype:
         case "image", "tiff":
             return 0
-        case "image", _:
+        case "image", _ if subtype not in ["heic", "webp"]:
             return 10
-        case "video", _:
-            return 20
         case "application", "pdf":
+            return 20
+        case "text", _ if subtype in ["csv", "markdown", "xml"]:
             return 30
-        case "text", _:
+        case "application", "json":
             return 40
-        case "audio", _:
+        case "application", _ if subtype in ["zip", "x-zip-compressed"]:
             return 50
-        case "application", _:
+        case _, _:  # model, font types, subtypes not covered above
             return 60
-        case _, _:  # model, font
-            return 70
