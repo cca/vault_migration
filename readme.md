@@ -2,6 +2,8 @@
 
 Tools, ideas, and data.
 
+Semantics: EQUELLA objects are _items_ with _attachments_. Invenio objects are _records_ with _files_. EQUELLA has taxonomies; Invenio has vocabularies. We try to use these terms consistently so it's clear what format an object is in (e.g. `python migrate/record.py item.json > record.json` converts an _item_ into a _record_).
+
 ## Setup & Tests
 
 ```sh
