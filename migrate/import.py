@@ -62,7 +62,7 @@ def add_files(dir: Path, record: Record, draft: dict):
     # ! Unable to set files order or default_preview like API docs suggest
 
     # initiate all at once
-    keys = [{"key": att["filename"]} for att in record.files]
+    keys = [{"key": att["filename"]} for att in record.attachments]
     init_response: requests.Response = requests.post(
         draft["links"]["files"],
         data=json.dumps(keys),
@@ -76,7 +76,7 @@ def add_files(dir: Path, record: Record, draft: dict):
 
     # upload one by one
     # TODO use httpx to do in parallel?
-    for attachment in record.files:
+    for attachment in record.attachments:
         binary_headers: dict[str, str] = headers.copy()
         binary_headers["Content-Type"] = "application/octet-stream"
         with open(dir / attachment["filename"], "rb") as f:
@@ -140,7 +140,7 @@ def main(dir: str, is_verbose: bool):
     click.echo(f"Importing {record.title} from {dir}...")
     draft = create_draft(record.get())
 
-    if len(record.files):
+    if len(record.attachments):
         add_files(Path(dir), record, draft)
 
     published_record = publish(draft)

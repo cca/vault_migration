@@ -35,7 +35,7 @@ class Record:
     def __init__(self, item):
         self.xml = xmltodict.parse(item["metadata"], postprocessor=postprocessor)["xml"]
         # TODO remote (url, other item) attachments
-        self.files = sorted(
+        self.attachments = sorted(
             [a for a in item.get("attachments", []) if a["type"] == "file"],
             key=visual_mime_type_sort,
         )
@@ -270,7 +270,7 @@ class Record:
     @property
     def formats(self) -> list[str]:
         formats = set()
-        for file in self.files:
+        for file in self.attachments:
             type = mimetypes.guess_type(file["filename"], strict=False)[0]
             if type:
                 formats.add(type)
@@ -465,10 +465,12 @@ class Record:
             # ! blocked until we know what custom fields we'll have
             "custom_fields": {},
             "files": {
-                "enabled": bool(len(self.files)),
+                "enabled": bool(len(self.attachments)),
                 # ! API drops these, whether we define before adding files or after
-                "order": [att["filename"] for att in self.files],
-                "default_preview": self.files[0]["filename"] if len(self.files) else "",
+                "order": [att["filename"] for att in self.attachments],
+                "default_preview": (
+                    self.attachments[0]["filename"] if len(self.attachments) else ""
+                ),
             },
             # "files": {
             #     "enabled": bool(len(self.files)),
