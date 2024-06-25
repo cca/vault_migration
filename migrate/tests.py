@@ -27,8 +27,8 @@ def test_mklist(input, expect):
         ([], []),
         ([{"filename": "file.py"}], [{"filename": "file.py"}]),
         (
-            [{"filename": "binary.gzip"}, {"filename": "img.gif"}],
-            [{"filename": "img.gif"}, {"filename": "binary.gzip"}],
+            [{"folder": "binary.zip"}, {"filename": "img.gif"}],
+            [{"filename": "img.gif"}, {"folder": "binary.zip"}],
         ),
         (
             [{"filename": "print.pdf"}, {"filename": "word.docx"}],

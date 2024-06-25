@@ -58,8 +58,9 @@
         OWNER["item.owner.id"] -->|TODO map CCA username to Invenio numeric ID| PARENT["parent.owned_by.id"]
         DATECREATED["item.dateCreated"] -->|Use item creation timestamp if no date in MODS| PUBDATE["Publication Date (1)"]
         ATTACHMENTS[item.attachments] -->|guess MIME type from filename| FORMATS["Formats (0-n)"]
-        ATTACHMENTS -->|Non-URL, file attachments| FILES["Files (0-n)"]
-        ATTACHMENTS -->|TODO treat URL attachments as related works?| REL
+        ATTACHMENTS -->|File, HTML, & Zip attachments| FILES["Files (0-n)"]
+        ATTACHMENTS -->|URL attachments are related works| REL
+        ATTACHMENTS -->|TODO references to other items?| REL
     </pre>
 
     <p>There's additional, mostly administrative, metadata in the EQUELLA item JSON outside the XML. We can represent file/attachment operations here, too.</p>

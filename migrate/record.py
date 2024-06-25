@@ -34,15 +34,19 @@ def postprocessor(path, key, value):
 class Record:
     def __init__(self, item):
         self.xml = xmltodict.parse(item["metadata"], postprocessor=postprocessor)["xml"]
-        # TODO URL attachments ex. https://vault.cca.edu/items/951e8540-4c0e-4a5a-a8c0-4b95a7045edd/1
-        # TODO "custom" "resource" attachments that reference other items (need to find working example
-        # TODO zip attachments ex. https://vault.cca.edu/items/75c0d729-82cd-48ec-9caf-32018d1dbc9b/1/
-        # TODO "html" "mypages" attachments ex. https://vault.cca.edu/items/951e8540-4c0e-4a5a-a8c0-4b95a7045edd/1
-        # Very few working examples of that last type
-        self.attachments = sorted(
-            [a for a in item.get("attachments", []) if a["type"] == "file"],
+        self.attachments: list[dict[str, Any]] = sorted(
+            [
+                a
+                for a in item.get("attachments", [])
+                if a["type"] in ("file", "html", "zip")
+            ],
             key=visual_mime_type_sort,
         )
+        # TODO "custom" "resource" attachments that reference other items (need to find working example)
+        # url attachments and references to other EQUELLA items
+        self.references: list[dict[str, Any]] = [
+            a for a in item.get("attachments", []) if a["type"] in ("custom", "url")
+        ]
         self.title = item.get("name", "Untitled")
         # default to current date in ISO 8601 format
         self.dateCreated = item.get("dateCreated", date.today().isoformat())
@@ -366,7 +370,7 @@ class Record:
     @property
     def related_identifiers(self) -> list[dict[str, str | dict[str, str]]]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#related-identifiersworks-0-n
-        # # relation types: cites, compiles, continues, describes, documents, haspart, hasversion, iscitedby, iscompiledby, iscontinuedby, isderivedfrom, isdescribedby, isdocumentedby, isidenticalto, isnewversionof, isobsoletedby, isoriginalformof, ispartof, ispreviousversionof, isreferencedby, isrequiredby, isreviewedby, issourceof, issupplementto, issupplementedby
+        # relation types: cites, compiles, continues, describes, documents, haspart, hasversion, iscitedby, iscompiledby, iscontinuedby, isderivedfrom, isdescribedby, isdocumentedby, isidenticalto, isnewversionof, isobsoletedby, isoriginalformof, ispartof, ispreviousversionof, isreferencedby, isrequiredby, isreviewedby, issourceof, issupplementto, issupplementedby
         # related_identifiers don't seem to be indexed in the search engine, searches like
         # _exists_:metadata.related_identifiers returns items but metadata.related_identifiers:($URL) does not
         ri = []
@@ -375,10 +379,17 @@ class Record:
             ri.append(
                 {
                     "identifier": self.vault_url,
-                    "relation_type": {
-                        "id": "isnewversionof",
-                        "title": {"en": "Is new version of"},
-                    },
+                    "relation_type": {"id": "isnewversionof"},
+                    "scheme": "url",
+                }
+            )
+        # URL attachments, ex. 1) https://vault.cca.edu/items/6bf89d87-abea-4367-b008-9304122364b0/1/
+        # 2) https://vault.cca.edu/items/951e8540-4c0e-4a5a-a8c0-4b95a7045edd/1
+        for url in filter(lambda a: a["type"] == "url", self.references):
+            ri.append(
+                {
+                    "identifier": url["url"],
+                    "relation_type": {"id": "haspart"},
                     "scheme": "url",
                 }
             )

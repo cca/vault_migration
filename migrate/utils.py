@@ -64,7 +64,9 @@ def visual_mime_type_sort(attachment) -> int:
     # https://github.com/inveniosoftware/invenio-previewer
     # Order: TIFF > Non-HEIC/WBEP Images > PDF > Markdown, CSV, XML > JSON > ZIP > Everything else (not previewable)
     # https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#types
-    mt: str | None = mimetypes.guess_type(attachment["filename"])[0]
+    # type=zip attachments have a "folder" but no "filename"
+    fn = attachment.get("filename") or attachment["folder"]
+    mt: str | None = mimetypes.guess_type(fn)[0]
     type, subtype = mt.split("/") if mt else ("unknown", "unknown")
     match type, subtype:
         case "image", "tiff":
