@@ -61,8 +61,7 @@ def add_files(dir: Path, record: Record, draft: dict):
     # three steps: initiate, upload, and commit
     # ! Unable to set files order or default_preview like API docs suggest
 
-    # initiate all at once
-    keys = [{"key": att["filename"]} for att in record.attachments]
+    keys = [{"key": att["name"]} for att in record.attachments]
     init_response: requests.Response = requests.post(
         draft["links"]["files"],
         data=json.dumps(keys),
@@ -79,9 +78,9 @@ def add_files(dir: Path, record: Record, draft: dict):
     for attachment in record.attachments:
         binary_headers: dict[str, str] = headers.copy()
         binary_headers["Content-Type"] = "application/octet-stream"
-        with open(dir / attachment["filename"], "rb") as f:
+        with open(dir / attachment["name"], "rb") as f:
             upload_response: requests.Response = requests.put(
-                f"{domain}/api/records/{draft['id']}/draft/files/{attachment['filename']}/content",
+                f"{domain}/api/records/{draft['id']}/draft/files/{attachment['name']}/content",
                 data=f,
                 headers=binary_headers,
                 verify=verify,

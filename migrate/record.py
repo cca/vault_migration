@@ -38,10 +38,17 @@ class Record:
             [
                 a
                 for a in item.get("attachments", [])
-                if a["type"] in ("file", "html", "zip")
+                if a["type"] in ("file", "htmlpage", "zip")
             ],
             key=visual_mime_type_sort,
         )
+        # normalize EQUELLA attachment names, see logic in equella_scripts/collection-export:
+        # https://github.com/cca/equella_scripts/blob/3dd8ca3e35e7b316beb6b399cab0d09281a12bda/collection-export/collect.js#L109-L129
+        # TODO what about filenames changed by filenamify like unpacked zips?
+        for a in self.attachments:
+            a["name"] = a.get("filename") or re.sub(r"_zips\/", "", a["folder"])
+            if a["type"] == "htmlpage":
+                a["name"] = f'{a["uuid"]}.html'
         # TODO "custom" "resource" attachments that reference other items (need to find working example)
         # url attachments and references to other EQUELLA items
         self.references: list[dict[str, Any]] = [
@@ -279,7 +286,7 @@ class Record:
     def formats(self) -> list[str]:
         formats = set()
         for file in self.attachments:
-            type = mimetypes.guess_type(file["filename"], strict=False)[0]
+            type = mimetypes.guess_type(file["name"], strict=False)[0]
             if type:
                 formats.add(type)
         return list(formats)
@@ -482,9 +489,9 @@ class Record:
             "files": {
                 "enabled": bool(len(self.attachments)),
                 # ! API drops these, whether we define before adding files or after
-                "order": [att["filename"] for att in self.attachments],
+                "order": [att["name"] for att in self.attachments],
                 "default_preview": (
-                    self.attachments[0]["filename"] if len(self.attachments) else ""
+                    self.attachments[0]["name"] if len(self.attachments) else ""
                 ),
             },
             # "files": {
