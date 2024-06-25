@@ -60,6 +60,8 @@ def add_files(dir: Path, record: Record, draft: dict):
     # add files to draft record
     # three steps: initiate, upload, and commit
     # ! Unable to set files order or default_preview like API docs suggest
+    # ! Try setting default_preview after files are added or this approach:
+    # ! https://discord.com/channels/692989811736182844/704625518552547329/1255198495242063957
 
     keys = [{"key": att["name"]} for att in record.attachments]
     init_response: requests.Response = requests.post(

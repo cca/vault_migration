@@ -52,7 +52,9 @@ class Record:
         # TODO "custom" "resource" attachments that reference other items (need to find working example)
         # url attachments and references to other EQUELLA items
         self.references: list[dict[str, Any]] = [
-            a for a in item.get("attachments", []) if a["type"] in ("custom", "url")
+            a
+            for a in item.get("attachments", [])
+            if a["type"] in ("custom", "url", "youtube")
         ]
         self.title = item.get("name", "Untitled")
         # default to current date in ISO 8601 format
@@ -392,6 +394,8 @@ class Record:
             )
         # URL attachments, ex. 1) https://vault.cca.edu/items/6bf89d87-abea-4367-b008-9304122364b0/1/
         # 2) https://vault.cca.edu/items/951e8540-4c0e-4a5a-a8c0-4b95a7045edd/1
+        # TODO youtube attachments ex. https://vault.cca.edu/items/1948b890-cee5-45d3-9d0b-266543b83155/1/
+        # urllib.parse.urlparse(viewUrl)._replace(scheme="https").geturl()
         for url in filter(lambda a: a["type"] == "url", self.references):
             ri.append(
                 {
