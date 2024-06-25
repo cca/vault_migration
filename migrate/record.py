@@ -49,7 +49,7 @@ class Record:
         ]
         self.title = item.get("name", "Untitled")
         # default to current date in ISO 8601 format
-        self.dateCreated = item.get("dateCreated", date.today().isoformat())
+        self.createdDate = item.get("createdDate", date.today().isoformat())
         if item.get("uuid") and item.get("version"):
             self.vault_url = (
                 f"https://vault.cca.edu/items/{item['uuid']}/{item['version']}/"
@@ -318,7 +318,7 @@ class Record:
                 return to_edtf(semesterCreated)
 
         # fall back on when the VAULT record was made (item.createdDate)
-        return to_edtf(self.dateCreated)
+        return to_edtf(self.createdDate)
 
     @property
     def publisher(self) -> str:
