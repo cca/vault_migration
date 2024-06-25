@@ -34,7 +34,11 @@ def postprocessor(path, key, value):
 class Record:
     def __init__(self, item):
         self.xml = xmltodict.parse(item["metadata"], postprocessor=postprocessor)["xml"]
-        # TODO remote (url, other item) attachments
+        # TODO URL attachments ex. https://vault.cca.edu/items/951e8540-4c0e-4a5a-a8c0-4b95a7045edd/1
+        # TODO "custom" "resource" attachments that reference other items (need to find working example
+        # TODO zip attachments ex. https://vault.cca.edu/items/75c0d729-82cd-48ec-9caf-32018d1dbc9b/1/
+        # TODO "html" "mypages" attachments ex. https://vault.cca.edu/items/951e8540-4c0e-4a5a-a8c0-4b95a7045edd/1
+        # Very few working examples of that last type
         self.attachments = sorted(
             [a for a in item.get("attachments", []) if a["type"] == "file"],
             key=visual_mime_type_sort,
