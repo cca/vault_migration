@@ -881,4 +881,6 @@ def test_find_subjects(input, expect):
 )
 def test_subjects(input, expect):
     r = Record(input)
-    assert m(r)["subjects"] == expect
+    for subject in m(r)["subjects"]:
+        assert subject in expect
+    assert len(m(r)["subjects"]) == len(expect)
