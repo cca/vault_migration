@@ -482,7 +482,7 @@ def test_addl_titles(input, expect):
         (  # item with dateCreated but nothing in MODS XML
             {
                 "metadata": "<xml><mods></mods></xml>",
-                "dateCreated": "2019-04-25T16:22:52.704-07:00",
+                "createdDate": "2019-04-25T16:22:52.704-07:00",
             },
             "2019-04-25",
         ),
@@ -495,7 +495,7 @@ def test_addl_titles(input, expect):
         (  # empty dateCreated element
             {
                 "metadata": "<xml><mods><origininfo><dateCreatedWrapper><dateCreated></dateCreated></dateCreatedWrapper></origininfo></mods></xml>",
-                "dateCreated": "2023-11-15T12:22:52.704-07:00",
+                "createdDate": "2023-11-15T12:22:52.704-07:00",
             },
             "2023-11-15",
         ),
@@ -508,7 +508,7 @@ def test_addl_titles(input, expect):
         (  # empty date range should default to item.dateCreated
             {
                 "metadata": "<xml><mods><origininfo><dateCreatedWrapper><dateCreated></dateCreated><pointStart></pointStart><pointEnd></pointEnd></dateCreatedWrapper></origininfo></mods></xml>",
-                "dateCreated": "2016-11-15T14:42:52.804-07:00",
+                "createdDate": "2016-11-15T14:42:52.804-07:00",
             },
             "2016-11-15",
         ),
