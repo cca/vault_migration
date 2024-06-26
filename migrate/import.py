@@ -58,22 +58,21 @@ def create_draft(record: dict) -> dict:
 
 def add_files(dir: Path, record: Record, draft: dict):
     # add files to draft record
-    # three steps: initiate, upload, and commit
-    # ! Unable to set files order or default_preview like API docs suggest
-    # ! Try setting default_preview after files are added or this approach:
-    # ! https://discord.com/channels/692989811736182844/704625518552547329/1255198495242063957
+    # four steps: initiate, upload (all), commit (all), set default preview
+    # ! Unable to set order as API docs suggest, files.order is dropped
+    # ! https://github.com/inveniosoftware/invenio-app-rdm/issues/2573
 
     keys = [{"key": att["name"]} for att in record.attachments]
     init_response: requests.Response = requests.post(
         draft["links"]["files"],
-        data=json.dumps(keys),
+        json=keys,
         headers=headers,
         verify=verify,
     )
     verbose_print(f"HTTP {init_response.status_code} {init_response.url}")
     init_response.raise_for_status()
     init_data = init_response.json()
-    # click.echo(json.dumps(init_data))
+    # click.echo(json.dumps(init_data, indent=2))
 
     # upload one by one
     # TODO use httpx to do in parallel?
@@ -100,6 +99,17 @@ def add_files(dir: Path, record: Record, draft: dict):
         )
         verbose_print(f"HTTP {commit_response.status_code} {commit_response.url}")
         commit_response.raise_for_status()
+
+    # set default preview which was in our original record
+    preview_response: requests.Response = requests.put(
+        draft["links"]["self"],
+        json=record.get(),
+        headers=headers,
+        verify=verify,
+    )
+    verbose_print(f"HTTP {preview_response.status_code} {preview_response.url}")
+    preview_response.raise_for_status()
+    # click.echo(json.dumps(order_data, indent=2))
 
 
 def publish(draft: dict) -> dict:
