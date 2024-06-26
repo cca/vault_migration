@@ -241,7 +241,7 @@ class Record:
     def descriptions(self) -> list[dict[str, Any]]:
         # extra /mods/abstract entries, mods/noteWrapper/note
         # https://inveniordm.docs.cern.ch/reference/metadata/#additional-descriptions-0-n
-        # https://127.0.0.1:5000/api/vocabularies/descriptiontypes
+        # /api/vocabularies/descriptiontypes
         # types: abstract, methods, series-information, table-of-contents, technical-info, other
 
         desc = []
@@ -256,10 +256,7 @@ class Record:
                 ]
             )
 
-        # MODS note types: https://www.loc.gov/standards/mods/mods-notes.html
-        # Mudflats has only handwritten & identification notes
-        # All our note values: acquisition, action, additional artists, additional performers, additional physical form, depicted persons, exhibitions, funding, handwritten, identification, local, medium, original location, publications, source identifier, venue, version, version identification
-        # TODO can we customize Invenio description types? https://127.0.0.1:5000/api/vocabularies/descriptiontypes
+        # we have _many_ MODS note types & none map cleanly to Invenio description types
         noteWrappers = mklist(self.xml.get("mods", {}).get("noteWrapper", []))
         notes = []
         for wrapper in noteWrappers:
@@ -273,12 +270,17 @@ class Record:
                     }
                 )
             elif type(note) == dict:
-                note = note.get("#text")
-                if note:
+                # prefix note with its type if we have one
+                ntype: str = note.get("@type", "").title()
+                note_text: str = note.get("#text", "")
+                note_text = (
+                    f"{ntype}: {note_text}" if ntype and note_text else note_text
+                )
+                if note_text:
                     desc.append(
                         {
                             "type": {"id": "other", "title": {"en": "Other"}},
-                            "description": note.strip(),
+                            "description": note_text.strip(),
                         }
                     )
 

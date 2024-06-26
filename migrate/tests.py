@@ -356,6 +356,17 @@ def test_desc(input, expect):
             x("<mods><noteWrapper><note>foo</note></noteWrapper></mods>"),
             [{"type": {"id": "other", "title": {"en": "Other"}}, "description": "foo"}],
         ),
+        (  # note with type
+            x(
+                "<mods><noteWrapper><note type='handwritten'>foo</note></noteWrapper></mods>"
+            ),
+            [
+                {
+                    "type": {"id": "other", "title": {"en": "Other"}},
+                    "description": "Handwritten: foo",
+                }
+            ],
+        ),
         (  # empty note does not get added
             x("<mods><noteWrapper><note></note></noteWrapper></mods>"),
             [],
