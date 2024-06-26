@@ -127,9 +127,6 @@ def publish(draft: dict) -> dict:
         click.echo(publish_response.text, err=True)
     publish_response.raise_for_status()
     published_record = publish_response.json()
-
-    # you can use /api/records/<id>/communities
-    # see https://github.com/inveniosoftware/invenio-rdm-records/blob/master/tests/resources/test_resources_communities.py#L32
     return published_record
 
 
@@ -157,6 +154,8 @@ def main(dir: str, is_verbose: bool):
     published_record = publish(draft)
 
     # TODO add to community
+    # POST /api/records/<id>/communities {"communities": [ { "id": <id> } ]}
+    # See https://github.com/inveniosoftware/invenio-rdm-records/blob/e64dd0b81757a391584e63d162d5e6caf6780637/tests/resources/test_resources_communities.py#L33-L60
     click.echo(f"Published: {published_record['links']['self_html']}")
 
 
