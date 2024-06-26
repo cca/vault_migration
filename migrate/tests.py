@@ -5,7 +5,23 @@ import xmltodict
 from names import parse_name
 from record import Record
 from subjects import find_subjects, subjects_from_xmldict, Subject, TYPES
-from utils import mklist, to_edtf, visual_mime_type_sort
+from utils import get_url, mklist, to_edtf, visual_mime_type_sort
+
+
+# TODO alphabetize utils and their tests
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        ("not a url", None),
+        ("https://example.com", "https://example.com"),
+        (
+            "//www.youtube.com/v/video_id_here",
+            "https://www.youtube.com/v/video_id_here",
+        ),
+    ],
+)
+def test_get_url(input, expect):
+    assert get_url(input) == expect
 
 
 @pytest.mark.parametrize(

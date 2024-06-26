@@ -1,7 +1,7 @@
 import json
 import mimetypes
 import re
-from typing import Tuple
+from urllib.parse import urlparse
 
 from edtf import text_to_edtf
 
@@ -34,6 +34,18 @@ def find_items(file) -> list:
             return [{"metadata": xml}]
     # non-data file (like .py or .txt) so skip gracefully
     return []
+
+
+# ensure valid URLs
+# prepend scheme to //www.youtube.com/... URLs seen in youtube attachments
+# used in Record.related_identifiers
+def get_url(url: str) -> str | None:
+    parsed_url = urlparse(url)
+    if parsed_url.scheme:
+        return url
+    elif parsed_url.netloc:
+        return parsed_url._replace(scheme="https").geturl()
+    return None
 
 
 # EDTF seasons conversion
