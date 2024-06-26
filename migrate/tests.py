@@ -5,7 +5,7 @@ import xmltodict
 from names import parse_name
 from record import Record
 from subjects import find_subjects, subjects_from_xmldict, Subject, TYPES
-from utils import mklist, visual_mime_type_sort
+from utils import mklist, to_edtf, visual_mime_type_sort
 
 
 @pytest.mark.parametrize(
@@ -91,6 +91,23 @@ def test_visual_mime_type_sort(input, expect):
 )
 def test_edtf(input, expect):
     assert text_to_edtf(input) == expect
+
+
+# test our to_edtf utility
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        ("1996", "1996"),
+        ("1984-01", "1984-01"),
+        ("1984-01-01", "1984-01-01"),
+        ("Unparseable", None),
+        # map EDTF season to approx month
+        ("Summer 2020", "2020-05"),
+        ("2024 Fall", "2024-08"),
+    ],
+)
+def test_to_edtf(input, expect):
+    assert to_edtf(input) == expect
 
 
 def x(s):

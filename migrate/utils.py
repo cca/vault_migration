@@ -39,7 +39,6 @@ def find_items(file) -> list:
 # EDTF seasons conversion
 # https://www.loc.gov/standards/datetime/
 # "The values 21, 22, 23, 24 may be used used to signify ' Spring', 'Summer', 'Autumn', 'Winter', respectively, in place of a month value (01 through 12) for a year-and-month format string."
-# TODO does this need tests?
 def to_edtf(s) -> str | None:
     # map season to approx month in season
     season_map = {
