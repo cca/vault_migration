@@ -8,7 +8,6 @@ from subjects import find_subjects, subjects_from_xmldict, Subject, TYPES
 from utils import get_url, mklist, to_edtf, visual_mime_type_sort
 
 
-# TODO alphabetize utils and their tests
 @pytest.mark.parametrize(
     "input, expect",
     [
@@ -35,6 +34,40 @@ def test_get_url(input, expect):
 )
 def test_mklist(input, expect):
     assert mklist(input) == expect
+
+
+@pytest.mark.parametrize(  # ensure edtf library works with our date formats
+    "input, expect",
+    [
+        # different types of ISO 8601 dates
+        ("1996", "1996"),
+        ("1984-11", "1984-11"),
+        ("2020-03-14", "2020-03-14"),
+        # format of item.dateCreated string
+        ("2019-04-25T16:22:52.704-07:00", "2019-04-25"),
+        # date range
+        ("1996-1997", "1996/1997"),
+    ],
+)
+def test_edtf(input, expect):
+    assert text_to_edtf(input) == expect
+
+
+# test our to_edtf utility
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        ("1996", "1996"),
+        ("1984-01", "1984-01"),
+        ("1984-01-01", "1984-01-01"),
+        ("Unparseable", None),
+        # map EDTF season to approx month
+        ("Summer 2020", "2020-05"),
+        ("2024 Fall", "2024-08"),
+    ],
+)
+def test_to_edtf(input, expect):
+    assert to_edtf(input) == expect
 
 
 @pytest.mark.parametrize(
@@ -90,40 +123,6 @@ def test_mklist(input, expect):
 )
 def test_visual_mime_type_sort(input, expect):
     assert sorted(input, key=visual_mime_type_sort) == expect
-
-
-@pytest.mark.parametrize(  # ensure edtf library works with our date formats
-    "input, expect",
-    [
-        # different types of ISO 8601 dates
-        ("1996", "1996"),
-        ("1984-11", "1984-11"),
-        ("2020-03-14", "2020-03-14"),
-        # format of item.dateCreated string
-        ("2019-04-25T16:22:52.704-07:00", "2019-04-25"),
-        # date range
-        ("1996-1997", "1996/1997"),
-    ],
-)
-def test_edtf(input, expect):
-    assert text_to_edtf(input) == expect
-
-
-# test our to_edtf utility
-@pytest.mark.parametrize(
-    "input, expect",
-    [
-        ("1996", "1996"),
-        ("1984-01", "1984-01"),
-        ("1984-01-01", "1984-01-01"),
-        ("Unparseable", None),
-        # map EDTF season to approx month
-        ("Summer 2020", "2020-05"),
-        ("2024 Fall", "2024-08"),
-    ],
-)
-def test_to_edtf(input, expect):
-    assert to_edtf(input) == expect
 
 
 def x(s):

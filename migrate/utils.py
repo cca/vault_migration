@@ -6,18 +6,6 @@ from urllib.parse import urlparse
 from edtf import text_to_edtf
 
 
-def mklist(x) -> list:
-    # ensure value is a list
-    if type(x) == list:
-        return x
-    elif type(x) == str or type(x) == dict:
-        return [x]
-    elif x is None:
-        return []
-    else:
-        raise TypeError(f"mklist: invalid type: {type(x)}")
-
-
 # support three types of files: single item json, search results json with
 # multiple items in "results" property, and XML metadata with no item JSON
 def find_items(file) -> list:
@@ -46,6 +34,18 @@ def get_url(url: str) -> str | None:
     elif parsed_url.netloc:
         return parsed_url._replace(scheme="https").geturl()
     return None
+
+
+def mklist(x) -> list:
+    # ensure value is a list
+    if type(x) == list:
+        return x
+    elif type(x) == str or type(x) == dict:
+        return [x]
+    elif x is None:
+        return []
+    else:
+        raise TypeError(f"mklist: invalid type: {type(x)}")
 
 
 # EDTF seasons conversion
