@@ -678,10 +678,7 @@ def test_publisher(input, expect):
             [
                 {
                     "identifier": "https://vault.cca.edu/items/ec839536-06f9-4fd2-8a80-42ee8a5cf891/1/",
-                    "relation_type": {
-                        "id": "isnewversionof",
-                        "title": {"en": "Is new version of"},
-                    },
+                    "relation_type": {"id": "isnewversionof"},
                     "scheme": "url",
                 }
             ],
