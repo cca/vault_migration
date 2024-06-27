@@ -1,70 +1,48 @@
-""" Convert EQUELLA taxonomy export into Invenio names vocab
-https://inveniordm.docs.cern.ch/customize/vocabularies/names/
-TODO: CCA affiliations? We would have to manually add or use item records
-"""
-import argparse
+""" Convert "LIBRARIES - subject name" EQUELLA taxonomy to Invenio subjects
+vocabulary which we will save to vocab/names.yaml & append to
+vocab/cca_local.yaml with migrate/mk_subjects.py """
+
 import json
 
+import click
 import yaml
 
 
-def convert(term):
-    """convert EQUELLA personal names taxo term into Invenio name
+def convert(term: dict[str, str]) -> dict[str, str] | None:
+    """convert EQUELLA local auth names taxo term into Invenio name
+    we will manually look up URIs for OCLC & ULAN auth names in subjects spreadsheet
 
     Args:
         term (dict): { "term": "Wang, Wayne, 1949-", "fullTerm": "oclc\\personal\\Wang, Wayne, 1949-", }
 
     Returns:
-        dict: { "family_name": "Wang", "given_name": "Wayne" }
+        dict: { "subject": "Wang, Wayne, 1949-", "scheme": "cca_local" }
     """
-    # we assume no one has a comma in their name
-    # Some names were entered improperly, without commas
-    # TODO trim the birth/death years of the end of the name
-    if "," in term["term"]:
-        name_split = term["term"].split(",")
-        name = {
-            "family_name": name_split[0].strip(),
-            "given_name": name_split[1].strip(),
-        }
-    elif " " in term["term"]:
-        name_split = term["term"].split(" ")
-        name = {
-            "family_name": name_split[0].strip(),
-            "given_name": " ".join(name_split[1:]).strip(),
-        }
-    else:
-        raise Exception(
-            f'Unable to parse given and family names for name "${term["term"]}"'
-        )
-
-    # TODO many are CCA, have to manually add
-    name["affiliations"] = []
-    # TODO names vocab supports identifiers but we have no URIs, have to look them up manually
-    # ! identifiers is required even if it's empty otherwise import cmd fails
-    name["identifiers"] = [{"scheme": "local", "identifier": term["term"].lower()}]
-    return name
+    if term["fullTerm"].startswith("local"):
+        return {"subject": term["term"], "scheme": "cca_local"}
+    return None
 
 
-def main(args):
-    with args.file:
-        terms = json.load(args.file)
+@click.command()
+@click.help_option("--help", "-h")
+@click.argument(
+    "file",
+    type=click.File("r"),
+    required=True,
+)
+def main(file) -> None:
+    """Convert FILE ("LIBRARIES - subject name" taxo JSON) to Invenio subjects names.yaml"""
+    output: list[dict[str, str]] = []
+    with file:
+        terms: list[dict[str, str]] = json.load(file)
 
-    names = [convert(term) for term in terms]
+    for name in terms:
+        if converted := convert(name):
+            output.append(converted)
 
     with open("vocab/names.yaml", "w") as f:
-        yaml.dump(names, f, allow_unicode=True)
+        yaml.dump(output, f, allow_unicode=True)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Convert our Libraries subject name taxonomy in VAULT to Invenio names.yaml vocabulary"
-    )
-    parser.add_argument(
-        "file",
-        default="taxos/subject-name-complete.json",
-        help="Path to JSON taxonomy",
-        nargs="?",
-        type=argparse.FileType("r"),
-    )
-    args = parser.parse_args()
-    main(args)
+    main()

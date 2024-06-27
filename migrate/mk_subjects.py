@@ -34,7 +34,7 @@ def dump_all(subjects_map, cca_local, lc):
 
 
 def main(file: str):
-    with open(sys.argv[1], "r") as fp:
+    with open(file, "r") as fp:
         subjects_map: dict[str, str] = {}
         cca_local: list[dict[str, str]] = []
         lc: list[dict[str, str]] = []
@@ -74,7 +74,7 @@ def main(file: str):
                 locals()[subject["scheme"]].append(subject)
 
         # premade sub-vocabs to be added to cca_local
-        for filename in ["programs.yaml"]:  # TODO: accreditation terms, archives series
+        for filename in ["names.yaml", "programs.yaml"]:  # TODO: archives series
             with open(Path("vocab") / filename, "r") as fh:
                 terms = yaml.load(fh, Loader=yaml.FullLoader)
                 for term in terms:
