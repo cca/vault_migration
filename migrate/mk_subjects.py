@@ -79,9 +79,12 @@ def main(file: str):
                 terms = yaml.load(fh, Loader=yaml.FullLoader)
                 for term in terms:
                     assert type(term) == dict  # solely for type hinting
+                    # if term has already been added to the subjects_map, skip it
+                    if (term_text := term["subject"].lower()) in subjects_map:
+                        continue
                     # assign an ID that matches what we have in the map from combined subjects.csv terms
                     term["id"] = get_uuid(term["subject"])
-                    subjects_map[term["subject"].lower()] = term["id"]
+                    subjects_map[term_text] = term["id"]
                     locals()[term["scheme"]].append(term)
 
         dump_all(subjects_map, cca_local, lc)
