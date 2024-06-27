@@ -478,7 +478,6 @@ class Record:
     def subjects(self) -> list[dict[str, str]]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#subjects-0-n
         # Subjects are {id} or {subject} dicts
-        # TODO handling name subjects (right now they're added as keywords)
         # find_subjects pulls from mods/subject and mods/genreWrapper/genre
         subjects: set[Subject] = find_subjects(self.xml)
         return [s.to_invenio() for s in subjects]

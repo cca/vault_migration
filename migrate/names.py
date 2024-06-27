@@ -1,3 +1,6 @@
+""" Parse names and lists of names from a variety of formats into {given_name, family_name} dicts
+This is used by Record.creator only. It does not relate to the Invenio names.yaml vocabulary."""
+
 import re
 
 import spacy
