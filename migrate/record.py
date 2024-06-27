@@ -49,16 +49,13 @@ class Record:
             a["name"] = a.get("filename") or re.sub(r"_zips\/", "", a["folder"])
             if a["type"] == "htmlpage":
                 a["name"] = f'{a["uuid"]}.html'
-        # TODO "custom" "resource" attachments that reference other items (need to find working example)
-        # url attachments and references to other EQUELLA items
+        # url and "custom" youtube attachments
         self.references: list[dict[str, Any]] = [
-            a
-            for a in item.get("attachments", [])
-            if a["type"] in ("custom", "url", "youtube")
+            a for a in item.get("attachments", []) if a["type"] in ("url", "youtube")
         ]
-        self.title = item.get("name", "Untitled")
+        self.title: str = item.get("name", "Untitled")
         # default to current date in ISO 8601 format
-        self.createdDate = item.get("createdDate", date.today().isoformat())
+        self.createdDate: str = item.get("createdDate", date.today().isoformat())
         if item.get("uuid") and item.get("version"):
             self.vault_url = (
                 f"https://vault.cca.edu/items/{item['uuid']}/{item['version']}/"
@@ -381,8 +378,9 @@ class Record:
     @property
     def related_identifiers(self) -> list[dict[str, str | dict[str, str]]]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#related-identifiersworks-0-n
-        # relation types: cites, compiles, continues, describes, documents, haspart, hasversion, iscitedby, iscompiledby, iscontinuedby, isderivedfrom, isdescribedby, isdocumentedby, isidenticalto, isnewversionof, isobsoletedby, isoriginalformof, ispartof, ispreviousversionof, isreferencedby, isrequiredby, isreviewedby, issourceof, issupplementto, issupplementedby
-        # related_identifiers don't seem to be indexed in the search engine, searches like
+        # Default relation types: https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/relation_types.yaml
+        # We use a reduced subset since there are too many
+        # related_identifiers aren't indexed in the search engine, searches like
         # _exists_:metadata.related_identifiers returns items but metadata.related_identifiers:($URL) does not
         ri = []
         if self.vault_url:
