@@ -307,23 +307,26 @@ class Record:
                 for dateCreated in dateCreatedsx:
                     # work around empty str or dict
                     if dateCreated:
-                        # ! if a date isn't parseable then this returns None
                         if type(dateCreated) == str:
-                            return to_edtf(dateCreated)
+                            edtf_date: str | None = to_edtf(dateCreated)
                         elif type(dateCreated) == dict:
-                            return to_edtf(dateCreated.get("#text"))
+                            edtf_date: str | None = to_edtf(dateCreated.get("#text"))
+                        if edtf_date:
+                            return edtf_date
 
                 # maybe we have a range with pointStart and pointEnd elements?
-                start = wrapper.get("pointStart")
-                end = wrapper.get("pointEnd")
+                # edtf.text_to_edtf(f"{start}/{end}") returns None for valid dates so do in two steps
+                start: str | None = to_edtf(wrapper.get("pointStart"))
+                end: str | None = to_edtf(wrapper.get("pointEnd"))
                 if start and end:
-                    # edtf.text_to_edtf(f"{start}/{end}") returns None for valid dates so we do this
-                    return f"{to_edtf(start)}/{to_edtf(end)}"
+                    return f"{start}/{end}"
 
             # maybe we have mods/origininfo/semesterCreated, which is always a string (no children)
             semesterCreated = origininfox.get("semesterCreated")
             if semesterCreated:
-                return to_edtf(semesterCreated)
+                edtf_date: str | None = to_edtf(semesterCreated)
+                if edtf_date:
+                    return edtf_date
 
         # fall back on when the VAULT record was made (item.createdDate)
         return to_edtf(self.createdDate)
@@ -407,6 +410,7 @@ class Record:
                     }
                 )
         # TODO there are other relations to add, like mods/relatedItem|relateditem
+        # Example: https://vault.cca.edu/items/2a1bbc39-0619-4f95-8573-dcf4fd9c9e61/2/
         # but if a VAULT item is related to another VAULT item, we need to know both their new
         # IDs in Invenio to create the relation
         return ri

@@ -547,6 +547,13 @@ def test_addl_titles(input, expect):
             ),
             "2014-02",
         ),
+        (  # malformed date range -> default to item.createdDate
+            {
+                "createdDate": "2019-04-25T16:22:52.704-07:00",
+                "metadata": "<xml><mods><origininfo><dateCreatedWrapper><dateCreated>malformed date</dateCreated></dateCreatedWrapper></origininfo></mods></xml>",
+            },
+            "2019-04-25",
+        ),
     ],
 )
 def test_publication_date(input, expect):
