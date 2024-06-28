@@ -13,30 +13,40 @@ for t in (jq -r .results[].name all.json | grep LIBRARIES);
 end
 ```
 
-One way to download a (two-tier) hierarchical taxonomy (archives series). This doesn't quite work because some archives series parent terms (VI. Photographs, VIII. Periodicals and Other Publications, IX. Graduate and Undergraduate Theses) have no children so they end up as empty arrays.
+Here's a way to download a (two-tier) hierarchical taxonomy ("LIBRARIES - Archives Series"). Some series have no children (VI. Photographs, VIII. Periodicals and Other Publications, IX. Graduate and Undergraduate Theses). We're waiting to have these finalized during archives work before adding to Invenio and unsure if they will be part of the `cca_local` subjects, a distinct subject vocab, or a custom field.
 
 ```sh
-eq tax 347c7b42-594a-4a7d-8d73-3054ab05a079 --terms > "Archives Series.json"
-set idx 1
-for term in (jq -r .[].term "Archives Series.json")
-    eq tax 347c7b42-594a-4a7d-8d73-3054ab05a079 --term $term > $idx.tmp.json
-    set idx (math $idx + 1)
+set uuid 347c7b42-594a-4a7d-8d73-3054ab05a079
+eq tax $uuid --terms > "Archives Series.json"
+cp "Archives Series.json" archives-series-complete.json
+for term in (jq -r ".[].term" "Archives Series.json")
+    eq tax $uuid --term $term > tmp.json
+    set length (jq '. | length' tmp.json 2> /dev/null)
+    if test "$length" -gt 0
+        mlr --json cat tmp.json archives-series-complete.json > tmp2.json
+        mv tmp2.json archives-series-complete.json
+    end
 end
-mlr --json cat *.tmp.json > taxo.json
-rm *.tmp.json
+rm tmp.json
 ```
 
-Personal names are nested two layers deep in the "LIBRARIES - subject name" taxonomy: authority > personal or conference > name, e.g. "oclc\personal\Ferrea, Elizabeth, 1880-1925".
+Personal names are nested two layers deep in the "LIBRARIES - subject name" taxonomy: authority > conference or corporate or personal > term, e.g. "oclc\personal\Ferrea, Elizabeth, 1880-1925". The code below recreates subject-name-complete.json with all terms.
 
 ```sh
-eq tax 657fdbec-c17c-4497-aa31-5b4bc7d9e9e5 --terms > "subject name.json"
-set idx 1
+set uuid 657fdbec-c17c-4497-aa31-5b4bc7d9e9e5
+eq tax $uuid --terms > "subject name.json"
+echo "[]" > subject-name-complete.json
 for term in (jq -r .[].term "subject name.json")
-    eq tax 657fdbec-c17c-4497-aa31-5b4bc7d9e9e5 --term $term\\personal > $idx.tmp.json
-    set idx (math $idx + 1)
+    for type in conference corporate personal
+        eq tax $uuid --term $term\\$type > tmp.json
+        set err (jq -r .error tmp.json 2> /dev/null)
+        if test -z "$err" # no err => results array
+            mlr --json cat tmp.json subject-name-complete.json > tmp2.json
+            mv tmp2.json subject-name-complete.json
+        end
+    end
 end
-mlr --json cat *.tmp.json > taxo.json
-rm *.tmp.json
+rm tmp.json
 ```
 
-`mlr` is [miller](https://miller.readthedocs.io/) (`brew install miller`). It's possible to concatenate the JSON files with `jq` or editing them together, but not as easy.
+`mlr` is [miller](https://miller.readthedocs.io/) (`brew install miller`). It's possible to concatenate the JSON files with `jq` or by editing them together, but not as easy.

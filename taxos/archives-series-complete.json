@@ -1,219 +1,310 @@
 [
-    {
-        "term": "1. Academic Council",
-        "fullTerm": "I. Administrative Materials\\1. Academic Council",
-        "uuid": "df4d929b-6585-48bc-ad1f-279306b47f9e",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "2. Accreditation and Licensing Materials",
-        "fullTerm": "I. Administrative Materials\\2. Accreditation and Licensing Materials",
-        "uuid": "f9eefde2-71f7-4c72-8ca4-d1de052c12a6",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "3. Board of Directors and Trustees",
-        "fullTerm": "I. Administrative Materials\\3. Board of Directors and Trustees",
-        "uuid": "0decc544-5b69-4d01-9f40-a86a7f52a9e9",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "4. Faculty Assembly and Faculty Senate",
-        "fullTerm": "I. Administrative Materials\\4. Faculty Assembly and Faculty Senate",
-        "uuid": "12491a85-f818-49dd-a565-d5deaeeefb5b",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "5. Faculty and Staff Files",
-        "fullTerm": "I. Administrative Materials\\5. Faculty and Staff Files",
-        "uuid": "9ea3341a-79ab-4f4d-87a5-2d415a656f36",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "6. Finance and Development",
-        "fullTerm": "I. Administrative Materials\\6. Finance and Development",
-        "uuid": "bf56bc65-7a96-4f49-a74a-2e786bd4c93e",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "7. General Admin Files",
-        "fullTerm": "I. Administrative Materials\\7. General Admin Files",
-        "uuid": "6eb2affc-1138-493b-b82b-16ef913df8e7",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "8. Partnerships and Affiliations",
-        "fullTerm": "I. Administrative Materials\\8. Partnerships and Affiliations",
-        "uuid": "6fcc3604-72d2-4abf-ae95-14deeba351cd",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "9. President's Office",
-        "fullTerm": "I. Administrative Materials\\9. President's Office",
-        "uuid": "799084db-bdce-4645-8208-727160c6ed8e",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "10. Miscellany",
-        "fullTerm": "I. Administrative Materials\\10. Miscellany",
-        "uuid": "274d2402-6575-4ae6-9186-2d784c7daa54",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "1. Historical",
-        "fullTerm": "II. Alumni Society Materials\\1. Historical",
-        "uuid": "2d087c69-a2a0-4505-8f21-d8b82cf8669e",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "2. Alumni Files",
-        "fullTerm": "II. Alumni Society Materials\\2. Alumni Files",
-        "uuid": "6ac2b821-dbf1-4061-af4f-6d32f4a356cb",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "1. Commencement Materials",
-        "fullTerm": "III. College Life\\1. Commencement Materials",
-        "uuid": "6db36bfc-306b-4cde-b6bd-e40e0b017e28",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "2. Ephemera",
-        "fullTerm": "III. College Life\\2. Ephemera",
-        "uuid": "de183e7e-9271-45af-b431-e1923f3084b5",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "3. Events",
-        "fullTerm": "III. College Life\\3. Events",
-        "uuid": "37e07c1d-8ddb-40e4-8d32-9b9647f08f8c",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "4. Miscellany",
-        "fullTerm": "III. College Life\\4. Miscellany",
-        "uuid": "ddd37edc-f618-483d-aaee-9dde6419b4a6",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "5. Oral Histories",
-        "fullTerm": "III. College Life\\5. Oral Histories",
-        "uuid": "a7879035-cd28-44ec-a160-cd1fc7befa77",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "1. Academic Departments",
-        "fullTerm": "IV. Department Materials\\1. Academic Departments",
-        "uuid": "3718feca-f2d0-4fd3-b5b6-88308f9370ca",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "2. Administrative Departments",
-        "fullTerm": "IV. Department Materials\\2. Administrative Departments",
-        "uuid": "6527ebcb-037c-4462-b8f7-9e13af179724",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "1. Collection and Administration",
-        "fullTerm": "V. Exhibits and the CCA Art Collection\\1. Collection and Administration",
-        "uuid": "4eb2a40f-f954-4b58-9f62-5fafce772e4c",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "2. Exhibits",
-        "fullTerm": "V. Exhibits and the CCA Art Collection\\2. Exhibits",
-        "uuid": "a01f114c-8237-4337-904f-4a4c0fa29954",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "3. Gallery Management Class",
-        "fullTerm": "V. Exhibits and the CCA Art Collection\\3. Gallery Management Class",
-        "uuid": "19d0d0d3-38f4-40f2-b38f-dd2d5bd665f9",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "VI. Photographs",
-        "fullTerm": "VI. Photographs",
-        "uuid": "30e5b818-b4d6-46ef-ab50-6a02431fd225",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "1. Press Clippings",
-        "fullTerm": "VII. Press\\1. Press Clippings",
-        "uuid": "0e7f735d-7073-4c4b-a808-5f1642adaeca",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "2. Press Releases",
-        "fullTerm": "VII. Press\\2. Press Releases",
-        "uuid": "0e1bdf4b-0ea1-489a-ba33-fd5aa2aca6da",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "VIII. Periodicals and Other Publications",
-        "fullTerm": "VIII. Periodicals and Other Publications",
-        "uuid": "eb06a000-2188-4325-94ca-b3802cdb1025",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "IX. Graduate and Undergraduate Theses",
-        "fullTerm": "IX. Graduate and Undergraduate Theses",
-        "uuid": "17103aa2-f1b8-4e64-8127-e4cb15745d46",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "1. Berkeley",
-        "fullTerm": "X. Buildings and Grounds\\1. Berkeley",
-        "uuid": "58576feb-a181-4f04-89c7-ba59ebc36dd7",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "2. Oakland",
-        "fullTerm": "X. Buildings and Grounds\\2. Oakland",
-        "uuid": "7ae8939a-1c33-4c06-8682-6e69f0d3ba65",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "3. San Francisco",
-        "fullTerm": "X. Buildings and Grounds\\3. San Francisco",
-        "uuid": "94bf52b6-02e8-48b8-9e15-8175340de499",
-        "index": 0,
-        "readonly": false
-    },
-    {
-        "term": "4. Off-Campus Locations",
-        "fullTerm": "X. Buildings and Grounds\\4. Off-Campus Locations",
-        "uuid": "5117d505-c465-4189-9c6a-7b25dccffa00",
-        "index": 0,
-        "readonly": false
-    }
+{
+  "term": "1. Berkeley",
+  "fullTerm": "X. Buildings and Grounds\\1. Berkeley",
+  "uuid": "58576feb-a181-4f04-89c7-ba59ebc36dd7",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "2. Oakland",
+  "fullTerm": "X. Buildings and Grounds\\2. Oakland",
+  "uuid": "7ae8939a-1c33-4c06-8682-6e69f0d3ba65",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "3. San Francisco",
+  "fullTerm": "X. Buildings and Grounds\\3. San Francisco",
+  "uuid": "94bf52b6-02e8-48b8-9e15-8175340de499",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "4. Other Locations",
+  "fullTerm": "X. Buildings and Grounds\\4. Other Locations",
+  "uuid": "5117d505-c465-4189-9c6a-7b25dccffa00",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "1. College",
+  "fullTerm": "VIII. Periodicals and Other Publications\\1. College",
+  "uuid": "17cded6f-92ca-46e0-97f6-167bfb5997b5",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "2. Student",
+  "fullTerm": "VIII. Periodicals and Other Publications\\2. Student",
+  "uuid": "0ccc94fb-51f4-47c1-9d50-238d210e65c7",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "3. Alumni",
+  "fullTerm": "VIII. Periodicals and Other Publications\\3. Alumni",
+  "uuid": "8bc0615d-aab8-4520-b5f5-ee7887d4508a",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "4. Yearbooks",
+  "fullTerm": "VIII. Periodicals and Other Publications\\4. Yearbooks",
+  "uuid": "f64a1880-98c4-47e9-b38a-97506857698c",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "5. Issued an ISBN/ISSN",
+  "fullTerm": "VIII. Periodicals and Other Publications\\5. Issued an ISBN/ISSN",
+  "uuid": "e6f289a3-a3a9-4830-856d-53f6389fb5c0",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "6. Catalogs/ Schedule of classes",
+  "fullTerm": "VIII. Periodicals and Other Publications\\6. Catalogs/ Schedule of classes",
+  "uuid": "bfa4c01e-da74-4731-8f42-d1e4613203a7",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "1. Press Clippings",
+  "fullTerm": "VII. Press\\1. Press Clippings",
+  "uuid": "0e7f735d-7073-4c4b-a808-5f1642adaeca",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "2. Press Releases",
+  "fullTerm": "VII. Press\\2. Press Releases",
+  "uuid": "0e1bdf4b-0ea1-489a-ba33-fd5aa2aca6da",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "1. Collection and Administration",
+  "fullTerm": "V. Exhibits and the CCA Art Collection\\1. Collection and Administration",
+  "uuid": "4eb2a40f-f954-4b58-9f62-5fafce772e4c",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "2. Exhibits",
+  "fullTerm": "V. Exhibits and the CCA Art Collection\\2. Exhibits",
+  "uuid": "a01f114c-8237-4337-904f-4a4c0fa29954",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "3. Gallery Management Class",
+  "fullTerm": "V. Exhibits and the CCA Art Collection\\3. Gallery Management Class",
+  "uuid": "19d0d0d3-38f4-40f2-b38f-dd2d5bd665f9",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "1. Academic Departments",
+  "fullTerm": "IV. Department Materials\\1. Academic Departments",
+  "uuid": "3718feca-f2d0-4fd3-b5b6-88308f9370ca",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "2. Administrative Departments",
+  "fullTerm": "IV. Department Materials\\2. Administrative Departments",
+  "uuid": "6527ebcb-037c-4462-b8f7-9e13af179724",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "1. Commencement Materials",
+  "fullTerm": "III. College Life\\1. Commencement Materials",
+  "uuid": "6db36bfc-306b-4cde-b6bd-e40e0b017e28",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "2. Ephemera",
+  "fullTerm": "III. College Life\\2. Ephemera",
+  "uuid": "de183e7e-9271-45af-b431-e1923f3084b5",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "3. Events",
+  "fullTerm": "III. College Life\\3. Events",
+  "uuid": "37e07c1d-8ddb-40e4-8d32-9b9647f08f8c",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "4. Awards",
+  "fullTerm": "III. College Life\\4. Awards",
+  "uuid": "5be11580-42dd-4641-97dd-545f22eb27f3",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "5. Oral Histories",
+  "fullTerm": "III. College Life\\5. Oral Histories",
+  "uuid": "a7879035-cd28-44ec-a160-cd1fc7befa77",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "6. Miscellany",
+  "fullTerm": "III. College Life\\6. Miscellany",
+  "uuid": "ddd37edc-f618-483d-aaee-9dde6419b4a6",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "1. Historical",
+  "fullTerm": "II. Alumni Society Materials\\1. Historical",
+  "uuid": "2d087c69-a2a0-4505-8f21-d8b82cf8669e",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "2. Alumni Files",
+  "fullTerm": "II. Alumni Society Materials\\2. Alumni Files",
+  "uuid": "6ac2b821-dbf1-4061-af4f-6d32f4a356cb",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "1. Academic Council",
+  "fullTerm": "I. Administrative Materials\\1. Academic Council",
+  "uuid": "df4d929b-6585-48bc-ad1f-279306b47f9e",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "2. Accreditation and Licensing Materials",
+  "fullTerm": "I. Administrative Materials\\2. Accreditation and Licensing Materials",
+  "uuid": "f9eefde2-71f7-4c72-8ca4-d1de052c12a6",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "3. Board of Directors and Trustees",
+  "fullTerm": "I. Administrative Materials\\3. Board of Directors and Trustees",
+  "uuid": "0decc544-5b69-4d01-9f40-a86a7f52a9e9",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "4. Faculty Assembly and Faculty Senate",
+  "fullTerm": "I. Administrative Materials\\4. Faculty Assembly and Faculty Senate",
+  "uuid": "12491a85-f818-49dd-a565-d5deaeeefb5b",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "5. Faculty and Staff Files",
+  "fullTerm": "I. Administrative Materials\\5. Faculty and Staff Files",
+  "uuid": "9ea3341a-79ab-4f4d-87a5-2d415a656f36",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "6. Finance and Development",
+  "fullTerm": "I. Administrative Materials\\6. Finance and Development",
+  "uuid": "bf56bc65-7a96-4f49-a74a-2e786bd4c93e",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "7. General Admin Files",
+  "fullTerm": "I. Administrative Materials\\7. General Admin Files",
+  "uuid": "6eb2affc-1138-493b-b82b-16ef913df8e7",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "8. Partnerships and Affiliations",
+  "fullTerm": "I. Administrative Materials\\8. Partnerships and Affiliations",
+  "uuid": "6fcc3604-72d2-4abf-ae95-14deeba351cd",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "9. President's Office",
+  "fullTerm": "I. Administrative Materials\\9. President's Office",
+  "uuid": "799084db-bdce-4645-8208-727160c6ed8e",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "I. Administrative Materials",
+  "fullTerm": "I. Administrative Materials",
+  "uuid": "13704d6f-24b9-4e3e-809e-ba30f315c5b7",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "II. Alumni Society Materials",
+  "fullTerm": "II. Alumni Society Materials",
+  "uuid": "45b9960b-02ba-44b3-bf14-8883e8a4d69b",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "III. College Life",
+  "fullTerm": "III. College Life",
+  "uuid": "9af103e7-6012-4753-8cec-29d49bb030ce",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "IV. Department Materials",
+  "fullTerm": "IV. Department Materials",
+  "uuid": "1f9097d4-b3a6-4f9e-9283-74b197590bb7",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "V. Exhibits and the CCA Art Collection",
+  "fullTerm": "V. Exhibits and the CCA Art Collection",
+  "uuid": "9aca14cd-63be-43d8-9bd8-94446a17e8fd",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "VI. Photographs",
+  "fullTerm": "VI. Photographs",
+  "uuid": "30e5b818-b4d6-46ef-ab50-6a02431fd225",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "VII. Press",
+  "fullTerm": "VII. Press",
+  "uuid": "7cd69fcb-564c-4e56-afc1-adffa99579d3",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "VIII. Periodicals and Other Publications",
+  "fullTerm": "VIII. Periodicals and Other Publications",
+  "uuid": "eb06a000-2188-4325-94ca-b3802cdb1025",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "IX. Graduate and Undergraduate Theses",
+  "fullTerm": "IX. Graduate and Undergraduate Theses",
+  "uuid": "17103aa2-f1b8-4e64-8127-e4cb15745d46",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "X. Buildings and Grounds",
+  "fullTerm": "X. Buildings and Grounds",
+  "uuid": "027c0727-659e-4d16-bbbd-406c56683d90",
+  "index": 0,
+  "readonly": false
+}
 ]

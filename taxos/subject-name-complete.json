@@ -1,5 +1,467 @@
 [
 {
+  "term": "Abel, Arthur",
+  "fullTerm": "oclc\\personal\\Abel, Arthur",
+  "uuid": "017430b3-166a-4825-ad25-1cb8faa5cfc1",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Bing, Bernice, 1936-1998",
+  "fullTerm": "oclc\\personal\\Bing, Bernice, 1936-1998",
+  "uuid": "2d449f0f-9ac4-46f4-ab9f-b5db0366d753",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Brown, Willie L. (Willie Lewis), Jr., 1934-",
+  "fullTerm": "oclc\\personal\\Brown, Willie L. (Willie Lewis), Jr., 1934-",
+  "uuid": "56869ea7-db00-4ea9-8a43-6ee5575e8c6c",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Defenbacher, Daniel S., 1906-1986",
+  "fullTerm": "oclc\\personal\\Defenbacher, Daniel S., 1906-1986",
+  "uuid": "0cd42df2-7b50-4c1c-a9a8-8495a75c3c60",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "DePaola, Tomie, 1934-2020",
+  "fullTerm": "oclc\\personal\\DePaola, Tomie, 1934-2020",
+  "uuid": "9b6807df-9be5-4589-ae96-0bc3488679eb",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Ferrea, Elizabeth, 1880-1925",
+  "fullTerm": "oclc\\personal\\Ferrea, Elizabeth, 1880-1925",
+  "uuid": "f98a3c05-9cd1-4b59-a054-74a8797b8f15",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Hubbard, Ray Andrew, 1924-1999",
+  "fullTerm": "oclc\\personal\\Hubbard, Ray Andrew, 1924-1999",
+  "uuid": "1df8e5c8-c3c5-417a-a5bd-63b161ad5840",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Johnson-Calloway, Marie, 1920-2018",
+  "fullTerm": "oclc\\personal\\Johnson-Calloway, Marie, 1920-2018",
+  "uuid": "fdcf695f-3b2c-4b6d-bdc4-1f8793058a91",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Rush, Kent",
+  "fullTerm": "oclc\\personal\\Rush, Kent",
+  "uuid": "0fc92c3c-a4cc-42b8-b8a7-c132cd238b93",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Siegriest, Lundy",
+  "fullTerm": "oclc\\personal\\Siegriest, Lundy",
+  "uuid": "305c9073-d267-456e-98eb-a370a136afc6",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Simpson, Walter Barclay, 1921-2014",
+  "fullTerm": "oclc\\personal\\Simpson, Walter Barclay, 1921-2014",
+  "uuid": "e0ef18dd-86fd-4733-ac53-a4356a0bbf7a",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Von Schmidt, Harold, 1893-1982",
+  "fullTerm": "oclc\\personal\\Von Schmidt, Harold, 1893-1982",
+  "uuid": "bdf8f204-086e-4040-a8ff-22414506b93c",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Wang, Wayne, 1949-",
+  "fullTerm": "oclc\\personal\\Wang, Wayne, 1949-",
+  "uuid": "7f504624-b9c2-4132-8ab6-cd3a3e3a42d1",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Winston, Bob, 1915-",
+  "fullTerm": "oclc\\personal\\Winston, Bob, 1915-",
+  "uuid": "ea181f54-92ee-4bcf-99cc-517e9d887fda",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Asawa, Ruth, 1926-2013",
+  "fullTerm": "ulan\\personal\\Asawa, Ruth, 1926-2013",
+  "uuid": "0fa296b5-c582-4ff0-97bf-351d6876fe23",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Baldessari, John",
+  "fullTerm": "ulan\\personal\\Baldessari, John",
+  "uuid": "96e89bef-757a-48df-958c-64ebd9d73fa3",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Bankston, John",
+  "fullTerm": "ulan\\personal\\Bankston, John",
+  "uuid": "07913556-ae9e-4948-bf31-a33907c684a2",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Bellow, Cleveland",
+  "fullTerm": "ulan\\personal\\Bellow, Cleveland",
+  "uuid": "43329a73-ec43-470c-a2b1-c0771690ee7c",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Berlandina, Jane, 1898-1970",
+  "fullTerm": "ulan\\personal\\Berlandina, Jane, 1898-1970",
+  "uuid": "243296e7-cb6a-4ea2-ac97-25faf80d6e69",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Brown, Christopher",
+  "fullTerm": "ulan\\personal\\Brown, Christopher",
+  "uuid": "48af7b30-93ca-4052-8929-803bfacd96b4",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Campbell, Jim",
+  "fullTerm": "ulan\\personal\\Campbell, Jim",
+  "uuid": "e4339a2c-28e4-484b-84a9-1850c80519c4",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Clark, Claude, 1915-2001",
+  "fullTerm": "ulan\\personal\\Clark, Claude, 1915-2001",
+  "uuid": "37e90042-19b6-4cb5-ac4b-4315e98ce352",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Clark, Claude Lockhart, 1945-",
+  "fullTerm": "ulan\\personal\\Clark, Claude Lockhart, 1945-",
+  "uuid": "f91b803f-60cf-422e-817b-7fc5287ceebf",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Conner, Bruce",
+  "fullTerm": "ulan\\personal\\Conner, Bruce",
+  "uuid": "59bee094-9f32-4b5c-b4c2-d6c9e3f50561",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Cunningham, Imogen",
+  "fullTerm": "ulan\\personal\\Cunningham, Imogen",
+  "uuid": "91314b43-3de7-4cd9-a215-3256bd09ae4b",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Dingle, Kim",
+  "fullTerm": "ulan\\personal\\Dingle, Kim",
+  "uuid": "57e0f7ad-c142-4a8b-82cd-d98acacf0981",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Dylan, Bob",
+  "fullTerm": "ulan\\personal\\Dylan, Bob",
+  "uuid": "15bfb7da-9ebc-4d69-89f2-8594981be171",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Ferlinghetti, Lawrence",
+  "fullTerm": "ulan\\personal\\Ferlinghetti, Lawrence",
+  "uuid": "278091e8-80e5-4b48-b658-6e7066e45669",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Ginsberg, Allen",
+  "fullTerm": "ulan\\personal\\Ginsberg, Allen",
+  "uuid": "e4de8220-36ba-4b73-a00c-1c86397179e4",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Gomez, Manuel, 1948-",
+  "fullTerm": "ulan\\personal\\Gomez, Manuel, 1948-",
+  "uuid": "501c2f33-5a8b-448e-8c41-7fa376ee349c",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Heath, Edith",
+  "fullTerm": "ulan\\personal\\Heath, Edith",
+  "uuid": "9652338e-a85d-4c80-8222-55e9d93ce468",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Henderson, Mel, 1922-",
+  "fullTerm": "ulan\\personal\\Henderson, Mel, 1922-",
+  "uuid": "ce27e562-b058-4de9-ac8a-72db02981101",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Hung, Su-Chen",
+  "fullTerm": "ulan\\personal\\Hung, Su-Chen",
+  "uuid": "e42a5b1f-3944-43bb-b2c3-3ad8459de38d",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Kasten, Barbara",
+  "fullTerm": "ulan\\personal\\Kasten, Barbara",
+  "uuid": "6a2e1559-06d3-47df-a28c-e8ee348e7942",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Leake, Eugene, 1911-2005",
+  "fullTerm": "ulan\\personal\\Leake, Eugene, 1911-2005",
+  "uuid": "b031c49f-5345-41f5-88ef-e612cf6c8d8c",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Liu Hung",
+  "fullTerm": "ulan\\personal\\Liu Hung",
+  "uuid": "d9796626-76fd-4f42-b4f6-d9e1965441d3",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Lloyd, David",
+  "fullTerm": "ulan\\personal\\Lloyd, David",
+  "uuid": "2b0708ab-6510-4e6e-910d-b1b818300182",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Lovins, Amory B.",
+  "fullTerm": "ulan\\personal\\Lovins, Amory B.",
+  "uuid": "84ee92ed-88da-407c-8585-0d5333d47c6d",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Marshall, Kerry James",
+  "fullTerm": "ulan\\personal\\Marshall, Kerry James",
+  "uuid": "7e626ad2-95ee-4a6d-8029-b53003d4b47a",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Mason, Phillip Lindsay",
+  "fullTerm": "ulan\\personal\\Mason, Phillip Lindsay",
+  "uuid": "b2e6a6ad-8a5a-4073-b52a-ba66038be857",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Mayne, Thom",
+  "fullTerm": "ulan\\personal\\Mayne, Thom",
+  "uuid": "1ccdea9a-8c73-41fd-8c39-51185fe9e909",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Morales, Julio Cesar, 1966-",
+  "fullTerm": "ulan\\personal\\Morales, Julio Cesar, 1966-",
+  "uuid": "f2e9e7f5-adf3-499e-ba52-3e390f545c7e",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Morla, Jennifer, 1955-",
+  "fullTerm": "ulan\\personal\\Morla, Jennifer, 1955-",
+  "uuid": "270a141e-3cd2-4eda-bd4a-b13d41247a07",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Nahl, Perham Wilhelm, 1869-1935",
+  "fullTerm": "ulan\\personal\\Nahl, Perham Wilhelm, 1869-1935",
+  "uuid": "b49c64f4-372d-4cc9-82ed-6f26be4624cd",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Nepote, Alexander, 1913-1986",
+  "fullTerm": "ulan\\personal\\Nepote, Alexander, 1913-1986",
+  "uuid": "4cfbd659-11bd-4c08-b68f-9b5aaf85298a",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Oppenheim, Dennis, 1938-2011",
+  "fullTerm": "ulan\\personal\\Oppenheim, Dennis, 1938-2011",
+  "uuid": "3e6b8cbf-2f86-4f61-928b-5b5c38f31c7c",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Petri-Raben, Trude",
+  "fullTerm": "ulan\\personal\\Petri-Raben, Trude",
+  "uuid": "c9cce49b-50bd-4b5f-98a2-00b59dee1ae8",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Rascón, Armando, 1956-",
+  "fullTerm": "ulan\\personal\\Rascón, Armando, 1956-",
+  "uuid": "2c03f030-2cd0-4dd7-aa1d-9a090d60d875",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Royston, Robert N.",
+  "fullTerm": "ulan\\personal\\Royston, Robert N.",
+  "uuid": "037f68fe-a9b0-40fd-a9b2-ae714120ebd2",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Schjeldahl, Peter",
+  "fullTerm": "ulan\\personal\\Schjeldahl, Peter",
+  "uuid": "ebe5c232-bd23-41a3-9660-e6db4cd6ac00",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Scott, Joyce J.",
+  "fullTerm": "ulan\\personal\\Scott, Joyce J.",
+  "uuid": "427f049b-bc8a-4f79-85a9-ed5c730bd15e",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Shawcroft, Barbara, 1930-",
+  "fullTerm": "ulan\\personal\\Shawcroft, Barbara, 1930-",
+  "uuid": "3fffaab7-d659-4ef2-8aef-6e1d79b829ef",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Smith, Barbara Turner",
+  "fullTerm": "ulan\\personal\\Smith, Barbara Turner",
+  "uuid": "6981d2a7-658b-414d-bca3-7a6e85e4db8e",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Sultan, Larry, 1946-2009",
+  "fullTerm": "ulan\\personal\\Sultan, Larry, 1946-2009",
+  "uuid": "616501b9-e70c-456b-9710-19417867588b",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Sun, May",
+  "fullTerm": "ulan\\personal\\Sun, May",
+  "uuid": "88a08eb6-de38-4e53-bd91-4bf4b59eefe1",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Tsinhnahjinnie, Hulleah",
+  "fullTerm": "ulan\\personal\\Tsinhnahjinnie, Hulleah",
+  "uuid": "34bd8ee5-4cb5-4eff-95d2-adb84b9f02ea",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Veeder, Jane",
+  "fullTerm": "ulan\\personal\\Veeder, Jane",
+  "uuid": "e9ef3a85-1425-4130-a9f3-ad7e102e756c",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Vivanco, Sandra",
+  "fullTerm": "ulan\\personal\\Vivanco, Sandra",
+  "uuid": "7b1df6ae-de8a-4705-8285-9c0519750ada",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "West, Isabelle Clark Percy, 1882-1976",
+  "fullTerm": "ulan\\personal\\West, Isabelle Clark Percy, 1882-1976",
+  "uuid": "b54d2e15-3347-4228-81df-b463e5f79a13",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Wildenhain, Marguerite",
+  "fullTerm": "ulan\\personal\\Wildenhain, Marguerite",
+  "uuid": "37596658-cd68-41ba-ab42-e2bdff65b1c8",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Wolf, Hamilton Achille, 1883-1967",
+  "fullTerm": "ulan\\personal\\Wolf, Hamilton Achille, 1883-1967",
+  "uuid": "73c3cba1-631a-4cb3-88ac-44e5026d9d24",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Zeisel, Eva",
+  "fullTerm": "ulan\\personal\\Zeisel, Eva",
+  "uuid": "d9d4fbff-f428-4cd4-bf3a-33d3837dd528",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Zeisler, Claire",
+  "fullTerm": "ulan\\personal\\Zeisler, Claire",
+  "uuid": "0e104d46-826b-40a8-8034-108390fbe300",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Jacobi, Ritzi and Peter von",
+  "fullTerm": "ulan\\personal\\Jacobi, Ritzi and Peter von",
+  "uuid": "d4bad253-84dd-4736-9d4d-e84c59829968",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Jacobi, Peter, 1935-",
+  "fullTerm": "ulan\\personal\\Jacobi, Peter, 1935-",
+  "uuid": "9c3ac7a8-f64c-4198-a923-bec275ac5cd2",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Jacobi, Ritzi, 1941-",
+  "fullTerm": "ulan\\personal\\Jacobi, Ritzi, 1941-",
+  "uuid": "dfd373b3-7731-4972-95a4-73c20ba643d6",
+  "index": 0,
+  "readonly": false
+},
+{
   "term": "Acona, Samuel",
   "fullTerm": "local\\personal\\Acona, Samuel",
   "uuid": "581ae3a1-dce0-4ff8-99f3-5b6502d24c25",
@@ -556,6 +1018,13 @@
   "term": "Boye, Bertha",
   "fullTerm": "local\\personal\\Boye, Bertha",
   "uuid": "944acb89-64fd-481c-ad91-825385ea2999",
+  "index": 0,
+  "readonly": false
+},
+{
+  "term": "Brand, Tricia",
+  "fullTerm": "local\\personal\\Brand, Tricia",
+  "uuid": "cce2d663-4d22-47fa-a7fa-a1350361fee8",
   "index": 0,
   "readonly": false
 },
@@ -5411,457 +5880,65 @@
   "readonly": false
 },
 {
-  "term": "Brand, Tricia",
-  "fullTerm": "local\\personal\\Brand, Tricia",
-  "uuid": "cce2d663-4d22-47fa-a7fa-a1350361fee8",
+  "term": "Skidmore, Owings, & Merrill Architects",
+  "fullTerm": "local\\corporate\\Skidmore, Owings, & Merrill Architects",
+  "uuid": "2ddd2c83-72b5-4a3e-8ea8-8a5341200237",
   "index": 0,
   "readonly": false
 },
 {
-  "term": "Asawa, Ruth, 1926-2013",
-  "fullTerm": "ulan\\personal\\Asawa, Ruth, 1926-2013",
-  "uuid": "0fa296b5-c582-4ff0-97bf-351d6876fe23",
+  "term": "Skidmore, Owings, and Merrill Architects",
+  "fullTerm": "local\\corporate\\Skidmore, Owings, and Merrill Architects",
+  "uuid": "7948eb17-88b6-49e5-8ad1-bc75ac93f16b",
   "index": 0,
   "readonly": false
 },
 {
-  "term": "Baldessari, John",
-  "fullTerm": "ulan\\personal\\Baldessari, John",
-  "uuid": "96e89bef-757a-48df-958c-64ebd9d73fa3",
+  "term": "School of the California Guild of Arts and Crafts",
+  "fullTerm": "local\\corporate\\School of the California Guild of Arts and Crafts",
+  "uuid": "860261b1-b02a-4d72-914b-889fccd3c716",
   "index": 0,
   "readonly": false
 },
 {
-  "term": "Bankston, John",
-  "fullTerm": "ulan\\personal\\Bankston, John",
-  "uuid": "07913556-ae9e-4948-bf31-a33907c684a2",
+  "term": "California College of Arts and Crafts, Founders day : 1966.",
+  "fullTerm": "local\\conference\\California College of Arts and Crafts, Founders day : 1966.",
+  "uuid": "eaea2642-39da-49cb-8122-6e224921a7d5",
   "index": 0,
   "readonly": false
 },
 {
-  "term": "Bellow, Cleveland",
-  "fullTerm": "ulan\\personal\\Bellow, Cleveland",
-  "uuid": "43329a73-ec43-470c-a2b1-c0771690ee7c",
+  "term": "California College of Arts and Crafts, Founders day : 1967.",
+  "fullTerm": "local\\conference\\California College of Arts and Crafts, Founders day : 1967.",
+  "uuid": "faa4d92d-a57b-40e4-8444-8033605eaa50",
   "index": 0,
   "readonly": false
 },
 {
-  "term": "Berlandina, Jane, 1898-1970",
-  "fullTerm": "ulan\\personal\\Berlandina, Jane, 1898-1970",
-  "uuid": "243296e7-cb6a-4ea2-ac97-25faf80d6e69",
+  "term": "California College of Arts and Crafts, Founders day : 1968.",
+  "fullTerm": "local\\conference\\California College of Arts and Crafts, Founders day : 1968.",
+  "uuid": "b853b32a-3ff7-4e5d-9b58-11d343c7ccf0",
   "index": 0,
   "readonly": false
 },
 {
-  "term": "Brown, Christopher",
-  "fullTerm": "ulan\\personal\\Brown, Christopher",
-  "uuid": "48af7b30-93ca-4052-8929-803bfacd96b4",
+  "term": "California College of Arts and Crafts, Founders day : 1969.",
+  "fullTerm": "local\\conference\\California College of Arts and Crafts, Founders day : 1969.",
+  "uuid": "722c2a30-0a23-4534-820a-9fd54e4cef63",
   "index": 0,
   "readonly": false
 },
 {
-  "term": "Campbell, Jim",
-  "fullTerm": "ulan\\personal\\Campbell, Jim",
-  "uuid": "e4339a2c-28e4-484b-84a9-1850c80519c4",
+  "term": "California College of Arts and Crafts, Founders day.",
+  "fullTerm": "local\\conference\\California College of Arts and Crafts, Founders day.",
+  "uuid": "92d10422-ba59-432a-80e9-28bd863ffc65",
   "index": 0,
   "readonly": false
 },
 {
-  "term": "Clark, Claude, 1915-2001",
-  "fullTerm": "ulan\\personal\\Clark, Claude, 1915-2001",
-  "uuid": "37e90042-19b6-4cb5-ac4b-4315e98ce352",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Clark, Claude Lockhart, 1945-",
-  "fullTerm": "ulan\\personal\\Clark, Claude Lockhart, 1945-",
-  "uuid": "f91b803f-60cf-422e-817b-7fc5287ceebf",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Conner, Bruce",
-  "fullTerm": "ulan\\personal\\Conner, Bruce",
-  "uuid": "59bee094-9f32-4b5c-b4c2-d6c9e3f50561",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Cunningham, Imogen",
-  "fullTerm": "ulan\\personal\\Cunningham, Imogen",
-  "uuid": "91314b43-3de7-4cd9-a215-3256bd09ae4b",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Dingle, Kim",
-  "fullTerm": "ulan\\personal\\Dingle, Kim",
-  "uuid": "57e0f7ad-c142-4a8b-82cd-d98acacf0981",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Dylan, Bob",
-  "fullTerm": "ulan\\personal\\Dylan, Bob",
-  "uuid": "15bfb7da-9ebc-4d69-89f2-8594981be171",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Ferlinghetti, Lawrence",
-  "fullTerm": "ulan\\personal\\Ferlinghetti, Lawrence",
-  "uuid": "278091e8-80e5-4b48-b658-6e7066e45669",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Ginsberg, Allen",
-  "fullTerm": "ulan\\personal\\Ginsberg, Allen",
-  "uuid": "e4de8220-36ba-4b73-a00c-1c86397179e4",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Gomez, Manuel, 1948-",
-  "fullTerm": "ulan\\personal\\Gomez, Manuel, 1948-",
-  "uuid": "501c2f33-5a8b-448e-8c41-7fa376ee349c",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Heath, Edith",
-  "fullTerm": "ulan\\personal\\Heath, Edith",
-  "uuid": "9652338e-a85d-4c80-8222-55e9d93ce468",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Henderson, Mel, 1922-",
-  "fullTerm": "ulan\\personal\\Henderson, Mel, 1922-",
-  "uuid": "ce27e562-b058-4de9-ac8a-72db02981101",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Hung, Su-Chen",
-  "fullTerm": "ulan\\personal\\Hung, Su-Chen",
-  "uuid": "e42a5b1f-3944-43bb-b2c3-3ad8459de38d",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Kasten, Barbara",
-  "fullTerm": "ulan\\personal\\Kasten, Barbara",
-  "uuid": "6a2e1559-06d3-47df-a28c-e8ee348e7942",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Leake, Eugene, 1911-2005",
-  "fullTerm": "ulan\\personal\\Leake, Eugene, 1911-2005",
-  "uuid": "b031c49f-5345-41f5-88ef-e612cf6c8d8c",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Liu Hung",
-  "fullTerm": "ulan\\personal\\Liu Hung",
-  "uuid": "d9796626-76fd-4f42-b4f6-d9e1965441d3",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Lloyd, David",
-  "fullTerm": "ulan\\personal\\Lloyd, David",
-  "uuid": "2b0708ab-6510-4e6e-910d-b1b818300182",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Lovins, Amory B.",
-  "fullTerm": "ulan\\personal\\Lovins, Amory B.",
-  "uuid": "84ee92ed-88da-407c-8585-0d5333d47c6d",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Marshall, Kerry James",
-  "fullTerm": "ulan\\personal\\Marshall, Kerry James",
-  "uuid": "7e626ad2-95ee-4a6d-8029-b53003d4b47a",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Mason, Phillip Lindsay",
-  "fullTerm": "ulan\\personal\\Mason, Phillip Lindsay",
-  "uuid": "b2e6a6ad-8a5a-4073-b52a-ba66038be857",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Mayne, Thom",
-  "fullTerm": "ulan\\personal\\Mayne, Thom",
-  "uuid": "1ccdea9a-8c73-41fd-8c39-51185fe9e909",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Morales, Julio Cesar, 1966-",
-  "fullTerm": "ulan\\personal\\Morales, Julio Cesar, 1966-",
-  "uuid": "f2e9e7f5-adf3-499e-ba52-3e390f545c7e",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Morla, Jennifer, 1955-",
-  "fullTerm": "ulan\\personal\\Morla, Jennifer, 1955-",
-  "uuid": "270a141e-3cd2-4eda-bd4a-b13d41247a07",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Nahl, Perham Wilhelm, 1869-1935",
-  "fullTerm": "ulan\\personal\\Nahl, Perham Wilhelm, 1869-1935",
-  "uuid": "b49c64f4-372d-4cc9-82ed-6f26be4624cd",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Nepote, Alexander, 1913-1986",
-  "fullTerm": "ulan\\personal\\Nepote, Alexander, 1913-1986",
-  "uuid": "4cfbd659-11bd-4c08-b68f-9b5aaf85298a",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Oppenheim, Dennis, 1938-2011",
-  "fullTerm": "ulan\\personal\\Oppenheim, Dennis, 1938-2011",
-  "uuid": "3e6b8cbf-2f86-4f61-928b-5b5c38f31c7c",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Petri-Raben, Trude",
-  "fullTerm": "ulan\\personal\\Petri-Raben, Trude",
-  "uuid": "c9cce49b-50bd-4b5f-98a2-00b59dee1ae8",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Rascón, Armando, 1956-",
-  "fullTerm": "ulan\\personal\\Rascón, Armando, 1956-",
-  "uuid": "2c03f030-2cd0-4dd7-aa1d-9a090d60d875",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Royston, Robert N.",
-  "fullTerm": "ulan\\personal\\Royston, Robert N.",
-  "uuid": "037f68fe-a9b0-40fd-a9b2-ae714120ebd2",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Schjeldahl, Peter",
-  "fullTerm": "ulan\\personal\\Schjeldahl, Peter",
-  "uuid": "ebe5c232-bd23-41a3-9660-e6db4cd6ac00",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Scott, Joyce J.",
-  "fullTerm": "ulan\\personal\\Scott, Joyce J.",
-  "uuid": "427f049b-bc8a-4f79-85a9-ed5c730bd15e",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Shawcroft, Barbara, 1930-",
-  "fullTerm": "ulan\\personal\\Shawcroft, Barbara, 1930-",
-  "uuid": "3fffaab7-d659-4ef2-8aef-6e1d79b829ef",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Smith, Barbara Turner",
-  "fullTerm": "ulan\\personal\\Smith, Barbara Turner",
-  "uuid": "6981d2a7-658b-414d-bca3-7a6e85e4db8e",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Sultan, Larry, 1946-2009",
-  "fullTerm": "ulan\\personal\\Sultan, Larry, 1946-2009",
-  "uuid": "616501b9-e70c-456b-9710-19417867588b",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Sun, May",
-  "fullTerm": "ulan\\personal\\Sun, May",
-  "uuid": "88a08eb6-de38-4e53-bd91-4bf4b59eefe1",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Tsinhnahjinnie, Hulleah",
-  "fullTerm": "ulan\\personal\\Tsinhnahjinnie, Hulleah",
-  "uuid": "34bd8ee5-4cb5-4eff-95d2-adb84b9f02ea",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Veeder, Jane",
-  "fullTerm": "ulan\\personal\\Veeder, Jane",
-  "uuid": "e9ef3a85-1425-4130-a9f3-ad7e102e756c",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Vivanco, Sandra",
-  "fullTerm": "ulan\\personal\\Vivanco, Sandra",
-  "uuid": "7b1df6ae-de8a-4705-8285-9c0519750ada",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "West, Isabelle Clark Percy, 1882-1976",
-  "fullTerm": "ulan\\personal\\West, Isabelle Clark Percy, 1882-1976",
-  "uuid": "b54d2e15-3347-4228-81df-b463e5f79a13",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Wildenhain, Marguerite",
-  "fullTerm": "ulan\\personal\\Wildenhain, Marguerite",
-  "uuid": "37596658-cd68-41ba-ab42-e2bdff65b1c8",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Wolf, Hamilton Achille, 1883-1967",
-  "fullTerm": "ulan\\personal\\Wolf, Hamilton Achille, 1883-1967",
-  "uuid": "73c3cba1-631a-4cb3-88ac-44e5026d9d24",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Zeisel, Eva",
-  "fullTerm": "ulan\\personal\\Zeisel, Eva",
-  "uuid": "d9d4fbff-f428-4cd4-bf3a-33d3837dd528",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Zeisler, Claire",
-  "fullTerm": "ulan\\personal\\Zeisler, Claire",
-  "uuid": "0e104d46-826b-40a8-8034-108390fbe300",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Jacobi, Ritzi and Peter von",
-  "fullTerm": "ulan\\personal\\Jacobi, Ritzi and Peter von",
-  "uuid": "d4bad253-84dd-4736-9d4d-e84c59829968",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Abel, Arthur",
-  "fullTerm": "oclc\\personal\\Abel, Arthur",
-  "uuid": "017430b3-166a-4825-ad25-1cb8faa5cfc1",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Bing, Bernice, 1936-1998",
-  "fullTerm": "oclc\\personal\\Bing, Bernice, 1936-1998",
-  "uuid": "2d449f0f-9ac4-46f4-ab9f-b5db0366d753",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Brown, Willie L. (Willie Lewis), Jr., 1934-",
-  "fullTerm": "oclc\\personal\\Brown, Willie L. (Willie Lewis), Jr., 1934-",
-  "uuid": "56869ea7-db00-4ea9-8a43-6ee5575e8c6c",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Defenbacher, Daniel S., 1906-1986",
-  "fullTerm": "oclc\\personal\\Defenbacher, Daniel S., 1906-1986",
-  "uuid": "0cd42df2-7b50-4c1c-a9a8-8495a75c3c60",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "DePaola, Tomie, 1934-2020",
-  "fullTerm": "oclc\\personal\\DePaola, Tomie, 1934-2020",
-  "uuid": "9b6807df-9be5-4589-ae96-0bc3488679eb",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Ferrea, Elizabeth, 1880-1925",
-  "fullTerm": "oclc\\personal\\Ferrea, Elizabeth, 1880-1925",
-  "uuid": "f98a3c05-9cd1-4b59-a054-74a8797b8f15",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Hubbard, Ray Andrew, 1924-1999",
-  "fullTerm": "oclc\\personal\\Hubbard, Ray Andrew, 1924-1999",
-  "uuid": "1df8e5c8-c3c5-417a-a5bd-63b161ad5840",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Johnson-Calloway, Marie, 1920-2018",
-  "fullTerm": "oclc\\personal\\Johnson-Calloway, Marie, 1920-2018",
-  "uuid": "fdcf695f-3b2c-4b6d-bdc4-1f8793058a91",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Rush, Kent",
-  "fullTerm": "oclc\\personal\\Rush, Kent",
-  "uuid": "0fc92c3c-a4cc-42b8-b8a7-c132cd238b93",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Siegriest, Lundy",
-  "fullTerm": "oclc\\personal\\Siegriest, Lundy",
-  "uuid": "305c9073-d267-456e-98eb-a370a136afc6",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Simpson, Walter Barclay, 1921-2014",
-  "fullTerm": "oclc\\personal\\Simpson, Walter Barclay, 1921-2014",
-  "uuid": "e0ef18dd-86fd-4733-ac53-a4356a0bbf7a",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Von Schmidt, Harold, 1893-1982",
-  "fullTerm": "oclc\\personal\\Von Schmidt, Harold, 1893-1982",
-  "uuid": "bdf8f204-086e-4040-a8ff-22414506b93c",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Wang, Wayne, 1949-",
-  "fullTerm": "oclc\\personal\\Wang, Wayne, 1949-",
-  "uuid": "7f504624-b9c2-4132-8ab6-cd3a3e3a42d1",
-  "index": 0,
-  "readonly": false
-},
-{
-  "term": "Winston, Bob, 1915-",
-  "fullTerm": "oclc\\personal\\Winston, Bob, 1915-",
-  "uuid": "ea181f54-92ee-4bcf-99cc-517e9d887fda",
+  "term": "Panama-Pacific International Exposition : 1915 : San Francisco, Calif.",
+  "fullTerm": "local\\conference\\Panama-Pacific International Exposition : 1915 : San Francisco, Calif.",
+  "uuid": "9a330614-38cd-474c-a208-7a538effd42a",
   "index": 0,
   "readonly": false
 }
