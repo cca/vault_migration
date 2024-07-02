@@ -74,7 +74,7 @@ def main(file: str):
                 locals()[subject["scheme"]].append(subject)
 
         # premade sub-vocabs to be added to cca_local
-        for filename in ["names.yaml", "programs.yaml"]:  # TODO: archives series
+        for filename in ["subject_names.yaml", "programs.yaml"]:  # TODO: archives series
             with open(Path("vocab") / filename, "r") as fh:
                 terms = yaml.load(fh, Loader=yaml.FullLoader)
                 for term in terms:

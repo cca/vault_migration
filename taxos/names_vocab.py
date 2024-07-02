@@ -40,7 +40,7 @@ def main(file) -> None:
         if converted := convert(name):
             output.append(converted)
 
-    with open("vocab/names.yaml", "w") as f:
+    with open("vocab/subject_names.yaml", "w") as f:
         yaml.dump(output, f, allow_unicode=True)
 
 
