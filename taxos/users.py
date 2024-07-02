@@ -1,5 +1,10 @@
-""" Convert EQUELLA taxonomy export into Invenio users fixture
+""" Convert EQUELLA taxonomy export into Invenio users and names fixtures
 https://inveniordm.docs.cern.ch/customize/vocabularies/users/
+https://inveniordm.docs.cern.ch/customize/vocabularies/names/
+
+Users are user accounts, names autocomplete when you fill in creator/contributor fields.
+Script assumes data/employee_data.json & data/student_data.json but you can pass in
+different paths to Workday JSON files.
 """
 
 import argparse
@@ -10,7 +15,9 @@ from typing import Any
 import yaml
 
 
-def convert(people: list[dict[str, str]]) -> list[dict[str, Any]]:
+def convert_to_vocabs(
+    people: list[dict[str, str]]
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """convert Workday JSON into Invenio users
 
     Args:
@@ -19,23 +26,38 @@ def convert(people: list[dict[str, str]]) -> list[dict[str, Any]]:
     Returns:
         dict|False: user info for Invenio or False if user should not be created
     """
+    names = []
     usernames = set()
     users: list[dict[str, Any]] = []
     for p in people:
         # alum workers with have entries in both files, so we need to skip them
         if p["username"] in usernames:
             continue
+
         # using dict access & not .get() because we want KeyErrors to highlight problems
         # employees have work_email & students have inst_email, some temp workers have neither
         email: str | None = p.get("work_email") or p.get("inst_email")
         if not email or not email.endswith("@cca.edu"):
             continue
+
         # See our `ACCOUNTS_USERNAME_REGEX` in invenio.cfg
         # https://github.com/cca/cca_invenio/blob/main/invenio.cfg
         if re.search(r"[a-z0-9_\.-]+", p["username"]) is None:
             print(f"Invalid username: {p['username']}")
             continue
+
         # valid user!
+        names.append(
+            {
+                "family_name": p["last_name"],
+                "given_name": p["first_name"],
+                "id": email,  # this is a bad choice but we don't have a better one
+                # requires an "email" scheme in RDM_RECORDS_PERSONORG_SCHEMES and
+                # VOCABULARIES_NAMES_SCHEMES in invenio.cfg
+                "identifiers": {"identifier": email, "scheme": "email"},
+                "affiliations": {"id": "01mmcf932"},  # ROR ID for CCA
+            }
+        )
         usernames.add(p["username"])
         users.append(
             {
@@ -49,7 +71,7 @@ def convert(people: list[dict[str, str]]) -> list[dict[str, Any]]:
             }
         )
 
-    return users
+    return names, users
 
 
 def main(args):
@@ -59,12 +81,15 @@ def main(args):
             data = json.load(fh)
             people += data["Report_Entry"]
 
-    users: list[dict[str, Any]] = convert(people)
+    names, users = convert_to_vocabs(people)
 
     with open("vocab/admin_users.yaml", "r") as f:
         # add static admin accounts (this is a list)
         admins = yaml.load(f, Loader=yaml.FullLoader)
         users.extend(admins)
+
+    with open("vocab/names.yaml", "w") as f:
+        yaml.dump(names, f, allow_unicode=True)
 
     with open("vocab/users.yaml", "w") as f:
         yaml.dump(users, f, allow_unicode=True)
