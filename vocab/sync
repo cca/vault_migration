@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Sync the vocabularies from here to cca/cca_invenio repo directory
+if [ ! -d "$INVENIO_REPO" ]; then
+  echo "Set the INVENIO_REPO environment variable to the path of the cca/cca_invenio repo"
+  exit 1
+fi
+cd vocab || (echo "Run this script from the root of the project" && exit 1)
+cp -v cca_local.yaml lc.yaml names.yaml roles.yaml "$INVENIO_REPO/app_data/vocabularies/"
+cp -v users.yaml "$INVENIO_REPO/app_data/"
