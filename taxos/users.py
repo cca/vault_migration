@@ -47,15 +47,24 @@ def convert_to_vocabs(
             continue
 
         # valid user!
+        # Portal profile links are a bad choice but we don't have a better one
+        # Using email requires forking idutils, too much work
+        # Requires "url" scheme in RDM_RECORDS_PERSONORG_SCHEMES and
+        # VOCABULARIES_NAMES_SCHEMES in invenio.cfg
+        url_id = f"https://portal.cca.edu/people/{p['username']}"
         names.append(
             {
                 "family_name": p["last_name"],
                 "given_name": p["first_name"],
-                "id": email,  # this is a bad choice but we don't have a better one
-                # requires an "email" scheme in RDM_RECORDS_PERSONORG_SCHEMES and
-                # VOCABULARIES_NAMES_SCHEMES in invenio.cfg
-                "identifiers": {"identifier": email, "scheme": "email"},
-                "affiliations": {"id": "01mmcf932"},  # ROR ID for CCA
+                "id": url_id,
+                # TODO could/should I list an email identifier, too?
+                "identifiers": [
+                    {
+                        "identifier": url_id,
+                        "scheme": "URL",
+                    }
+                ],
+                "affiliations": [{"id": "01mmcf932"}],  # ROR ID for CCA
             }
         )
         usernames.add(p["username"])
