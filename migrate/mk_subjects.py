@@ -59,6 +59,15 @@ def main(file: str):
                 subject["id"] = get_uuid(term)
                 subject["scheme"] = "cca_local"
 
+            # ULAN subjects are added to cca_local but with their ULAN URI as the ID
+            if auth.upper() == "ULAN":
+                if not row["Auth URI"]:
+                    raise ValueError(
+                        f"No Auth URI for ULAN subject: {term}\nAll ULAN subjects must have an Auth URI."
+                    )
+                subject["id"] = row["Auth URI"]
+                subject["scheme"] = "cca_local"
+
             # Covers multiple LC authorities: LCNAF, LCSH, LCGFT
             elif auth.upper().startswith("LC"):
                 if not row["Auth URI"]:
@@ -74,7 +83,10 @@ def main(file: str):
                 locals()[subject["scheme"]].append(subject)
 
         # premade sub-vocabs to be added to cca_local
-        for filename in ["subject_names.yaml", "programs.yaml"]:  # TODO: archives series
+        for filename in [
+            "subject_names.yaml",
+            "programs.yaml",
+        ]:  # TODO: archives series
             with open(Path("vocab") / filename, "r") as fh:
                 terms = yaml.load(fh, Loader=yaml.FullLoader)
                 for term in terms:
