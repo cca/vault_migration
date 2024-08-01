@@ -56,12 +56,11 @@ class Record:
         self.title: str = item.get("name", "Untitled")
         # default to current date in ISO 8601 format
         self.createdDate: str = item.get("createdDate", date.today().isoformat())
+        self.vault_url: str = ""
         if item.get("uuid") and item.get("version"):
             self.vault_url = (
                 f"https://vault.cca.edu/items/{item['uuid']}/{item['version']}/"
             )
-        else:
-            self.vault_url = None
 
     @property
     def abstracts(self) -> list:
