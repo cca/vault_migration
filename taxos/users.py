@@ -61,7 +61,7 @@ def convert_to_vocabs(
                 "identifiers": [
                     {
                         "identifier": url_id,
-                        "scheme": "URL",
+                        "scheme": "url",
                     }
                 ],
                 "affiliations": [{"id": "01mmcf932"}],  # ROR ID for CCA
