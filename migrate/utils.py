@@ -72,13 +72,14 @@ def to_edtf(s) -> str | None:
 def visual_mime_type_sort(attachment) -> int:
     # Sort EQUELLA attachment dicts by MIME type, types previewable in Invenio
     # which is (according to readme): PDF, ZIP, CSV, MARKDOWN, XML, JSON, PNG, JPG, GIF
+    # but also includes some audio and video types (don't know exactly which)
     # https://github.com/inveniosoftware/invenio-previewer
-    # Order: TIFF > Non-HEIC/WBEP Images > PDF > Markdown, CSV, XML > JSON > ZIP > Everything else (not previewable)
+    # Order: TIFF > Non-HEIC/WBEP Images > PDF > Video > Markdown, CSV, XML > JSON > Audio > ZIP > others
     # https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#types
     # type=zip attachments have a "folder" but no "filename"
     fn = attachment.get("filename") or attachment["folder"]
-    mt: str | None = mimetypes.guess_type(fn)[0]
-    type, subtype = mt.split("/") if mt else ("unknown", "unknown")
+    guess: str | None = mimetypes.guess_type(fn)[0]
+    type, subtype = guess.split("/") if guess else ("unknown", "unknown")
     match type, subtype:
         case "image", "tiff":
             return 0
@@ -86,10 +87,14 @@ def visual_mime_type_sort(attachment) -> int:
             return 10
         case "application", "pdf":
             return 20
+        case "video", _:
+            return 25
         case "text", _ if subtype in ["csv", "markdown", "xml"]:
             return 30
         case "application", "json":
             return 40
+        case "audio", _:
+            return 45
         case "application", _ if subtype in ["zip", "x-zip-compressed"]:
             return 50
         case _, _:  # model, font types, subtypes not covered above
