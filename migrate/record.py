@@ -86,12 +86,20 @@ class Record:
             # titles other than the first
             for title in mklist(titleinfo.get("title")):
                 if idx > 0:
-                    atype = titleinfo.get("@type")
-                    if atype == "alternative":
+                    ttype = titleinfo.get("@type")
+                    if ttype == "alternative":
                         atitles.append(
                             {"title": title, "type": {"id": "alternative-title"}}
                         )
-                    elif atype == "translated":
+                    elif ttype == "descriptive":
+                        atitles.append(
+                            {"title": title, "type": {"id": "descriptive-title"}}
+                        )
+                    elif ttype == "transcribed":
+                        atitles.append(
+                            {"title": title, "type": {"id": "transcribed-title"}}
+                        )
+                    elif ttype == "translated":
                         atitles.append(
                             {"title": title, "type": {"id": "translated-title"}}
                         )
