@@ -75,8 +75,8 @@ class Record:
     def addl_titles(self) -> list[dict[str, str]]:
         # extra /mods/titleInfo/title entries, titleInfo/subtitle
         # https://inveniordm.docs.cern.ch/reference/metadata/#additional-titles-0-n
-        # Types: https://127.0.0.1:5000/api/vocabularies/titletypes
-        # alternative-title, other, subtitle, translated-title
+        # types: alternative-title, descriptive-title, other, subtitle, transcribed-title, translated-title
+        # https://github.com/cca/cca_invenio/blob/main/app_data/vocabularies/title_types.yaml
         atitles = []
         titleinfos = mklist(self.xml.get("mods", {}).get("titleInfo"))
         for idx, titleinfo in enumerate(titleinfos):
@@ -196,10 +196,10 @@ class Record:
         # https://inveniordm.docs.cern.ch/reference/metadata/#dates-0-n
         # _additional_ (non-publication) dates structured like
         # { "date": "EDTF lvl 0 date", type: { "id": "TYPE" }, "description": "free text" }
-        # types: accepted, available, collected, copyrighted, created, issued, other, submitted, updated, valid, withdrawn
+        # types: available, collected, copyrighted, created, other, submitted, updated, withdrawn
+        # https://github.com/cca/cca_invenio/blob/main/app_data/vocabularies/date_types.yaml
 
         # dateCreatedWrapper/dateCaptured
-        # ? should we add a "captured" date type? is "collected" close enough?
         dates_capturedx = mklist(
             self.xml.get("mods", {}).get("origininfo", {}).get("dateCaptured")
         )
@@ -247,6 +247,7 @@ class Record:
         # https://inveniordm.docs.cern.ch/reference/metadata/#additional-descriptions-0-n
         # /api/vocabularies/descriptiontypes
         # types: abstract, methods, series-information, table-of-contents, technical-info, other
+        # https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/description/#a-descriptiontype
 
         desc = []
         if len(self.abstracts) > 1:
@@ -425,7 +426,7 @@ class Record:
     @property
     def resource_type(self) -> dict[str, str]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#resource-type-1
-        # https://127.0.0.1:5000/api/vocabularies/resourcetypes
+        # https://github.com/cca/cca_invenio/blob/main/app_data/vocabularies/resource_types.yaml
         # There are many fields that could be used to determine the resource type. Priority:
         # 1. mods/typeOfResource, 2. local/courseWorkType, 3. TBD (there are more...)
         # mods/typeOfResourceWrapper/typeOfResource
@@ -450,8 +451,7 @@ class Record:
     @property
     def rights(self) -> List[dict[str, str | dict[str, str]]]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#rights-licenses-0-n
-        # https://127.0.0.1:5000/api/vocabularies/licenses
-        # ! returned id values MUST be IDs from licenses.csv in cca/cca_invenio
+        # Choices: https://github.com/cca/cca_invenio/blob/main/app_data/vocabularies/licenses.csv
         # We always have exactly one accessCondition node, str or dict
         accessCondition = self.xml.get("mods", {}).get("accessCondition", "")
         if type(accessCondition) == dict:
