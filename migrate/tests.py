@@ -135,6 +135,44 @@ def m(r):
     return r.get()["metadata"]
 
 
+# Archives Series
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        # no series
+        (x("<mods></mods>"), {}),
+        # wrapper but no series
+        (x("<local><archivesWrapper></archivesWrapper>></local>"), {}),
+        (
+            x(
+                "<local><archivesWrapper><series>I. Administrative Materials</series><subseries>5. Faculty and Staff Files</subseries></archivesWrapper>></local>"
+            ),
+            {
+                "cca:archives_series": {
+                    "series": "I. Administrative Materials",
+                    "subseries": "5. Faculty and Staff Files",
+                }
+            },
+        ),
+        (
+            x(
+                "<local><archivesWrapper><series>VIII. Periodicals and Other Publications</series><subseries>4. Yearbooks</subseries></archivesWrapper></local>"
+            ),
+            {
+                "cca:archives_series": {
+                    "series": "VIII. Periodicals and Other Publications",
+                    "subseries": "4. Yearbooks",
+                }
+            },
+        ),
+    ],
+)
+def test_archives_series(input, expect):
+    r = Record(input)
+    # can't use m(r) helper because custom_fields live outside metadata
+    assert r.get()["custom_fields"] == expect
+
+
 # Name
 @pytest.mark.parametrize(
     "input, expect",

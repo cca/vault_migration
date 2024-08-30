@@ -44,6 +44,7 @@
         title: Local (/xml/local) Mappings
         ---
         flowchart LR
+        ASERIESV["archivesWrapper/series, archivesWrapper/subseries"] --> ASERIESI["cca:archive_series custom field"]
         viewlevel[viewLevel] --> |TODO Many, many translations| ACCESS["Access restricted/public"]
         courseworktype[courseWorkWrapper/courseWorkType] --> |TODO if we have no mods/typeOfResource, map 1st| TYPE["Resource Type (1)"]
     </pre>

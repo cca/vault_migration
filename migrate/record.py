@@ -108,6 +108,17 @@ class Record:
         return atitles
 
     @property
+    def archives_series(self) -> dict[str, str] | None:
+        archives_wrapper = self.xml.get("local", {}).get("archivesWrapper")
+        series = archives_wrapper.get("series") if archives_wrapper else None
+        subseries = archives_wrapper.get("subseries", "") if archives_wrapper else None
+        if series and not subseries:
+            raise Exception(f"Archives Series without Subseries: {self.vault_url}")
+        if series and subseries:
+            return {"series": series, "subseries": subseries}
+        return {}
+
+    @property
     def creators(self) -> list[dict[str, Any]]:
         # mods/name
         # https://inveniordm.docs.cern.ch/reference/metadata/#creators-1-n
@@ -189,6 +200,14 @@ class Record:
                     for name in mklist(parse_name(partx)):
                         creators.append({"person_or_org": name})
         return creators
+
+    @property
+    def custom_fields(self) -> dict[str, Any]:
+        cf: dict[str, Any] = {}
+        # 1) ArchivesSeries custom field, { series, subseries } dict
+        if self.archives_series:
+            cf["cca:archives_series"] = self.archives_series
+        return cf
 
     @property
     def dates(self) -> list[dict[str, Any]]:
@@ -501,7 +520,7 @@ class Record:
                 "record": "public",
             },
             # ! blocked until we know what custom fields we'll have
-            "custom_fields": {},
+            "custom_fields": self.custom_fields,
             "files": {
                 "enabled": bool(len(self.attachments)),
                 # ! API drops these, whether we define before adding files or after
