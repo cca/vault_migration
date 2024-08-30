@@ -61,4 +61,5 @@ if __name__ == "__main__":
         items = find_items(file)
         for item in items:
             r = Record(item)
+            r.attachments = []  # use import.py to add files
             post(r)

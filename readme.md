@@ -39,7 +39,7 @@ To use these scripts, we must create a personal access token for an administrato
 
 1. Sign in as an admin
 2. Go to **Applications** > **Personal access tokens**
-3. Create one—its name and the solitary `user:email` scope (as of v11) do not matter
+3. Create one—its name and the `user:email` scope (as of v12) do not matter
 4. Copy it to clipboard and **Save**
 5. Paste in .env and/or set it as an env var, e.g. `set -x INVENIO_TOKEN=xyz` in fish
 
