@@ -502,7 +502,7 @@ def test_title(input, expect):
             ),
             [
                 {"title": "foo", "type": {"id": "translated-title"}},
-                {"title": "bar", "type": {"id": "other"}},
+                {"title": "bar", "type": {"id": "descriptive-title"}},
             ],
         ),
     ],
