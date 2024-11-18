@@ -267,6 +267,8 @@ class Record:
         # /api/vocabularies/descriptiontypes
         # types: abstract, methods, series-information, table-of-contents, technical-info, other
         # https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/description/#a-descriptiontype
+        # ? do we want to define our own description types?
+        # One option: https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/note_types.html
 
         desc = []
         if len(self.abstracts) > 1:

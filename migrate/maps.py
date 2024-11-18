@@ -37,8 +37,9 @@ resource_type_map: dict[str, str] = {
 
 # creator/contributor roles
 # ! NOTE cast terms to LOWERCASE before using this map. Our metadata is inconsistent between title case and lowercase.
-# MODS (uses MARC list): https://www.loc.gov/marc/relators/relaterm.html
+# MODS (uses MARC list): https://www.loc.gov/marc/relators/relaterm.html | https://id.loc.gov/vocabulary/relators.html
 # Invenio roles: https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/roles.yaml
+# Another option: https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/relator.html
 # Maps from our existing values of mods/name/role/roleTerm to terms either in the MARC relator list of the Invenio roles vocab.
 role_map: dict[str, str] = {
     # 2 FASHN items, person is creator/artist
