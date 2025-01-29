@@ -14,6 +14,10 @@ from typing import Any
 
 import yaml
 
+# See our `ACCOUNTS_USERNAME_REGEX` in invenio.cfg
+# https://github.com/cca/cca_invenio/blob/main/invenio.cfg
+USERNAME_REGEX: re.Pattern = re.compile(r"[a-z][a-z0-9_\.-]{0,23}")
+
 
 def convert_to_vocabs(
     people: list[dict[str, str]]
@@ -40,9 +44,7 @@ def convert_to_vocabs(
         if not email or not email.endswith("@cca.edu"):
             continue
 
-        # See our `ACCOUNTS_USERNAME_REGEX` in invenio.cfg
-        # https://github.com/cca/cca_invenio/blob/main/invenio.cfg
-        if re.search(r"[a-z0-9_\.-]+", p["username"]) is None:
+        if not USERNAME_REGEX.match(p["username"]):
             print(f"Invalid username: {p['username']}")
             continue
 
