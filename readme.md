@@ -8,7 +8,7 @@ Semantics: EQUELLA objects are _items_ with _attachments_. Invenio objects are _
 
 ```sh
 poetry install # get dependencies
-poetry shell # enter venv
+source .venv/bin/activate.fish # enter venv
 python -m spacy download en_core_web_lg # download spacy model for Named Entity Recognition
 pytest -v migrate/tests.py # run tests
 ```
