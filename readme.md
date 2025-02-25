@@ -73,7 +73,7 @@ set total (eq search -l 1 | jq '.available')
 set length 50 # can only download up to 50 at a time
 set pages (math floor $total / $length)
 for i in (seq 0 $pages)
-  set start (math $i \* $length)
+  set start (math $i x $length)
   echo "Downloading items $start to" (math $start + $length)
   # NOTE: no attachment info, use "--info all" for both attachments & metadata
   eq search -l $length --info metadata --start $start > json/$i.json
