@@ -59,8 +59,8 @@ def main(file: str):
                 subject["id"] = get_uuid(term)
                 subject["scheme"] = "cca_local"
 
-            # ULAN subjects are added to cca_local but with their ULAN URI as the ID
-            if auth.upper() == "ULAN":
+            # ULAN or Wikidata subjects are added to cca_local but with their ULAN URI as the ID
+            if auth.upper() in ("ULAN", "WIKIDATA"):
                 if not row["Auth URI"]:
                     raise ValueError(
                         f"No Auth URI for ULAN subject: {term}\nAll ULAN subjects must have an Auth URI."
