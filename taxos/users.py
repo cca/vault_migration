@@ -1,4 +1,4 @@
-""" Convert EQUELLA taxonomy export into Invenio users and names fixtures
+"""Convert EQUELLA taxonomy export into Invenio users and names fixtures
 https://inveniordm.docs.cern.ch/customize/vocabularies/users/
 https://inveniordm.docs.cern.ch/customize/vocabularies/names/
 
@@ -20,7 +20,7 @@ USERNAME_REGEX: re.Pattern = re.compile(r"[a-z][a-z0-9_\.-]{0,23}")
 
 
 def convert_to_vocabs(
-    people: list[dict[str, str]]
+    people: list[dict[str, str]],
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """convert Workday JSON into Invenio users
 
@@ -38,7 +38,6 @@ def convert_to_vocabs(
         if p["username"] in usernames:
             continue
 
-        # using dict access & not .get() because we want KeyErrors to highlight problems
         # employees have work_email & students have inst_email, some temp workers have neither
         email: str | None = p.get("work_email") or p.get("inst_email")
         if not email or not email.endswith("@cca.edu"):
