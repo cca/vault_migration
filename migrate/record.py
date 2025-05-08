@@ -119,6 +119,31 @@ class Record:
         return {}
 
     @property
+    def course(self) -> dict[str, Any] | None:
+        course_info = self.xml.get("local", {}).get("courseInfo")
+        if course_info and type(course_info) == dict:
+            # we can construct section_calc_id if we know both section & term
+            section: str = course_info.get("section", "")
+            term: str = course_info.get("semester", "")
+            if section and term:
+                section_calc_id: str = f"{section}_AP_{term.replace(' ', '_')}"
+            else:
+                section_calc_id = ""
+            return {
+                "department": self.xml.get("local", {}).get("department", ""),
+                "department_code": course_info.get("department", ""),
+                # we may have instructor usernames in courseInfo/facultyID
+                # but none of the other elements needed to construct an
+                # instructor object so we skip it
+                "instructors_string": course_info.get("faculty", ""),
+                "section": section,
+                "section_calc_id": section_calc_id,
+                "term": term,
+                "title": course_info.get("course", ""),
+            }
+        return None
+
+    @property
     def creators(self) -> list[dict[str, Any]]:
         # mods/name
         # https://inveniordm.docs.cern.ch/reference/metadata/#creators-1-n
@@ -207,6 +232,8 @@ class Record:
         # 1) ArchivesSeries custom field, { series, subseries } dict
         if self.archives_series:
             cf["cca:archives_series"] = self.archives_series
+        if self.course:
+            cf["cca:course"] = self.course
         return cf
 
     @property

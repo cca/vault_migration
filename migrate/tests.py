@@ -173,6 +173,101 @@ def test_archives_series(input, expect):
     assert r.get()["custom_fields"] == expect
 
 
+# TODO test course
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        # No course info
+        (x("<mods></mods>"), None),
+        # Course info with department and term
+        (
+            x(
+                "<local><courseInfo><department>DESGN</department><semester>Fall 2023</semester></courseInfo></local>"
+            ),
+            {
+                "department": "",
+                "department_code": "DESGN",
+                "instructors_string": "",
+                "section": "",
+                "section_calc_id": "",
+                "term": "Fall 2023",
+                "title": "",
+            },
+        ),
+        # Course info with only department
+        (
+            x("<local><courseInfo><department>FINAR</department></courseInfo></local>"),
+            {
+                "department": "",
+                "department_code": "FINAR",
+                "instructors_string": "",
+                "section": "",
+                "section_calc_id": "",
+                "term": "",
+                "title": "",
+            },
+        ),
+        # Complete course info
+        (
+            x(
+                """<local><courseInfo>
+                <department>FINAR</department>
+                <faculty>Frida Kahlo</faculty>
+                <section>FINAR-1000-1</section>
+                <semester>Fall 2024</semester>
+                <course>The Finest Arts</course>
+                </courseInfo>
+                <department>Fine Arts</department></local>"""
+            ),
+            {
+                "department": "Fine Arts",
+                "department_code": "FINAR",
+                "instructors_string": "Frida Kahlo",
+                "section": "FINAR-1000-1",
+                "section_calc_id": "FINAR-1000-1_AP_Fall_2024",
+                "term": "Fall 2024",
+                "title": "The Finest Arts",
+            },
+        ),
+        # Course info with only term = no calc id
+        (
+            x(
+                "<local><courseInfo><semester>Spring 2024</semester></courseInfo></local>"
+            ),
+            {
+                "department": "",
+                "department_code": "",
+                "instructors_string": "",
+                "section": "",
+                "section_calc_id": "",
+                "term": "Spring 2024",
+                "title": "",
+            },
+        ),
+        # Course info with section & term -> calc id
+        (
+            x(
+                "<local><courseInfo><semester>Spring 2024</semester><section>FINAR-1000-1</section></courseInfo></local>"
+            ),
+            {
+                "department": "",
+                "department_code": "",
+                "instructors_string": "",
+                "section": "FINAR-1000-1",
+                "section_calc_id": "FINAR-1000-1_AP_Spring_2024",
+                "term": "Spring 2024",
+                "title": "",
+            },
+        ),
+        # Empty courseInfo node
+        (x("<local><courseInfo></courseInfo></local>"), None),
+    ],
+)
+def test_course(input, expect):
+    r = Record(input)
+    assert r.get()["custom_fields"].get("cca:course") == expect
+
+
 # Name
 @pytest.mark.parametrize(
     "input, expect",

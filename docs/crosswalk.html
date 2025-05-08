@@ -45,6 +45,14 @@
         ---
         flowchart LR
         ASERIESV["archivesWrapper/series, archivesWrapper/subseries"] --> ASERIESI["cca:archive_series custom field"]
+        VLDEPT["department"] --> CDEPTCODE["cca:course.department"]
+        VCIDEPT["courseInfo/department"] --> CDEPT["cca:course.department_code"]
+        VFACULTY["courseInfo/faculty"] --> CINSTRUCTORS["cca:course.instructors"]
+        VSECTION["courseInfo/section"] --> CSECTION["cca:course.section"]
+        VSEMESTER["courseInfo/semester"] --> CTERM["cca:course.term"]
+        VSECTION --> CSECTIONCALCID["cca:course.section_calc_id constructed from section & term"]
+        VSEMESTER --> CSECTIONCALCID
+        VCTITLE["courseInfo/title"] --> CTITLE["cca:course.title"]
         viewlevel[viewLevel] --> |TODO Many, many translations| ACCESS["Access restricted/public"]
         courseworktype[courseWorkWrapper/courseWorkType] --> |TODO if we have no mods/typeOfResource, map 1st| TYPE["Resource Type (1)"]
     </pre>
