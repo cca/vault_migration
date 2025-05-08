@@ -46,7 +46,7 @@ To use these scripts, we must create a personal access token for an administrato
 Below, we migrate a VAULT item to an Invenio record and post it to Invenio.
 
 ```sh
-set -x INVENIO_TOKEN=your_token_here
+set -x INVENIO_TOKEN your_token_here
 poetry run python migrate/api.py items/item.json # example output below
 HTTP 201
 https://127.0.0.1:5000/api/records/k7qk8-fqq15/draft
