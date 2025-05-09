@@ -5,7 +5,13 @@ import xmltodict
 from names import parse_name
 from record import Record
 from subjects import find_subjects, subjects_from_xmldict, Subject, TYPES
-from utils import get_url, mklist, to_edtf, visual_mime_type_sort
+from utils import (
+    get_url,
+    mklist,
+    syllabus_collection_uuid,
+    to_edtf,
+    visual_mime_type_sort,
+)
 
 
 @pytest.mark.parametrize(
@@ -359,6 +365,13 @@ def test_parse_name(input, expect):
                 {"type": "personal", "given_name": "Taylor", "family_name": "Swift"},
                 {"type": "personal", "given_name": "Joe", "family_name": "Pesci"},
             ],
+        ),
+        # Syllabus: no mods/name but local/courseInfo/faculty
+        (
+            x(
+                "<local><courseInfo><faculty>Barbara Kruger</faculty></courseInfo></local>"
+            ),
+            [{"type": "personal", "given_name": "Barbara", "family_name": "Kruger"}],
         ),
     ],
 )
@@ -743,23 +756,30 @@ def test_dates(input, expect):
             x(
                 "<mods><typeOfResourceWrapper><typeOfResource>Event documentation</typeOfResource></typeOfResourceWrapper></mods>"
             ),
-            {"id": "event"},
+            "event",
         ),
         (  # multiple <typeOfResource> elements
             x(
                 "<mods><typeOfResourceWrapper><typeOfResource>moving image</typeOfResource><typeOfResource>mixed material</typeOfResource></typeOfResourceWrapper></mods>"
             ),
-            {"id": "image"},
+            "image",
+        ),
+        (  # Items in Syllabus Collection = publication-syllabus
+            {
+                "collection": {"uuid": syllabus_collection_uuid},
+                "metadata": "<xml></xml>",
+            },
+            "publication-syllabus",
         ),
         (  # default to publication
             x("<mods></mods>"),
-            {"id": "publication"},
+            "publication",
         ),
     ],
 )
 def test_type(input, expect):
     r = Record(input)
-    assert m(r)["resource_type"] == expect
+    assert m(r)["resource_type"].get("id", "") == expect
 
 
 # Publisher

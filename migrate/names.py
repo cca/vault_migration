@@ -1,5 +1,6 @@
-""" Parse names and lists of names from a variety of formats into {given_name, family_name} dicts
-This is used by Record.creator only. It does not relate to the Invenio names.yaml vocabulary."""
+"""Parse names and lists of names from a variety of formats into {given_name, family_name} dicts
+This is used by Record.creator only. It does not relate to the Invenio names.yaml vocabulary.
+"""
 
 import re
 
@@ -48,8 +49,8 @@ def n(d) -> dict[str, str]:
 
 
 def parse_name(namePart):
-    """parse wild variety of name strings into {givename, familyname}
-    or, if it looks like an orgnaization name, return only {name}"""
+    """Parse wild variety of name strings into {given_name, family_name}
+    or, if it looks like an organization name, return only {name}."""
 
     # semi-colon separated list of names
     if "; " in namePart:
@@ -58,7 +59,7 @@ def parse_name(namePart):
     if " + " in namePart:
         return [parse_name(p) for p in namePart.split(" + ")]
 
-    # usually Surname, Givenname but sometimes other things
+    # usually Surname, Given Name but sometimes other things
     if "," in namePart:
         # last, first
         parts = namePart.split(", ")
@@ -67,7 +68,7 @@ def parse_name(namePart):
             if "Calif.)" in namePart:
                 return n({"name": namePart})
             return n({"given_name": parts[1], "family_name": parts[0]})
-        # name with a DOB/dath date string after a second comma
+        # name with a DOB/death date string after a second comma
         if len(parts) == 3 and re.match(r"[0-9]{4}\-([0-9]{4})?", parts[2].strip()):
             return n({"given_name": parts[1], "family_name": parts[0]})
         # two or more commas, maybe we have a comma-separated list of names?

@@ -5,6 +5,10 @@ from urllib.parse import urlparse
 
 from edtf import text_to_edtf
 
+# Constants
+cca_affiliation: list[dict[str, str]] = [{"id": "01mmcf932"}]  # ROR ID for CCA
+syllabus_collection_uuid: str = "9ec74523-e018-4e01-ab4e-be4dd06cdd68"
+
 
 # support three types of files: single item json, search results json with
 # multiple items in "results" property, and XML metadata with no item JSON

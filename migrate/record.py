@@ -16,7 +16,15 @@ import xmltodict
 
 from names import parse_name
 from maps import *
-from utils import find_items, get_url, mklist, to_edtf, visual_mime_type_sort
+from utils import (
+    cca_affiliation,
+    find_items,
+    get_url,
+    mklist,
+    syllabus_collection_uuid,
+    to_edtf,
+    visual_mime_type_sort,
+)
 from subjects import find_subjects, Subject
 
 
@@ -56,6 +64,7 @@ class Record:
         self.title: str = item.get("name", "Untitled")
         # default to current date in ISO 8601 format
         self.createdDate: str = item.get("createdDate", date.today().isoformat())
+        self.vault_collection: str = item.get("collection", {}).get("uuid", "")
         self.vault_url: str = ""
         if item.get("uuid") and item.get("version"):
             self.vault_url = (
@@ -147,9 +156,8 @@ class Record:
     def creators(self) -> list[dict[str, Any]]:
         # mods/name
         # https://inveniordm.docs.cern.ch/reference/metadata/#creators-1-n
-        namesx = mklist(self.xml.get("mods", {}).get("name"))
-        creators = []
-        for namex in namesx:
+        creators: list[dict[str, Any]] = []
+        for namex in mklist(self.xml.get("mods", {}).get("name")):
             # @usage = primary, secondary | ignoring this but could say sec. -> contributor, not creator
             partsx = namex.get("namePart")
             if type(partsx) == str:
@@ -196,9 +204,9 @@ class Record:
                 if type(names) == dict:
                     creators.append(
                         {
+                            "affiliations": creator["affiliations"],
                             "person_or_org": names,
                             "role": creator["role"],
-                            "affiliations": creator["affiliations"],
                         }
                     )
                 # implies type(names) == list, similar to below, if parse_name returns a
@@ -224,6 +232,34 @@ class Record:
                 for partx in partsx:
                     for name in mklist(parse_name(partx)):
                         creators.append({"person_or_org": name})
+
+        # Syllabi: we have no mods/name but list faculty in courseInfo/faculty
+        if len(creators) == 0:
+            faculty = self.xml.get("local", {}).get("courseInfo", {}).get("faculty")
+            if faculty:
+                names = parse_name(faculty)
+                if type(names) == dict:
+                    creators.append(
+                        {
+                            "affiliations": cca_affiliation,
+                            "person_or_org": names,
+                            "role": {"id": "creator"},
+                        }
+                    )
+                elif type(names) == list:
+                    for name in names:
+                        creators.append(
+                            {
+                                "affiliations": cca_affiliation,
+                                "person_or_org": name,
+                                "role": {"id": "creator"},
+                            }
+                        )
+
+        # If we _still_ have no creators, we cannot create a record b/c it is a
+        # required field but for our test data I do not want to specify creators.
+        if len(creators) == 0 and "pytest" not in sys.modules:
+            raise Exception(f"Record has no creators: {self.title}\n{self.vault_url}")
         return creators
 
     @property
@@ -478,6 +514,11 @@ class Record:
         # There are many fields that could be used to determine the resource type. Priority:
         # 1. mods/typeOfResource, 2. local/courseWorkType, 3. TBD (there are more...)
         # mods/typeOfResourceWrapper/typeOfResource
+
+        # Syllabus Collection only contains syllabi
+        if self.vault_collection == syllabus_collection_uuid:
+            return {"id": "publication-syllabus"}
+
         # Take the first typeOfResource value we find
         wrapper = self.xml.get("mods", {}).get("typeOfResourceWrapper")
         if type(wrapper) == list:
