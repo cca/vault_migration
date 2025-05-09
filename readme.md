@@ -7,9 +7,9 @@ Semantics: EQUELLA objects are _items_ with _attachments_. Invenio objects are _
 ## Setup & Tests
 
 ```sh
-poetry install # get dependencies
+uv install # get dependencies
 source .venv/bin/activate.fish # enter venv
-python -m spacy download en_core_web_lg # download spacy model for Named Entity Recognition
+python -m spacy download en_core_web_lg # download spaCy model for Named Entity Recognition
 pytest -v migrate/tests.py # run tests
 ```
 
@@ -47,7 +47,7 @@ Below, we migrate a VAULT item to an Invenio record and post it to Invenio.
 
 ```sh
 set -x INVENIO_TOKEN your_token_here
-poetry run python migrate/api.py items/item.json # example output below
+python migrate/api.py items/item.json # example output below
 HTTP 201
 https://127.0.0.1:5000/api/records/k7qk8-fqq15/draft
 HTTP 202
@@ -55,9 +55,9 @@ HTTP 202
 https://127.0.0.1:5000/records/k7qk8-fqq15
 ```
 
-You can sometimes trip over yourself because Poetry automatically loads the `.env` file in the project root, which might contain an outdated personal access token. If API calls fail with 403 errors, check that the `TOKEN` and/or `INVENIO_TOKEN` environment variables are set correctly.
+You can sometimes trip over yourself if the `.env` file in the project root is loaded and contains an outdated personal access token. If API calls fail with 403 errors, check that the `TOKEN` and/or `INVENIO_TOKEN` environment variables are set correctly.
 
-Rerunning the script with the same input creates multiple records, it doesn't update existing ones.
+Rerunning a "migrate" script with the same input creates a new record, it doesn't update the existing one.
 
 ## Items
 
@@ -82,7 +82,7 @@ end
 
 ## Metadata Crosswalk
 
-We can use the `item.metadata` XML of existing VAULT items for testing. Generally, `poetry run python migrate/record.py items/item.json | jq` to see the JSON Invenio record. See [our crosswalk diagrams](https://cca.github.io/vault_migration/crosswalk.html).
+We can use the `item.metadata` XML of existing VAULT items for testing. Generally, `python migrate/record.py items/item.json | jq` to see the JSON Invenio record. See [our crosswalk diagrams](https://cca.github.io/vault_migration/crosswalk.html).
 
 Schemas:
 
