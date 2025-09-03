@@ -14,6 +14,7 @@ from typing import Any
 
 import yaml
 
+ADMIN_ACCOUNTS: list[str] = ["ahaar", "ephetteplace", "mgoh"]
 # See our `ACCOUNTS_USERNAME_REGEX` in invenio.cfg
 # https://github.com/cca/cca_invenio/blob/main/invenio.cfg
 USERNAME_REGEX: re.Pattern = re.compile(r"[a-z][a-z0-9_\.-]{0,23}")
@@ -30,8 +31,8 @@ def convert_to_vocabs(
     Returns:
         dict|False: user info for Invenio or False if user should not be created
     """
-    names = []
-    usernames = set()
+    names: list[dict[str, Any]] = []
+    usernames: set[str] = set()
     users: list[dict[str, Any]] = []
     for p in people:
         # alum workers with have entries in both files, so we need to skip them
@@ -47,39 +48,40 @@ def convert_to_vocabs(
             print(f"Invalid username: {p['username']}")
             continue
 
-        # valid user!
-        # Portal profile links are a bad choice but we don't have a better one
-        # Using email requires forking idutils, too much work
-        # Requires "url" scheme in RDM_RECORDS_PERSONORG_SCHEMES and
-        # VOCABULARIES_NAMES_SCHEMES in invenio.cfg
+        # We have a valid user!
         url_id = f"https://portal.cca.edu/people/{p['username']}"
         names.append(
             {
                 "family_name": p["last_name"],
                 "given_name": p["first_name"],
                 "id": url_id,
-                # TODO could/should I list an email identifier, too?
+                # Requires "emai" & "url" scheme in RDM_RECORDS_PERSONORG_SCHEMES and
+                # VOCABULARIES_NAMES_SCHEMES in invenio.cfg
                 "identifiers": [
                     {
                         "identifier": url_id,
                         "scheme": "url",
-                    }
+                    },
+                    {
+                        "identifier": email,
+                        "scheme": "email",
+                    },
                 ],
                 "affiliations": [{"id": "01mmcf932"}],  # ROR ID for CCA
             }
         )
         usernames.add(p["username"])
-        users.append(
-            {
-                "email": email,
-                "username": p["username"],
-                "full_name": f'{p["first_name"]} {p["last_name"]}',
-                "affiliations": "California College of the Arts",
-                "active": True,
-                "confirmed": True,
-                # TODO "roles" & "allow" arrays for permissions
-            }
-        )
+        user: dict[str, Any] = {
+            "email": email,
+            "username": p["username"],
+            "full_name": f"{p['first_name']} {p['last_name']}",
+            "affiliations": "California College of the Arts",
+            "active": True,
+            "confirmed": True,
+        }
+        if p["username"] in ADMIN_ACCOUNTS:
+            user["roles"] = ["admin"]
+        users.append(user)
 
     return names, users
 
