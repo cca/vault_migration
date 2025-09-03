@@ -12,9 +12,9 @@
 # vocab directory and the JSON file is written to the migrate directory.
 import csv
 import json
-from pathlib import Path
 import sys
 import uuid
+from pathlib import Path
 
 import yaml
 
@@ -33,7 +33,7 @@ def dump_all(subjects_map, cca_local, lc):
         yaml.dump(lc, file)
 
 
-def main(file: str):
+def main(file: str) -> None:
     with open(file, "r") as fp:
         subjects_map: dict[str, str] = {}
         cca_local: list[dict[str, str]] = []
@@ -90,7 +90,7 @@ def main(file: str):
             with open(Path("vocab") / filename, "r") as fh:
                 terms = yaml.load(fh, Loader=yaml.FullLoader)
                 for term in terms:
-                    assert type(term) == dict  # solely for type hinting
+                    assert type(term) is dict  # solely for type hinting
                     # if term has already been added to the subjects_map, skip it
                     if (term_text := term["subject"].lower()) in subjects_map:
                         continue

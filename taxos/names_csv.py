@@ -1,4 +1,4 @@
-""" Create a CSV of names in our EQUELLA "LIBRARIES - subject name" taxonomy
+"""Create a CSV of names in our EQUELLA "LIBRARIES - subject name" taxonomy
 that need to be looked up in an external authority (OCLC, ULAN) to get URIs"""
 
 import csv
@@ -16,7 +16,6 @@ import click
 )
 def main(file) -> None:
     """Write external authority names in FILE ("LIBRARIES - subject name" taxo JSON) to taxos/names.csv to be added to subjects spreadsheet"""
-    output: list[dict[str, str]] = []
     with file:
         terms: list[dict[str, str]] = json.load(file)
 

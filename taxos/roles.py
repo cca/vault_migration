@@ -4,7 +4,7 @@ import yaml
 # with "editor" and "researcher" removed because they have exact matches in datacite
 # but not the full list of MARC relator terms
 # https://www.loc.gov/marc/relators/relaterm.html
-roles = [
+roles: list[str] = [
     # not in MARC relator terms
     # "academic partner",
     "architect",
@@ -67,7 +67,7 @@ roles = [
 ]
 
 
-def convert(role: str):
+def convert(role: str) -> dict[str, str | dict[str, str]]:
     return {
         "id": role.lower().replace(" ", ""),
         "title": {"en": role.capitalize()},

@@ -1,6 +1,6 @@
-""" Convert "LIBRARIES - subject name" EQUELLA taxonomy to Invenio subjects
+"""Convert "LIBRARIES - subject name" EQUELLA taxonomy to Invenio subjects
 vocabulary which we will save to vocab/names.yaml & append to
-vocab/cca_local.yaml with migrate/mk_subjects.py """
+vocab/cca_local.yaml with migrate/mk_subjects.py"""
 
 import json
 
