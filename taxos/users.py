@@ -49,7 +49,7 @@ def convert_to_vocabs(
             continue
 
         # We have a valid user!
-        url_id = f"https://portal.cca.edu/people/{p['username']}"
+        url_id = f"https://portal.cca.edu/people/{p['username']}/"
         names.append(
             {
                 "family_name": p["last_name"],
