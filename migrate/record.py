@@ -5,17 +5,17 @@ Eventually this will accept a _directory_ containing the item's JSON and its
 attachments, but for staters we are taking just JSON.
 """
 
-from datetime import date
 import json
 import mimetypes
 import re
 import sys
+from datetime import date
 from typing import Any, List
 
 import xmltodict
-
+from maps import license_href_map, license_text_map, resource_type_map, role_map
 from names import parse_name
-from maps import *
+from subjects import Subject, find_subjects
 from utils import (
     cca_affiliation,
     find_items,
@@ -25,7 +25,6 @@ from utils import (
     to_edtf,
     visual_mime_type_sort,
 )
-from subjects import find_subjects, Subject
 
 
 def postprocessor(path, key, value):
@@ -56,7 +55,7 @@ class Record:
         for a in self.attachments:
             a["name"] = a.get("filename") or re.sub(r"_zips\/", "", a["folder"])
             if a["type"] == "htmlpage":
-                a["name"] = f'{a["uuid"]}.html'
+                a["name"] = f"{a['uuid']}.html"
         # url and "custom" youtube attachments
         self.references: list[dict[str, Any]] = [
             a for a in item.get("attachments", []) if a["type"] in ("url", "youtube")
@@ -130,7 +129,7 @@ class Record:
     @property
     def course(self) -> dict[str, Any] | None:
         course_info = self.xml.get("local", {}).get("courseInfo")
-        if course_info and type(course_info) == dict:
+        if course_info and type(course_info) is dict:
             # we can construct section_calc_id if we know both section & term
             section: str = course_info.get("section", "")
             term: str = course_info.get("semester", "")
@@ -160,7 +159,7 @@ class Record:
         for namex in mklist(self.xml.get("mods", {}).get("name")):
             # @usage = primary, secondary | ignoring this but could say sec. -> contributor, not creator
             partsx = namex.get("namePart")
-            if type(partsx) == str:
+            if type(partsx) is str:
                 # initialize, use affiliation set to dedupe them
                 creator = {"person_or_org": {}, "affiliations": [], "role": {}}
 
@@ -168,7 +167,7 @@ class Record:
                 rolex = mklist(namex.get("role", {}).get("roleTerm"))
                 if len(rolex):
                     rolex = rolex[0]
-                    role: str = rolex if type(rolex) == str else rolex.get("#text")
+                    role: str = rolex if type(rolex) is str else rolex.get("#text")
                     role = role.lower().replace(" ", "")
                     if role in role_map:
                         creator["role"]["id"] = role_map[role]
@@ -201,7 +200,7 @@ class Record:
                 )
 
                 names = parse_name(partsx)
-                if type(names) == dict:
+                if type(names) is dict:
                     creators.append(
                         {
                             "affiliations": creator["affiliations"],
@@ -215,10 +214,10 @@ class Record:
                     raise Exception(
                         f"Unexpected mods/name structure: parse_name(namePart) returned a list but we also have role/affiliation. Name: {namex}"
                     )
-                elif type(names) == list:
+                elif type(names) is list:
                     for name in names:
                         creators.append({"person_or_org": name})
-            elif type(partsx) == list:
+            elif type(partsx) is list:
                 # if we have a list of nameParts then the other mods/name fields & attributes must not
                 # be present, but check this assumption
                 if (
@@ -238,7 +237,7 @@ class Record:
             faculty = self.xml.get("local", {}).get("courseInfo", {}).get("faculty")
             if faculty:
                 names = parse_name(faculty)
-                if type(names) == dict:
+                if type(names) is dict:
                     creators.append(
                         {
                             "affiliations": cca_affiliation,
@@ -246,7 +245,7 @@ class Record:
                             "role": {"id": "creator"},
                         }
                     )
-                elif type(names) == list:
+                elif type(names) is list:
                     for name in names:
                         creators.append(
                             {
@@ -287,7 +286,7 @@ class Record:
         )
         for dc in dates_capturedx:
             # work with strings and dicts
-            dc = dc.get("#text") if type(dc) == dict else dc
+            dc = dc.get("#text") if type(dc) is dict else dc
             if dc:  # could be empty string
                 dates.append(
                     {
@@ -304,7 +303,7 @@ class Record:
             .get("dateOtherWrapper", {})
             .get("dateOther")
         )
-        if type(date_other) == dict:
+        if type(date_other) is dict:
             date_other_text = to_edtf(date_other.get("#text"))
             if date_other_text:
                 # the only types we have are Agreement and E/exhibit (case sensitive)
@@ -351,14 +350,14 @@ class Record:
         for wrapper in noteWrappers:
             notes = notes + mklist(wrapper.get("note", []))
         for note in notes:
-            if type(note) == str and note:
+            if type(note) is str and note:
                 desc.append(
                     {
                         "type": {"id": "other", "title": {"en": "Other"}},
                         "description": note.strip(),
                     }
                 )
-            elif type(note) == dict:
+            elif type(note) is dict:
                 # prefix note with its type if we have one
                 ntype: str = note.get("@type", "").title()
                 note_text: str = note.get("#text", "")
@@ -399,9 +398,9 @@ class Record:
                 for dateCreated in dateCreatedsx:
                     # work around empty str or dict
                     if dateCreated:
-                        if type(dateCreated) == str:
+                        if type(dateCreated) is str:
                             edtf_date: str | None = to_edtf(dateCreated)
-                        elif type(dateCreated) == dict:
+                        elif type(dateCreated) is dict:
                             edtf_date: str | None = to_edtf(dateCreated.get("#text"))
                         if edtf_date:
                             return edtf_date
@@ -461,7 +460,7 @@ class Record:
         originInfos = mklist(self.xml.get("mods", {}).get("originInfo"))
         for originInfo in originInfos:
             publisher = originInfo.get("publisher")
-            if type(publisher) == dict:
+            if type(publisher) is dict:
                 publisher = publisher.get("#text")
             if publisher:
                 return publisher.strip()
@@ -521,13 +520,13 @@ class Record:
 
         # Take the first typeOfResource value we find
         wrapper = self.xml.get("mods", {}).get("typeOfResourceWrapper")
-        if type(wrapper) == list:
+        if type(wrapper) is list:
             wrapper = wrapper[0]
-        if type(wrapper) == dict:
+        if type(wrapper) is dict:
             rtype = wrapper.get("typeOfResource", "")
-            if type(rtype) == list:
+            if type(rtype) is list:
                 rtype = rtype[0]
-            if type(rtype) == dict:
+            if type(rtype) is dict:
                 rtype = rtype.get("#text", "")
             if rtype in resource_type_map:
                 return {"id": resource_type_map[rtype]}
@@ -543,7 +542,7 @@ class Record:
         # Choices: https://github.com/cca/cca_invenio/blob/main/app_data/vocabularies/licenses.csv
         # We always have exactly one accessCondition node, str or dict
         accessCondition = self.xml.get("mods", {}).get("accessCondition", "")
-        if type(accessCondition) == dict:
+        if type(accessCondition) is dict:
             # if we have a href attribute prefer that
             href = accessCondition.get("@href", None)
             if href and href in license_href_map:
@@ -566,7 +565,7 @@ class Record:
         extents = []
 
         extent = self.xml.get("mods", {}).get("physicalDescription", {}).get("extent")
-        if type(extent) == dict:
+        if type(extent) is dict:
             extent = extent.get("#text")
         if extent:
             extents.append(extent)
