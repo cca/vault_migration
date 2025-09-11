@@ -1,5 +1,6 @@
-"""Parse names and lists of names from a variety of formats into {given_name, family_name} dicts
-This is used by Record.creator only. It does not relate to the Invenio names.yaml vocabulary.
+"""Parse names and lists of names from a variety of formats into {given_name,
+family_name} or {name} (for organizations) dicts. This is used by
+Record.creator only. It does not relate to the Invenio names.yaml vocabulary.
 """
 
 import re
@@ -17,10 +18,10 @@ ruler.add_patterns(patterns)
 nlp.select_pipes(enable=["ner", "entity_ruler"])
 
 
-def ner(str):
+def ner(text: str) -> list[dict[str, str]]:
     # return a list of named PERSON or ORG entities from a string
     # https://spacy.io/usage/linguistic-features#named-entities
-    doc = nlp(str)
+    doc = nlp(text)
     return [
         {"entity": e.text, "type": e.label_}
         for e in doc.ents
@@ -28,7 +29,7 @@ def ner(str):
     ]
 
 
-def entity_to_name(entity, namePart):
+def entity_to_name(entity: dict[str, str], namePart: str):
     if entity["type"] == "PERSON":
         return parse_name(entity["entity"])
     else:
@@ -36,25 +37,28 @@ def entity_to_name(entity, namePart):
         return {"name": namePart}
 
 
-def n(d) -> dict[str, str]:
+def n(person_or_org: dict[str, str]) -> dict[str, str]:
     """add person/org type to name dict"""
     if (
-        d.get("name")
-        and type(d.get("given_name")) != str
-        and type(d.get("family_name")) != str
+        person_or_org.get("name")
+        and type(person_or_org.get("given_name")) is not str
+        and type(person_or_org.get("family_name")) is not str
     ):
-        ntype = "organizational"
+        ntype: str = "organizational"
     # it's ok if person names are falsey, empty, but they must be strings
-    elif type(d.get("given_name")) == str and type(d.get("family_name")) == str:
+    elif (
+        type(person_or_org.get("given_name")) is str
+        and type(person_or_org.get("family_name")) is str
+    ):
         ntype = "personal"
     else:
         raise Exception(
-            f"Invalid name dict, has neither name nor family_name & given_name: {d}"
+            f"Invalid name dict, has neither name nor family_name & given_name: {person_or_org}"
         )
-    return {**d, "type": ntype}
+    return {**person_or_org, "type": ntype}
 
 
-def parse_name(namePart):
+def parse_name(namePart: str):
     """Parse wild variety of name strings into {given_name, family_name}
     or, if it looks like an organization name, return only {name}."""
 
@@ -79,7 +83,7 @@ def parse_name(namePart):
             return n({"given_name": parts[1], "family_name": parts[0]})
         # two or more commas, maybe we have a comma-separated list of names?
         if len(parts) > 2:
-            entities = ner(namePart)
+            entities: list[dict[str, str]] = ner(namePart)
             if len(entities) == 0:
                 # weird, no entities, assume organization
                 return n({"name": namePart})
@@ -107,7 +111,7 @@ def parse_name(namePart):
             return n({"given_name": parts[0], "family_name": parts[1]})
         if len(parts) > 2:
             # could be "First Second Third" name or an organization
-            entities = ner(namePart)
+            entities: list[dict[str, str]] = ner(namePart)
             if len(entities) == 0:
                 # no entities, most likely an organization
                 return n({"name": namePart})
@@ -119,11 +123,11 @@ def parse_name(namePart):
             elif len(entities) > 1 and len(
                 [e for e in entities if e["type"] == "PERSON"]
             ) == len(entities):
-                l = len(parts)
+                num_parts: int = len(parts)
                 return n(
                     {
-                        "given_name": " ".join(parts[0 : (l - 1)]),
-                        "family_name": parts[l - 1],
+                        "given_name": " ".join(parts[0 : (num_parts - 1)]),
+                        "family_name": parts[num_parts - 1],
                     }
                 )
             else:
