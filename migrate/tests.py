@@ -1,10 +1,9 @@
-from edtf import text_to_edtf
 import pytest
 import xmltodict
-
+from edtf import text_to_edtf
 from names import parse_name
 from record import Record
-from subjects import find_subjects, subjects_from_xmldict, Subject, TYPES
+from subjects import TYPES, Subject, find_subjects, subjects_from_xmldict
 from utils import (
     get_url,
     mklist,
@@ -342,6 +341,14 @@ def test_course(input, expect):
                 {"name": "CCAC Libraries", "type": "organizational"},
                 {"name": "CCA Sputnik", "type": "organizational"},
             ],
+        ),
+        # Don't let Spacy split CSAC into two ORG entities
+        (
+            "California School of Arts and Crafts",
+            {
+                "name": "California School of Arts and Crafts",
+                "type": "organizational",
+            },
         ),
     ],
 )
