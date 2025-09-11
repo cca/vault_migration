@@ -3,13 +3,14 @@
 import os
 import sys
 from typing import Any
-import urllib3
 
 import requests
-
+import urllib3
+from dotenv import load_dotenv
 from record import Record
 from utils import find_items
 
+load_dotenv()
 # shut up urllib3 SSL verification warning
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 token: str | None = os.environ.get("INVENIO_TOKEN") or os.environ.get("TOKEN")
@@ -27,7 +28,7 @@ def post(r: Record) -> dict[str, Any]:
     }
     # create metadata-only draft
     draft_response: requests.Response = requests.post(
-        "https://127.0.0.1:5000/api/records",  # TODO config for domain, port
+        f"https://{os.environ['HOST']}/api/records",
         headers=headers,
         json=r.get(),
         verify=verify,
@@ -40,7 +41,7 @@ def post(r: Record) -> dict[str, Any]:
     print(draft_record["links"]["self"])
     # publish
     publish_response: requests.Response = requests.post(
-        f"https://127.0.0.1:5000/api/records/{draft_record['id']}/draft/actions/publish",
+        f"https://{os.environ['HOST']}/api/records/{draft_record['id']}/draft/actions/publish",
         headers=headers,
         verify=verify,
     )

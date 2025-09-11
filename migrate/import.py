@@ -3,14 +3,14 @@
 import json
 import os
 from pathlib import Path
-import urllib3
 
 import click
-from dotenv import load_dotenv
 import requests
-
+import urllib3
+from dotenv import load_dotenv
 from record import Record
 
+load_dotenv()
 # shut up urllib3 SSL verification warning
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 token: str | None = os.environ.get("INVENIO_TOKEN") or os.environ.get("TOKEN")
@@ -18,13 +18,9 @@ if not token:
     raise Exception(
         "Error: provide a personal access token in the TOKEN or INVENIO_TOKEN env var"
     )
-
-# load config from .env
-load_dotenv()
-port: str | None = os.environ.get("PORT")
-domain: str = f"https://{os.environ['HOST']}{f':{port}' if port else ''}"
+domain: str = f"https://{os.environ['HOST']}"
 verify: bool = os.environ.get("HTTPS_VERIFY", "").lower() == "true"
-headers = {
+headers: dict[str, str] = {
     "Accept": "application/json",
     "Content-Type": "application/json",
     "Authorization": f"Bearer {token}",
@@ -80,6 +76,7 @@ def add_files(dir: Path, record: Record, draft: dict):
         binary_headers: dict[str, str] = headers.copy()
         binary_headers["Content-Type"] = "application/octet-stream"
         with open(dir / attachment["name"], "rb") as f:
+            # ! 500 error testing on invenio-dev
             upload_response: requests.Response = requests.put(
                 f"{domain}/api/records/{draft['id']}/draft/files/{attachment['name']}/content",
                 data=f,
