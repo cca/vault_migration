@@ -48,7 +48,8 @@ def create_draft(record: dict) -> dict:
     verbose_print(f"HTTP {draft_response.status_code} {draft_response.url}")
     if draft_response.status_code > 201:
         click.echo(draft_response.text, err=True)
-    draft_response.raise_for_status()
+    if errors:
+        draft_response.raise_for_status()
     draft_record = draft_response.json()
     return draft_record
 
@@ -66,7 +67,8 @@ def add_files(directory: Path, record: Record, draft: dict[str, Any]):
         verify=verify,
     )
     verbose_print(f"HTTP {files_response.status_code} {files_response.url}")
-    files_response.raise_for_status()
+    if errors:
+        files_response.raise_for_status()
     files_area = files_response.json()
     verbose_print(files_area['links']['self'])
 
@@ -85,7 +87,8 @@ def add_files(directory: Path, record: Record, draft: dict[str, Any]):
                 verify=verify,
             )
             verbose_print(f"HTTP {upload_response.status_code} {upload_response.url}")
-            upload_response.raise_for_status()
+            if errors:
+                upload_response.raise_for_status()
 
     # commit one by one
     # ? Should we do this above in the same loop?
@@ -97,7 +100,8 @@ def add_files(directory: Path, record: Record, draft: dict[str, Any]):
             verify=verify,
         )
         verbose_print(f"HTTP {commit_response.status_code} {commit_response.url}")
-        commit_response.raise_for_status()
+        if errors:
+            commit_response.raise_for_status()
 
     # set default preview which was in our original record
     preview_response: requests.Response = requests.put(
@@ -107,8 +111,8 @@ def add_files(directory: Path, record: Record, draft: dict[str, Any]):
         verify=verify,
     )
     verbose_print(f"HTTP {preview_response.status_code} {preview_response.url}")
-    preview_response.raise_for_status()
-    # click.echo(json.dumps(order_data, indent=2))
+    if errors:
+        preview_response.raise_for_status()
 
 
 def publish(draft: dict) -> dict:
@@ -124,7 +128,8 @@ def publish(draft: dict) -> dict:
     verbose_print(f"HTTP {publish_response.status_code} {publish_response.url}")
     if publish_response.status_code > 201:
         click.echo(publish_response.text, err=True)
-    publish_response.raise_for_status()
+    if errors:
+        publish_response.raise_for_status()
     published_record = publish_response.json()
     return published_record
 
@@ -134,11 +139,11 @@ def publish(draft: dict) -> dict:
 )
 @click.help_option("-h", "--help")
 @click.argument("directory", type=click.Path(exists=True), required=True)
-# TODO option to ignore errors which skips assert statements & response.raise_for_status()
-# @click.option("--ignore-errors", "-i", help="Ignore errors and continue", is_flag=True)
+@click.option("--ignore-errors", "-i", help="Ignore errors and continue", is_flag=True)
 @click.option("--verbose", "-v", "is_verbose", help="Print more output", is_flag=True)
-def main(directory: str, is_verbose: bool):
-    global verbose
+def main(directory: str, is_verbose: bool, ignore_errors: bool):
+    global errors, verbose
+    errors = not ignore_errors
     verbose = is_verbose
 
     item = get_item(Path(directory) / "metadata" / "item.json")
