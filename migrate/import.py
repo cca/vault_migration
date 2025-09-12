@@ -3,6 +3,7 @@
 import json
 import os
 from pathlib import Path
+from typing import Any
 
 import click
 import requests
@@ -32,8 +33,8 @@ def verbose_print(*args) -> None:
         click.echo(*args)
 
 
-def get_item(itemjson: Path) -> dict:
-    with open(itemjson, "r") as f:
+def get_item(json_path: Path) -> dict:
+    with open(json_path, "r") as f:
         return json.load(f)
 
 
@@ -52,32 +53,32 @@ def create_draft(record: dict) -> dict:
     return draft_record
 
 
-def add_files(dir: Path, record: Record, draft: dict):
+def add_files(directory: Path, record: Record, draft: dict[str, Any]):
     # add files to draft record
     # four steps: initiate, upload (all), commit (all), set default preview
     # ! Unable to set order as API docs suggest, files.order is dropped
     # ! https://github.com/inveniosoftware/invenio-app-rdm/issues/2573
-
     keys = [{"key": att["name"]} for att in record.attachments]
-    init_response: requests.Response = requests.post(
+    files_response: requests.Response = requests.post(
         draft["links"]["files"],
         json=keys,
         headers=headers,
         verify=verify,
     )
-    verbose_print(f"HTTP {init_response.status_code} {init_response.url}")
-    init_response.raise_for_status()
-    init_data = init_response.json()
-    # click.echo(json.dumps(init_data, indent=2))
+    verbose_print(f"HTTP {files_response.status_code} {files_response.url}")
+    files_response.raise_for_status()
+    files_area = files_response.json()
+    verbose_print(files_area['links']['self'])
 
     # upload one by one
     # TODO use httpx to do in parallel?
     for attachment in record.attachments:
         binary_headers: dict[str, str] = headers.copy()
         binary_headers["Content-Type"] = "application/octet-stream"
-        with open(dir / attachment["name"], "rb") as f:
+        with open(directory / attachment["name"], "rb") as f:
             # ! 500 error testing on invenio-dev
             upload_response: requests.Response = requests.put(
+                # ? Would it be better to use files_area['links']['self'] for some reason?
                 f"{domain}/api/records/{draft['id']}/draft/files/{attachment['name']}/content",
                 data=f,
                 headers=binary_headers,
@@ -87,8 +88,9 @@ def add_files(dir: Path, record: Record, draft: dict):
             upload_response.raise_for_status()
 
     # commit one by one
+    # ? Should we do this above in the same loop?
     # TODO httpx parallel
-    for commit_link in [entry["links"]["commit"] for entry in init_data["entries"]]:
+    for commit_link in [entry["links"]["commit"] for entry in files_area["entries"]]:
         commit_response: requests.Response = requests.post(
             commit_link,
             headers=headers,
@@ -131,22 +133,22 @@ def publish(draft: dict) -> dict:
     help="Import items and their attachments into InvenioRDM. This expects a directory formatted like the equella_scripts/collection-export tool with attachments inside and a metadata subdirectory with an item.json file."
 )
 @click.help_option("-h", "--help")
-@click.argument("dir", type=click.Path(exists=True), required=True)
+@click.argument("directory", type=click.Path(exists=True), required=True)
 # TODO option to ignore errors which skips assert statements & response.raise_for_status()
 # @click.option("--ignore-errors", "-i", help="Ignore errors and continue", is_flag=True)
 @click.option("--verbose", "-v", "is_verbose", help="Print more output", is_flag=True)
-def main(dir: str, is_verbose: bool):
+def main(directory: str, is_verbose: bool):
     global verbose
     verbose = is_verbose
 
-    item = get_item(Path(dir) / "metadata" / "item.json")
+    item = get_item(Path(directory) / "metadata" / "item.json")
     record = Record(item)
 
-    click.echo(f"Importing {record.title} from {dir}...")
+    click.echo(f"Importing {record.title} from {directory}...")
     draft = create_draft(record.get())
 
     if len(record.attachments):
-        add_files(Path(dir), record, draft)
+        add_files(Path(directory), record, draft)
 
     published_record = publish(draft)
 
