@@ -1,0 +1,34 @@
+# we flag certain users as admins in taxos/users.py so we do not need to create
+# a local admin account (which would not be able to sign in anyways)
+# Invenio may create an "admin" account even if you provide users.yaml
+- email: library-test-student-1@cca.edu
+  full_name: Finn 2187
+  username: library-test-student-1
+  active: True
+  confirmed: True
+  # a null value for affiliations causes an error, must leave entirely absent if not known
+  affiliations: California College of the Arts
+- email: library-test-student-2@cca.edu
+  full_name: Rey Skywalker
+  username: library-test-student-2
+  active: True
+  confirmed: True
+  affiliations: California College of the Arts
+- email: library-test-faculty-1@cca.edu
+  full_name: Leia Organa
+  username: library-test-faculty-1
+  active: True
+  confirmed: True
+  affiliations: California College of the Arts
+- email: library-test-faculty-2@cca.edu
+  full_name: Kylo Ren
+  username: library-test-faculty-2
+  active: True
+  confirmed: True
+  affiliations: California College of the Arts
+- email: library-test-manager-1@cca.edu
+  full_name: Admiral Ackbar
+  username: library-test-manager-1
+  active: True
+  confirmed: True
+  affiliations: California College of the Arts

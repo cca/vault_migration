@@ -95,10 +95,10 @@ def main(args):
 
     names, users = convert_to_vocabs(people)
 
-    with open("vocab/admin_users.yaml", "r") as f:
-        # add static admin accounts (this is a list)
-        admins = yaml.load(f, Loader=yaml.FullLoader)
-        users.extend(admins)
+    with open("vocab/test_users.yaml", "r") as f:
+        # add static accounts (e.g. library-test-student-1)
+        accounts: list[dict[str, Any]] = yaml.load(f, Loader=yaml.FullLoader)
+        users.extend(accounts)
 
     with open("vocab/names.yaml", "w") as f:
         yaml.dump(names, f, allow_unicode=True)
