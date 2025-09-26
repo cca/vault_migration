@@ -9,7 +9,7 @@ requires-python = ">=3.10,<3.12"
 dependencies = [
     "pyyaml==6.0.3",
     "requests==2.32.5",
-    "xmltodict==0.15.1",
+    "xmltodict==1.0.2",
     "spacy==3.8.7",
     "edtf==5.0.0",
     "click==8.3.0",
