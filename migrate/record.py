@@ -10,7 +10,7 @@ import mimetypes
 import re
 import sys
 from datetime import date
-from typing import Any, List
+from typing import Any
 
 import xmltodict
 from maps import license_href_map, license_text_map, resource_type_map, role_map
@@ -40,7 +40,6 @@ def postprocessor(path, key, value):
 
 class Record:
     def __init__(self, item):
-        self.xml = xmltodict.parse(item["metadata"], postprocessor=postprocessor)["xml"]
         self.attachments: list[dict[str, Any]] = sorted(
             [
                 a
@@ -56,19 +55,20 @@ class Record:
             a["name"] = a.get("filename") or re.sub(r"_zips\/", "", a["folder"])
             if a["type"] == "htmlpage":
                 a["name"] = f"{a['uuid']}.html"
+        # default to current date in ISO 8601 format
+        self.createdDate: str = item.get("createdDate", date.today().isoformat())
         # url and "custom" youtube attachments
         self.references: list[dict[str, Any]] = [
             a for a in item.get("attachments", []) if a["type"] in ("url", "youtube")
         ]
         self.title: str = item.get("name", "Untitled")
-        # default to current date in ISO 8601 format
-        self.createdDate: str = item.get("createdDate", date.today().isoformat())
         self.vault_collection: str = item.get("collection", {}).get("uuid", "")
         self.vault_url: str = ""
         if item.get("uuid") and item.get("version"):
             self.vault_url = (
                 f"https://vault.cca.edu/items/{item['uuid']}/{item['version']}/"
             )
+        self.xml = xmltodict.parse(item["metadata"], postprocessor=postprocessor)["xml"]
 
     @property
     def abstracts(self) -> list:
@@ -537,7 +537,7 @@ class Record:
         return {"id": "publication"}
 
     @property
-    def rights(self) -> List[dict[str, str | dict[str, str]]]:
+    def rights(self) -> list[dict[str, str | dict[str, str]]]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#rights-licenses-0-n
         # Choices: https://github.com/cca/cca_invenio/blob/main/app_data/vocabularies/licenses.csv
         # We always have exactly one accessCondition node, str or dict
