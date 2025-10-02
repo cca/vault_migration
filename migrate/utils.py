@@ -42,9 +42,9 @@ def get_url(url: str) -> str | None:
 
 def mklist(x) -> list:
     # ensure value is a list
-    if type(x) == list:
+    if type(x) is list:
         return x
-    elif type(x) == str or type(x) == dict:
+    elif type(x) is str or type(x) is dict:
         return [x]
     elif x is None:
         return []
