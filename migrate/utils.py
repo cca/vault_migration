@@ -22,7 +22,7 @@ def find_items(file) -> list:
                 return [data]
     elif file.endswith(".xml"):
         with open(file) as f:
-            xml = f.read()
+            xml: str = f.read()
             return [{"metadata": xml}]
     # non-data file (like .py or .txt) so skip gracefully
     return []
@@ -57,16 +57,16 @@ def mklist(x) -> list:
 # "The values 21, 22, 23, 24 may be used used to signify ' Spring', 'Summer', 'Autumn', 'Winter', respectively, in place of a month value (01 through 12) for a year-and-month format string."
 def to_edtf(s) -> str | None:
     # map season to approx month in season
-    season_map = {
+    season_map: dict[str, str] = {
         "21": "02",
         "22": "05",
         "23": "08",
         "24": "11",
     }
-    text = text_to_edtf(s)
+    text: None | str = text_to_edtf(s)
     if text:
-        season_match = re.match(r"\d{4}-(2\d)", text)
-        season = season_match.group(1) if season_match else False
+        season_match: re.Match[str] | None = re.match(r"\d{4}-(2\d)", text)
+        season: str = season_match.group(1) if season_match else ""
         if season:
             # if we somehow get a season out of range, we want this to throw a KeyError
             return f"{text[:4]}-{season_map[season]}"
@@ -81,7 +81,7 @@ def visual_mime_type_sort(attachment) -> int:
     # Order: TIFF > Non-HEIC/WBEP Images > PDF > Video > Markdown, CSV, XML > JSON > Audio > ZIP > others
     # https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#types
     # type=zip attachments have a "folder" but no "filename"
-    fn = attachment.get("filename") or attachment["folder"]
+    fn: str = attachment.get("filename") or attachment["folder"]
     guess: str | None = mimetypes.guess_type(fn)[0]
     type, subtype = guess.split("/") if guess else ("unknown", "unknown")
     match type, subtype:

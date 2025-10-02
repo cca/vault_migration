@@ -417,10 +417,12 @@ class Record:
                 for dateCreated in dateCreatedsx:
                     # work around empty str or dict
                     if dateCreated:
+                        edtf_date: str | None = None
                         if type(dateCreated) is str:
-                            edtf_date: str | None = to_edtf(dateCreated)
+                            edtf_date = to_edtf(dateCreated)
                         elif type(dateCreated) is dict:
-                            edtf_date: str | None = to_edtf(dateCreated.get("#text"))
+                            edtf_date = to_edtf(dateCreated.get("#text"))
+
                         if edtf_date:
                             return edtf_date
 
