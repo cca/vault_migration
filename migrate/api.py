@@ -2,12 +2,12 @@
 # and https://inveniordm.docs.cern.ch/reference/rest_api_index/
 import os
 import sys
-from typing import Any
+from typing import Any, Literal
 
-import requests
 import urllib3
 from dotenv import load_dotenv
 from record import Record
+from requests import Response, request
 from utils import find_items
 
 load_dotenv()
@@ -19,49 +19,101 @@ if not token:
     raise Exception(
         "Error: provide a personal access token in the TOKEN or INVENIO_TOKEN env var"
     )
+headers: dict[str, str] = {
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {token}",
+}
+
+
+def http(
+    method: Literal["get", "post", "post"],
+    url: str,
+    json: Any = None,
+    headers: dict[str, str] = headers,
+    verify: bool = verify,
+) -> Response:
+    """Helper method around requests with our headers & prints response status"""
+    response: Response = request(
+        method=method, url=url, headers=headers, json=json, verify=verify
+    )
+    print(f"HTTP {response.status_code} {url}")
+    return response
 
 
 def post(r: Record) -> dict[str, Any]:
-    headers: dict[str, str] = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {token}",
-    }
     # create metadata-only draft
-    draft_response: requests.Response = requests.post(
+    draft_resp: Response = http(
+        "post",
         f"https://{os.environ['HOST']}/api/records",
-        headers=headers,
         json=r.get(),
-        verify=verify,
     )
-    print("HTTP {}".format(draft_response.status_code))
-    if draft_response.status_code > 201:
-        print(draft_response.text)
-    draft_response.raise_for_status()
-    draft_record: dict[str, Any] = draft_response.json()
-    print(draft_record["links"]["self"])
-    # publish
-    publish_response: requests.Response = requests.post(
-        f"https://{os.environ['HOST']}/api/records/{draft_record['id']}/draft/actions/publish",
-        headers=headers,
-        verify=verify,
-    )
-    print("HTTP {}".format(publish_response.status_code))
-    if publish_response.status_code > 201:
-        print(publish_response.text)
-    publish_response.raise_for_status()
-    published_record: dict[str, Any] = publish_response.json()
-    print(published_record["links"]["self_html"])
 
-    # you can use /api/records/<id>/communities to add a record to a community
-    # see https://github.com/inveniosoftware/invenio-rdm-records/blob/66e30d523505426c457fdbdaf6ee59bd1f7a7d20/tests/resources/test_resources_communities.py#L36
+    if draft_resp.status_code > 201:
+        print(draft_resp.text)
+    draft_resp.raise_for_status()
+    draft_record: dict[str, Any] = draft_resp.json()
+    print("Draft:", draft_record["links"]["self"])
+
+    # publish
+    publish_resp: Response = http(
+        "post",
+        f"https://{os.environ['HOST']}/api/records/{draft_record['id']}/draft/actions/publish",
+    )
+
+    # if publish_response.status_code > 201: print(publish_response.text)
+    publish_resp.raise_for_status()
+    published_record: dict[str, Any] = publish_resp.json()
+    print("Published:", published_record["links"]["self_html"])
+
+    # add to communities
+    comms_to_add = set()
+    for slug in r.communities:
+        # check that each community exists first
+        get_comm_resp: Response = http(
+            "get",
+            f"https://{os.environ['HOST']}/api/communities/{slug}",
+        )
+
+        if get_comm_resp.status_code == 404:
+            print(f"Community {slug} does not exist")
+        elif get_comm_resp.status_code == 200:
+            community = get_comm_resp.json()
+            # cannot add a public record to a restricted community
+            if (
+                published_record["access"]["record"] == "public"
+                and community["access"]["visibility"] == "restricted"
+            ):
+                print(
+                    f"ERROR: cannot add public record {published_record['links']['self_html']} to restricted community {community['links']['self_html']}"
+                )
+                continue
+            comms_to_add.add(slug)
+
+        if len(comms_to_add):
+            communities: dict[str, list[dict[str, str]]] = {
+                "communities": [{"id": slug} for slug in comms_to_add]
+            }
+            # this immediately adds to communities without opening a request
+            add_to_comm_resp: Response = http(
+                "post",
+                published_record["links"]["communities"],
+                json=communities,
+            )
+
+            if add_to_comm_resp.status_code > 201:
+                print(
+                    f"Error adding {published_record['links']['self_html']} to communities: {comms_to_add}"
+                )
+                print(add_to_comm_resp.text)
+
     return published_record
 
 
 if __name__ == "__main__":
     # support passing any number of single item json, search results json, or XML metadata files
     for file in sys.argv[1:]:
-        items = find_items(file)
+        items: list = find_items(file)
         for item in items:
-            r = Record(item)
-            r.attachments = []  # use import.py to add files
+            r: Record = Record(item)
+            r.attachments = []  # ! use import.py to add files
             post(r)
