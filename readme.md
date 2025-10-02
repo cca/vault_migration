@@ -21,6 +21,11 @@ Invenio uses [vocabularies](https://inveniordm.docs.cern.ch/customize/vocabulari
 
 The **taxos** dir contains exported EQUELLA taxonomies and tools for working with them. The **vocab** dir contains YAML files for Invenio vocabularies.
 
+Notable scripts that create Invenio vocabularies:
+
+- [taxos/users.py](./taxos/users.py) creates the [names.yaml](https://inveniordm.docs.cern.ch/operate/customize/vocabularies/names/) and [users.yaml](https://inveniordm.docs.cern.ch/operate/customize/users/#add-users-via-fixtures) fixtures
+- [taxos/roles.py](./taxos/roles.py) creates the Invenio relator `creatorsroles` and `contributorsroles` in a file named roles.yaml
+
 ### Subjects
 
 We create two subject vocabularies: one for Library of Congress subjects with URIs from one of their authorities and one for CCA local subjects not present in any LC authority.
