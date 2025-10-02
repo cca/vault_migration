@@ -178,6 +178,48 @@ def test_archives_series(input, expect):
     assert r.get()["custom_fields"] == expect
 
 
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        (
+            {
+                "collection": {
+                    "name": "Libraries",
+                    "uuid": "6b755832-4070-73d2-77b3-3febcc1f5fad",
+                },
+                "metadata": "<xml/>",
+            },
+            # pass set() constructor a list b/c it breaks string iterables into set of characters
+            set(["libraries"]),
+        ),
+        (
+            {
+                "collection": {
+                    "name": "Animation Program",
+                    "uuid": "66558697-71c5-43a0-b7b3-f778b42c7cd9",
+                },
+                "metadata": "<xml/>",
+            },
+            set(["animation"]),
+        ),
+        (
+            {
+                "collection": {"name": "Unmapped Collection", "uuid": "Don Quixote"},
+                "metadata": "<xml/>",
+            },
+            set(),
+        ),
+        (
+            {"metadata": "<xml/>", "title": "no collection info"},
+            set(),
+        ),
+    ],
+)
+def test_communities(input, expect):
+    r = Record(input)
+    assert r.communities == expect
+
+
 # TODO test course
 @pytest.mark.parametrize(
     "input, expect",

@@ -3,6 +3,17 @@
 # simple dict maps from MODS metadata to InvenioRDM  #
 ######################################################
 
+# EQUELLA Collection UUID : Invenio Community shortname
+# Collection is not the only way we calculate communities
+# MODS metadata is used as well in Record.communities.
+# TODO we have not decided our communities structure yet
+communities_map: dict[str, str] = {
+    # Animation Program
+    "66558697-71c5-43a0-b7b3-f778b42c7cd9": "animation",
+    # Libraries
+    "6b755832-4070-73d2-77b3-3febcc1f5fad": "libraries",
+}
+
 # CCA/C Archives uses CC-BY-NC4.0 in mods/accessCondition
 # There are a few other CC licenses used
 license_href_map: dict[str, str] = {

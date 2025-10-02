@@ -13,7 +13,13 @@ from datetime import date
 from typing import Any
 
 import xmltodict
-from maps import license_href_map, license_text_map, resource_type_map, role_map
+from maps import (
+    communities_map,
+    license_href_map,
+    license_text_map,
+    resource_type_map,
+    role_map,
+)
 from names import parse_name
 from subjects import Subject, find_subjects
 from utils import (
@@ -150,6 +156,19 @@ class Record:
                 "title": course_info.get("course", ""),
             }
         return None
+
+    @property
+    def communities(self) -> set[str]:
+        """List of community shortnames for the record to be included in. A record can be in multiple
+        communities, but there is no need to add it to a parent community if it is in a child (e.g.
+        Libraries AND Mudflats, if we choose hierarchical communities).
+
+        Communities exists outside record metadata and aren't in Record.get(). It is up to a migrate
+        script to use this set to add a record to its communities (e.g., by using the REST API)."""
+        communities = set()
+        if self.vault_collection in communities_map.keys():
+            communities.add(communities_map[self.vault_collection])
+        return communities
 
     @property
     def creators(self) -> list[dict[str, Any]]:
