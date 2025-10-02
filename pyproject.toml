@@ -7,13 +7,15 @@ license = "ECL-2.0"
 readme = "README.md"
 requires-python = ">=3.10,<3.12"
 dependencies = [
+    "click==8.3.0",
+    "edtf==5.0.0",
+    # if we don't specify the spacy model as a dependency uv will prune it
+    "en-core-web-lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.8.0/en_core_web_lg-3.8.0-py3-none-any.whl",
+    "python-dotenv>=1.1.1",
     "pyyaml==6.0.3",
     "requests==2.32.5",
-    "xmltodict==0.15.1",
     "spacy==3.8.7",
-    "edtf==5.0.0",
-    "click==8.3.0",
-    "python-dotenv==1.1.1",
+    "xmltodict==0.15.1",
 ]
 
 [dependency-groups]

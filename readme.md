@@ -7,10 +7,8 @@ Semantics: EQUELLA objects are _items_ with _attachments_. Invenio objects are _
 ## Setup & Tests
 
 ```sh
-uv install # get dependencies
-source .venv/bin/activate.fish # enter venv
-python -m spacy download en_core_web_lg # download spaCy model for Named Entity Recognition
-pytest -v migrate/tests.py # run tests
+uv install # get dependencies, takes awhile due to spacy's en_core_web_lg model
+uv run pytest -v migrate/tests.py # run tests
 ```
 
 Migrate scripts that create records require an `INVENIO_TOKEN` or `TOKEN` variable in our environment or .env file. To create a token: sign in as an admin and go to Applications > Personal access tokens.
