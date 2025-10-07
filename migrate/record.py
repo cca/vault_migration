@@ -10,6 +10,7 @@ import mimetypes
 import re
 import sys
 from datetime import date
+from functools import cached_property
 from typing import Any
 
 import xmltodict
@@ -76,7 +77,7 @@ class Record:
             )
         self.xml = xmltodict.parse(item["metadata"], postprocessor=postprocessor)["xml"]
 
-    @property
+    @cached_property
     def abstracts(self) -> list:
         abs = mklist(self.xml.get("mods", {}).get("abstract", ""))
         # filter out all empty strings except the first one
@@ -85,7 +86,7 @@ class Record:
                 abs.remove(a)
         return abs
 
-    @property
+    @cached_property
     def addl_titles(self) -> list[dict[str, str]]:
         # extra /mods/titleInfo/title entries, titleInfo/subtitle
         # https://inveniordm.docs.cern.ch/reference/metadata/#additional-titles-0-n
@@ -121,7 +122,7 @@ class Record:
                         atitles.append({"title": title, "type": {"id": "other"}})
         return atitles
 
-    @property
+    @cached_property
     def archives_series(self) -> dict[str, str] | None:
         archives_wrapper = self.xml.get("local", {}).get("archivesWrapper")
         series = archives_wrapper.get("series") if archives_wrapper else None
@@ -132,7 +133,7 @@ class Record:
             return {"series": series, "subseries": subseries}
         return {}
 
-    @property
+    @cached_property
     def course(self) -> dict[str, Any] | None:
         course_info = self.xml.get("local", {}).get("courseInfo")
         if course_info and type(course_info) is dict:
@@ -157,7 +158,7 @@ class Record:
             }
         return None
 
-    @property
+    @cached_property
     def communities(self) -> set[str]:
         """List of community shortnames for the record to be included in. A record can be in multiple
         communities, but there is no need to add it to a parent community if it is in a child (e.g.
@@ -170,7 +171,7 @@ class Record:
             communities.add(communities_map[self.vault_collection])
         return communities
 
-    @property
+    @cached_property
     def creators(self) -> list[dict[str, Any]]:
         # mods/name
         # https://inveniordm.docs.cern.ch/reference/metadata/#creators-1-n
@@ -280,7 +281,7 @@ class Record:
             raise Exception(f"Record has no creators: {self.title}\n{self.vault_url}")
         return creators
 
-    @property
+    @cached_property
     def custom_fields(self) -> dict[str, Any]:
         cf: dict[str, Any] = {}
         # 1) ArchivesSeries custom field, { series, subseries } dict
@@ -290,7 +291,7 @@ class Record:
             cf["cca:course"] = self.course
         return cf
 
-    @property
+    @cached_property
     def dates(self) -> list[dict[str, Any]]:
         dates = []
         # https://inveniordm.docs.cern.ch/reference/metadata/#dates-0-n
@@ -341,7 +342,7 @@ class Record:
                 dates.append({"date": date_other_text, "type": {"id": "other"}})
         return dates
 
-    @property
+    @cached_property
     def descriptions(self) -> list[dict[str, Any]]:
         # extra /mods/abstract entries, mods/noteWrapper/note
         # https://inveniordm.docs.cern.ch/reference/metadata/#additional-descriptions-0-n
@@ -393,7 +394,7 @@ class Record:
 
         return desc
 
-    @property
+    @cached_property
     def formats(self) -> list[str]:
         formats = set()
         for file in self.attachments:
@@ -402,7 +403,7 @@ class Record:
                 formats.add(type)
         return list(formats)
 
-    @property
+    @cached_property
     def publication_date(self):
         # date created, add other/additional dates to self.dates[]
         # level 0 EDTF date (YYYY,  YYYY-MM, YYYY-MM-DD or slash separated range between 2 of these)
@@ -443,7 +444,7 @@ class Record:
         # fall back on when the VAULT record was made (item.createdDate)
         return to_edtf(self.createdDate)
 
-    @property
+    @cached_property
     def publisher(self) -> str:
         # https://inveniordm.docs.cern.ch/reference/metadata/#publisher-0-1
         # ! In DataCite 4.5 the publisher field supports identifiers
@@ -490,7 +491,7 @@ class Record:
         # 4) Student work has no publisher
         return ""
 
-    @property
+    @cached_property
     def related_identifiers(self) -> list[dict[str, str | dict[str, str]]]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#related-identifiersworks-0-n
         # Default relation types: https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/relation_types.yaml
@@ -527,7 +528,7 @@ class Record:
         # IDs in Invenio to create the relation
         return ri
 
-    @property
+    @cached_property
     def resource_type(self) -> dict[str, str]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#resource-type-1
         # https://github.com/cca/cca_invenio/blob/main/app_data/vocabularies/resource_types.yaml
@@ -557,7 +558,7 @@ class Record:
         # default to publication
         return {"id": "publication"}
 
-    @property
+    @cached_property
     def rights(self) -> list[dict[str, str | dict[str, str]]]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#rights-licenses-0-n
         # Choices: https://github.com/cca/cca_invenio/blob/main/app_data/vocabularies/licenses.csv
@@ -579,7 +580,7 @@ class Record:
         # default to copyright
         return [{"id": "copyright"}]
 
-    @property
+    @cached_property
     def sizes(self) -> list[str]:
         # mods/physicalDescription/extent
         # https://inveniordm.docs.cern.ch/reference/metadata/#sizes-0-n
@@ -594,7 +595,7 @@ class Record:
         # TODO there will be /local extent values in student work items
         return extents
 
-    @property
+    @cached_property
     def subjects(self) -> list[dict[str, str]]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#subjects-0-n
         # Subjects are {id} or {subject} dicts
