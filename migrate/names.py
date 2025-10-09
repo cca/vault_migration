@@ -7,14 +7,13 @@ import re
 
 import spacy
 
-# TODO add env var to skip loading spacy model when not needed (for faster testing)
 nlp = spacy.load("en_core_web_lg")
 # Force Spacy to recognize CSAC as only one ORG entity & not 2 separate ones
 ruler = nlp.add_pipe("entity_ruler", config={"overwrite_ents": True}, after="ner")
 patterns: list[dict[str, str]] = [
     {"label": "ORG", "pattern": "California School of Arts and Crafts"}
 ]
-ruler.add_patterns(patterns)
+ruler.add_patterns(patterns)  # type: ignore
 nlp.select_pipes(enable=["ner", "entity_ruler"])
 
 
