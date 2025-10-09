@@ -23,7 +23,7 @@ jobs:
         run: uv python install
 
       - name: Install dependencies
-        run: uv install
+        run: uv sync
 
       - name: Run tests
         run: uv run pytest -v migrate/tests.py
