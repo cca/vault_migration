@@ -1,0 +1,29 @@
+name: Unit Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      NO_SPACY: 'true'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Install python
+        run: uv python install
+
+      - name: Install dependencies
+        run: uv install
+
+      - name: Run tests
+        run: uv run pytest -v migrate/tests.py
