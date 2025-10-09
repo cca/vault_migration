@@ -213,6 +213,23 @@ def test_archives_series(input, expect):
             {"metadata": "<xml/>", "title": "no collection info"},
             set(),
         ),
+        # Libraries subcollections, Mudflats
+        (
+            x(
+                '<mods><relatedItem type="host"><title>Robert Sommer Mudflats Collection</title></relatedItem></mods>'
+            ),
+            set(["mudflats"]),
+        ),
+        (
+            x(
+                '<mods><relatedItem type="host"><title>Capp Street Project Archive</title></relatedItem><relatedItem type="other">This is ignored.</relatedItem></mods>'
+            ),
+            set(["capp-street"]),
+        ),
+        (
+            x('<mods><relatedItem type="part">This is ignored.</relatedItem></mods>'),
+            set(),
+        ),
     ],
 )
 def test_communities(input, expect):

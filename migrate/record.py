@@ -166,9 +166,22 @@ class Record:
 
         Communities exists outside record metadata and aren't in Record.get(). It is up to a migrate
         script to use this set to add a record to its communities (e.g., by using the REST API)."""
-        communities = set()
-        if self.vault_collection in communities_map.keys():
+        communities: set[str] = set()
+
+        if self.vault_collection in communities_map:
             communities.add(communities_map[self.vault_collection])
+
+        related_items: list[dict[str, Any]] = mklist(
+            self.xml.get("mods", {}).get("relatedItem", {})
+        )
+        for ri in related_items:
+            if ri.get("@type") == "host":
+                title: str | None = ri.get("title")
+                if title and title in communities_map:
+                    communities.add(communities_map[title])
+                    # we don't need to add the parent Libraries community if we have a child
+                    communities.discard("libraries")
+
         return communities
 
     @cached_property
