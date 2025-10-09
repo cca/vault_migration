@@ -3,8 +3,8 @@
 <!-- body id for specificity in CSS below -->
 <body id="body">
     <h1>EQUELLA -> InvenioRDM Crosswalk</h1>
-    <p>For our VAULT migration. This page uses <a href="https://mermaid.js.org/">Mermaid</a> <a href="https://mermaid.js.org/syntax/flowchart.html">flowcharts</a>. The left-side nodes are EQUELLA XML paths or a JSON path for the non-XML diagram. They progress to <a href="https://inveniordm.docs.cern.ch/reference/metadata/">the Invenio field</a> on the right, which has its cardinality in parentheses.</p>
-    <p>Dotted lines / rounded nodes represent fields we're not using (see <code>item.version</code> in the non-XML diagram, for example).</p>
+    <p>For our VAULT migration. This page uses <a href="https://mermaid.js.org/">Mermaid</a> <a href="https://mermaid.js.org/syntax/flowchart.html">flowcharts</a>. The left-side nodes are <a href="https://cca.github.io/vault_schema/">EQUELLA XML paths</a> or a JSON path for the non-XML diagram. They progress to <a href="https://inveniordm.docs.cern.ch/reference/metadata/">the Invenio field</a> on the right, which has its cardinality in parentheses.</p>
+    <p>Rounded nodes and dotted lines represent fields we're not migrating. See bottom of the non-XML mapping, for instance.</p>
 
     <pre class="mermaid">
         ---
@@ -31,6 +31,7 @@
         GENRE["mods/genreWrapper/genre"] -->|look up in subjects map| SUBJECTS
         OIPUB["originInfo/publisher"] --> PUBLISHER["Publisher (0-1)"]
         DBR["relatedItem/title = Design Book Review"] --> |different depending on date| PUBLISHER
+        HOSTCOLLECTION["relatedItem[@type=host]/title"] -->|Libraries Subcollections e.g. Mudflats| COMM["Communities (1-n)"]
         EXTENT["physicalDescription/extent"] --> SIZES["Sizes (0-n)"]
         %% We don't have structured location information & it does not display in Invenio, skip
         %% LOCATIONS["Locations. We only have place names, no IDs or coordinates. (0-n)"]
@@ -65,27 +66,37 @@
         flowchart LR
         NAME["item.name"] --> |Use 'Untitled' if absent| TITLE["Title (1)"]
         VAULTID["item.uuid + item.version"] -->|"'is new version of' VAULT URL"| REL["Related Identifiers/Works (0-n)"]
-        OWNER["item.owner.id"] -->|TODO map CCA username to Invenio numeric ID| PARENT["parent.owned_by.id"]
+        OWNER["item.owner.id"] -->|TODO <a href="https://github.com/cca/cca_invenio/tree/main/site#set-owner">change_owner</a> script| PARENT["parent.owned_by.id"]
+        COLLABORATORS["item.collaborators.id"] --> |TODO share item with them?| PARENT
+        COLLECTION["item.collection.uuid"] -->|see also mods/relatedItem@host | COMM["Communities (1-n)"]
         DATECREATED["item.dateCreated"] -->|Use item creation timestamp if no date in MODS| PUBDATE["Publication Date (1)"]
         ATTACHMENTS[item.attachments] -->|guess MIME type from filenames| FORMATS["Formats (0-n)"]
         ATTACHMENTS -->|File, HTML, & Zip attachments| FILES["Files (0-n)"]
         ATTACHMENTS -->|URL, YouTube attachments are related works| REL
+        STATUS["item.status"] -->|if <code>item.status = 'live'</code>| PUBLISH["Don't publish draft/archived items"]
+        DISPLAYFIELDS("item.displayFields")
+        DISPLAYOPTIONS("item.displayOptions")
+        DRM("item.drm")
+        MODIFIED("item.modifiedDate")
+        NAVIGATION("item.navigation")
+        RATING("item.rating")
+        THUMBNAIL("item.thumbnail")
     </pre>
 
-    <p>There's additional, mostly administrative, metadata in the EQUELLA item JSON outside the XML. We can represent file/attachment operations here, too.</p>
+    <p>There's additional, mostly administrative, metadata in the EQUELLA item JSON outside the XML. We represent file/attachment operations here, too.</p>
 
-    <p>While VAULT has version information, we plan only to migrate the most recent (live) versions of items, so displaying the version number with no way to access prior iterations can only lead to confusion. The version number will still be accessible in the copies of VAULT metadata we store on migrated items.</p>
+    <p>While VAULT has version information, we plan only to migrate the most recent, live versions of items, so displaying the version number with no way to access prior iterations can only lead to confusion. The version number will still be accessible in the copies of VAULT metadata we store on migrated items.</p>
 
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         mermaid.run({
-            querySelector: '.mermaid',
             // find all "TODO" strings in labels and make them bold
             postRenderCallback: id => {
                 document.querySelectorAll('.edgeLabel').forEach(el => {
                     el.innerHTML = el.innerHTML.replace(/TODO/g, '<strong class="todo">TODO</strong>')
                 })
-            }
+            },
+            querySelector: '.mermaid'
         })
     </script>
 

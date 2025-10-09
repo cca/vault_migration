@@ -9,8 +9,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      NO_SPACY: 'true'
 
     steps:
       - name: Checkout
