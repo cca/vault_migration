@@ -23,8 +23,8 @@ domain: str = f"https://{os.environ['HOST']}"
 verify: bool = os.environ.get("HTTPS_VERIFY", "").lower() == "true"
 headers: dict[str, str] = {
     "Accept": "application/json",
-    "Content-Type": "application/json",
     "Authorization": f"Bearer {token}",
+    "Content-Type": "application/json",
 }
 
 
@@ -38,8 +38,8 @@ def get_item(json_path: Path) -> dict:
         return json.load(f)
 
 
-def create_draft(record: dict) -> dict:
-    draft_response = requests.post(
+def create_draft(record: dict[str, Any]) -> dict[str, Any]:
+    draft_response: requests.Response = requests.post(
         f"{domain}/api/records",
         json=record,
         verify=verify,
@@ -50,8 +50,7 @@ def create_draft(record: dict) -> dict:
         click.echo(draft_response.text, err=True)
     if errors:
         draft_response.raise_for_status()
-    draft_record = draft_response.json()
-    return draft_record
+    return draft_response.json()
 
 
 def add_files(directory: Path, record: Record, draft: dict[str, Any]):
@@ -59,7 +58,7 @@ def add_files(directory: Path, record: Record, draft: dict[str, Any]):
     # four steps: initiate, upload (all), commit (all), set default preview
     # ! Unable to set order as API docs suggest, files.order is dropped
     # ! https://github.com/inveniosoftware/invenio-app-rdm/issues/2573
-    keys = [{"key": att["name"]} for att in record.attachments]
+    keys: list[dict[str, str]] = [{"key": att["name"]} for att in record.attachments]
     files_response: requests.Response = requests.post(
         draft["links"]["files"],
         json=keys,
@@ -70,7 +69,6 @@ def add_files(directory: Path, record: Record, draft: dict[str, Any]):
     if errors:
         files_response.raise_for_status()
     files_area = files_response.json()
-    verbose_print(files_area['links']['self'])
 
     # upload one by one
     # TODO use httpx to do in parallel?
@@ -115,23 +113,66 @@ def add_files(directory: Path, record: Record, draft: dict[str, Any]):
         preview_response.raise_for_status()
 
 
-def publish(draft: dict) -> dict:
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {token}",
-    }
-    publish_response = requests.post(
+def publish(draft: dict[str, Any]) -> dict[str, Any]:
+    publish_response: requests.Response = requests.post(
         f"{domain}/api/records/{draft['id']}/draft/actions/publish",
         headers=headers,
         verify=verify,
     )
     verbose_print(f"HTTP {publish_response.status_code} {publish_response.url}")
-    if publish_response.status_code > 201:
+    # draft created is a 200 Created response, but published is 202 Accepted
+    if publish_response.status_code > 202:
         click.echo(publish_response.text, err=True)
     if errors:
         publish_response.raise_for_status()
-    published_record = publish_response.json()
-    return published_record
+    return publish_response.json()
+
+
+def add_to_communities(published_record: dict[str, Any], communities: set[str]) -> None:
+    # add to communities
+    comms_to_add: set[str] = set()
+    for slug in communities:
+        # check that each community exists first
+        get_comm_resp: requests.Response = requests.get(
+            f"https://{os.environ['HOST']}/api/communities/{slug}",
+            headers=headers,
+            verify=verify,
+        )
+        verbose_print(f"HTTP {get_comm_resp.status_code} {get_comm_resp.url}")
+
+        if get_comm_resp.status_code == 404:
+            click.echo(f"Community {slug} does not exist")
+        elif get_comm_resp.status_code == 200:
+            community = get_comm_resp.json()
+            # cannot add a public record to a restricted community
+            if (
+                published_record["access"]["record"] == "public"
+                and community["access"]["visibility"] == "restricted"
+            ):
+                click.echo(
+                    f"ERROR: cannot add public record {published_record['links']['self_html']} to restricted community {community['links']['self_html']}",
+                    err=True,
+                )
+                continue
+            comms_to_add.add(slug)
+
+        if len(comms_to_add):
+            comms_data: dict[str, list[dict[str, str]]] = {
+                "communities": [{"id": slug} for slug in comms_to_add]
+            }
+            # TODO this does not add directly, opens a request?
+            add_to_comm_resp: requests.Response = requests.post(
+                published_record["links"]["communities"],
+                json=comms_data,
+                headers=headers,
+                verify=verify,
+            )
+            verbose_print(f"HTTP {add_to_comm_resp.status_code} {add_to_comm_resp.url}")
+            if errors:
+                add_to_comm_resp.raise_for_status()
+            click.echo(
+                f"Added {published_record['links']['self_html']} to communities: {comms_to_add}"
+            )
 
 
 @click.command(
@@ -150,16 +191,15 @@ def main(directory: str, is_verbose: bool, ignore_errors: bool):
     record = Record(item)
 
     click.echo(f"Importing {record.title} from {directory}...")
-    draft = create_draft(record.get())
+    draft: dict[str, Any] = create_draft(record.get())
 
     if len(record.attachments):
         add_files(Path(directory), record, draft)
 
-    published_record = publish(draft)
+    published_record: dict[str, Any] = publish(draft)
 
-    # TODO add to community
-    # POST /api/records/<id>/communities {"communities": [ { "id": <id> } ]}
-    # See https://github.com/inveniosoftware/invenio-rdm-records/blob/e64dd0b81757a391584e63d162d5e6caf6780637/tests/resources/test_resources_communities.py#L33-L60
+    add_to_communities(published_record, record.communities)
+
     click.echo(f"Published: {published_record['links']['self_html']}")
 
 

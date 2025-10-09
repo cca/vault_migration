@@ -12,9 +12,9 @@ communities_map: dict[str, str] = {
     # Libraries
     "6b755832-4070-73d2-77b3-3febcc1f5fad": "libraries",
     # Libraries Subcollections from relatedItem@host/title
-    "Capp Street Project Archive": "capp-street",
-    "Hamaguchi Study Print Collection": "hamaguchi",
-    "Robert Sommer Mudflats Collection": "mudflats",
+    "Capp Street Project Archive": "libraries-capp-street",
+    "Hamaguchi Study Print Collection": "libraries-hamaguchi",
+    "Robert Sommer Mudflats Collection": "libraries-mudflats",
 }
 
 # CCA/C Archives uses CC-BY-NC4.0 in mods/accessCondition

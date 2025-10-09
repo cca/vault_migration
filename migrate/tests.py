@@ -218,13 +218,13 @@ def test_archives_series(input, expect):
             x(
                 '<mods><relatedItem type="host"><title>Robert Sommer Mudflats Collection</title></relatedItem></mods>'
             ),
-            set(["mudflats"]),
+            set(["libraries-mudflats"]),
         ),
         (
             x(
                 '<mods><relatedItem type="host"><title>Capp Street Project Archive</title></relatedItem><relatedItem type="other">This is ignored.</relatedItem></mods>'
             ),
-            set(["capp-street"]),
+            set(["libraries-capp-street"]),
         ),
         (
             x('<mods><relatedItem type="part">This is ignored.</relatedItem></mods>'),

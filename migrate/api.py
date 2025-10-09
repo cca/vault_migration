@@ -66,7 +66,7 @@ def post(r: Record) -> dict[str, Any]:
     print("Published:", published_record["links"]["self_html"])
 
     # add to communities
-    comms_to_add = set()
+    comms_to_add: set[str] = set()
     for slug in r.communities:
         # check that each community exists first
         get_comm_resp: Response = http(
@@ -93,7 +93,7 @@ def post(r: Record) -> dict[str, Any]:
             communities: dict[str, list[dict[str, str]]] = {
                 "communities": [{"id": slug} for slug in comms_to_add]
             }
-            # this immediately adds to communities without opening a request
+            # TODO this doesn't add directly, opens a request?
             add_to_comm_resp: Response = http(
                 "post",
                 published_record["links"]["communities"],
