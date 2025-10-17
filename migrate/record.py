@@ -11,6 +11,7 @@ import re
 import sys
 from datetime import date
 from functools import cached_property
+from pathlib import Path
 from typing import Any
 
 import xmltodict
@@ -32,6 +33,13 @@ from utils import (
     to_edtf,
     visual_mime_type_sort,
 )
+
+# load archives series JSON if we have it
+archives_series_vocab: dict[str, list[str]] = {}
+archives_series_path = Path(__file__).parent / "archives_series.json"
+if archives_series_path.exists():
+    with open(archives_series_path, "r") as fh:
+        archives_series_vocab = json.load(fh)
 
 
 def postprocessor(path, key, value):
@@ -126,7 +134,12 @@ class Record:
     def archives_series(self) -> dict[str, str] | None:
         archives_wrapper = self.xml.get("local", {}).get("archivesWrapper")
         series = archives_wrapper.get("series") if archives_wrapper else None
+        if series and series not in archives_series_vocab:
+            # Inconsistency but it doesn't rise to the point of an Exception
+            print(f'Warning: series "{series}" is not in CCA/C Archives Series')
         subseries = archives_wrapper.get("subseries", "") if archives_wrapper else None
+        if subseries and subseries not in archives_series_vocab.get(series, []):
+            print(f'Warning: subseries "{subseries}" not found under series "{series}"')
         if series and not subseries:
             raise Exception(f"Archives Series without Subseries: {self.vault_url}")
         if series and subseries:
