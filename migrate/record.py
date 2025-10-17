@@ -138,7 +138,11 @@ class Record:
             # Inconsistency but it doesn't rise to the point of an Exception
             print(f'Warning: series "{series}" is not in CCA/C Archives Series')
         subseries = archives_wrapper.get("subseries", "") if archives_wrapper else None
-        if subseries and subseries not in archives_series_vocab.get(series, []):
+        if (
+            subseries
+            and series
+            and subseries not in archives_series_vocab.get(series, [])
+        ):
             print(f'Warning: subseries "{subseries}" not found under series "{series}"')
         if series and not subseries:
             raise Exception(f"Archives Series without Subseries: {self.vault_url}")
