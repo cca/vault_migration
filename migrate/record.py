@@ -399,7 +399,7 @@ class Record:
         for note in self.etree.findall("./mods/noteWrapper/note"):
             if note.text:
                 note_type: str | None = note.get("type", "").capitalize()
-                note_text = f"{note_type}: {note.text}" if note_type else note.text
+                note_text: str = f"{note_type}: {note.text}" if note_type else note.text
                 desc.append(
                     {
                         "type": {"id": "other", "title": {"en": "Other"}},
@@ -416,6 +416,20 @@ class Record:
             if type:
                 formats.add(type)
         return list(formats)
+
+    @cached_property
+    def internal_notes(self) -> list[str]:
+        # retain private art collection notes as internal_notes
+        notes = []
+        if self.vault_collection == art_collection_uuid:
+            for note in self.etree.findall("./mods/noteWrapper/note"):
+                if note.text:
+                    note_type: str | None = note.get("type", "").capitalize()
+                    note_text: str = (
+                        f"{note_type}: {note.text}" if note_type else note.text
+                    )
+                    notes.append(note_text)
+        return notes
 
     @cached_property
     def publication_date(self):
@@ -635,7 +649,7 @@ class Record:
                 ),
             },
             # TODO may need to add Art Collection notes here
-            "internal_notes": [],
+            "internal_notes": self.internal_notes,
             "metadata": {
                 "additional_descriptions": self.descriptions,
                 "additional_titles": self.addl_titles,

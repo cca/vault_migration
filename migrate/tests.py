@@ -5,6 +5,7 @@ from names import parse_name
 from record import Record
 from subjects import TYPES, Subject, find_subjects, subjects_from_xmldict
 from utils import (
+    art_collection_uuid,
     get_url,
     mklist,
     syllabus_collection_uuid,
@@ -589,7 +590,7 @@ def test_desc(input, expect):
         ),
         (  # skip Art Collection notes
             {
-                "collection": {"uuid": "b8852fc5-4423-4bc7-958f-7ea643a0b438"},
+                "collection": {"uuid": art_collection_uuid},
                 "metadata": "<xml><mods><noteWrapper><note>foo</note></noteWrapper></mods></xml>",
             },
             [],
@@ -636,6 +637,34 @@ def test_file_formats(input, expect):
     r = Record(input)
     # sort to ensure order is consistent
     assert sorted(m(r)["formats"]) == expect
+
+
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        (  # Art Collection note
+            {
+                "collection": {"uuid": art_collection_uuid},
+                "metadata": "<xml><mods><noteWrapper><note>foo</note></noteWrapper></mods></xml>",
+            },
+            ["foo"],
+        ),
+        (  # note with type
+            {
+                "collection": {"uuid": art_collection_uuid},
+                "metadata": '<xml><mods><noteWrapper><note type="bar">foo</note></noteWrapper></mods></xml>',
+            },
+            ["Bar: foo"],
+        ),
+        (  # note from different collection
+            x("<mods><noteWrapper><note>foo</note></noteWrapper></mods>"),
+            [],
+        ),
+    ],
+)
+def test_internal_notes(input, expect):
+    r = Record(input)
+    assert r.get()["internal_notes"] == expect
 
 
 # Title
