@@ -9,12 +9,19 @@
 communities_map: dict[str, str] = {
     # Animation Program
     "66558697-71c5-43a0-b7b3-f778b42c7cd9": "animation",
+    # Art Collection
+    "b8852fc5-4423-4bc7-958f-7ea643a0b438": "art-collection",
+    # Faculty Research
+    "e96ccf65-0098-44bb-bec0-6e1cd5466046": "faculty-research",
     # Libraries
     "6b755832-4070-73d2-77b3-3febcc1f5fad": "libraries",
+    # TODO how do map artists books from "Libraries' eResources" collection?
+    # Open Access Journal Articles i.e. DBR
+    "c34be1f4-c3ea-47d9-b336-e39ad6e926f4": "design-book-review",
     # Libraries Subcollections from relatedItem@host/title
-    "Capp Street Project Archive": "libraries-capp-street",
-    "Hamaguchi Study Print Collection": "libraries-hamaguchi",
-    "Robert Sommer Mudflats Collection": "libraries-mudflats",
+    "Capp Street Project Archive": "capp-street",
+    "Hamaguchi Study Print Collection": "hamaguchi",
+    "Robert Sommer Mudflats Collection": "mudflats",
 }
 
 # CCA/C Archives uses CC-BY-NC4.0 in mods/accessCondition
