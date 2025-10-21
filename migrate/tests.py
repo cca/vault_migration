@@ -793,19 +793,31 @@ def test_publication_date(input, expect):
             x(
                 "<mods><origininfo><dateOtherWrapper><dateOther>2009</dateOther></dateOtherWrapper></origininfo></mods>"
             ),
-            [{"date": "2009", "type": {"id": "other"}}],
+            [{"date": "2009", "description": "", "type": {"id": "other"}}],
         ),
         (  # dateOther with type
             x(
                 "<mods><origininfo><dateOtherWrapper><dateOther type='Exhibit'>2017</dateOther></dateOtherWrapper></origininfo></mods>"
             ),
-            [{"date": "2017", "type": {"id": "other"}, "description": "Exhibit"}],
+            [{"date": "2017", "description": "Exhibit", "type": {"id": "other"}}],
         ),
         (  # dateOther with attributes but no text
             x(
                 "<mods><origininfo><dateOtherWrapper><dateOther encoding='w3cdtf' type='Agreement'></dateOther></dateOtherWrapper></origininfo></mods>"
             ),
             [],
+        ),
+        (  # multiple <originInfo>s
+            x(
+                "<mods><origininfo><dateCaptured>2025-10-21</dateCaptured></origininfo><origininfo/></mods>"
+            ),
+            [
+                {
+                    "date": "2025-10-21",
+                    "type": {"id": "collected"},
+                    "description": "date captured",
+                }
+            ],
         ),
     ],
 )

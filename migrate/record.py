@@ -13,6 +13,8 @@ from datetime import date
 from functools import cached_property
 from pathlib import Path
 from typing import Any
+from xml.etree import ElementTree
+from xml.etree.ElementTree import Element
 
 import xmltodict
 from maps import (
@@ -72,6 +74,8 @@ class Record:
                 a["name"] = f"{a['uuid']}.html"
         # default to current date in ISO 8601 format
         self.createdDate: str = item.get("createdDate", date.today().isoformat())
+        # expose EQUELLA item XML as an element tree
+        self.etree = ElementTree.XML(item["metadata"])
         # url and "custom" youtube attachments
         self.references: list[dict[str, Any]] = [
             a for a in item.get("attachments", []) if a["type"] in ("url", "youtube")
@@ -330,46 +334,32 @@ class Record:
         # types: available, collected, copyrighted, created, other, submitted, updated, withdrawn
         # https://github.com/cca/cca_invenio/blob/main/app_data/vocabularies/date_types.yaml
 
-        # dateCreatedWrapper/dateCaptured
-        dates_capturedx = mklist(
-            self.xml.get("mods", {}).get("origininfo", {}).get("dateCaptured")
-        )
-        for dc in dates_capturedx:
-            # work with strings and dicts
-            dc = dc.get("#text") if type(dc) is dict else dc
-            if dc:  # could be empty string
+        # dateCaptured
+        for dc in self.etree.findall("./mods/origininfo/dateCaptured"):
+            if dc.text:  # could be empty string
                 dates.append(
                     {
-                        "date": to_edtf(dc),
+                        "date": to_edtf(dc.text),
                         "type": {"id": "collected"},
                         "description": "date captured",
                     }
                 )
 
         # we always have exactly one dateOtherWrapper and 0-1 dateOther, praise be
-        date_other = (
-            self.xml.get("mods", {})
-            .get("origininfo", {})
-            .get("dateOtherWrapper", {})
-            .get("dateOther")
+        date_other: Element | None = self.etree.find(
+            "./mods/origininfo/dateOtherWrapper/dateOther"
         )
-        if type(date_other) is dict:
-            date_other_text = to_edtf(date_other.get("#text"))
-            if date_other_text:
-                # the only types we have are Agreement and E/exhibit (case sensitive)
-                date_type = date_other.get("@type", "")
+        if date_other is not None:
+            if date_other.text:
                 dates.append(
                     {
-                        "date": date_other_text,
+                        "date": to_edtf(date_other.text),
+                        "description": date_other.get("type")
+                        if date_other.get("type")
+                        else "",
                         "type": {"id": "other"},
-                        "description": date_type.capitalize(),
                     }
                 )
-        else:
-            # dateOther with no attributes
-            date_other_text = to_edtf(date_other)
-            if date_other_text:
-                dates.append({"date": date_other_text, "type": {"id": "other"}})
         return dates
 
     @cached_property
