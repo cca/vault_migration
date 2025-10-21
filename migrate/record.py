@@ -27,6 +27,7 @@ from maps import (
 from names import parse_name
 from subjects import Subject, find_subjects
 from utils import (
+    art_collection_uuid,
     cca_affiliation,
     find_items,
     get_url,
@@ -390,34 +391,21 @@ class Record:
                 ]
             )
 
+        # Art Collection notes are private so we skip further processing
+        if self.vault_collection == art_collection_uuid:
+            return desc
+
         # we have _many_ MODS note types & none map cleanly to Invenio description types
-        noteWrappers = mklist(self.xml.get("mods", {}).get("noteWrapper", []))
-        notes = []
-        for wrapper in noteWrappers:
-            notes = notes + mklist(wrapper.get("note", []))
-        for note in notes:
-            if type(note) is str and note:
+        for note in self.etree.findall("./mods/noteWrapper/note"):
+            if note.text:
+                note_type: str | None = note.get("type", "").capitalize()
+                note_text = f"{note_type}: {note.text}" if note_type else note.text
                 desc.append(
                     {
                         "type": {"id": "other", "title": {"en": "Other"}},
-                        "description": note.strip(),
+                        "description": note_text.strip(),
                     }
                 )
-            elif type(note) is dict:
-                # prefix note with its type if we have one
-                ntype: str = note.get("@type", "").title()
-                note_text: str = note.get("#text", "")
-                note_text = (
-                    f"{ntype}: {note_text}" if ntype and note_text else note_text
-                )
-                if note_text:
-                    desc.append(
-                        {
-                            "type": {"id": "other", "title": {"en": "Other"}},
-                            "description": note_text.strip(),
-                        }
-                    )
-
         return desc
 
     @cached_property
@@ -646,10 +634,8 @@ class Record:
                     self.attachments[0]["name"] if len(self.attachments) else ""
                 ),
             },
-            # "files": {
-            #     "enabled": bool(len(self.files)),
-            #     "order": self.files,
-            # },
+            # TODO may need to add Art Collection notes here
+            "internal_notes": [],
             "metadata": {
                 "additional_descriptions": self.descriptions,
                 "additional_titles": self.addl_titles,

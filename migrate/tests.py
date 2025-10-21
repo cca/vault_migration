@@ -587,6 +587,13 @@ def test_desc(input, expect):
             x("<mods><abstract>foo</abstract><abstract></abstract></mods>"),
             [],
         ),
+        (  # skip Art Collection notes
+            {
+                "collection": {"uuid": "b8852fc5-4423-4bc7-958f-7ea643a0b438"},
+                "metadata": "<xml><mods><noteWrapper><note>foo</note></noteWrapper></mods></xml>",
+            },
+            [],
+        ),
     ],
 )
 def test_addl_desc(input, expect):
