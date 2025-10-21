@@ -140,14 +140,20 @@ class Record:
         series = archives_wrapper.get("series") if archives_wrapper else None
         if series and series not in archives_series_vocab:
             # Inconsistency but it doesn't rise to the point of an Exception
-            print(f'Warning: series "{series}" is not in CCA/C Archives Series')
+            print(
+                f'Warning: series "{series}" is not in CCA/C Archives Series',
+                file=sys.stderr,
+            )
         subseries = archives_wrapper.get("subseries", "") if archives_wrapper else None
         if (
             subseries
             and series
             and subseries not in archives_series_vocab.get(series, [])
         ):
-            print(f'Warning: subseries "{subseries}" not found under series "{series}"')
+            print(
+                f'Warning: subseries "{subseries}" not found under series "{series}"',
+                file=sys.stderr,
+            )
         if series and not subseries:
             raise Exception(f"Archives Series without Subseries: {self.vault_url}")
         if series and subseries:
@@ -679,7 +685,9 @@ if __name__ == "__main__":
     # we assume first arg is path to the item JSON
     for file in sys.argv[1:]:
         items = find_items(file)
+        records: list[dict[str, Any]] = []
         for item in items:
-            r = Record(item)
-            # JSON pretty print record
-            json.dump(r.get(), sys.stdout, indent=2)
+            r: Record = Record(item)
+            records.append(r.get())
+        # JSON pretty print record(s)
+        json.dump(records, sys.stdout, indent=2)
