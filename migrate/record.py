@@ -111,10 +111,11 @@ class Record:
         for idx, titleinfo in enumerate(titleinfos):
             # all subtitles
             for subtitle in mklist(titleinfo.get("subTitle")):
-                atitles.append({"title": subtitle, "type": {"id": "subtitle"}})
+                if subtitle:
+                    atitles.append({"title": subtitle, "type": {"id": "subtitle"}})
             # titles other than the first
             for title in mklist(titleinfo.get("title")):
-                if idx > 0:
+                if idx > 0 and title:
                     ttype = titleinfo.get("@type")
                     if ttype == "alternative":
                         atitles.append(

@@ -691,6 +691,10 @@ def test_title(input, expect):
             x("<mods><titleInfo><subTitle>foo</subTitle></titleInfo></mods>"),
             [{"title": "foo", "type": {"id": "subtitle"}}],
         ),
+        (  # skip empty subtitle
+            x("<mods><titleInfo><subTitle/></titleInfo></mods>"),
+            [],
+        ),
         (  # two titles
             x(
                 "<mods><titleInfo><title>foo</title></titleInfo><titleInfo><title>bar</title></titleInfo></mods>"
