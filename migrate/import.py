@@ -76,7 +76,6 @@ def add_files(directory: Path, record: Record, draft: dict[str, Any]):
         binary_headers: dict[str, str] = headers.copy()
         binary_headers["Content-Type"] = "application/octet-stream"
         with open(directory / attachment["name"], "rb") as f:
-            # ! 500 error testing on invenio-dev
             upload_response: requests.Response = requests.put(
                 # ? Would it be better to use files_area['links']['self'] for some reason?
                 f"{domain}/api/records/{draft['id']}/draft/files/{attachment['name']}/content",
@@ -160,7 +159,6 @@ def add_to_communities(published_record: dict[str, Any], communities: set[str]) 
             comms_data: dict[str, list[dict[str, str]]] = {
                 "communities": [{"id": slug} for slug in comms_to_add]
             }
-            # TODO this does not add directly, opens a request?
             add_to_comm_resp: requests.Response = requests.post(
                 published_record["links"]["communities"],
                 json=comms_data,
@@ -170,6 +168,24 @@ def add_to_communities(published_record: dict[str, Any], communities: set[str]) 
             verbose_print(f"HTTP {add_to_comm_resp.status_code} {add_to_comm_resp.url}")
             if errors:
                 add_to_comm_resp.raise_for_status()
+
+            # above only opened a request, now we accept the requests in each community
+            community_requests = add_to_comm_resp.json()
+            for community_request in community_requests["processed"]:
+                comm_req_accept_resp: requests.Response = requests.post(
+                    community_request["request"]["links"]["actions"]["accept"],
+                    # opportunity to provide comment on acceptance
+                    # https://inveniordm.docs.cern.ch/reference/rest_api_requests/#comment-payload
+                    json={},
+                    headers=headers,
+                    verify=verify,
+                )
+                verbose_print(
+                    f"HTTP {comm_req_accept_resp.status_code} {comm_req_accept_resp.url}"
+                )
+                if errors:
+                    comm_req_accept_resp.raise_for_status()
+
             click.echo(
                 f"Added {published_record['links']['self_html']} to communities: {comms_to_add}"
             )
@@ -190,7 +206,7 @@ def main(directory: str, is_verbose: bool, ignore_errors: bool):
     item = get_item(Path(directory) / "metadata" / "item.json")
     record = Record(item)
 
-    click.echo(f"Importing {record.title} from {directory}...")
+    click.echo(f"Importing {record.title} from {directory}")
     draft: dict[str, Any] = create_draft(record.get())
 
     if len(record.attachments):
