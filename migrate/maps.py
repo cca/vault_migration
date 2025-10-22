@@ -51,8 +51,17 @@ resource_type_map: dict[str, str] = {
     "moving image": "video",
     "sound recording": "video",
     "sound recording-nonmusical": "video",
-    "still image": "image",
+    "still image": "image-photo",  # ! prefer simply "image" but cannot until we recreate our resourcetypes
     "text": "publication",
+}
+# Similar map to Invenio resource types, used in Art Collection
+form_broad_map: dict[str, str] = {
+    "legal documents": "publication",
+    "mixed media": "other",
+    "painting": "image-painting-drawing",
+    "photo": "image-photo",
+    "print or drawing": "image-painting-drawing",
+    "sculpture/3D": "image-photo",  # most of these are photos of sculptures
 }
 
 # creator/contributor roles

@@ -19,7 +19,8 @@
     ABSTRACTS[abstract] ---> |1st one| DESCRIPTION["Description (0-1)"]
     ABSTRACTS --> |abstracts <i>after the 1st</i>, type = abstract| ADDLDESC["Additional Descriptions (0-n)"]
     NOTES[noteWrapper/note] -->|See <a href="https://www.loc.gov/standards/mods/mods-notes.html">MODS note types</a>, type = other| ADDLDESC
-    RTYPE[typeOfResourceWrapper/typeOfResource] -->|1st one, map| TYPE["Resource Type (1)"]
+    RTYPE[typeOfResourceWrapper/typeOfResource] -->|Use the 1st one| TYPE["Resource Type (1)"]
+    FORMBROAD[physicalDescription/formBroad] -->|In the absence of <code>typeOfResource</code>| TYPE
     NAMES[mods/name/namePart] -->|Parse, org or person, 1 or many| NAMEDETAILS["roleTerm -> role, subName affiliations"]
     NAMEDETAILS --> CREATORS["Creators (1-n)"]
     DATECREATED[origininfo/dateCreatedWrapper/dateCreated] -->DATELOGIC["Use MODS if present else item.dateCreated"]

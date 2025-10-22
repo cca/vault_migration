@@ -19,6 +19,7 @@ from xml.etree.ElementTree import Element
 import xmltodict
 from maps import (
     communities_map,
+    form_broad_map,
     license_href_map,
     license_text_map,
     resource_type_map,
@@ -582,6 +583,11 @@ class Record:
                 return {"id": resource_type_map[rtype]}
 
         # TODO local/courseWorkType
+
+        # physicalDescription/formBroad e.g. in Art Collection
+        for formBroad in self.etree.findall("./mods/physicalDescription/formBroad"):
+            if formBroad.text and formBroad.text in form_broad_map:
+                return {"id": form_broad_map[formBroad.text]}
 
         # default to publication
         return {"id": "publication"}

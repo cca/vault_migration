@@ -889,6 +889,24 @@ def test_dates(input, expect):
             x("<mods></mods>"),
             "publication",
         ),
+        (  # in the absence of typeOfResource look at formBroad
+            x(
+                "<mods><physicalDescription><formBroad>photo</formBroad></physicalDescription></mods>"
+            ),
+            "image-photo",
+        ),
+        (  # take first formBroad when given multiple
+            x(
+                "<mods><physicalDescription><formBroad>mixed media</formBroad><formBroad>photo</formBroad></physicalDescription></mods>"
+            ),
+            "other",
+        ),
+        (  # skip unrecognized formBroad not in the map
+            x(
+                "<mods><physicalDescription><formBroad>donkey</formBroad><formBroad>painting</formBroad></physicalDescription></mods>"
+            ),
+            "image-painting-drawing",
+        ),
     ],
 )
 def test_type(input, expect):
