@@ -2,12 +2,11 @@
 # extract subjects from VAULT metadata
 # can be imported or run like: python subjects.py *.json
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 from typing import Literal
 
 import xmltodict
-
 from utils import find_items, mklist
 
 # subjects map JSON sits in the same directory
@@ -86,6 +85,7 @@ def subjects_from_xmldict(type: str, tree: dict | str) -> list[Subject]:
 
     subjects = set()
     for s in mklist(tree):
+        auth = ""
         if isinstance(s, dict):
             auth = s.get("@authority", "")
             s = s.get("#text")
