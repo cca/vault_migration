@@ -872,11 +872,11 @@ def test_dates(input, expect):
             ),
             "event",
         ),
-        (  # multiple <typeOfResource> elements
+        (  # multiple <typeOfResource> elements, uses the first one
             x(
                 "<mods><typeOfResourceWrapper><typeOfResource>moving image</typeOfResource><typeOfResource>mixed material</typeOfResource></typeOfResourceWrapper></mods>"
             ),
-            "image",
+            "video",
         ),
         (  # Items in Syllabus Collection = publication-syllabus
             {

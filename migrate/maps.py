@@ -38,21 +38,20 @@ license_text_map: dict[str, str] = {
     "https://creativecommons.org/licenses/by-nc/4.0/": "cc-by-nc-4.0",
 }
 
-# mods typeOfResource => our Invenio resource types
-# Our subset of the full list of Invenio resource types: bachelors-thesis, publication, event, image, publication-article, masters-thesis, other, video (Video/Audio)
-# Our values for typeOfResource: Event documentation, Event promotion, Group Field Trip, Hold Harmless, Media Release, cartographic, mixed material, moving image, sound recording, sound recording-nonmusical, still image, text
+# everyone of our mods typeOfResource values => our Invenio resource types
+# Our subset of the full list of Invenio resource types: publication, publication-article, publication-book, publication-syllabus, thesis, bachelors-thesis, masters-thesis, image, image-map, image-painting-drawing, image-photo, image-plans, video, event, other
 resource_type_map: dict[str, str] = {
     "Event documentation": "event",
     "Event promotion": "event",
     "Group Field Trip": "event",
     "Hold Harmless": "publication",
     "Media Release": "publication",
-    "cartographic": "publication",
+    "cartographic": "image-map",
     "mixed material": "other",
-    "moving image": "image",
+    "moving image": "video",
     "sound recording": "video",
     "sound recording-nonmusical": "video",
-    "still image": "video",
+    "still image": "image",
     "text": "publication",
 }
 
