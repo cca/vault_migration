@@ -636,6 +636,13 @@ class Record:
         # Subjects are {id} or {subject} dicts
         # find_subjects pulls from mods/subject and mods/genreWrapper/genre
         subjects: set[Subject] = find_subjects(self.xml)
+        # map formSpecific to naked keywords
+        for form_specific in self.etree.findall(
+            "./mods/physicalDescription/formSpecific"
+        ):
+            if form_specific.text:
+                # first arg (type) doesn't matter here
+                subjects.add(Subject("", form_specific.text))
         return [s.to_invenio() for s in subjects]
 
     def get(self) -> dict[str, Any]:

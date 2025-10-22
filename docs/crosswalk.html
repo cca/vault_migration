@@ -21,7 +21,7 @@
     NOTES[noteWrapper/note] -->|See <a href="https://www.loc.gov/standards/mods/mods-notes.html">MODS note types</a>, type = other| ADDLDESC
     RTYPE[typeOfResourceWrapper/typeOfResource] -->|Use the 1st one| TYPE["Resource Type (1)"]
     FORMBROAD[physicalDescription/formBroad] -->|In the absence of <code>typeOfResource</code>| TYPE
-    NAMES[mods/name/namePart] -->|Parse, org or person, 1 or many| NAMEDETAILS["roleTerm -> role, subName affiliations"]
+    NAMES[name/namePart] -->|Parse, org or person, 1 or many| NAMEDETAILS["roleTerm -> role, subName affiliations"]
     NAMEDETAILS --> CREATORS["Creators (1-n)"]
     DATECREATED[origininfo/dateCreatedWrapper/dateCreated] -->DATELOGIC["Use MODS if present else item.dateCreated"]
     SEMCREATED[origininfo/semesterCreated] -->DATELOGIC
@@ -29,9 +29,10 @@
     DATECAPT["origininfo/dateCaptured"] -->|"date.type = collected"| DATES["Dates (0-n)"]
     DATEOTHER["origininfo/dateOtherWrapper/dateOther"] -->|"date.type = other"| DATES
     %% CONTRIBUTORS["Contributors (0-n)"]
-    ACCESSCONDITION["mods/accessCondition"] -->|default to copyright if no license| RIGHTS["Rights (Licenses) (0-n)"]
-    MODSUBJECT["mods/subject"] -->|look up in subjects map| SUBJECTS["Subjects (0-n)"]
-    GENRE["mods/genreWrapper/genre"] -->|look up in subjects map| SUBJECTS
+    ACCESSCONDITION["accessCondition"] -->|default to copyright if no license| RIGHTS["Rights (Licenses) (0-n)"]
+    MODSUBJECT["subject"] -->|look up in subjects map| SUBJECTS["Subjects (0-n)"]
+    FORMSPECIFIC["physicalDescription/formSpecific"] -->|plain keyword TODO should we map these?| SUBJECTS
+    GENRE["genreWrapper/genre"] -->|look up in subjects map| SUBJECTS
     OIPUB["originInfo/publisher"] --> PUBLISHER["Publisher (0-1)"]
     DBR["relatedItem/title = Design Book Review"] --> |different depending on date| PUBLISHER
     HOSTCOLLECTION["relatedItem[@type=host]/title"] -->|Libraries Subcollections e.g. Mudflats| COMM["Communities (1-n)"]

@@ -1184,6 +1184,13 @@ def test_find_subjects(input, expect):
                 {"subject": "Subject not in our mapping"},
             ],
         ),
+        # formSpecific is a bare keyword
+        (
+            x(
+                "<mods><physicalDescription><formSpecific>watercolor</formSpecific></physicalDescription></mods>"
+            ),
+            [{"subject": "watercolor"}],
+        ),
     ],
 )
 def test_subjects(input, expect):
