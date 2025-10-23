@@ -327,7 +327,36 @@ class Record:
                     for name in names:
                         creators.append(
                             {
-                                "affiliations": cca_affiliation,
+                                "affiliations": [],
+                                "person_or_org": name,
+                                "role": {"id": "creator"},
+                            }
+                        )
+
+        # artists books sometimes have creator in title like "title / author"
+        # TODO tests
+        if (
+            self.etree.findtext("./mods/physicalDescription/formBroad")
+            == "artists' books (books)"
+        ):
+            title = self.etree.findtext("./mods/titleInfo/title")
+            author = title.split(" / ")[1] if title else ""
+            if author:
+                names = parse_name(author)
+                # TODO bad to repeat this terrible code
+                if type(names) is dict:
+                    creators.append(
+                        {
+                            "affiliations": [],
+                            "person_or_org": names,
+                            "role": {"id": "creator"},
+                        }
+                    )
+                elif type(names) is list:
+                    for name in names:
+                        creators.append(
+                            {
+                                "affiliations": [],
                                 "person_or_org": name,
                                 "role": {"id": "creator"},
                             }
@@ -553,6 +582,7 @@ class Record:
                     "scheme": "url",
                 }
             )
+
         # URL or YouTube attachments, examples:
         # 1) url https://vault.cca.edu/items/6bf89d87-abea-4367-b008-9304122364b0/1/
         # 2) url https://vault.cca.edu/items/951e8540-4c0e-4a5a-a8c0-4b95a7045edd/1
@@ -567,6 +597,29 @@ class Record:
                         "scheme": "url",
                     }
                 )
+
+        # Artists Books have mods/relateditem[type=isReferencedBy] for Koha link
+        for related_item in self.etree.findall("./mods/relateditem"):
+            # 3 types in VAULT: isReferencedBy, otherVersion, series
+            type_to_relation_map: dict[str, str] = {
+                "isReferencedBy": "isPartOf",
+                "otherVersion": "hasVersion",
+            }
+            location = related_item.findtext("./location")
+            relation_type: str | None = related_item.get("type")
+            if location:
+                url = get_url(location)
+                if url and relation_type in type_to_relation_map:
+                    ri.append(
+                        {
+                            "identifier": url,
+                            "relation_type": {
+                                "id": type_to_relation_map[relation_type]
+                            },
+                            "scheme": "url",
+                        }
+                    )
+
         # TODO there are other relations to add, like mods/relatedItem|relateditem
         # Example: https://vault.cca.edu/items/2a1bbc39-0619-4f95-8573-dcf4fd9c9e61/2/
         # but if a VAULT item is related to another VAULT item, we need to know both their new
