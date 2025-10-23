@@ -59,9 +59,11 @@
     VSECTION --> CSECTIONCALCID["cca:course.section_calc_id constructed from section & term"]
     VSEMESTER --> CSECTIONCALCID
     VCTITLE["courseInfo/title"] --> CTITLE["cca:course.title"]
-    viewlevel[viewLevel] --> |TODO Many, many translations| ACCESS["Access restricted/public"]
+    VIEWLEVEL["viewLevel"] --> |public -> public, anything else -> restricted| ACCESS["<a href="https://inveniordm.docs.cern.ch/reference/metadata/#access">Access</a>"]
     courseworktype[courseWorkWrapper/courseWorkType] --> |TODO if we have no mods/typeOfResource, map 1st| TYPE["Resource Type (1)"]
 </pre>
+
+<p>Our <code>/local</code> metadata is often mapped to custom fields.</p>
 
 <pre class="mermaid">
     ---
@@ -70,7 +72,7 @@
     flowchart LR
     NAME["item.name"] --> |Use 'Untitled' if absent| TITLE["Title (1)"]
     VAULTID["item.uuid + item.version"] -->|"'is new version of' VAULT URL"| REL["Related Identifiers/Works (0-n)"]
-    OWNER["item.owner.id"] -->|TODO <a href="https://github.com/cca/cca_invenio/tree/main/site#set-owner">change_owner</a> script| PARENT["parent.owned_by.id"]
+    OWNER["item.owner.id"] -->|TODO <a href="https://github.com/cca/cca_invenio/tree/main/site#set-owner">set_owner</a> script| PARENT["parent.owned_by.id"]
     COLLABORATORS["item.collaborators.id"] --> |TODO share item with them?| PARENT
     COLLECTION["item.collection.uuid"] -->|see also mods/relatedItem@host | COMM["Communities (1-n)"]
     DATECREATED["item.dateCreated"] -->|Use item creation timestamp if no date in MODS| PUBDATE["Publication Date (1)"]
@@ -119,6 +121,7 @@ body pre {
     font-weight: bold;
 }
 
+code,
 .todo {
     color: maroon;
 }

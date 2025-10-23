@@ -1,3 +1,5 @@
+from typing import Any
+
 import pytest
 import xmltodict
 from edtf import text_to_edtf
@@ -131,14 +133,40 @@ def test_visual_mime_type_sort(input, expect):
     assert sorted(input, key=visual_mime_type_sort) == expect
 
 
-def x(s):
+def x(s: str) -> dict[str, str]:
     """helper, turn <mods> or <locaL> XML string into minimal item dict"""
     return {"metadata": f"<xml>{s}</xml>"}
 
 
-def m(r):
+def m(r: Record) -> dict[str, Any]:
     """helper, alias for Record.get()["metadata"]"""
     return r.get()["metadata"]
+
+
+# Access
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        (
+            x("<local><viewLevel>public</viewLevel></local>"),
+            {"files": "public", "record": "public"},
+        ),
+        (  # default to restricted
+            x("<local/>"),
+            {"files": "restricted", "record": "restricted"},
+        ),
+        (  # all other viewlevels are restricted, too
+            x(
+                "<local><viewLevel>shared with college administrators</viewLevel></local>"
+            ),
+            {"files": "restricted", "record": "restricted"},
+        ),
+    ],
+)
+def test_access(input, expect):
+    r = Record(input)
+    # access info lives outside metadata
+    assert r.get()["access"] == expect
 
 
 # Archives Series
@@ -325,7 +353,7 @@ def test_communities(input, expect):
             },
         ),
         # Empty courseInfo node
-        (x("<local><courseInfo></courseInfo></local>"), None),
+        (x("<local><courseInfo/></local>"), None),
     ],
 )
 def test_course(input, expect):

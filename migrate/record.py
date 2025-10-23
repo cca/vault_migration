@@ -12,7 +12,7 @@ import sys
 from datetime import date
 from functools import cached_property
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 from xml.etree import ElementTree
 from xml.etree.ElementTree import Element
 
@@ -99,6 +99,21 @@ class Record:
             if idx > 0 and not a:
                 abs.remove(a)
         return abs
+
+    @cached_property
+    def access(self) -> dict[str, Literal["public", "restricted"]]:
+        # https://inveniordm.docs.cern.ch/reference/metadata/#access
+        # ! does defaulting to restricted make sense? should we use different
+        # ! defaults for different collections?
+        access: dict[str, Literal["public", "restricted"]] = {
+            "files": "restricted",
+            "record": "restricted",
+        }
+        view_level: str | None = self.etree.findtext("./local/viewLevel")
+        if view_level and view_level.strip().lower() == "public":
+            access["files"] = "public"
+            access["record"] = "public"
+        return access
 
     @cached_property
     def addl_titles(self) -> list[dict[str, str]]:
@@ -647,11 +662,7 @@ class Record:
 
     def get(self) -> dict[str, Any]:
         return {
-            # TODO restricted access based on local/viewLevel value
-            "access": {
-                "files": "public",
-                "record": "public",
-            },
+            "access": self.access,
             # ! blocked until we know what custom fields we'll have
             "custom_fields": self.custom_fields,
             "files": {
