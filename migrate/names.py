@@ -13,7 +13,7 @@ ruler = nlp.add_pipe("entity_ruler", config={"overwrite_ents": True}, after="ner
 patterns: list[dict[str, str]] = [
     {"label": "ORG", "pattern": "California School of Arts and Crafts"},
     # Other patterns we need to force recognition
-    {"label": "PERSON", "pattern": "Monir (or possibly Yonir)"},
+    {"label": "ORG", "pattern": "Monir (or possibly Yonir)"},
     {"label": "PERSON", "pattern": "KR (Ken Rignal?)"},
 ]
 ruler.add_patterns(patterns)  # type: ignore
