@@ -1018,6 +1018,36 @@ def test_publisher(input, expect):
                 }
             ],
         ),
+        (  # related link, e.g. Koha link in artists books
+            x(
+                '<mods><relateditem type="isReferencedBy"><location>https://example.com</location></relateditem></mods>'
+            ),
+            [
+                {
+                    "identifier": "https://example.com",
+                    "relation_type": {"id": "isPartOf"},
+                    "scheme": "url",
+                }
+            ],
+        ),
+        (  # invalid link or no location, no related id
+            x(
+                '<mods><relateditem type="isReferencedBy"><location>Meyer Library</location></relateditem><relateditem type="isReferencedBy"><title>Don Quixote</title></relateditem></mods>'
+            ),
+            [],
+        ),
+        (  # type=otherVersion -> hasVersion
+            x(
+                '<mods><relateditem type="otherVersion"><location>http://a.com</location></relateditem></mods>'
+            ),
+            [
+                {
+                    "identifier": "http://a.com",
+                    "relation_type": {"id": "hasVersion"},
+                    "scheme": "url",
+                }
+            ],
+        ),
     ],
 )
 def test_related_identifiers(input, expect):
