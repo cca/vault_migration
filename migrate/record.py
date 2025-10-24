@@ -32,6 +32,7 @@ from utils import (
     cca_affiliation,
     find_items,
     get_url,
+    libraries_eresources_uuid,
     mklist,
     syllabus_collection_uuid,
     to_edtf,
@@ -216,16 +217,16 @@ class Record:
         if self.vault_collection in communities_map:
             communities.add(communities_map[self.vault_collection])
 
-        related_items: list[dict[str, Any]] = mklist(
-            self.xml.get("mods", {}).get("relatedItem", {})
-        )
-        for ri in related_items:
-            if ri.get("@type") == "host":
-                title: str | None = ri.get("title")
+        if self._is_artists_book:
+            communities.add("artists-books")
+            communities.discard("libraries")  # libraries is implied
+
+        for ri in self.etree.findall("./mods/relatedItem"):
+            if ri.get("type") == "host":
+                title: str | None = ri.findtext("title")
                 if title and title in communities_map:
                     communities.add(communities_map[title])
-                    # we don't need to add the parent Libraries community if we have a child
-                    communities.discard("libraries")
+                    communities.discard("libraries")  # libraries is implied
 
         return communities
 
@@ -325,42 +326,19 @@ class Record:
                     )
                 elif type(names) is list:
                     for name in names:
-                        creators.append(
-                            {
-                                "affiliations": [],
-                                "person_or_org": name,
-                                "role": {"id": "creator"},
-                            }
-                        )
+                        creators.append({"person_or_org": name})
 
-        # artists books sometimes have creator in title like "title / author"
-        # TODO tests
-        if (
-            self.etree.findtext("./mods/physicalDescription/formBroad")
-            == "artists' books (books)"
-        ):
+        # artists books have creator in title like "title / author"
+        if self._is_artists_book:
             title = self.etree.findtext("./mods/titleInfo/title")
             author = title.split(" / ")[1] if title else ""
             if author:
                 names = parse_name(author)
-                # TODO bad to repeat this terrible code
                 if type(names) is dict:
-                    creators.append(
-                        {
-                            "affiliations": [],
-                            "person_or_org": names,
-                            "role": {"id": "creator"},
-                        }
-                    )
+                    creators.append({"person_or_org": names})
                 elif type(names) is list:
                     for name in names:
-                        creators.append(
-                            {
-                                "affiliations": [],
-                                "person_or_org": name,
-                                "role": {"id": "creator"},
-                            }
-                        )
+                        creators.append({"person_or_org": name})
 
         # If we _still_ have no creators, we cannot create a record b/c it is a
         # required field but for our test data I do not want to specify creators.
@@ -436,6 +414,22 @@ class Record:
                     for a in self.abstracts[1:]
                 ]
             )
+
+        # TODO add artists books description
+
+        # mods/relateditem[type=series] -> description[type=series-information]
+        for series in self.etree.findall("./mods/relateditem[@type='series']"):
+            title: str | None = series.findtext("./title")
+            if title:
+                desc.append(
+                    {
+                        "type": {
+                            "id": "series-information",
+                            "title": {"en": "Series information"},
+                        },
+                        "description": title.strip(),
+                    }
+                )
 
         # Art Collection notes are private so we skip further processing
         if self.vault_collection == art_collection_uuid:
@@ -568,11 +562,12 @@ class Record:
     @cached_property
     def related_identifiers(self) -> list[dict[str, str | dict[str, str]]]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#related-identifiersworks-0-n
-        # Default relation types: https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/relation_types.yaml
-        # We use a reduced subset since there are too many
+        # Uses RDM_RECORDS_IDENTIFIERS_SCHEMES schemes e.g.
+        # ARK, arXiv, Bibcode, DOI, EAN13, EISSN, Handle, IGSN, ISBN, ISSN, ISTC, LISSN, LSID, PubMed ID, PURL, UPC, URL, URN, W3ID
+        # Relation types: https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/relation_types.yaml
         # related_identifiers aren't indexed in the search engine, searches like
         # _exists_:metadata.related_identifiers returns items but metadata.related_identifiers:($URL) does not
-        ri = []
+        ri: list[dict[str, Any]] = []
         if self.vault_url:
             # add a URL identifier for the old VAULT item
             ri.append(
@@ -599,6 +594,7 @@ class Record:
                 )
 
         # Artists Books have mods/relateditem[type=isReferencedBy] for Koha link
+        # Ex. https://vault.cca.edu/items/4d9d685c-9149-45e9-b7a3-e2f9e5ad0bd6/1/
         for related_item in self.etree.findall("./mods/relateditem"):
             # 3 types in VAULT: isReferencedBy, otherVersion, series
             type_to_relation_map: dict[str, str] = {
@@ -624,6 +620,7 @@ class Record:
         # Example: https://vault.cca.edu/items/2a1bbc39-0619-4f95-8573-dcf4fd9c9e61/2/
         # but if a VAULT item is related to another VAULT item, we need to know both their new
         # IDs in Invenio to create the relation
+        # Ex. https://vault.cca.edu/items/e507a72b-e318-4c42-b2ae-c7d4fb660a78/1/
         return ri
 
     @cached_property
@@ -713,6 +710,15 @@ class Record:
                 subjects.add(Subject("", form_specific.text))
         return [s.to_invenio() for s in subjects]
 
+    @cached_property
+    def _is_artists_book(self) -> bool:
+        # Item is in "Libraries eResources" collection & has formBroad artists books
+        return (
+            self.etree.findtext("./mods/physicalDescription/formBroad")
+            == "artists' books (books)"
+            and self.vault_collection == libraries_eresources_uuid
+        )
+
     def get(self) -> dict[str, Any]:
         return {
             "access": self.access,
@@ -726,7 +732,6 @@ class Record:
                     self.attachments[0]["name"] if len(self.attachments) else ""
                 ),
             },
-            # TODO may need to add Art Collection notes here
             "internal_notes": self.internal_notes,
             "metadata": {
                 "additional_descriptions": self.descriptions,

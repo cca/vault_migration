@@ -8,6 +8,7 @@ from edtf import text_to_edtf
 # Constants
 cca_affiliation: list[dict[str, str]] = [{"id": "01mmcf932"}]  # ROR ID for CCA
 art_collection_uuid: str = "b8852fc5-4423-4bc7-958f-7ea643a0b438"
+libraries_eresources_uuid: str = "db4e60c6-e001-9ef3-5ce5-479f384026a3"
 syllabus_collection_uuid: str = "9ec74523-e018-4e01-ab4e-be4dd06cdd68"
 
 

@@ -63,6 +63,7 @@ def n(person_or_org: dict[str, str]) -> dict[str, str]:
 def parse_name(namePart: str):
     """Parse wild variety of name strings into {given_name, family_name}
     or, if it looks like an organization name, return only {name}."""
+    # ! The wild variation of this fns return values is really a problem
 
     # semi-colon separated list of names
     if "; " in namePart:

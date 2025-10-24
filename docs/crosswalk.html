@@ -14,6 +14,7 @@
     ---
     flowchart LR
     TITLE[titleInfo/title] --> |titles <i>after the 1st</i>, type based on @type attribute| ATITLETYPE["type defaults to other"]
+    TITLE --> |Split author out of artists books| CREATORS
     SUBTITLE[titleInfo/subtitle] -->|type = subtitle| ATITLETYPE
     ATITLETYPE --> ADTITLE["Additional Titles (0-n)"]
     ABSTRACTS[abstract] ---> |1st one| DESCRIPTION["Description (0-1)"]
@@ -74,7 +75,7 @@
     VAULTID["item.uuid + item.version"] -->|"'is new version of' VAULT URL"| REL["Related Identifiers/Works (0-n)"]
     OWNER["item.owner.id"] -->|TODO <a href="https://github.com/cca/cca_invenio/tree/main/site#set-owner">set_owner</a> script| PARENT["parent.owned_by.id"]
     COLLABORATORS["item.collaborators.id"] --> |TODO share item with them?| PARENT
-    COLLECTION["item.collection.uuid"] -->|see also mods/relatedItem@host | COMM["Communities (1-n)"]
+    COLLECTION["item.collection.uuid"] -->|see also mods/relatedItem@type=host| COMM["Communities (1-n)"]
     DATECREATED["item.dateCreated"] -->|Use item creation timestamp if no date in MODS| PUBDATE["Publication Date (1)"]
     ATTACHMENTS[item.attachments] -->|guess MIME type from filenames| FORMATS["Formats (0-n)"]
     ATTACHMENTS -->|File, HTML, & Zip attachments| FILES["Files (0-n)"]

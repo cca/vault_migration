@@ -9,6 +9,7 @@ from subjects import TYPES, Subject, find_subjects, subjects_from_xmldict
 from utils import (
     art_collection_uuid,
     get_url,
+    libraries_eresources_uuid,
     mklist,
     syllabus_collection_uuid,
     to_edtf,
@@ -259,6 +260,15 @@ def test_archives_series(input, expect):
             x('<mods><relatedItem type="part">This is ignored.</relatedItem></mods>'),
             set(),
         ),
+        (  # artists books, see Record._is_artists_book
+            {
+                "collection": {
+                    "uuid": libraries_eresources_uuid,
+                },
+                "metadata": "<xml><mods><physicalDescription><formBroad>artists' books (books)</formBroad></physicalDescription></mods></xml>",
+            },
+            set(["artists-books"]),
+        ),
     ],
 )
 def test_communities(input, expect):
@@ -468,6 +478,16 @@ def test_parse_name(input, expect):
             ),
             [{"type": "personal", "given_name": "Barbara", "family_name": "Kruger"}],
         ),
+        # Artists Books: creator in second half of title
+        (
+            {
+                "collection": {
+                    "uuid": libraries_eresources_uuid,
+                },
+                "metadata": "<xml><mods><physicalDescription><formBroad>artists' books (books)</formBroad></physicalDescription><titleInfo><title>Ulysses / James Joyce</title></titleInfo></mods></xml>",
+            },
+            [{"type": "personal", "given_name": "James", "family_name": "Joyce"}],
+        ),
     ],
 )
 def test_creators(input, expect):
@@ -615,6 +635,20 @@ def test_desc(input, expect):
         (  # empty second abstract does not get added
             x("<mods><abstract>foo</abstract><abstract></abstract></mods>"),
             [],
+        ),
+        (  # relateditem[type=series] -> series-information description
+            x(
+                "<mods><relateditem type='series'><title>CCA Libraries Exhibit Documentation</title></relateditem></mods>"
+            ),
+            [
+                {
+                    "type": {
+                        "id": "series-information",
+                        "title": {"en": "Series information"},
+                    },
+                    "description": "CCA Libraries Exhibit Documentation",
+                }
+            ],
         ),
         (  # skip Art Collection notes
             {

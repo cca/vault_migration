@@ -15,7 +15,6 @@ communities_map: dict[str, str] = {
     "e96ccf65-0098-44bb-bec0-6e1cd5466046": "faculty-research",
     # Libraries
     "6b755832-4070-73d2-77b3-3febcc1f5fad": "libraries",
-    # TODO how do map artists books from "Libraries' eResources" collection?
     # Open Access Journal Articles i.e. DBR
     "c34be1f4-c3ea-47d9-b336-e39ad6e926f4": "design-book-review",
     # Libraries Subcollections from relatedItem@host/title
