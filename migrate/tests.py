@@ -1,11 +1,11 @@
 from typing import Any
+from xml.etree import ElementTree
 
 import pytest
-import xmltodict
 from edtf import text_to_edtf
 from names import parse_name
 from record import Record
-from subjects import TYPES, Subject, find_subjects, subjects_from_xmldict
+from subjects import Subject, find_subjects
 from utils import (
     art_collection_uuid,
     get_url,
@@ -1157,20 +1157,38 @@ def test_sizes(input, expect):
 @pytest.mark.parametrize(
     "input, expect",
     [
+        (  # severaal subjects, no authorities
+            "<subject><topic>Art</topic><topic>Design</topic></subject><genreWrapper><genre>creative non-fiction</genre><genre>poetry</genre></genreWrapper>",
+            [
+                Subject("Genre", "creative non-fiction"),
+                Subject("Genre", "poetry"),
+                Subject("Topic", "Art"),
+                Subject("Topic", "Design"),
+            ],
+        ),
+        # real subject alongside empty subject tag
+        (
+            "<subject><topic>Art</topic></subject><subject/>",
+            [Subject("Topic", "Art")],
+        ),
+        # empty genreWrapper
+        (
+            "<genreWrapper/>",
+            [],
+        ),
         # empty, no subjects
         ("<subject></subject>", []),
         ("<subject><name/></subject>", []),
-        ("<mods></mods>", []),
         # single subject
         (
             "<subject><subjectType>topic</subjectType><topic>Trees</topic></subject>",
             [Subject("Topic", "Trees")],
         ),
-        (
+        (  # subject with authority
             "<subject><subjectType>geographic</subjectType><geographic authority='lcsh'>Berkeley, Calif.</geographic></subject>",
             [Subject("Geographic", "Berkeley, Calif.", "lcsh")],
         ),
-        # translate topicCona
+        # translate topicCona to topic
         (
             "<subject><topicCona>performance</topicCona></subject>",
             [Subject("Topic", "performance")],
@@ -1179,11 +1197,6 @@ def test_sizes(input, expect):
         (
             "<genreWrapper><genre>creative non-fiction</genre></genreWrapper>",
             [Subject("Genre", "creative non-fiction")],
-        ),
-        # multiple subjects
-        (
-            "<subject><topic>Art</topic><topic>Design</topic></subject>",
-            [Subject("Topic", "Art"), Subject("Topic", "Design")],
         ),
         # multiple genres
         (
@@ -1195,44 +1208,8 @@ def test_sizes(input, expect):
         ),
     ],
 )
-def test_subjects_from_xmldict(input, expect):
-    xml = xmltodict.parse(input)
-    subjects = []
-    for s in mklist(xml.get("subject")):
-        for t in TYPES:  # check for every subject type
-            for sub in mklist(s.get(t)):
-                subjects.extend(subjects_from_xmldict(t, sub))
-    for g in mklist(xml.get("genreWrapper", {}).get("genre")):
-        subjects.extend(subjects_from_xmldict("genre", g))
-    assert sorted(subjects) == expect
-
-
-@pytest.mark.parametrize(
-    "input, expect",
-    [
-        (
-            "<xml><mods><subject><topic>Art</topic><topic>Design</topic></subject><genreWrapper><genre>creative non-fiction</genre><genre>poetry</genre></genreWrapper></mods></xml>",
-            [
-                Subject("Genre", "creative non-fiction"),
-                Subject("Genre", "poetry"),
-                Subject("Topic", "Art"),
-                Subject("Topic", "Design"),
-            ],
-        ),
-        # real subject alongside empty subject tag
-        (
-            "<xml><mods><subject><topic>Art</topic></subject><subject/></mods></xml>",
-            [Subject("Topic", "Art")],
-        ),
-        # empty genreWrapper
-        (
-            "<xml><mods><genreWrapper/></mods></xml>",
-            [],
-        ),
-    ],
-)
 def test_find_subjects(input, expect):
-    xml = xmltodict.parse(input)
+    xml = ElementTree.fromstring(f"<xml><mods>{input}</mods></xml>")
     assert sorted(find_subjects(xml)) == expect
 
 

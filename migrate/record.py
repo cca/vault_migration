@@ -16,7 +16,6 @@ from typing import Any, Literal
 from xml.etree import ElementTree
 from xml.etree.ElementTree import Element
 
-import xmltodict
 from maps import (
     communities_map,
     form_broad_map,
@@ -45,17 +44,6 @@ archives_series_path = Path(__file__).parent / "archives_series.json"
 if archives_series_path.exists():
     with open(archives_series_path, "r") as fh:
         archives_series_vocab = json.load(fh)
-
-
-def postprocessor(path, key, value):
-    """XML postprocessor, ensure that empty XML nodes like <foo></foo> are empty
-    dicts, not None, so we can continue chaining .get() calls on the result."""
-    # ? is this actually helpful? It's creating problems in places like with
-    # ? publisher <originInfo><publisher/></originInfo> b/c publisher would
-    # ? otherwise always be a string but now is a dict or str
-    if value is None:
-        return (key, {})
-    return (key, value)
 
 
 class Record:
@@ -90,16 +78,15 @@ class Record:
             self.vault_url = (
                 f"https://vault.cca.edu/items/{item['uuid']}/{item['version']}/"
             )
-        self.xml = xmltodict.parse(item["metadata"], postprocessor=postprocessor)["xml"]
 
     @cached_property
-    def abstracts(self) -> list:
-        abs = mklist(self.xml.get("mods", {}).get("abstract", ""))
-        # filter out all empty strings except the first one
-        for idx, a in enumerate(abs):
-            if idx > 0 and not a:
-                abs.remove(a)
-        return abs
+    def abstracts(self) -> list[str]:
+        abstract_elements: list[Element] = self.etree.findall("./mods/abstract")
+        abstracts: list[str] = []
+        for abstract in abstract_elements:
+            if abstract.text:
+                abstracts.append(abstract.text)
+        return abstracts
 
     @cached_property
     def access(self) -> dict[str, Literal["public", "restricted"]]:
@@ -122,48 +109,46 @@ class Record:
         # https://inveniordm.docs.cern.ch/reference/metadata/#additional-titles-0-n
         # types: alternative-title, descriptive-title, other, subtitle, transcribed-title, translated-title
         # https://github.com/cca/cca_invenio/blob/main/app_data/vocabularies/title_types.yaml
-        atitles = []
-        titleinfos = mklist(self.xml.get("mods", {}).get("titleInfo"))
-        for idx, titleinfo in enumerate(titleinfos):
+        atitles: list[dict[str, Any]] = []
+        for idx, titleinfo in enumerate(self.etree.findall("./mods/titleInfo")):
             # all subtitles
-            for subtitle in mklist(titleinfo.get("subTitle")):
-                if subtitle:
-                    atitles.append({"title": subtitle, "type": {"id": "subtitle"}})
+            for subtitle in titleinfo.findall("subTitle"):
+                if subtitle.text:
+                    atitles.append({"title": subtitle.text, "type": {"id": "subtitle"}})
             # titles other than the first
-            for title in mklist(titleinfo.get("title")):
-                if idx > 0 and title:
-                    ttype = titleinfo.get("@type")
+            for title in titleinfo.findall("title"):
+                if idx > 0 and title.text:
+                    ttype: str | None = titleinfo.get("type")
                     if ttype == "alternative":
                         atitles.append(
-                            {"title": title, "type": {"id": "alternative-title"}}
+                            {"title": title.text, "type": {"id": "alternative-title"}}
                         )
                     elif ttype == "descriptive":
                         atitles.append(
-                            {"title": title, "type": {"id": "descriptive-title"}}
+                            {"title": title.text, "type": {"id": "descriptive-title"}}
                         )
                     elif ttype == "transcribed":
                         atitles.append(
-                            {"title": title, "type": {"id": "transcribed-title"}}
+                            {"title": title.text, "type": {"id": "transcribed-title"}}
                         )
                     elif ttype == "translated":
                         atitles.append(
-                            {"title": title, "type": {"id": "translated-title"}}
+                            {"title": title.text, "type": {"id": "translated-title"}}
                         )
                     else:
-                        atitles.append({"title": title, "type": {"id": "other"}})
+                        atitles.append({"title": title.text, "type": {"id": "other"}})
         return atitles
 
     @cached_property
     def archives_series(self) -> dict[str, str] | None:
-        archives_wrapper = self.xml.get("local", {}).get("archivesWrapper")
-        series = archives_wrapper.get("series") if archives_wrapper else None
+        series: str | None = self.etree.findtext("./local/archivesWrapper/series")
         if series and series not in archives_series_vocab:
             # Inconsistency but it doesn't rise to the point of an Exception
             print(
                 f'Warning: series "{series}" is not in CCA/C Archives Series',
                 file=sys.stderr,
             )
-        subseries = archives_wrapper.get("subseries", "") if archives_wrapper else None
+        subseries: str | None = self.etree.findtext("./local/archivesWrapper/subseries")
         if (
             subseries
             and series
@@ -181,26 +166,26 @@ class Record:
 
     @cached_property
     def course(self) -> dict[str, Any] | None:
-        course_info = self.xml.get("local", {}).get("courseInfo")
-        if course_info and type(course_info) is dict:
+        course_info: Element | None = self.etree.find("./local/courseInfo")
+        if course_info and any(s for s in course_info.itertext() if s):
             # we can construct section_calc_id if we know both section & term
-            section: str = course_info.get("section", "")
-            term: str = course_info.get("semester", "")
+            section: str = course_info.findtext("./section") or ""
+            term: str = course_info.findtext("./semester") or ""
             if section and term:
                 section_calc_id: str = f"{section}_AP_{term.replace(' ', '_')}"
             else:
                 section_calc_id = ""
             return {
-                "department": self.xml.get("local", {}).get("department", ""),
-                "department_code": course_info.get("department", ""),
+                "department": self.etree.findtext("./local/department") or "",
+                "department_code": course_info.findtext("department") or "",
                 # we may have instructor usernames in courseInfo/facultyID
                 # but none of the other elements needed to construct an
                 # instructor object so we skip it
-                "instructors_string": course_info.get("faculty", ""),
+                "instructors_string": course_info.findtext("faculty") or "",
                 "section": section,
                 "section_calc_id": section_calc_id,
                 "term": term,
-                "title": course_info.get("course", ""),
+                "title": course_info.findtext("course") or "",
             }
         return None
 
@@ -232,88 +217,99 @@ class Record:
 
     @cached_property
     def creators(self) -> list[dict[str, Any]]:
-        # mods/name
+        # mods/name for most items, local/courseInfo/faculty for Syllabi, and
+        # titleInfo/title split author from "Title / Author" for Artists Books
         # https://inveniordm.docs.cern.ch/reference/metadata/#creators-1-n
         creators: list[dict[str, Any]] = []
-        for namex in mklist(self.xml.get("mods", {}).get("name")):
+        for name_element in self.etree.findall("./mods/name"):
             # @usage = primary, secondary | ignoring this but could say sec. -> contributor, not creator
-            partsx = namex.get("namePart")
-            if type(partsx) is str:
-                # initialize, use affiliation set to dedupe them
-                creator = {"person_or_org": {}, "affiliations": [], "role": {}}
+            name_parts: list[Element] = name_element.findall("namePart")
+            if len(name_parts) == 1:
+                name_part_text: str | None = name_parts[0].text
+                if name_part_text:
+                    # initialize, use affiliation set to dedupe them
+                    creator: dict[str, Any] = {
+                        "person_or_org": {},
+                        "affiliations": [],
+                        "role": {},
+                    }
 
-                # Role: creators can only have one role, take the first one
-                rolex = mklist(namex.get("role", {}).get("roleTerm"))
-                if len(rolex):
-                    rolex = rolex[0]
-                    role: str = rolex if type(rolex) is str else rolex.get("#text")
-                    role = role.lower().replace(" ", "")
-                    if role in role_map:
-                        creator["role"]["id"] = role_map[role]
-                    else:
-                        creator["role"]["id"] = role
+                    # Role: creators can only have one role, take the first one
+                    role_text: str | None = name_element.findtext("./role/roleTerm")
+                    if role_text:
+                        role_text = role_text.lower().replace(" ", "")
+                        if role_text in role_map:
+                            creator["role"]["id"] = role_map[role_text]
+                        else:
+                            # means role doesn't need to be mapped
+                            creator["role"]["id"] = role_text
 
-                # Affiliations
-                affs = []
-                subnamesx = mklist(namex.get("subNameWrapper"))
-                for subnamex in subnamesx:
-                    if subnamex.get("ccaAffiliated") == "Yes":
-                        affs.append({"id": "01mmcf932"})
-                    elif subnamex.get("affiliation"):
-                        affsx = mklist(subnamex.get("affiliation"))
-                        # skip our false positives of ccaAffiliated: No | affiliation: CCA
-                        for affx in affsx:
-                            if (
-                                affx
-                                and not re.match(r"CCA/?C?", affx, flags=re.IGNORECASE)
-                                and not re.match(
-                                    r"California College of (the)? Arts (and Crafts)?",
-                                    affx,
-                                    flags=re.IGNORECASE,
-                                )
-                            ):
-                                affs.append({"name": affx})
-                # dedupe list of dictionaries
-                creator["affiliations"] = list(
-                    {frozenset(d.items()): d for d in affs}.values()
-                )
-
-                names = parse_name(partsx)
-                if type(names) is dict:
-                    creators.append(
-                        {
-                            "affiliations": creator["affiliations"],
-                            "person_or_org": names,
-                            "role": creator["role"],
-                        }
+                    affiliations: list[dict[str, str]] = []
+                    for subname_wrapper in name_element.findall("./subNameWrapper"):
+                        if subname_wrapper.findtext("./ccaAffiliated") == "Yes":
+                            affiliations.append({"id": "01mmcf932"})
+                        elif subname_wrapper.findtext("./affiliation"):
+                            # skip our false positives of ccaAffiliated: No | affiliation: CCA
+                            for aff_element in subname_wrapper.findall("./affiliation"):
+                                if (
+                                    aff_element.text
+                                    and not re.match(
+                                        r"CCA/?C?",
+                                        aff_element.text,
+                                        flags=re.IGNORECASE,
+                                    )
+                                    and not re.match(
+                                        r"California College of (the)? Arts (and Crafts)?",
+                                        aff_element.text,
+                                        flags=re.IGNORECASE,
+                                    )
+                                ):
+                                    affiliations.append({"name": aff_element.text})
+                    # dedupe the list of affiliation dicts
+                    creator["affiliations"] = list(
+                        {frozenset(d.items()): d for d in affiliations}.values()
                     )
-                # implies type(names) == list, similar to below, if parse_name returns a
-                # list of names but we have role/affiliation then something is wrong
-                elif creator.get("role") or len(creator.get("affiliation", [])):
-                    raise Exception(
-                        f"Unexpected mods/name structure: parse_name(namePart) returned a list but we also have role/affiliation. Name: {namex}"
-                    )
-                elif type(names) is list:
-                    for name in names:
-                        creators.append({"person_or_org": name})
-            elif type(partsx) is list:
+
+                    names = parse_name(name_part_text)
+                    if type(names) is dict:
+                        creators.append(
+                            {
+                                "affiliations": creator["affiliations"],
+                                "person_or_org": names,
+                                "role": creator["role"],
+                            }
+                        )
+                    # implies type(names) == list, similar to below, if parse_name returns a
+                    # list of names but we have role/affiliation then something is wrong
+                    elif creator.get("role") or len(creator.get("affiliation", [])):
+                        raise Exception(
+                            f"Unexpected mods/name structure: parse_name(namePart) returned a list but we also have role/affiliation. Name: {name_element}"
+                        )
+                    elif type(names) is list:
+                        for name in names:
+                            creators.append({"person_or_org": name})
+            elif len(name_parts) > 1:
                 # if we have a list of nameParts then the other mods/name fields & attributes must not
                 # be present, but check this assumption
                 if (
-                    namex.get("role")
-                    or namex.get("subNameWrapper")
-                    or namex.get("type")
+                    name_element.findtext("role")
+                    or name_element.findtext("subNameWrapper")
+                    or name_element.findtext("type")
                 ):
                     raise Exception(
-                        "Unexpected mods/name structure with list of nameParts but also other fields: {name}"
+                        f"""Unexpected mods/name structure with list of nameParts but also other fields.
+Attributes: {name_element.attrib}
+Children: {[(c.tag, c.text) for c in name_element]}"""
                     )
-                for partx in partsx:
-                    for name in mklist(parse_name(partx)):
-                        creators.append({"person_or_org": name})
+                for name_part in name_parts:
+                    if name_part.text:
+                        # TODO fix parse_name to always return a list then delete mklist
+                        for name in mklist(parse_name(name_part.text)):
+                            creators.append({"person_or_org": name})
 
         # Syllabi: we have no mods/name but list faculty in courseInfo/faculty
         if len(creators) == 0:
-            faculty = self.xml.get("local", {}).get("courseInfo", {}).get("faculty")
+            faculty: str | None = self.etree.findtext("./local/courseInfo/faculty")
             if faculty:
                 names = parse_name(faculty)
                 if type(names) is dict:
@@ -348,6 +344,7 @@ class Record:
 
     @cached_property
     def custom_fields(self) -> dict[str, Any]:
+        """Custom metadata fields. Custom fields are only popluated if we have something for them."""
         cf: dict[str, Any] = {}
         # 1) ArchivesSeries custom field, { series, subseries } dict
         if self.archives_series:
@@ -358,7 +355,7 @@ class Record:
 
     @cached_property
     def dates(self) -> list[dict[str, Any]]:
-        dates = []
+        dates: list[dict[str, Any]] = []
         # https://inveniordm.docs.cern.ch/reference/metadata/#dates-0-n
         # _additional_ (non-publication) dates structured like
         # { "date": "EDTF lvl 0 date", type: { "id": "TYPE" }, "description": "free text" }
@@ -450,7 +447,7 @@ class Record:
 
     @cached_property
     def formats(self) -> list[str]:
-        formats = set()
+        formats: set[str] = set()
         for file in self.attachments:
             type = mimetypes.guess_type(file["name"], strict=False)[0]
             if type:
@@ -460,7 +457,7 @@ class Record:
     @cached_property
     def internal_notes(self) -> list[str]:
         # retain private art collection notes as internal_notes
-        notes = []
+        notes: list[str] = []
         if self.vault_collection == art_collection_uuid:
             for note in self.etree.findall("./mods/noteWrapper/note"):
                 if note.text:
@@ -472,38 +469,30 @@ class Record:
         return notes
 
     @cached_property
-    def publication_date(self):
+    def publication_date(self) -> str | None:
         # date created, add other/additional dates to self.dates[]
         # level 0 EDTF date (YYYY,  YYYY-MM, YYYY-MM-DD or slash separated range between 2 of these)
         # https://inveniordm.docs.cern.ch/reference/metadata/#publication-date-1
         # mods/originfo/dateCreatedWrapper/dateCreated (note lowercase origininfo) or item.createdDate
-        origininfosx = mklist(self.xml.get("mods", {}).get("origininfo", {}))
-        for origininfox in origininfosx:
+        for origin_info in self.etree.findall("./mods/origininfo"):
             # use dateCreatedWrapper/dateCreated if we have it
-            dateCreatedWrappersx = mklist(origininfox.get("dateCreatedWrapper"))
-            for wrapper in dateCreatedWrappersx:
-                dateCreatedsx = mklist(wrapper.get("dateCreated"))
-                for dateCreated in dateCreatedsx:
+            for dc_wrapper in origin_info.findall("./dateCreatedWrapper"):
+                for date_created in dc_wrapper.findall("./dateCreated"):
                     # work around empty str or dict
-                    if dateCreated:
-                        edtf_date: str | None = None
-                        if type(dateCreated) is str:
-                            edtf_date = to_edtf(dateCreated)
-                        elif type(dateCreated) is dict:
-                            edtf_date = to_edtf(dateCreated.get("#text"))
-
+                    if date_created.text:
+                        edtf_date: str | None = to_edtf(date_created.text)
                         if edtf_date:
                             return edtf_date
 
                 # maybe we have a range with pointStart and pointEnd elements?
                 # edtf.text_to_edtf(f"{start}/{end}") returns None for valid dates so do in two steps
-                start: str | None = to_edtf(wrapper.get("pointStart"))
-                end: str | None = to_edtf(wrapper.get("pointEnd"))
+                start: str | None = to_edtf(dc_wrapper.findtext("./pointStart"))
+                end: str | None = to_edtf(dc_wrapper.findtext("./pointEnd"))
                 if start and end:
                     return f"{start}/{end}"
 
             # maybe we have mods/origininfo/semesterCreated, which is always a string (no children)
-            semesterCreated = origininfox.get("semesterCreated")
+            semesterCreated: str | None = origin_info.findtext("./semesterCreated")
             if semesterCreated:
                 edtf_date: str | None = to_edtf(semesterCreated)
                 if edtf_date:
@@ -527,31 +516,27 @@ class Record:
         #     1997 - on: California College of the Arts
         # https://vault.cca.edu/items/bd3b483b-52b9-423c-a96e-d37863511d75/1/%3CXML%3E
         # mods/relatedItem[@type="host"]/titleInfo/title == DBR
-        related_item = self.xml.get("mods", {}).get("relatedItem", {})
-        related_title_infos = mklist(related_item.get("titleInfo"))
-        for ti in related_title_infos:
-            if ti.get("title") == "Design Book Review":
-                issue = related_item.get("part", {}).get("detail", {}).get("number")
-                if issue:
+        for related_item in self.etree.findall("./mods/relatedItem"):
+            title: str | None = related_item.findtext("./titleInfo/title")
+            if title == "Design Book Review":
+                issue_str: str | None = related_item.findtext("./part/detail/number")
+                if issue_str:
                     # there are some double issues with numbers like 37/38
-                    issue = int(issue[:2])
-                    if issue < 19:
+                    issue_no: int = int(issue_str[:2])
+                    if issue_no < 19:
                         return "Design Book Review"
-                    elif issue < 36:
+                    elif issue_no < 36:
                         return "MIT Press"
-                    elif issue < 39:
+                    elif issue_no < 39:
                         return "Design Book Review"
                     else:
                         return "California College of the Arts"
 
         # 2) CCA/C archives has publisher info mods/originInfo/publisher
         # https://vault.cca.edu/items/c4583fe6-2e85-4613-a1bc-774824b3e826/1/%3CXML%3E
-        # records have multiple originInfo nodes
-        originInfos = mklist(self.xml.get("mods", {}).get("originInfo"))
-        for originInfo in originInfos:
-            publisher = originInfo.get("publisher")
-            if type(publisher) is dict:
-                publisher = publisher.get("#text")
+        # records have multiple originInfo nodes, might have an empty <publisher/> first
+        for origin_info in self.etree.findall("./mods/originInfo"):
+            publisher: str | None = origin_info.findtext("./publisher")
             if publisher:
                 return publisher.strip()
 
@@ -636,17 +621,9 @@ class Record:
             return {"id": "publication-syllabus"}
 
         # Take the first typeOfResource value we find
-        wrapper = self.xml.get("mods", {}).get("typeOfResourceWrapper")
-        if type(wrapper) is list:
-            wrapper = wrapper[0]
-        if type(wrapper) is dict:
-            rtype = wrapper.get("typeOfResource", "")
-            if type(rtype) is list:
-                rtype = rtype[0]
-            if type(rtype) is dict:
-                rtype = rtype.get("#text", "")
-            if rtype in resource_type_map:
-                return {"id": resource_type_map[rtype]}
+        for rtype in self.etree.findall("./mods/typeOfResourceWrapper/typeOfResource"):
+            if rtype.text in resource_type_map:
+                return {"id": resource_type_map[rtype.text]}
 
         # TODO local/courseWorkType
 
@@ -663,19 +640,17 @@ class Record:
         # https://inveniordm.docs.cern.ch/reference/metadata/#rights-licenses-0-n
         # Choices: https://github.com/cca/cca_invenio/blob/main/app_data/vocabularies/licenses.csv
         # We always have exactly one accessCondition node, str or dict
-        accessCondition = self.xml.get("mods", {}).get("accessCondition", "")
-        if type(accessCondition) is dict:
+        for access_condition in self.etree.findall("./mods/accessCondition"):
             # if we have a href attribute prefer that
-            href = accessCondition.get("@href", None)
-            if href and href in license_href_map:
+            href: str | None = access_condition.get("href")
+            if href in license_href_map:
                 return [{"id": license_href_map[href]}]
-            # if we didn't find a usable href then use the text
-            accessCondition = accessCondition.get("#text", "")
 
-        # use substring matching—some long ACs contain the license name or URL
-        for key in license_text_map.keys():
-            if key in accessCondition:
-                return [{"id": license_text_map[key]}]
+            # use substring matching—some long ACs contain the license name or URL
+            if access_condition.text:
+                for key in license_text_map.keys():
+                    if key in access_condition.text:
+                        return [{"id": license_text_map[key]}]
 
         # default to copyright
         return [{"id": "copyright"}]
@@ -684,13 +659,11 @@ class Record:
     def sizes(self) -> list[str]:
         # mods/physicalDescription/extent
         # https://inveniordm.docs.cern.ch/reference/metadata/#sizes-0-n
-        extents = []
+        extents: list[str] = []
 
-        extent = self.xml.get("mods", {}).get("physicalDescription", {}).get("extent")
-        if type(extent) is dict:
-            extent = extent.get("#text")
-        if extent:
-            extents.append(extent)
+        for extent in self.etree.findall("./mods/physicalDescription/extent"):
+            if extent.text:
+                extents.append(extent.text)
 
         # TODO there will be /local extent values in student work items
         return extents
@@ -700,7 +673,7 @@ class Record:
         # https://inveniordm.docs.cern.ch/reference/metadata/#subjects-0-n
         # Subjects are {id} or {subject} dicts
         # find_subjects pulls from mods/subject and mods/genreWrapper/genre
-        subjects: set[Subject] = find_subjects(self.xml)
+        subjects: set[Subject] = find_subjects(self.etree)
         # map formSpecific to naked keywords
         for form_specific in self.etree.findall(
             "./mods/physicalDescription/formSpecific"
@@ -743,7 +716,7 @@ class Record:
                 "contributors": [],
                 "creators": self.creators,
                 "dates": self.dates,
-                "description": self.abstracts[0],
+                "description": self.abstracts[0] if len(self.abstracts) else "",
                 "formats": self.formats,
                 # https://inveniordm.docs.cern.ch/reference/metadata/#locations-0-n
                 # not available on deposit form and does not display anywhere, skip for now

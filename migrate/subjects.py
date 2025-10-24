@@ -5,9 +5,10 @@ import json
 import sys
 from pathlib import Path
 from typing import Literal
+from xml.etree import ElementTree
+from xml.etree.ElementTree import Element
 
-import xmltodict
-from utils import find_items, mklist
+from utils import find_items
 
 # subjects map JSON sits in the same directory
 subjects_map: dict[str, str] | Literal[False] = False
@@ -37,6 +38,9 @@ class Subject:
             and self.authority == other.authority
         )
 
+    def __repr__(self) -> str:
+        return f"Subject({self.__str__()})"
+
     def __str__(self) -> str:
         repr: str = f"{self.type}: {self.value}"
         if self.authority:
@@ -63,7 +67,7 @@ class Subject:
 
 
 # types from under mods/subject
-TYPES: list[str] = [
+SUBJECT_TYPES: list[str] = [
     "geographic",
     "topic",
     "name",
@@ -72,43 +76,22 @@ TYPES: list[str] = [
 ]
 
 
-def subjects_from_xmldict(type: str, tree: dict | str) -> list[Subject]:
-    # takes xmltodict of mods/subject or mods/genreWrapper/genre
-    # and returns a deduped list of Subject objects
+def find_subjects(xml: Element) -> set[Subject]:
+    """Take an ElementTree and looks for subjects in mods/subject and mods/genreWrapper/genre"""
+    subjects: set[Subject] = set()
+    for mods_subject in xml.findall("./mods/subject"):
+        for t in SUBJECT_TYPES:  # check for every subject type
+            for subject in mods_subject.findall(f"./{t}"):
+                if subject.text:
+                    authority: str = subject.get("authority") or ""
+                    real_type: str = t if t != "topicCona" else "topic"
+                    subjects.add(Subject(real_type, subject.text, authority))
 
-    # treat topicCona as topic
-    if type == "topicCona":
-        type = "topic"
-
-    if isinstance(tree, str):
-        return [Subject(type, tree)]
-
-    subjects = set()
-    for s in mklist(tree):
-        auth = ""
-        if isinstance(s, dict):
-            auth = s.get("@authority", "")
-            s = s.get("#text")
-        if s:  # empty tag like <name/> -> s = None
-            subjects.add(Subject(type, s, auth))
-    return list(subjects)
-
-
-def find_subjects(xml: dict) -> set[Subject]:
-    # looks for subjects in mods/subject and mods/genreWrapper/genre
-    subjects = set()
-    # work from either root or <xml> starting point
-    xml = xml.get("xml", xml)
-    mods = xml.get("mods", {})
-    for s in mklist(mods.get("subject")):
-        if s:  # empty <subject/> alongside actual ones will be None
-            for t in TYPES:  # check for every subject type
-                for sub in mklist(s.get(t)):
-                    subjects.update(subjects_from_xmldict(t, sub))
-
-    for wrapper in mklist(mods.get("genreWrapper", {})):
-        for genre in mklist(wrapper.get("genre")):
-            subjects.update(subjects_from_xmldict("genre", genre))
+    for wrapper in xml.findall("./mods/genreWrapper", {}):
+        for genre in wrapper.findall("./genre"):
+            if genre.text:
+                authority: str = genre.get("authority") or ""
+                subjects.add(Subject("genre", genre.text, authority))
     return subjects
 
 
@@ -118,7 +101,7 @@ if __name__ == "__main__":
     subjects: set[Subject] = set()
     for file in sys.argv:
         for item in find_items(file):
-            xml = xmltodict.parse(item["metadata"])
+            xml: Element = ElementTree.fromstring(item["metadata"])
             subjects.update(find_subjects(xml))
 
     # print sorted subjects
