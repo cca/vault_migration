@@ -703,8 +703,9 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
             "./mods/physicalDescription/formSpecific"
         ):
             if form_specific.text:
-                # first arg (type) doesn't matter here
-                subjects.add(Subject("", form_specific.text))
+                # type doesn't matter except for deduping against our real subjects
+                # and "topic" is the most common in those
+                subjects.add(Subject("topic", form_specific.text))
         return [s.to_invenio() for s in subjects]
 
     @cached_property
