@@ -448,6 +448,14 @@ def test_course(input, expect):
                 "type": "organizational",
             },
         ),
+        # Support multiple ORG entities in one string
+        (
+            "Genesis P-Orridge and COUM",
+            [
+                {"name": "Genesis P-Orridge", "type": "organizational"},
+                {"name": "COUM", "type": "organizational"},
+            ],
+        ),
     ],
 )
 def test_parse_name(input, expect):

@@ -107,32 +107,34 @@ def parse_name(namePart: str):
         if re.match(r"\bCCAC?", namePart):
             return n({"name": namePart})
         parts: list[str] = namePart.split(" ")
-        if len(parts) == 1:
+        num_parts: int = len(parts)
+        if num_parts == 1:
             # looks like an organization name
             return n({"name": namePart})
-        if len(parts) == 2:
+        if num_parts == 2:
             return n({"given_name": parts[0], "family_name": parts[1]})
-        if len(parts) > 2:
+        if num_parts > 2:
             # could be "First Second Third" name or an organization
             entities: list[dict[str, str]] = ner(namePart)
-            if len(entities) == 0:
+            num_entities: int = len(entities)
+            if num_entities == 0:
                 # no entities, most likely an organization
                 return n({"name": namePart})
-            elif len(entities) == 1 and entities[0]["type"] == "PERSON":
+            elif num_entities == 1 and entities[0]["type"] == "PERSON":
                 return n({"given_name": " ".join(parts[0:2]), "family_name": parts[2]})
-            elif len(entities) == 1 and entities[0]["type"] == "ORG":
+            elif num_entities == 1 and entities[0]["type"] == "ORG":
                 return n({"name": namePart})
             # more than one entity but they're all PERSON, assume one name
-            elif len(entities) > 1 and len(
-                [e for e in entities if e["type"] == "PERSON"]
-            ) == len(entities):
-                num_parts: int = len(parts)
+            elif len([e for e in entities if e["type"] == "PERSON"]) == num_entities:
                 return n(
                     {
                         "given_name": " ".join(parts[0 : (num_parts - 1)]),
                         "family_name": parts[num_parts - 1],
                     }
                 )
+            # more than one entity but they're all ORG, assume multiple orgs
+            elif len([e for e in entities if e["type"] == "ORG"]) == num_entities:
+                return [n({"name": e["entity"]}) for e in entities]
             else:
                 # multiple entities of different types, no comma so it's not a list
                 raise Exception(
