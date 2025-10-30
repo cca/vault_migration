@@ -9,3 +9,4 @@ vocab/
 .tmp.drivedownload/
 .tmp.driveupload/
 vm/
+.venv/

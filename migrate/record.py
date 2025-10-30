@@ -326,8 +326,12 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
 
         # artists books have creator in title like "title / author"
         if self._is_artists_book:
-            title = self.etree.findtext("./mods/titleInfo/title")
-            author = title.split(" / ")[1] if title else ""
+            title: str | None = self.etree.findtext("./mods/titleInfo/title")
+            assert isinstance(title, str)
+            title_parts: list[str] = title.split(" / ")
+            assert len(title_parts) == 2
+            self.title = title_parts[0].strip()
+            author: str = title_parts[1].strip()
             if author:
                 names = parse_name(author)
                 if type(names) is dict:
