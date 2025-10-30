@@ -2,7 +2,7 @@
 Convert an EQUELLA item into an Invenio record.
 
 To test record conversion, we can pass this script a path to one or more XML
-files, single JSON items, or JSON search results and it will print to Invenio
+files, single JSON items, or JSON search results and it will print Invenio
 record JSON to stdout.
 """
 
@@ -592,8 +592,8 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
         for related_item in self.etree.findall("./mods/relateditem"):
             # 3 types in VAULT: isReferencedBy, otherVersion, series
             type_to_relation_map: dict[str, str] = {
-                "isReferencedBy": "isPartOf",
-                "otherVersion": "hasVersion",
+                "isReferencedBy": "ispartof",
+                "otherVersion": "hasversion",
             }
             location = related_item.findtext("./location")
             relation_type: str | None = related_item.get("type")
@@ -750,6 +750,7 @@ if __name__ == "__main__":
     records: list[dict[str, Any]] = []
     # we assume first arg is path to the item JSON
     for file in sys.argv[1:]:
+        print(f"Processing file: {file}", file=sys.stderr)
         items = find_items(file)
         for item in items:
             r: Record = Record(item)

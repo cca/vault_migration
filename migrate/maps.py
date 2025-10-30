@@ -81,7 +81,7 @@ role_map: dict[str, str] = {
     # MARC says to user "organizer"
     "organizerofmeeting": "organizer",
     "painter": "artist",
-    "performanceartist": "arti",
+    "performanceartist": "artist",
     "poet": "author",
     "professor": "teacher",
     # 1 item where person already has two other roles
