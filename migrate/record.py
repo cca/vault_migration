@@ -1,8 +1,9 @@
 """
 Convert an EQUELLA item into an Invenio record.
 
-Eventually this will accept a _directory_ containing the item's JSON and its
-attachments, but for staters we are taking just JSON.
+To test record conversion, we can pass this script a path to one or more XML
+files, single JSON items, or JSON search results and it will print to Invenio
+record JSON to stdout.
 """
 
 import json
@@ -746,12 +747,12 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
 
 
 if __name__ == "__main__":
+    records: list[dict[str, Any]] = []
     # we assume first arg is path to the item JSON
     for file in sys.argv[1:]:
         items = find_items(file)
-        records: list[dict[str, Any]] = []
         for item in items:
             r: Record = Record(item)
             records.append(r.get())
-        # JSON pretty print record(s)
-        json.dump(records, sys.stdout, indent=2)
+    # JSON pretty print record(s)
+    json.dump(records, sys.stdout, indent=2)
