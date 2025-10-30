@@ -929,6 +929,19 @@ def test_publication_date(input, expect):
                 }
             ],
         ),
+        (  # dateOther date range
+            # see CSP items: https://vault.cca.edu/items/55f135f6-d8cf-4b1e-a623-9ee7838d10bf/1/
+            x(
+                "<mods><origininfo><dateOtherWrapper><dateOther type='exhibit'/><pointStart>1/1/87</pointStart><pointEnd>2/1/87</pointEnd></dateOtherWrapper></origininfo></mods>"
+            ),
+            [
+                {
+                    "date": "1987-01-01/1987-02-01",
+                    "type": {"id": "other"},
+                    "description": "Exhibit",
+                }
+            ],
+        ),
     ],
 )
 def test_dates(input, expect):
@@ -1067,7 +1080,7 @@ def test_publisher(input, expect):
             [
                 {
                     "identifier": "https://example.com",
-                    "relation_type": {"id": "isPartOf"},
+                    "relation_type": {"id": "ispartof"},
                     "scheme": "url",
                 }
             ],
@@ -1085,7 +1098,7 @@ def test_publisher(input, expect):
             [
                 {
                     "identifier": "http://a.com",
-                    "relation_type": {"id": "hasVersion"},
+                    "relation_type": {"id": "hasversion"},
                     "scheme": "url",
                 }
             ],

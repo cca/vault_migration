@@ -387,16 +387,31 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
             "./mods/origininfo/dateOtherWrapper/dateOther"
         )
         if date_other is not None:
+            date_other_type: str = date_other.get("type") or ""
             if date_other.text:
                 dates.append(
                     {
                         "date": to_edtf(date_other.text),
-                        "description": date_other.get("type")
-                        if date_other.get("type")
-                        else "",
+                        "description": date_other_type.capitalize(),
                         "type": {"id": "other"},
                     }
                 )
+            else:
+                # maybe we have a range with pointStart and pointEnd elements
+                start: str | None = to_edtf(
+                    self.etree.findtext("./mods/origininfo/dateOtherWrapper/pointStart")
+                )
+                end: str | None = to_edtf(
+                    self.etree.findtext("./mods/origininfo/dateOtherWrapper/pointEnd")
+                )
+                if start and end:
+                    dates.append(
+                        {
+                            "date": f"{start}/{end}",
+                            "description": date_other_type.capitalize(),
+                            "type": {"id": "other"},
+                        }
+                    )
         return dates
 
     @cached_property
