@@ -93,7 +93,6 @@ def post(r: Record) -> dict[str, Any]:
             communities: dict[str, list[dict[str, str]]] = {
                 "communities": [{"id": slug} for slug in comms_to_add]
             }
-            # TODO this doesn't add directly, opens a request?
             add_to_comm_resp: Response = http(
                 "post",
                 published_record["links"]["communities"],
@@ -105,6 +104,21 @@ def post(r: Record) -> dict[str, Any]:
                     f"Error adding {published_record['links']['self_html']} to communities: {comms_to_add}"
                 )
                 print(add_to_comm_resp.text)
+
+            community_requests = add_to_comm_resp.json()
+            for community_request in community_requests["processed"]:
+                comm_req_accept_resp: Response = http(
+                    "post",
+                    community_request["request"]["links"]["actions"]["accept"],
+                    # opportunity to provide comment on acceptance
+                    # https://inveniordm.docs.cern.ch/reference/rest_api_requests/#comment-payload
+                    json={},
+                )
+                if comm_req_accept_resp.status_code > 202:
+                    print(
+                        f"Error accepting community request for {published_record['links']['self_html']} to community {community_request['request']['community']['links']['self_html']}"
+                    )
+                    print(comm_req_accept_resp.text)
 
     return published_record
 
