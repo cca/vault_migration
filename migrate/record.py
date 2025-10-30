@@ -327,9 +327,13 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
         # artists books have creator in title like "title / author"
         if self._is_artists_book:
             title: str | None = self.etree.findtext("./mods/titleInfo/title")
-            assert isinstance(title, str)
+            assert isinstance(title, str), (
+                f"Artists Book missing title: {self.vault_url}"
+            )
             title_parts: list[str] = title.split(" / ")
-            assert len(title_parts) == 2
+            assert len(title_parts) == 2, (
+                f"Title is missing author part: {title} | {self.vault_url}"
+            )
             self.title = title_parts[0].strip()
             author: str = title_parts[1].strip()
             if author:
