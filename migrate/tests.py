@@ -665,6 +665,20 @@ def test_desc(input, expect):
             },
             [],
         ),
+        (  # name descriptions
+            x(
+                "<mods><name><subNameWrapper><description>foo</description></subNameWrapper></name></mods>"
+            ),
+            [
+                {
+                    "type": {
+                        "id": "other",
+                        "title": {"en": "Other"},
+                    },
+                    "description": "Creator note: foo",
+                }
+            ],
+        ),
     ],
 )
 def test_addl_desc(input, expect):

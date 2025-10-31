@@ -161,6 +161,7 @@ class Record:
             )
         if series and not subseries:
             raise Exception(f"Archives Series without Subseries: {self.vault_url}")
+        # ? Should we only return values if they're in the vocab?
         if series and subseries:
             return {"series": series, "subseries": subseries}
         return {}
@@ -452,7 +453,17 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                     }
                 )
 
+        for name_desc in self.etree.findall("./mods/name/subNameWrapper/description"):
+            if name_desc.text:
+                desc.append(
+                    {
+                        "type": {"id": "other", "title": {"en": "Other"}},
+                        "description": f"Creator note: {name_desc.text.strip()}",
+                    }
+                )
+
         # Art Collection notes are private so we skip further processing
+        # This should come AFTER other processing but BEFORE noteWrapper below
         if self.vault_collection == art_collection_uuid:
             return desc
 
