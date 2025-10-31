@@ -1,6 +1,6 @@
-# Repository Migrations
+# Repository Migration
 
-Tools, ideas, and data.
+Tools & ideas for migrating data from a MODS-based EQUELLA repository to Datacite InvenioRDM.
 
 Semantics: EQUELLA objects are _items_ with _attachments_. Invenio objects are _records_ with _files_. EQUELLA has _taxonomies_; Invenio has _vocabularies_. We use these terms consistently so it's clear what format an object is in (e.g. `python migrate/record.py item.json > record.json` converts an _item_ into a _record_).
 
@@ -10,8 +10,6 @@ Semantics: EQUELLA objects are _items_ with _attachments_. Invenio objects are _
 uv install # get dependencies, takes awhile due to spacy's en_core_web_lg model
 uv run pytest -v migrate/tests.py # run tests
 ```
-
-Migrate scripts that create records require an `INVENIO_TOKEN` or `TOKEN` variable in our environment or .env file. To create a token: sign in as an admin and go to Applications > Personal access tokens.
 
 ## Vocabularies
 
@@ -26,19 +24,21 @@ Notable scripts that create Invenio vocabularies:
 
 ### Subjects
 
-We create two subject vocabularies: one for Library of Congress subjects with URIs from one of their authorities and one for CCA local subjects not present in any LC authority.
+We create two subject vocabularies: "lc" for terms with URIs in an external authority and "cca_local" with UUIDs for local terms not present in any authority. **NOTE**: we are probably restructuring this. We are considering multiple subjects organized by theme (name, subject, genre/form, etc.) and using Getty/Wikidata instead of LC.
 
-Download our [subjects sheet](https://docs.google.com/spreadsheets/d/1la_wsFPOkHLjpv4-f3tWwMsCd0_xzuqZ5xp_p1zAAoA/edit#gid=1465207925) and run `python migrate/mk_subjects.py data/subjects.csv` to create the YAML vocabularies in the vocab dir (lc.yaml and cca_local.yaml) as well as migrate/subjects_map.json which is used to convert the text of VAULT subject terms into Invenio identifiers or ID-less keyword subjects.
+Download the [subjects sheet](https://docs.google.com/spreadsheets/d/1la_wsFPOkHLjpv4-f3tWwMsCd0_xzuqZ5xp_p1zAAoA/edit#gid=1465207925) and run `python migrate/mk_subjects.py data/subjects.csv` to create the YAML vocabularies in the vocab dir (lc.yaml and cca_local.yaml) as well as migrate/subjects_map.json which is used by `Record`'s [`find_subjects`](./migrate/subjects.py) to convert the text of VAULT subject terms into Invenio identifiers or keyword subjects without an id.
 
-Copy the YAML vocabularies into the app_data/vocabularies directory of our Invenio instance. The site needs to be rebuilt to load the changes (`invenio-cli services destroy` and then `invenio-cli services setup` again). Eventually (Invenio v12) there will be a CLI command to alter vocabularies without rebuilding the site.
+If an `INVENIO_REPO` env var is set, vocabs are copied to the Invenio instance. We should be able to update existing vocabs with `invenio rdm add-to-fixture`. If not, the site can rebuilt like `invenio-cli services destroy` and then `invenio-cli services setup`.
 
 ## Creating Records in Invenio
 
-- **migrate/record.py**: Converts EQUELLA item JSON into Invenio record JSON
-- **migrate/api.py**: Converts an item and `POST`s it to Invenio to create a record
-- **migrate/import.py**: Imports an item _directory_ (created by [the export tool](https://github.com/cca/equella_scripts/tree/main/collection-export)) with its attachments to Invenio
+We need to load the necessary fixtures before creating records. Anywhere an identifier is used, whether in a subject, resource type, or relation, it must exist in Invenio. If we attempt to load a record with an `id` that doesn't exist yet, we get a 500 error.
 
-To use these scripts, we must create a personal access token for an administrator account in Invenio:
+- **migrate/record.py**: converts EQUELLA item(s) into Invenio record JSON
+- **migrate/api.py**: converts an item and `POST`s it to Invenio to create a metadata-only record
+- **migrate/import.py**: imports an item _directory_ (created by [the export tool](https://github.com/cca/equella_scripts/tree/main/collection-export)) with its attachments to Invenio
+
+The scripts rely on a personal access token for an administrator account in Invenio:
 
 1. Sign in as an admin
 2. Go to **Applications** > **Personal access tokens**
@@ -49,13 +49,12 @@ To use these scripts, we must create a personal access token for an administrato
 Below, we migrate a VAULT item to an Invenio record and post it to Invenio.
 
 ```sh
-set -x INVENIO_TOKEN your_token_here && set -x HOST 127.0.0.1:5000
-python migrate/api.py items/item.json # example output below
-HTTP 201
-https://127.0.0.1:5000/api/records/k7qk8-fqq15/draft
-HTTP 202
-{"id": "k7qk8-fqq15", "created": "2024-05-31T15:26:17.972009+00:00", ...
-https://127.0.0.1:5000/records/k7qk8-fqq15
+# fish shell
+set -x INVENIO_TOKEN abc123; set -x HOST 127.0.0.1:5000 # better: edit into .env
+python migrate/api.py items/item.json
+HTTP 201 https://127.0.0.1:5000/api/records/k7qk8-fqq15/draft
+HTTP 202 https://127.0.0.1:5000/records/k7qk8-fqq15
+...
 ```
 
 You can sometimes trip over yourself if the `.env` file in the project root is loaded and contains an outdated personal access token. If API calls fail with 403 errors, check that the `TOKEN` or `INVENIO_TOKEN` variable is set correctly.
@@ -64,11 +63,7 @@ Rerunning a "migrate" script with the same input creates a new record, it doesn'
 
 ## Items
 
-We could write scripts to directly take an item from EQUELLA using its API, perform a metadata crosswalk, and post it to Invenio. Alternatively, we could work with local copies of items, perhaps created by the equella_scripts collection export tool.
-
-We need to load the necessary fixtures, including user accounts, before adding to Invenio. For instance, the item owner needs to already be in Invenio before we can add them as owner of a record. If we attempt to load a record with a subject `id` that doesn't exist yet, we get a 500 error.
-
-We download metadata for all items using equella-cli and a script like this:
+We can download metadata for all items using equella-cli and a script like this:
 
 ```sh
 #!/usr/bin/env fish
