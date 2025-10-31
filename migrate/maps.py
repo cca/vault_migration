@@ -53,8 +53,9 @@ resource_type_map: dict[str, str] = {
     "still image": "image-photo",  # ! prefer simply "image" but cannot until we recreate our resourcetypes
     "text": "publication",
 }
-# Similar map to Invenio resource types, used in Art Collection
+# Similar map to Invenio resource types, used in Art Collection & CSP
 form_broad_map: dict[str, str] = {
+    "exhibition": "event",
     "legal documents": "publication",
     "mixed media": "other",
     "painting": "image-painting-drawing",

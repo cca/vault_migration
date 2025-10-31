@@ -653,7 +653,7 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
 
         # physicalDescription/formBroad e.g. in Art Collection
         for formBroad in self.etree.findall("./mods/physicalDescription/formBroad"):
-            if formBroad.text and formBroad.text in form_broad_map:
+            if formBroad.text in form_broad_map:
                 return {"id": form_broad_map[formBroad.text]}
 
         # default to publication
@@ -706,6 +706,8 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                 # type doesn't matter except for deduping against our real subjects
                 # and "topic" is the most common in those
                 subjects.add(Subject("topic", form_specific.text))
+        # ? should we be mapping formBroad to subjects, too?
+        # ? only if formBroad isn't used for resource type or even if?
         return [s.to_invenio() for s in subjects]
 
     @cached_property
