@@ -138,6 +138,14 @@ class Record:
                         )
                     else:
                         atitles.append({"title": title.text, "type": {"id": "other"}})
+            for part_number in titleinfo.findall("partNumber"):
+                if part_number.text:
+                    atitles.append(
+                        {
+                            "title": f"Number: {part_number.text}",
+                            "type": {"id": "other"},
+                        }
+                    )
         return atitles
 
     @cached_property

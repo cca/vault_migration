@@ -831,6 +831,10 @@ def test_title(input, expect):
                 {"title": "bar", "type": {"id": "descriptive-title"}},
             ],
         ),
+        (  # titleInfo/partNumber
+            x("<mods><titleInfo><partNumber>17/23</partNumber></titleInfo></mods>"),
+            [{"title": "Number: 17/23", "type": {"id": "other"}}],
+        ),
     ],
 )
 def test_addl_titles(input, expect):
