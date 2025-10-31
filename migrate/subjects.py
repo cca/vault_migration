@@ -77,7 +77,7 @@ SUBJECT_TYPES: list[str] = [
 
 
 def find_subjects(xml: Element) -> set[Subject]:
-    """Take an ElementTree and looks for subjects in mods/subject and mods/genreWrapper/genre"""
+    """Takes an ElementTree and looks for subjects in mods/subject and mods/genreWrapper/genre"""
     subjects: set[Subject] = set()
     for mods_subject in xml.findall("./mods/subject"):
         for t in SUBJECT_TYPES:  # check for every subject type
@@ -87,11 +87,20 @@ def find_subjects(xml: Element) -> set[Subject]:
                     real_type: str = t if t != "topicCona" else "topic"
                     subjects.add(Subject(real_type, subject.text, authority))
 
-    for wrapper in xml.findall("./mods/genreWrapper", {}):
+    for wrapper in xml.findall("./mods/genreWrapper"):
         for genre in wrapper.findall("./genre"):
             if genre.text:
                 authority: str = genre.get("authority") or ""
                 subjects.add(Subject("genre", genre.text, authority))
+
+    # Treat physicalDescription forms as genres, we have no auths for these
+    for form in xml.findall("./mods/physicalDescription/formBroad"):
+        if form.text:
+            subjects.add(Subject("genre", form.text))
+    for form in xml.findall("./mods/physicalDescription/formSpecific"):
+        if form.text:
+            subjects.add(Subject("genre", form.text))
+
     return subjects
 
 

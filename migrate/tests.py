@@ -1175,10 +1175,11 @@ def test_sizes(input, expect):
     assert sorted(m(r)["sizes"]) == expect
 
 
+# Find Subjects function
 @pytest.mark.parametrize(
     "input, expect",
-    [
-        (  # severaal subjects, no authorities
+    [  # <xml><mods> is wrapped around input values
+        (  # several subjects, no authorities
             "<subject><topic>Art</topic><topic>Design</topic></subject><genreWrapper><genre>creative non-fiction</genre><genre>poetry</genre></genreWrapper>",
             [
                 Subject("Genre", "creative non-fiction"),
@@ -1227,6 +1228,16 @@ def test_sizes(input, expect):
                 Subject("Genre", "poetry", "aat"),
             ],
         ),
+        # formSpecific
+        (
+            "<physicalDescription><formSpecific>watercolor</formSpecific></physicalDescription>",
+            [Subject("Genre", "watercolor")],
+        ),
+        # formBroad
+        (
+            "<physicalDescription><formBroad>Exhibition</formBroad></physicalDescription>",
+            [Subject("Genre", "Exhibition")],
+        ),
     ],
 )
 def test_find_subjects(input, expect):
@@ -1273,13 +1284,6 @@ def test_find_subjects(input, expect):
                 },
                 {"subject": "Subject not in our mapping"},
             ],
-        ),
-        # formSpecific is a bare keyword
-        (
-            x(
-                "<mods><physicalDescription><formSpecific>watercolor</formSpecific></physicalDescription></mods>"
-            ),
-            [{"subject": "watercolor"}],
         ),
     ],
 )

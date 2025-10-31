@@ -698,16 +698,6 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
         # Subjects are {id} or {subject} dicts
         # find_subjects pulls from mods/subject and mods/genreWrapper/genre
         subjects: set[Subject] = find_subjects(self.etree)
-        # map formSpecific to naked keywords
-        for form_specific in self.etree.findall(
-            "./mods/physicalDescription/formSpecific"
-        ):
-            if form_specific.text:
-                # type doesn't matter except for deduping against our real subjects
-                # and "topic" is the most common in those
-                subjects.add(Subject("topic", form_specific.text))
-        # ? should we be mapping formBroad to subjects, too?
-        # ? only if formBroad isn't used for resource type or even if?
         return [s.to_invenio() for s in subjects]
 
     @cached_property
