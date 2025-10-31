@@ -658,6 +658,34 @@ def test_desc(input, expect):
                 }
             ],
         ),
+        (  # physicalDescriptionNote with type
+            x(
+                "<mods><physicalDescriptionNote><note type='medium'>screenprint</note></physicalDescriptionNote></mods>"
+            ),
+            [
+                {
+                    "type": {
+                        "id": "other",
+                        "title": {"en": "Other"},
+                    },
+                    "description": "Medium: screenprint",
+                }
+            ],
+        ),
+        (  # physicalDescriptionNote without type
+            x(
+                "<mods><physicalDescriptionNote><note>screenprint</note></physicalDescriptionNote></mods>"
+            ),
+            [
+                {
+                    "type": {
+                        "id": "other",
+                        "title": {"en": "Other"},
+                    },
+                    "description": "screenprint",
+                }
+            ],
+        ),
         (  # skip Art Collection notes
             {
                 "collection": {"uuid": art_collection_uuid},

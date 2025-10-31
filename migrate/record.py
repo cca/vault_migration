@@ -473,15 +473,26 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                     }
                 )
 
+        for note in self.etree.findall("./mods/physicalDescriptionNote/note"):
+            if note.text:
+                note_type: str = note.get("type", "").capitalize()
+                note_text: str = f"{note_type}: {note.text}" if note_type else note.text
+                desc.append(
+                    {
+                        "type": {"id": "other", "title": {"en": "Other"}},
+                        "description": note_text.strip(),
+                    }
+                )
+
         # Art Collection notes are private so we skip further processing
-        # This should come AFTER other processing but BEFORE noteWrapper below
+        # ! This comes AFTER other processing but BEFORE noteWrapper below
         if self.vault_collection == art_collection_uuid:
             return desc
 
         # we have _many_ MODS note types & none map cleanly to Invenio description types
         for note in self.etree.findall("./mods/noteWrapper/note"):
             if note.text:
-                note_type: str | None = note.get("type", "").capitalize()
+                note_type = note.get("type", "").capitalize()
                 note_text: str = f"{note_type}: {note.text}" if note_type else note.text
                 desc.append(
                     {
