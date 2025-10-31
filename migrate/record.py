@@ -285,7 +285,7 @@ class Record:
                     # list of names but we have role/affiliation then something is wrong
                     elif creator.get("role") or len(creator.get("affiliation", [])):
                         raise Exception(
-                            f"Unexpected mods/name structure: parse_name(namePart) returned a list but we also have role/affiliation. Name: {name_element}"
+                            f"Unexpected mods/name structure: parse_name(namePart) returned a list but we also have role/affiliation.\nName text: {' '.join([t for t in name_element.itertext()])}\n{self.vault_url}"
                         )
                     elif type(names) is list:
                         for name in names:
@@ -346,10 +346,21 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                     for name in names:
                         creators.append({"person_or_org": name})
 
-        # If we _still_ have no creators, we cannot create a record b/c it is a
-        # required field but for our test data I do not want to specify creators.
-        if len(creators) == 0 and "pytest" not in sys.modules:
-            raise Exception(f"Record has no creators: {self.title}\n{self.vault_url}")
+        # If we _still_ have no creators, log a warning & use [Unknown]
+        if len(creators) == 0:
+            print(
+                f"Record has no creators: {self.title}\n{self.vault_url}",
+                file=sys.stderr,
+            )
+            creators.append(
+                {
+                    "person_or_org": {
+                        "family_name": "[Unknown]",
+                        "given_name": "",
+                        "type": "personal",
+                    },
+                }
+            )
         return creators
 
     @cached_property
