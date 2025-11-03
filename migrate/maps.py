@@ -45,6 +45,8 @@ resource_type_map: dict[str, str] = {
     "Group Field Trip": "event",
     "Hold Harmless": "publication",
     "Media Release": "publication",
+    "book chapter": "publication-book",
+    "journal article": "publication-article",
     "cartographic": "image-map",
     "mixed material": "other",
     "moving image": "video",

@@ -7,11 +7,9 @@ from names import parse_name
 from record import Record
 from subjects import Subject, find_subjects
 from utils import (
-    art_collection_uuid,
+    collection_uuids,
     get_url,
-    libraries_eresources_uuid,
     mklist,
-    syllabus_collection_uuid,
     to_edtf,
     visual_mime_type_sort,
 )
@@ -263,7 +261,7 @@ def test_archives_series(input, expect):
         (  # artists books, see Record._is_artists_book
             {
                 "collection": {
-                    "uuid": libraries_eresources_uuid,
+                    "uuid": collection_uuids["libraries_eresources"],
                 },
                 "metadata": "<xml><mods><physicalDescription><formBroad>artists' books (books)</formBroad></physicalDescription></mods></xml>",
             },
@@ -490,7 +488,7 @@ def test_parse_name(input, expect):
         (
             {
                 "collection": {
-                    "uuid": libraries_eresources_uuid,
+                    "uuid": collection_uuids["libraries_eresources"],
                 },
                 "metadata": "<xml><mods><physicalDescription><formBroad>artists' books (books)</formBroad></physicalDescription><titleInfo><title>Ulysses / James Joyce</title></titleInfo></mods></xml>",
             },
@@ -688,7 +686,7 @@ def test_desc(input, expect):
         ),
         (  # skip Art Collection notes
             {
-                "collection": {"uuid": art_collection_uuid},
+                "collection": {"uuid": collection_uuids["art_collection"]},
                 "metadata": "<xml><mods><noteWrapper><note>foo</note></noteWrapper></mods></xml>",
             },
             [],
@@ -756,14 +754,14 @@ def test_file_formats(input, expect):
     [
         (  # Art Collection note
             {
-                "collection": {"uuid": art_collection_uuid},
+                "collection": {"uuid": collection_uuids["art_collection"]},
                 "metadata": "<xml><mods><noteWrapper><note>foo</note></noteWrapper></mods></xml>",
             },
             ["foo"],
         ),
         (  # note with type
             {
-                "collection": {"uuid": art_collection_uuid},
+                "collection": {"uuid": collection_uuids["art_collection"]},
                 "metadata": '<xml><mods><noteWrapper><note type="bar">foo</note></noteWrapper></mods></xml>',
             },
             ["Bar: foo"],
@@ -1013,10 +1011,17 @@ def test_dates(input, expect):
         ),
         (  # Items in Syllabus Collection = publication-syllabus
             {
-                "collection": {"uuid": syllabus_collection_uuid},
+                "collection": {"uuid": collection_uuids["syllabus_collection"]},
                 "metadata": "<xml></xml>",
             },
             "publication-syllabus",
+        ),
+        (  # Faculty Research uses genreWrapper/genre and not typeOfResource
+            {
+                "collection": {"uuid": collection_uuids["faculty_research"]},
+                "metadata": "<xml><mods><genreWrapper><genre>journal article</genre></genreWrapper><typeOfResourceWrapper><typeOfResource>text</typeOfResource></typeOfResourceWrapper></mods></xml>",
+            },
+            "publication-article",
         ),
         (  # default to publication
             x("<mods></mods>"),

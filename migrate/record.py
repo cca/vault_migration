@@ -28,13 +28,11 @@ from maps import (
 from names import parse_name
 from subjects import Subject, find_subjects
 from utils import (
-    art_collection_uuid,
     cca_affiliation,
+    collection_uuids,
     find_items,
     get_url,
-    libraries_eresources_uuid,
     mklist,
-    syllabus_collection_uuid,
     to_edtf,
     visual_mime_type_sort,
 )
@@ -494,7 +492,7 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
 
         # Art Collection notes are private so we skip further processing
         # ! This comes AFTER other processing but BEFORE noteWrapper below
-        if self.vault_collection == art_collection_uuid:
+        if self.vault_collection == collection_uuids["art_collection"]:
             return desc
 
         # we have _many_ MODS note types & none map cleanly to Invenio description types
@@ -523,7 +521,7 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
     def internal_notes(self) -> list[str]:
         # retain private art collection notes as internal_notes
         notes: list[str] = []
-        if self.vault_collection == art_collection_uuid:
+        if self.vault_collection == collection_uuids["art_collection"]:
             for note in self.etree.findall("./mods/noteWrapper/note"):
                 if note.text:
                     note_type: str | None = note.get("type", "").capitalize()
@@ -682,8 +680,14 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
         # mods/typeOfResourceWrapper/typeOfResource
 
         # Syllabus Collection only contains syllabi
-        if self.vault_collection == syllabus_collection_uuid:
+        if self.vault_collection == collection_uuids["syllabus_collection"]:
             return {"id": "publication-syllabus"}
+
+        # Faculty Research has type in genreWrapper/genre
+        if self.vault_collection == collection_uuids["faculty_research"]:
+            for genre in self.etree.findall("./mods/genreWrapper/genre"):
+                if genre.text in resource_type_map:
+                    return {"id": resource_type_map[genre.text]}
 
         # Take the first typeOfResource value we find
         for rtype in self.etree.findall("./mods/typeOfResourceWrapper/typeOfResource"):
@@ -747,7 +751,7 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
         return (
             self.etree.findtext("./mods/physicalDescription/formBroad")
             == "artists' books (books)"
-            and self.vault_collection == libraries_eresources_uuid
+            and self.vault_collection == collection_uuids["libraries_eresources"]
         )
 
     def get(self) -> dict[str, Any]:
