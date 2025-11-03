@@ -175,7 +175,7 @@ class Record:
     @cached_property
     def course(self) -> dict[str, Any] | None:
         course_info: Element | None = self.etree.find("./local/courseInfo")
-        if course_info and any(s for s in course_info.itertext() if s):
+        if course_info is not None and any(s for s in course_info.itertext() if s):
             # we can construct section_calc_id if we know both section & term
             section: str = course_info.findtext("./section") or ""
             term: str = course_info.findtext("./semester") or ""

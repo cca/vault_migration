@@ -5,7 +5,7 @@ description = "tools, data, & ideas for EQUELLA -> Invenio migration"
 authors = [{name = "Eric Phetteplace", email = "ephetteplace@cca.edu"}]
 license = "ECL-2.0"
 readme = "README.md"
-requires-python = ">=3.10,<3.12"
+requires-python = ">=3.12,<3.13"
 dependencies = [
     "click==8.3.0",
     "edtf==5.0.0",
