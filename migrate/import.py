@@ -172,19 +172,28 @@ def add_to_communities(published_record: dict[str, Any], communities: set[str]) 
             # above only opened a request, now we accept the requests in each community
             community_requests = add_to_comm_resp.json()
             for community_request in community_requests["processed"]:
-                comm_req_accept_resp: requests.Response = requests.post(
-                    community_request["request"]["links"]["actions"]["accept"],
-                    # opportunity to provide comment on acceptance
-                    # https://inveniordm.docs.cern.ch/reference/rest_api_requests/#comment-payload
-                    json={},
-                    headers=headers,
-                    verify=verify,
-                )
-                verbose_print(
-                    f"HTTP {comm_req_accept_resp.status_code} {comm_req_accept_resp.url}"
-                )
-                if errors:
-                    comm_req_accept_resp.raise_for_status()
+                if (
+                    community_request["request"]["is_open"]
+                    and not community_request["request"]["is_closed"]
+                    and community_request["request"]["links"]["actions"].get("accept")
+                ):
+                    comm_req_accept_resp: requests.Response = requests.post(
+                        community_request["request"]["links"]["actions"]["accept"],
+                        # opportunity to provide comment on acceptance
+                        # https://inveniordm.docs.cern.ch/reference/rest_api_requests/#comment-payload
+                        json={},
+                        headers=headers,
+                        verify=verify,
+                    )
+                    verbose_print(
+                        f"HTTP {comm_req_accept_resp.status_code} {comm_req_accept_resp.url}"
+                    )
+                    if errors:
+                        comm_req_accept_resp.raise_for_status()
+                else:
+                    verbose_print(
+                        f"No need to accept community request for {published_record['links']['self_html']} to community {community_request['community_id']}. The request is either closed or was automatically accepted."
+                    )
 
             click.echo(
                 f"Added {published_record['links']['self_html']} to communities: {comms_to_add}"

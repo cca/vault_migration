@@ -1,5 +1,6 @@
 # see https://github.com/inveniosoftware/docs-invenio-rdm-restapi-example
 # and https://inveniordm.docs.cern.ch/reference/rest_api_index/
+import json
 import os
 import sys
 from typing import Any, Literal
@@ -107,19 +108,26 @@ def post(r: Record) -> dict[str, Any]:
 
             community_requests = add_to_comm_resp.json()
             for community_request in community_requests["processed"]:
-                comm_req_accept_resp: Response = http(
-                    "post",
-                    community_request["request"]["links"]["actions"]["accept"],
-                    # opportunity to provide comment on acceptance
-                    # https://inveniordm.docs.cern.ch/reference/rest_api_requests/#comment-payload
-                    json={},
-                )
-                if comm_req_accept_resp.status_code > 202:
-                    print(
-                        f"Error accepting community request for {published_record['links']['self_html']} to community {community_request['request']['community']['links']['self_html']}"
+                print(json.dumps(community_request, indent=2))
+                # Some members can publish without a request, but some communities require it
+                if (
+                    community_request["request"]["is_open"]
+                    and not community_request["request"]["is_closed"]
+                    and community_request["request"]["links"]["actions"].get("accept")
+                ):
+                    comm_req_accept_resp: Response = http(
+                        "post",
+                        community_request["request"]["links"]["actions"]["accept"],
+                        # opportunity to provide comment on acceptance
+                        # https://inveniordm.docs.cern.ch/reference/rest_api_requests/#comment-payload
+                        json={},
                     )
-                    print(comm_req_accept_resp.text)
-
+                    if comm_req_accept_resp.status_code > 202:
+                        print(
+                            f"Error accepting community request for {published_record['links']['self_html']} to community {community_request['request']['community']['links']['self_html']}"
+                        )
+                        print(comm_req_accept_resp.text)
+                # There are scenarios where we may want to print a warning if no request/accept action
     return published_record
 
 
