@@ -3,8 +3,8 @@
 # simple dict maps from MODS metadata to InvenioRDM  #
 ######################################################
 
-# EQUELLA Collection UUID : Invenio Community shortname
-# & /mods/relatedItem[@type='host']/titleInfo/title : shortname
+# EQUELLA Collection UUID -> Invenio Community shortname
+# & /mods/relatedItem[@type='host']/titleInfo/title -> shortname
 # See Record.communities method for details.
 communities_map: dict[str, str] = {
     # Animation Program
@@ -52,7 +52,7 @@ resource_type_map: dict[str, str] = {
     "moving image": "video",
     "sound recording": "video",
     "sound recording-nonmusical": "video",
-    "still image": "image-photo",  # ! prefer simply "image" but cannot until we recreate our resourcetypes
+    "still image": "image",
     "text": "publication",
 }
 # Similar map to Invenio resource types, used in Art Collection & CSP

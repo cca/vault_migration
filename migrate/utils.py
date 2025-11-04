@@ -11,6 +11,7 @@ collection_uuids: dict[str, str] = {
     "art_collection": "b8852fc5-4423-4bc7-958f-7ea643a0b438",
     "faculty_research": "e96ccf65-0098-44bb-bec0-6e1cd5466046",
     "libraries_eresources": "db4e60c6-e001-9ef3-5ce5-479f384026a3",
+    "oa": "c34be1f4-c3ea-47d9-b336-e39ad6e926f4",
     "syllabus_collection": "9ec74523-e018-4e01-ab4e-be4dd06cdd68",
 }
 

@@ -90,14 +90,21 @@ class Record:
     @cached_property
     def access(self) -> dict[str, Literal["public", "restricted"]]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#access
-        # ! does defaulting to restricted make sense? should we use different
-        # ! defaults for different collections?
+        # we default to restricted but set certain collections public
         access: dict[str, Literal["public", "restricted"]] = {
             "files": "restricted",
             "record": "restricted",
         }
         view_level: str | None = self.etree.findtext("./local/viewLevel")
-        if view_level and view_level.strip().lower() == "public":
+        if (
+            view_level
+            and view_level.strip().lower() == "public"
+            or self.vault_collection
+            in [
+                collection_uuids["faculty_research"],
+                collection_uuids["oa"],
+            ]
+        ):
             access["files"] = "public"
             access["record"] = "public"
         return access
