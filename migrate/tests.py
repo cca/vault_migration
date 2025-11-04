@@ -1110,7 +1110,7 @@ def test_publisher(input, expect):
             x("<mods/>"),
             [],
         ),
-        (
+        (  # all VAULT items get new version of links
             {
                 "uuid": "ec839536-06f9-4fd2-8a80-42ee8a5cf891",
                 "version": 1,
@@ -1151,6 +1151,18 @@ def test_publisher(input, expect):
                     "identifier": "http://a.com",
                     "relation_type": {"id": "hasversion"},
                     "scheme": "url",
+                }
+            ],
+        ),
+        (  # mods/relatedItem[type=host] with an ISSN
+            x(
+                '<mods><relatedItem type="host"><identifier type="issn">1234-5678</identifier></relatedItem></mods>'
+            ),
+            [
+                {
+                    "identifier": "1234-5678",
+                    "relation_type": {"id": "ispublishedin"},
+                    "scheme": "issn",
                 }
             ],
         ),

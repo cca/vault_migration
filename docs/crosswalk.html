@@ -41,6 +41,8 @@
     OIPUB["originInfo/publisher"] --> PUBLISHER["Publisher (0-1)"]
     DBR["relatedItem/title = Design Book Review"] --> |different depending on date| PUBLISHER
     HOSTCOLLECTION["relatedItem[@type=host]/title"] -->|Libraries Subcollections e.g. Mudflats| COMM["Communities (1-n)"]
+    RELATEDURL["relateditem/location"] -->|verify URL, use relateditem@type for relation_type| REL["Related Identifiers/Works (0-n)"]
+    RELATEDSTANDARDNUM["relatedItem[@type=host]/identifier[@type=ISSN|ISBN]"] -->|relation_type=<code>ispublishedin</code>|REL
     EXTENT["physicalDescription/extent"] --> SIZES["Sizes (0-n)"]
     %% We don't have structured location information & it does not display in Invenio, skip
     %% LOCATIONS["Locations. We only have place names, no IDs or coordinates. (0-n)"]

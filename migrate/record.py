@@ -613,18 +613,7 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
         # Uses RDM_RECORDS_IDENTIFIERS_SCHEMES schemes e.g.
         # ARK, arXiv, Bibcode, DOI, EAN13, EISSN, Handle, IGSN, ISBN, ISSN, ISTC, LISSN, LSID, PubMed ID, PURL, UPC, URL, URN, W3ID
         # Relation types: https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/relation_types.yaml
-        # related_identifiers aren't indexed in the search engine, searches like
-        # _exists_:metadata.related_identifiers returns items but metadata.related_identifiers:($URL) does not
         ri: list[dict[str, Any]] = []
-        if self.vault_url:
-            # add a URL identifier for the old VAULT item
-            ri.append(
-                {
-                    "identifier": self.vault_url,
-                    "relation_type": {"id": "isnewversionof"},
-                    "scheme": "url",
-                }
-            )
 
         # URL or YouTube attachments, examples:
         # 1) url https://vault.cca.edu/items/6bf89d87-abea-4367-b008-9304122364b0/1/
@@ -641,15 +630,19 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                     }
                 )
 
-        # Artists Books have mods/relateditem[type=isReferencedBy] for Koha link
-        # Ex. https://vault.cca.edu/items/4d9d685c-9149-45e9-b7a3-e2f9e5ad0bd6/1/
+        # Artists Books have mods/relateditem (lowercase) @type=isReferencedBy for Koha link
+        # Ex. https://vault.cca.edu/items/4d9d685c-9149-45e9-b7a3-e2f9e5ad0bd6/1/%3CXML%3E
+        # Other Libraries items have mods/relateditem too, examples:
+        # 1) https://vault.cca.edu/items/e507a72b-e318-4c42-b2ae-c7d4fb660a78/1/%3CXML%3E
+        # 2) https://vault.cca.edu/items/2a1bbc39-0619-4f95-8573-dcf4fd9c9e61/2/%3CXML%3E
         for related_item in self.etree.findall("./mods/relateditem"):
             # 3 types in VAULT: isReferencedBy, otherVersion, series
             type_to_relation_map: dict[str, str] = {
+                # TODO remake Invenio with all relation types & use isreferencedby
                 "isReferencedBy": "ispartof",
                 "otherVersion": "hasversion",
             }
-            location = related_item.findtext("./location")
+            location: str | None = related_item.findtext("./location")
             relation_type: str | None = related_item.get("type")
             if location:
                 url = get_url(location)
@@ -664,11 +657,45 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                         }
                     )
 
-        # TODO there are other relations to add, like mods/relatedItem|relateditem
-        # Example: https://vault.cca.edu/items/2a1bbc39-0619-4f95-8573-dcf4fd9c9e61/2/
-        # but if a VAULT item is related to another VAULT item, we need to know both their new
-        # IDs in Invenio to create the relation
-        # Ex. https://vault.cca.edu/items/e507a72b-e318-4c42-b2ae-c7d4fb660a78/1/
+        # DBR & Faculty Research have relatedItem (uppercase) @type=host with ISSN/ISBN
+        # https://vault.cca.edu/items/71b4c22c-4326-4753-8f34-439578cc285c/1/%3CXML%3E
+        # https://vault.cca.edu/items/439a3ea3-7a3c-4f4f-9a4e-fddd83ca2f5f/5/%3CXML%3E
+        for related_item in self.etree.findall("./mods/relatedItem"):
+            relation_type: str | None = related_item.get("type")
+            if relation_type == "host":
+                for identifier in related_item.findall("./identifier"):
+                    id_type: str | None = identifier.get("type")
+                    id_text: str | None = identifier.text
+                    if id_type and id_text:
+                        if id_type.lower() == "issn":
+                            ri.append(
+                                {
+                                    "identifier": id_text,
+                                    "relation_type": {"id": "ispublishedin"},
+                                    "scheme": "issn",
+                                }
+                            )
+                        elif id_type.lower() == "isbn":
+                            ri.append(
+                                {
+                                    "identifier": id_text,
+                                    "relation_type": {"id": "ispublishedin"},
+                                    "scheme": "isbn",
+                                }
+                            )
+
+        # Put VAULT record last as it's unlikely to be useful post-migration
+        # To search for a VAULT item's Invenio record, we have to escape many characters like:
+        # metadata.related_identifiers.identifier:https\:\/\/vault\.cca\.edu\/items\/...
+        if self.vault_url:
+            # add a URL identifier for the old VAULT item
+            ri.append(
+                {
+                    "identifier": self.vault_url,
+                    "relation_type": {"id": "isnewversionof"},
+                    "scheme": "url",
+                }
+            )
         return ri
 
     @cached_property
