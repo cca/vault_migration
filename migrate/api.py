@@ -1,6 +1,5 @@
 # see https://github.com/inveniosoftware/docs-invenio-rdm-restapi-example
 # and https://inveniordm.docs.cern.ch/reference/rest_api_index/
-import json
 import os
 import sys
 from typing import Any, Literal
@@ -108,7 +107,6 @@ def post(r: Record) -> dict[str, Any]:
 
             community_requests = add_to_comm_resp.json()
             for community_request in community_requests["processed"]:
-                print(json.dumps(community_request, indent=2))
                 # Some members can publish without a request, but some communities require it
                 if (
                     community_request["request"]["is_open"]
