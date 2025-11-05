@@ -1131,7 +1131,7 @@ def test_publisher(input, expect):
             [
                 {
                     "identifier": "https://example.com",
-                    "relation_type": {"id": "ispartof"},
+                    "relation_type": {"id": "isreferencedby"},
                     "scheme": "url",
                 }
             ],
