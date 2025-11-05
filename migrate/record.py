@@ -645,8 +645,7 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
         for related_item in self.etree.findall("./mods/relateditem"):
             # 3 types in VAULT: isReferencedBy, otherVersion, series
             type_to_relation_map: dict[str, str] = {
-                # TODO remake Invenio with all relation types & use isreferencedby
-                "isReferencedBy": "ispartof",
+                "isReferencedBy": "isreferencedby",
                 "otherVersion": "hasversion",
             }
             location: str | None = related_item.findtext("./location")

@@ -99,7 +99,6 @@ def main(args):
         # add static accounts (e.g. library-test-student-1)
         accounts: list[dict[str, Any]] = yaml.load(f, Loader=yaml.FullLoader)
         users.extend(accounts)
-        # TODO local admin account?
 
     with open("vocab/names.yaml", "w") as f:
         yaml.dump(names, f, allow_unicode=True)

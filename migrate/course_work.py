@@ -1,14 +1,17 @@
 # Create an example record with a cca:course custom field
 # Script substantially based on api.py
-from datetime import date
 import os
+from datetime import date
 from typing import Any
-import urllib3
 
 import requests
+import urllib3
+from dotenv import load_dotenv
 
+load_dotenv()
 # shut up urllib3 SSL verification warning
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+domain: str = f"https://{os.environ['HOST']}"
 token: str | None = os.environ.get("INVENIO_TOKEN") or os.environ.get("TOKEN")
 verify: bool = bool(os.environ.get("HTTPS_VERIFY", False))
 if not token:
@@ -81,7 +84,7 @@ def post() -> dict[str, Any]:
     }
     # create metadata-only draft
     draft_response: requests.Response = requests.post(
-        "https://127.0.0.1:5000/api/records",  # TODO config for domain, port
+        f"{domain}/api/records",
         headers=headers,
         json=metadata,
         verify=verify,
@@ -94,7 +97,7 @@ def post() -> dict[str, Any]:
     print(draft_record["links"]["self"])
     # publish
     publish_response: requests.Response = requests.post(
-        f"https://127.0.0.1:5000/api/records/{draft_record['id']}/draft/actions/publish",
+        f"{domain}/api/records/{draft_record['id']}/draft/actions/publish",
         headers=headers,
         verify=verify,
     )
