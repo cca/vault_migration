@@ -208,7 +208,7 @@ class Record:
     def communities(self) -> set[str]:
         """List of community shortnames for the record to be included in. A record can be in multiple
         communities, but there is no need to add it to a parent community if it is in a child (e.g.
-        Libraries AND Mudflats, if we choose hierarchical communities).
+        Libraries AND Mudflats).
 
         Communities exists outside record metadata and aren't in Record.get(). It is up to a migrate
         script to use this set to add a record to its communities (e.g., by using the REST API)."""
@@ -690,11 +690,10 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                                 }
                             )
 
-        # Put VAULT record last as it's unlikely to be useful post-migration
+        # Add a URL identifier for the old VAULT item
         # To search for a VAULT item's Invenio record, we have to escape many characters like:
         # metadata.related_identifiers.identifier:https\:\/\/vault\.cca\.edu\/items\/...
         if self.vault_url:
-            # add a URL identifier for the old VAULT item
             ri.append(
                 {
                     "identifier": self.vault_url,

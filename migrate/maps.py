@@ -13,8 +13,9 @@ communities_map: dict[str, str] = {
     "b8852fc5-4423-4bc7-958f-7ea643a0b438": "art-collection",
     # Faculty Research
     "e96ccf65-0098-44bb-bec0-6e1cd5466046": "faculty-research",
-    # Libraries
+    # Libraries, non-artists book eResources map here, too
     "6b755832-4070-73d2-77b3-3febcc1f5fad": "libraries",
+    "db4e60c6-e001-9ef3-5ce5-479f384026a3": "libraries",
     # Open Access Journal Articles i.e. DBR
     "c34be1f4-c3ea-47d9-b336-e39ad6e926f4": "design-book-review",
     # Libraries Subcollections from relatedItem@host/title
