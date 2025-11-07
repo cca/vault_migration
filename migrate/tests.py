@@ -777,6 +777,116 @@ def test_internal_notes(input, expect):
     assert r.get()["internal_notes"] == expect
 
 
+# Journal
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        # No related item
+        (x("<mods></mods>"), None),
+        # Related item but not type="host"
+        (
+            x(
+                '<mods><genreWrapper><genre>journal article</genre></genreWrapper><relatedItem type="series"><title>Some Series</title></relatedItem></mods>'
+            ),
+            None,
+        ),
+        # No genre to indicate article
+        (
+            x(
+                '<mods><relatedItem type="host"><title>Journal of Design</title></relatedItem></mods>'
+            ),
+            None,
+        ),
+        # Article with journal title using genreWrapper/genre
+        (
+            x(
+                '<mods><genreWrapper><genre>journal article</genre></genreWrapper><relatedItem type="host"><title>Journal of Design</title></relatedItem></mods>'
+            ),
+            {"title": "Journal of Design"},
+        ),
+        # Article with title using mods/genre
+        (
+            x(
+                '<mods><genre>article</genre><relatedItem type="host"><title>Art Quarterly</title></relatedItem></mods>'
+            ),
+            {"title": "Art Quarterly"},
+        ),
+        # Article with titleInfo/title (DBR style) using mods/genre
+        (
+            x(
+                '<mods><genre>article</genre><relatedItem type="host"><titleInfo><title>Design Book Review</title></titleInfo></relatedItem></mods>'
+            ),
+            {"title": "Design Book Review"},
+        ),
+        # Article with title and ISSN using genreWrapper/genre
+        (
+            x(
+                '<mods><genreWrapper><genre>article</genre></genreWrapper><relatedItem type="host"><title>Art Journal</title><identifier type="issn">0004-3249</identifier></relatedItem></mods>'
+            ),
+            {"title": "Art Journal", "issn": "0004-3249"},
+        ),
+        # Article with issue and no volume
+        (
+            x(
+                '<mods><genreWrapper><genre>journal article</genre></genreWrapper><relatedItem type="host"><title>Design Quarterly</title><part><detail type="number"><number>150</number></detail></part></relatedItem></mods>'
+            ),
+            {"title": "Design Quarterly", "issue": "150"},
+        ),
+        # Article with volume and issue
+        (
+            x(
+                '<mods><genreWrapper><genre>journal article</genre></genreWrapper><relatedItem type="host"><title>Design Studies</title><part><detail type="volume"><number>25</number></detail><detail type="number"><number>3</number></detail></part></relatedItem></mods>'
+            ),
+            {"title": "Design Studies", "volume": "25", "issue": "3"},
+        ),
+        # Article with start page and no end page
+        (
+            x(
+                '<mods><genreWrapper><genre>article</genre></genreWrapper><relatedItem type="host"><title>Visual Arts Research</title><part><extent unit="page"><start>42</start></extent></part></relatedItem></mods>'
+            ),
+            {"title": "Visual Arts Research", "pages": "42"},
+        ),
+        # Article with end page and no start page
+        (
+            x(
+                '<mods><genreWrapper><genre>journal article</genre></genreWrapper><relatedItem type="host"><title>Contemporary Art</title><part><extent unit="page"><end>58</end></extent></part></relatedItem></mods>'
+            ),
+            {"title": "Contemporary Art", "pages": "58"},
+        ),
+        # Article with full page range
+        (
+            x(
+                '<mods><genreWrapper><genre>article</genre></genreWrapper><relatedItem type="host"><title>Art Education</title><part><extent unit="page"><start>23</start><end>35</end></extent></part></relatedItem></mods>'
+            ),
+            {"title": "Art Education", "pages": "23-35"},
+        ),
+        # Article with all fields
+        (
+            x(
+                '<mods><genreWrapper><genre>journal article</genre></genreWrapper><relatedItem type="host"><title>Journal of Visual Culture</title><identifier type="issn">1470-4129</identifier><part><detail type="volume"><number>19</number></detail><detail type="number"><number>2</number></detail><extent unit="page"><start>123</start><end>145</end></extent></part></relatedItem></mods>'
+            ),
+            {
+                "title": "Journal of Visual Culture",
+                "issn": "1470-4129",
+                "volume": "19",
+                "issue": "2",
+                "pages": "123-145",
+            },
+        ),
+        # Empty relatedItem with type="host" but valid genre
+        (
+            x(
+                '<mods><genre>article</genre><relatedItem type="host"></relatedItem></mods>'
+            ),
+            None,
+        ),
+    ],
+)
+def test_journal(input, expect):
+    r = Record(input)
+    assert r.get()["custom_fields"].get("journal") == expect
+
+
 # Title
 @pytest.mark.parametrize(
     "input, expect",
@@ -1044,6 +1154,13 @@ def test_dates(input, expect):
                 "<mods><physicalDescription><formBroad>donkey</formBroad><formBroad>painting</formBroad></physicalDescription></mods>"
             ),
             "image-painting-drawing",
+        ),
+        (  # DBR article
+            {
+                "collection": {"uuid": collection_uuids["oa"]},
+                "metadata": "<xml><mods><genre>journal article</genre><typeOfResourceWrapper><typeOfResource>text</typeOfResource></typeOfResourceWrapper></mods></xml>",
+            },
+            "publication-article",
         ),
     ],
 )

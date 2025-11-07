@@ -70,7 +70,31 @@
     courseworktype[courseWorkWrapper/courseWorkType] --> |TODO if we have no mods/typeOfResource, map 1st| TYPE["Resource Type (1)"]
 </pre>
 
-<p>Our <code>/local</code> metadata is often mapped to custom fields.</p>
+<p>Basically, <code>/local/courseInfo</code> maps to a <code>cca:course</code> custom field while <code>/local/archivesWrapper</code> maps to a <code>cca:archive</code> custom field.</p>
+
+<pre class="mermaid">
+    ---
+    title: Journal Articles
+    ---
+    flowchart TB
+    GENRE["mods/genre or mods/genreWrapper/genre"] --> |Check for article, journal article, or journal| GENRECHECK{"Is article?"}
+    GENRECHECK -->|Yes| RELATEDHOST["mods/relatedItem[@type=host]"]
+    GENRECHECK -->|No| NOJOURNAL["No journal custom field"]
+    RELATEDHOST --> JOURNALTITLE["title or titleInfo/title"]
+    RELATEDHOST --> ISSN["identifier[@type=issn]"]
+    RELATEDHOST --> VOLISSUE["part/detail[@type=volume|number]"]
+    RELATEDHOST --> PAGES["part/extent[@unit=page]"]
+    JOURNALTITLE --> JFIELD["journal.title"]
+    ISSN --> JFIELD2["journal.issn"]
+    VOLISSUE --> JFIELD3["journal.volume & journal.issue"]
+    PAGES --> JFIELD4["journal.pages"]
+    JFIELD --> CUSTOMFIELD["journal custom field"]
+    JFIELD2 --> CUSTOMFIELD
+    JFIELD3 --> CUSTOMFIELD
+    JFIELD4 --> CUSTOMFIELD
+</pre>
+
+<p>We use the journal custom field to capture journal information related to articles in the Faculty Research and Open Access Journal Articles (DBR) collections.</p>
 
 <pre class="mermaid">
     ---

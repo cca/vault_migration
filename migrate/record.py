@@ -378,13 +378,17 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
 
     @cached_property
     def custom_fields(self) -> dict[str, Any]:
-        """Custom metadata fields. Custom fields are only popluated if we have something for them."""
+        """Custom metadata fields. Custom fields are only popluated if we have something for them.
+        If we add a custom field which is not configured in Invenio, it is dropped from the record
+        without an error."""
         cf: dict[str, Any] = {}
         # 1) ArchivesSeries custom field, { series, subseries } dict
         if self.archives_series:
             cf["cca:archives_series"] = self.archives_series
         if self.course:
             cf["cca:course"] = self.course
+        if self.journal:
+            cf["journal"] = self.journal
         return cf
 
     @cached_property
@@ -537,6 +541,57 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                     )
                     notes.append(note_text)
         return notes
+
+    @cached_property
+    def journal(self) -> dict[str, str] | None:
+        # mods/relatedItem[@type="host"] -> journal custom field
+        # https://inveniordm.docs.cern.ch/reference/metadata/#journal-0-1
+        # Confirm item is article before assuming the meaning of relatedItem elements
+        article_types: set[str] = {"article", "journal article"}
+        genres: set[str | None] = {
+            self.etree.findtext("./mods/genre"),
+            self.etree.findtext("./mods/genreWrapper/genre"),
+        }
+        if genres.intersection(article_types):
+            for related_item in self.etree.findall("./mods/relatedItem"):
+                if related_item.get("type") == "host":
+                    journal: dict[str, str] = {}
+                    # DBR uses titleInfo/title, Faculty Research uses title
+                    title: str | None = related_item.findtext(
+                        "./title"
+                    ) or related_item.findtext("./titleInfo/title")
+                    if title:
+                        journal["title"] = title.strip()
+                    issn: str | None = None
+                    for identifier in related_item.findall("./identifier"):
+                        id_type: str | None = identifier.get("type")
+                        id_text: str | None = identifier.text
+                        if id_type and id_text and id_type.lower() == "issn":
+                            issn = id_text.strip()
+                            journal["issn"] = issn
+                    for detail in related_item.findall("./part/detail"):
+                        type = detail.get("type")
+                        if type == "volume":
+                            volume: str | None = detail.findtext("./number")
+                            if volume:
+                                journal["volume"] = volume.strip()
+                        elif type == "number":
+                            issue: str | None = detail.findtext("./number")
+                            if issue:
+                                journal["issue"] = issue.strip()
+                    pages: Element[str] | None = related_item.find(
+                        "./part/extent[@unit='page']"
+                    )
+                    if pages is not None:
+                        start_pg: str | None = pages.findtext("./start")
+                        end_pg: str | None = pages.findtext("./end")
+                        if start_pg and end_pg:
+                            journal["pages"] = f"{start_pg.strip()}-{end_pg.strip()}"
+                        elif start_pg or end_pg:
+                            journal["pages"] = (start_pg or end_pg).strip()  # type: ignore
+                    if journal:
+                        return journal
+        return None
 
     @cached_property
     def publication_date(self) -> str | None:
@@ -721,6 +776,12 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                 if genre.text in resource_type_map:
                     return {"id": resource_type_map[genre.text]}
 
+        # OA Journal Articles has type in genre
+        if self.vault_collection == collection_uuids["oa"]:
+            for genre in self.etree.findall("./mods/genre"):
+                if genre.text in resource_type_map:
+                    return {"id": resource_type_map[genre.text]}
+
         # Take the first typeOfResource value we find
         for rtype in self.etree.findall("./mods/typeOfResourceWrapper/typeOfResource"):
             if rtype.text in resource_type_map:
@@ -789,7 +850,6 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
     def get(self) -> dict[str, Any]:
         return {
             "access": self.access,
-            # ! blocked until we know what custom fields we'll have
             "custom_fields": self.custom_fields,
             "files": {
                 "enabled": bool(len(self.attachments)),
