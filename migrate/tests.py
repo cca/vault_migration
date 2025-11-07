@@ -884,7 +884,7 @@ def test_internal_notes(input, expect):
 )
 def test_journal(input, expect):
     r = Record(input)
-    assert r.get()["custom_fields"].get("journal") == expect
+    assert r.get()["custom_fields"].get("journal:journal") == expect
 
 
 # Title
@@ -1280,6 +1280,26 @@ def test_publisher(input, expect):
                     "identifier": "1234-5678",
                     "relation_type": {"id": "ispublishedin"},
                     "scheme": "issn",
+                }
+            ],
+        ),
+        (  # mods/identifier[type=doi]
+            x('<mods><identifier type="doi">10.1234/5678</identifier></mods>'),
+            [
+                {
+                    "identifier": "10.1234/5678",
+                    "relation_type": {"id": "isidenticalto"},
+                    "scheme": "doi",
+                }
+            ],
+        ),
+        (  # mods/location/url
+            x("<mods><location><url>https://example.com</url></location></mods>"),
+            [
+                {
+                    "identifier": "https://example.com",
+                    "relation_type": {"id": "isidenticalto"},
+                    "scheme": "url",
                 }
             ],
         ),

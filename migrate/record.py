@@ -388,7 +388,7 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
         if self.course:
             cf["cca:course"] = self.course
         if self.journal:
-            cf["journal"] = self.journal
+            cf["journal:journal"] = self.journal
         return cf
 
     @cached_property
@@ -693,10 +693,10 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                 )
 
         # Artists Books have mods/relateditem (lowercase) @type=isReferencedBy for Koha link
-        # Ex. https://vault.cca.edu/items/4d9d685c-9149-45e9-b7a3-e2f9e5ad0bd6/1/%3CXML%3E
-        # Other Libraries items have mods/relateditem too, examples:
-        # 1) https://vault.cca.edu/items/e507a72b-e318-4c42-b2ae-c7d4fb660a78/1/%3CXML%3E
-        # 2) https://vault.cca.edu/items/2a1bbc39-0619-4f95-8573-dcf4fd9c9e61/2/%3CXML%3E
+        # https://vault.cca.edu/items/4d9d685c-9149-45e9-b7a3-e2f9e5ad0bd6/1/%3CXML%3E
+        # Other Libraries items have mods/relateditem too
+        # https://vault.cca.edu/items/e507a72b-e318-4c42-b2ae-c7d4fb660a78/1/%3CXML%3E
+        # https://vault.cca.edu/items/2a1bbc39-0619-4f95-8573-dcf4fd9c9e61/2/%3CXML%3E
         for related_item in self.etree.findall("./mods/relateditem"):
             # 3 types in VAULT: isReferencedBy, otherVersion, series
             type_to_relation_map: dict[str, str] = {
@@ -744,6 +744,35 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                                     "scheme": "isbn",
                                 }
                             )
+
+        # Faculty Research has mods/identifier[@type=DOI]
+        # https://vault.cca.edu/items/50a21768-ca40-4faa-bb7d-36938d63cb72/1/%3CXML%3E
+        for identifier in self.etree.findall("./mods/identifier"):
+            id_type: str | None = identifier.get("type")
+            id_text: str | None = identifier.text
+            if id_type and id_text and id_type.lower() == "doi":
+                ri.append(
+                    {
+                        "identifier": id_text.strip(),
+                        "relation_type": {"id": "isidenticalto"},
+                        "scheme": "doi",
+                    }
+                )
+
+        # mods/location/url used in multiple places including Faculty Research
+        # https://vault.cca.edu/items/3bf05a46-a6f5-44df-adf7-d24bf2fbedcf/2/%3CXML%3E
+        for location_url in self.etree.findall("./mods/location/url"):
+            url_text: str | None = location_url.text
+            if url_text:
+                url: str | None = get_url(url_text)
+                if url:
+                    ri.append(
+                        {
+                            "identifier": url,
+                            "relation_type": {"id": "isidenticalto"},
+                            "scheme": "url",
+                        }
+                    )
 
         # Add a URL identifier for the old VAULT item
         # To search for a VAULT item's Invenio record, we have to escape many characters like:
