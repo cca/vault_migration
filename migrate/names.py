@@ -106,7 +106,7 @@ def parse_name(namePart: str):
         # various CCA(C) org names are easily mistaken for personal names
         if re.match(r"\bCCAC?", namePart):
             return n({"name": namePart})
-        parts: list[str] = namePart.split(" ")
+        parts: list[str] = namePart.strip().split(" ")
         num_parts: int = len(parts)
         if num_parts == 1:
             # looks like an organization name

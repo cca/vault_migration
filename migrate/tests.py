@@ -497,6 +497,11 @@ def test_course(input, expect):
                 {"name": "COUM", "type": "organizational"},
             ],
         ),
+        # Space at end of name string should not cause issues
+        (
+            "Eric Phetteplace ",
+            {"family_name": "Phetteplace", "given_name": "Eric", "type": "personal"},
+        ),
     ],
 )
 def test_parse_name(input, expect):
