@@ -8,7 +8,7 @@ Semantics: EQUELLA objects are _items_ with _attachments_. Invenio objects are _
 
 ```sh
 uv install # get dependencies, takes awhile due to spacy's en_core_web_lg model
-uv run pytest -v migrate/tests.py # run tests
+uv run pytest # run tests
 ```
 
 ## Vocabularies
