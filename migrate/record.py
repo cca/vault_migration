@@ -551,9 +551,9 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
     def formats(self) -> list[str]:
         formats: set[str] = set()
         for file in self.attachments:
-            type = mimetypes.guess_type(file["name"], strict=False)[0]
-            if type:
-                formats.add(type)
+            mtype: str | None = mimetypes.guess_type(file["name"], strict=False)[0]
+            if mtype:
+                formats.add(mtype)
         return list(formats)
 
     @cached_property
@@ -598,12 +598,12 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                             issn = id_text.strip()
                             journal["issn"] = issn
                     for detail in related_item.findall("./part/detail"):
-                        type = detail.get("type")
-                        if type == "volume":
+                        detail_type: str | None = detail.get("type")
+                        if detail_type == "volume":
                             volume: str | None = detail.findtext("./number")
                             if volume:
                                 journal["volume"] = volume.strip()
-                        elif type == "number":
+                        elif detail_type == "number":
                             issue: str | None = detail.findtext("./number")
                             if issue:
                                 journal["issue"] = issue.strip()
