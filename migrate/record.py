@@ -30,6 +30,7 @@ from subjects import Subject, find_subjects
 from utils import (
     cca_affiliation,
     collection_uuids,
+    extent_page_range,
     find_items,
     get_url,
     mklist,
@@ -453,9 +454,9 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
         # ? do we want to define our own description types?
         # One option: https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/note_types.html
 
-        desc = []
+        descriptions: list[dict[str, Any]] = []
         if len(self.abstracts) > 1:
-            desc.extend(
+            descriptions.extend(
                 [
                     {
                         "type": {"id": "abstract", "title": {"en": "Abstract"}},
@@ -471,7 +472,7 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
         for series in self.etree.findall("./mods/relateditem[@type='series']"):
             title: str | None = series.findtext("./title")
             if title:
-                desc.append(
+                descriptions.append(
                     {
                         "type": {
                             "id": "series-information",
@@ -483,7 +484,7 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
 
         for name_desc in self.etree.findall("./mods/name/subNameWrapper/description"):
             if name_desc.text:
-                desc.append(
+                descriptions.append(
                     {
                         "type": {"id": "other", "title": {"en": "Other"}},
                         "description": f"Creator note: {name_desc.text.strip()}",
@@ -494,30 +495,57 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
             if note.text:
                 note_type: str = note.get("type", "").capitalize()
                 note_text: str = f"{note_type}: {note.text}" if note_type else note.text
-                desc.append(
+                descriptions.append(
                     {
                         "type": {"id": "other", "title": {"en": "Other"}},
                         "description": note_text.strip(),
                     }
                 )
 
+        # Parent book title for Fac Research book chapter)
+        if (
+            self.vault_collection == collection_uuids["faculty_research"]
+            and self.etree.findtext("./mods/genreWrapper/genre") == "book chapter"
+        ):
+            host_item: Element | None = self.etree.find(
+                "./mods/relatedItem[@type='host']"
+            )
+            if host_item is not None:
+                book_title: str | None = host_item.findtext("./title")
+                if book_title:
+                    desc_text: str = f"Published in <i>{book_title.strip()}</i>"
+                    pages: str | None = extent_page_range(host_item)
+                    if pages:
+                        desc_text += f", pages {pages}"
+                    desc_text += "."
+                    descriptions.append(
+                        {
+                            "type": {
+                                # series or other? Series is closer but misleading
+                                "id": "series-information",
+                                "title": {"en": "Series information"},
+                            },
+                            "description": desc_text,
+                        }
+                    )
+
         # Art Collection notes are private so we skip further processing
         # ! This comes AFTER other processing but BEFORE noteWrapper below
         if self.vault_collection == collection_uuids["art_collection"]:
-            return desc
+            return descriptions
 
         # we have _many_ MODS note types & none map cleanly to Invenio description types
         for note in self.etree.findall("./mods/noteWrapper/note"):
             if note.text:
                 note_type = note.get("type", "").capitalize()
                 note_text: str = f"{note_type}: {note.text}" if note_type else note.text
-                desc.append(
+                descriptions.append(
                     {
                         "type": {"id": "other", "title": {"en": "Other"}},
                         "description": note_text.strip(),
                     }
                 )
-        return desc
+        return descriptions
 
     @cached_property
     def formats(self) -> list[str]:
@@ -579,16 +607,9 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                             issue: str | None = detail.findtext("./number")
                             if issue:
                                 journal["issue"] = issue.strip()
-                    pages: Element[str] | None = related_item.find(
-                        "./part/extent[@unit='page']"
-                    )
-                    if pages is not None:
-                        start_pg: str | None = pages.findtext("./start")
-                        end_pg: str | None = pages.findtext("./end")
-                        if start_pg and end_pg:
-                            journal["pages"] = f"{start_pg.strip()}-{end_pg.strip()}"
-                        elif start_pg or end_pg:
-                            journal["pages"] = (start_pg or end_pg).strip()  # type: ignore
+                    pages: str | None = extent_page_range(related_item)
+                    if pages:
+                        journal["pages"] = pages
                     if journal:
                         return journal
         return None

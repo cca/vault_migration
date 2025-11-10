@@ -8,6 +8,7 @@ from record import Record
 from subjects import Subject, find_subjects
 from utils import (
     collection_uuids,
+    extent_page_range,
     get_url,
     mklist,
     to_edtf,
@@ -130,6 +131,48 @@ def test_to_edtf(input, expect):
 )
 def test_visual_mime_type_sort(input, expect):
     assert sorted(input, key=visual_mime_type_sort) == expect
+
+
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        # relatedItem but no part/extent
+        ("<relatedItem><title>Test</title></relatedItem>", None),
+        # part/extent but wrong unit
+        (
+            '<relatedItem><part><extent unit="volume"><start>1</start><end>3</end></extent></part></relatedItem>',
+            None,
+        ),
+        # part/extent with page unit but no start/end
+        (
+            '<relatedItem><part><extent unit="page"></extent></part></relatedItem>',
+            None,
+        ),
+        # Full page range
+        (
+            '<relatedItem><part><extent unit="page"><start>23</start><end>45</end></extent></part></relatedItem>',
+            "23-45",
+        ),
+        # Start page only
+        (
+            '<relatedItem><part><extent unit="page"><start>17</start></extent></part></relatedItem>',
+            "17",
+        ),
+        # End page only
+        (
+            '<relatedItem><part><extent unit="page"><end>42</end></extent></part></relatedItem>',
+            "42",
+        ),
+        # Pages with whitespace
+        (
+            '<relatedItem><part><extent unit="page"><start> 10 </start><end> 25 </end></extent></part></relatedItem>',
+            "10-25",
+        ),
+    ],
+)
+def test_extent_page_range(input, expect):
+    tree: ElementTree.Element[str] = ElementTree.XML(input)
+    assert extent_page_range(tree) == expect
 
 
 def x(s: str) -> dict[str, str]:

@@ -2,6 +2,7 @@ import json
 import mimetypes
 import re
 from urllib.parse import urlparse
+from xml.etree.ElementTree import Element
 
 from edtf import text_to_edtf
 
@@ -14,6 +15,28 @@ collection_uuids: dict[str, str] = {
     "oa": "c34be1f4-c3ea-47d9-b336-e39ad6e926f4",
     "syllabus_collection": "9ec74523-e018-4e01-ab4e-be4dd06cdd68",
 }
+
+
+def extent_page_range(rel_item_tree: Element | None) -> str | None:
+    """Get page range string like "7-23" from XML /extent/part/page
+
+    Args:
+        rel_item_tree (Element | None): ElementTree starting at /mods/relatedItem
+    Returns:
+        str | None: "7-23" or "13" (for single) pages string or None if not found
+    """
+    if rel_item_tree is None:
+        return None
+    pages: Element[str] | None = rel_item_tree.find("./part/extent[@unit='page']")
+    if pages is not None:
+        start_pg: str | None = pages.findtext("./start")
+        end_pg: str | None = pages.findtext("./end")
+        if start_pg and end_pg:
+            return f"{start_pg.strip()}-{end_pg.strip()}"
+        elif start_pg or end_pg:
+            # one of these is not None so this is safe
+            return (start_pg or end_pg).strip()  # type: ignore
+        return None
 
 
 # support three types of files: single item json, search results json with

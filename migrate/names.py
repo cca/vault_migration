@@ -47,7 +47,7 @@ def n(person_or_org: dict[str, str]) -> dict[str, str]:
         and type(person_or_org.get("family_name")) is not str
     ):
         ntype: str = "organizational"
-    # it's ok if person names are falsey, empty, but they must be strings
+    # ! family_name must exist, not sure about given_name
     elif (
         type(person_or_org.get("given_name")) is str
         and type(person_or_org.get("family_name")) is str
