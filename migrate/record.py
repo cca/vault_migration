@@ -620,31 +620,36 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
         # level 0 EDTF date (YYYY,  YYYY-MM, YYYY-MM-DD or slash separated range between 2 of these)
         # https://inveniordm.docs.cern.ch/reference/metadata/#publication-date-1
         # mods/originfo/dateCreatedWrapper/dateCreated (note lowercase origininfo) or item.createdDate
+        # Note: code takes _the last_ date found below, change if that's a problem
+        edtf_date: str | None = None
         for origin_info in self.etree.findall("./mods/origininfo"):
             # use dateCreatedWrapper/dateCreated if we have it
             for dc_wrapper in origin_info.findall("./dateCreatedWrapper"):
                 for date_created in dc_wrapper.findall("./dateCreated"):
                     # work around empty str or dict
                     if date_created.text:
-                        edtf_date: str | None = to_edtf(date_created.text)
-                        if edtf_date:
-                            return edtf_date
+                        edtf_date = to_edtf(date_created.text)
 
                 # maybe we have a range with pointStart and pointEnd elements?
                 # edtf.text_to_edtf(f"{start}/{end}") returns None for valid dates so do in two steps
                 start: str | None = to_edtf(dc_wrapper.findtext("./pointStart"))
                 end: str | None = to_edtf(dc_wrapper.findtext("./pointEnd"))
                 if start and end:
-                    return f"{start}/{end}"
+                    edtf_date = f"{start}/{end}"
 
             # maybe we have mods/origininfo/semesterCreated, which is always a string (no children)
             semesterCreated: str | None = origin_info.findtext("./semesterCreated")
             if semesterCreated:
-                edtf_date: str | None = to_edtf(semesterCreated)
-                if edtf_date:
-                    return edtf_date
+                edtf_date = to_edtf(semesterCreated)
+
+        # mods/relatedItem/part/date for Faculty Research items
+        for rel_item_date in self.etree.findall("./mods/relatedItem/part/date"):
+            if rel_item_date.text:
+                edtf_date = to_edtf(rel_item_date.text)
 
         # fall back on when the VAULT record was made (item.createdDate)
+        if edtf_date:
+            return edtf_date
         return to_edtf(self.createdDate)
 
     @cached_property

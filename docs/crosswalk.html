@@ -29,6 +29,7 @@
     NAMEDETAILS --> CREATORS["Creators (1-n)"]
     DATECREATED[origininfo/dateCreatedWrapper/dateCreated] -->DATELOGIC["Use MODS if present else item.dateCreated"]
     SEMCREATED[origininfo/semesterCreated] -->DATELOGIC
+    RELITEMDATE[relatedItem/part/date] -->DATELOGIC
     DATELOGIC -->PUBDATE["Publication Date (1)"]
     DATECAPT["origininfo/dateCaptured"] -->|"date.type=collected"| DATES["Dates (0-n)"]
     DATEOTHER["origininfo/dateOtherWrapper/dateOther"] -->|"date.type=other"| DATES

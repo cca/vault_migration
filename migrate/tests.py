@@ -1078,6 +1078,25 @@ def test_addl_titles(input, expect):
             },
             "2019-04-25",
         ),
+        (  # relatedItem/part/date for Faculty Research
+            x(
+                "<mods><relatedItem><part><date>Jun 2023</date></part></relatedItem></mods>"
+            ),
+            "2023-06",
+        ),
+        (  # relatedItem/part/date with season
+            x(
+                "<mods><relatedItem><part><date>Spring 2022</date></part></relatedItem></mods>"
+            ),
+            "2022-02",
+        ),
+        (  # malformed relatedItem/part/date falls back to item.createdDate
+            {
+                "createdDate": "2021-03-10T10:00:00.000-08:00",
+                "metadata": "<xml><mods><relatedItem><part><date>invalid date</date></part></relatedItem></mods></xml>",
+            },
+            "2021-03-10",
+        ),
     ],
 )
 def test_publication_date(input, expect):
