@@ -11,9 +11,15 @@ nlp = spacy.load("en_core_web_lg")
 # Force Spacy to recognize particular problematic entities
 ruler = nlp.add_pipe("entity_ruler", config={"overwrite_ents": True}, after="ner")
 patterns: list[dict[str, str]] = [
+    {"label": "ORG", "pattern": "California College of Arts and Crafts"},
     {"label": "ORG", "pattern": "California School of Arts and Crafts"},
+    {"label": "ORG", "pattern": "Kaplan, McLaughlin, Diaz"},
     {"label": "ORG", "pattern": "Monir (or possibly Yonir)"},
     {"label": "ORG", "pattern": "Skidmore, Owings, & Merrill Architects"},
+    {
+        "label": "ORG",
+        "pattern": "Smithsonian Traveling Exhibition Service",
+    },
     {"label": "ORG", "pattern": "The Office of Tim Andersen"},
     {"label": "PERSON", "pattern": "KR (Ken Rignal?)"},
 ]
