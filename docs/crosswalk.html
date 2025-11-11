@@ -48,6 +48,7 @@
     DOI["identifier[@type=doi]"] -->|relation_type=<code>isidenticalto</code>| REL
     LOCATIONURL["location/url"] -->|verify URL, relation_type=<code>isidenticalto</code>| REL
     EXTENT["physicalDescription/extent"] --> SIZES["Sizes (0-n)"]
+    LOCATION["location"] --> |physicalLocation->place, copyInformation->description| LOCATIONS["Locations (0-n)"]
     %% We don't have structured location information & it does not display in Invenio, skip
     %% LOCATIONS["Locations. We only have place names, no IDs or coordinates. (0-n)"]
     ID[identifier] -->|@type=DOI in Faculty Research collection| ALTID["Alternate Identifiers (0-n)"]

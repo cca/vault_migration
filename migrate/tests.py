@@ -1559,3 +1559,74 @@ def test_subjects(input, expect):
     for subject in m(r)["subjects"]:
         assert subject in expect
     assert len(m(r)["subjects"]) == len(expect)
+
+
+# Locations
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        # No location elements
+        (x("<mods></mods>"), []),
+        # Location with only place (physicalLocation)
+        (
+            x(
+                "<mods><location><physicalLocation>Simpson Library</physicalLocation></location></mods>"
+            ),
+            [{"place": "Simpson Library"}],
+        ),
+        # Location with only copyInformation elements
+        (
+            x(
+                "<mods><location><copyInformation><sublocation>Meyer Library</sublocation><shelfLocator>QA76.9.D3 A35 2012</shelfLocator></copyInformation></location></mods>"
+            ),
+            [{"description": "Building: Meyer Library. Shelf: QA76.9.D3 A35 2012."}],
+        ),
+        # Location with both place and description elements
+        (
+            x(
+                "<mods><location><physicalLocation>CCA Libraries</physicalLocation><copyInformation><sublocation>Simpson Library</sublocation><sublocationDetail>Reference Collection</sublocationDetail></copyInformation></location></mods>"
+            ),
+            [
+                {
+                    "place": "CCA Libraries",
+                    "description": "Building: Simpson Library. Area: Reference Collection.",
+                }
+            ],
+        ),
+        # Location with all description elements
+        (
+            x(
+                "<mods><location><copyInformation><sublocation>Meyer Library</sublocation><sublocationDetail>Special Collections</sublocationDetail><shelfLocator>MS 123.4.5</shelfLocator></copyInformation></location></mods>"
+            ),
+            [
+                {
+                    "description": "Building: Meyer Library. Area: Special Collections. Shelf: MS 123.4.5."
+                }
+            ],
+        ),
+        # Multiple location elements
+        (
+            x(
+                "<mods><location><physicalLocation>Simpson Library</physicalLocation></location><location><copyInformation><sublocation>Meyer Library</sublocation></copyInformation></location></mods>"
+            ),
+            [
+                {"place": "Simpson Library"},
+                {"description": "Building: Meyer Library."},
+            ],
+        ),
+        # Empty location element
+        (x("<mods><location></location></mods>"), []),
+        # URL location
+        (x("<mods><location><url>https://cca.edu</url></location></mods>"), []),
+        # Location with whitespace in elements
+        (
+            x(
+                "<mods><location><physicalLocation>  CCA Libraries  </physicalLocation><copyInformation><sublocation>  Simpson  </sublocation></copyInformation></location></mods>"
+            ),
+            [{"place": "CCA Libraries", "description": "Building: Simpson."}],
+        ),
+    ],
+)
+def test_locations(input, expect):
+    r = Record(input)
+    assert m(r)["locations"]["features"] == expect

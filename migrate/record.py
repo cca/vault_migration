@@ -615,6 +615,33 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
         return None
 
     @cached_property
+    def locations(self) -> list[dict[str, str]]:
+        # https://inveniordm.docs.cern.ch/reference/metadata/#locations-0-n
+        locations: list[dict[str, str]] = []
+        for loc_el in self.etree.findall("./mods/location"):
+            location: dict[str, str] = {}
+            physical_loc: str | None = loc_el.findtext("./physicalLocation")
+            if physical_loc:
+                location["place"] = physical_loc.strip()
+            sublocation: str | None = loc_el.findtext("./copyInformation/sublocation")
+            sublocation_detail: str | None = loc_el.findtext(
+                "./copyInformation/sublocationDetail"
+            )
+            shelf: str | None = loc_el.findtext("./copyInformation/shelfLocator")
+            copy_info_strings: list[str] = []
+            if sublocation:
+                copy_info_strings.append(f"Building: {sublocation.strip()}")
+            if sublocation_detail:
+                copy_info_strings.append(f"Area: {sublocation_detail.strip()}")
+            if shelf:
+                copy_info_strings.append(f"Shelf: {shelf.strip()}")
+            if len(copy_info_strings):
+                location["description"] = ". ".join(copy_info_strings) + "."
+            if location:
+                locations.append(location)
+        return locations
+
+    @cached_property
     def publication_date(self) -> str | None:
         # date created, add other/additional dates to self.dates[]
         # level 0 EDTF date (YYYY,  YYYY-MM, YYYY-MM-DD or slash separated range between 2 of these)
@@ -929,7 +956,7 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                 "formats": self.formats,
                 # https://inveniordm.docs.cern.ch/reference/metadata/#locations-0-n
                 # not available on deposit form and does not display anywhere, skip for now
-                "locations": {"features": []},
+                "locations": {"features": self.locations},
                 "publication_date": self.publication_date,
                 "publisher": self.publisher,
                 "related_identifiers": self.related_identifiers,
