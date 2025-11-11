@@ -8,12 +8,13 @@ import re
 import spacy
 
 nlp = spacy.load("en_core_web_lg")
-# Force Spacy to recognize CSAC as only one ORG entity & not 2 separate ones
+# Force Spacy to recognize particular problematic entities
 ruler = nlp.add_pipe("entity_ruler", config={"overwrite_ents": True}, after="ner")
 patterns: list[dict[str, str]] = [
     {"label": "ORG", "pattern": "California School of Arts and Crafts"},
-    # Other patterns we need to force recognition
     {"label": "ORG", "pattern": "Monir (or possibly Yonir)"},
+    {"label": "ORG", "pattern": "Skidmore, Owings, & Merrill Architects"},
+    {"label": "ORG", "pattern": "The Office of Tim Andersen"},
     {"label": "PERSON", "pattern": "KR (Ken Rignal?)"},
 ]
 ruler.add_patterns(patterns)  # type: ignore
