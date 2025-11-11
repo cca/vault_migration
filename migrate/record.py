@@ -160,7 +160,7 @@ class Record:
         if series and series not in archives_series_vocab:
             # Inconsistency but it doesn't rise to the point of an Exception
             print(
-                f'Warning: series "{series}" is not in CCA/C Archives Series',
+                f'Warning: "{series}" is not in CCA/C Archives Series',
                 file=sys.stderr,
             )
         subseries: str | None = self.etree.findtext("./local/archivesWrapper/subseries")
@@ -170,11 +170,11 @@ class Record:
             and subseries not in archives_series_vocab.get(series, [])
         ):
             print(
-                f'Warning: subseries "{subseries}" not found under series "{series}"',
+                f'Warning: Archives subseries "{subseries}" not found under series "{series}"',
                 file=sys.stderr,
             )
         if series and not subseries:
-            raise Exception(f"Archives Series without Subseries: {self.vault_url}")
+            print(f"Archives series w/o subseries: {self.vault_url}", file=sys.stderr)
         # ? Should we only return values if they're in the vocab?
         if series and subseries:
             return {"series": series, "subseries": subseries}
