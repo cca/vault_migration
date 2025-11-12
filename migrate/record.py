@@ -464,6 +464,19 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                 ]
             )
 
+        # TOC
+        for toc in self.etree.findall("./mods/tableOfContents"):
+            if toc.text:
+                descriptions.append(
+                    {
+                        "type": {
+                            "id": "table-of-contents",
+                            "title": {"en": "Table of contents"},
+                        },
+                        "description": toc.text.strip(),
+                    }
+                )
+
         # TODO add artists books description
 
         # mods/relateditem[type=series] -> description[type=series-information]

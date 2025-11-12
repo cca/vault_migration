@@ -759,6 +759,18 @@ def test_desc(input, expect):
                 }
             ],
         ),
+        (  # TOC
+            x("<mods><tableOfContents>foo</tableOfContents></mods>"),
+            [
+                {
+                    "type": {
+                        "id": "table-of-contents",
+                        "title": {"en": "Table of contents"},
+                    },
+                    "description": "foo",
+                }
+            ],
+        ),
     ],
 )
 def test_addl_desc(input, expect):
