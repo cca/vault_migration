@@ -227,6 +227,17 @@ def test_access(input, expect):
                 }
             },
         ),
+        (  # Retain series even if we have no subseries
+            x(
+                "<local><archivesWrapper><series>VI. Photographs</series></archivesWrapper></local>"
+            ),
+            {
+                "cca:archives_series": {
+                    "series": "VI. Photographs",
+                    "subseries": "",
+                }
+            },
+        ),
     ],
 )
 def test_archives_series(input, expect):

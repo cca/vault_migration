@@ -155,19 +155,15 @@ class Record:
 
     @cached_property
     def archives_series(self) -> dict[str, str] | None:
-        series: str | None = self.etree.findtext("./local/archivesWrapper/series")
+        series: str = self.etree.findtext("./local/archivesWrapper/series") or ""
         if series and series not in archives_series_vocab:
             # Inconsistency but it doesn't rise to the point of an Exception
             print(
                 f'Warning: "{series}" is not in CCA/C Archives Series',
                 file=sys.stderr,
             )
-        subseries: str | None = self.etree.findtext("./local/archivesWrapper/subseries")
-        if (
-            subseries
-            and series
-            and subseries not in archives_series_vocab.get(series, [])
-        ):
+        subseries: str = self.etree.findtext("./local/archivesWrapper/subseries") or ""
+        if subseries and subseries not in archives_series_vocab.get(series, []):
             print(
                 f'Warning: Archives subseries "{subseries}" not found under series "{series}"',
                 file=sys.stderr,
@@ -175,7 +171,7 @@ class Record:
         if series and not subseries:
             print(f"Archives series w/o subseries: {self.vault_url}", file=sys.stderr)
         # ? Should we only return values if they're in the vocab?
-        if series and subseries:
+        if series:
             return {"series": series, "subseries": subseries}
         return {}
 
