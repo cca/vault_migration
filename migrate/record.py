@@ -875,17 +875,17 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                 if genre.text in resource_type_map:
                     return {"id": resource_type_map[genre.text]}
 
+        # physicalDescription/formBroad e.g. in Art Collection
+        for formBroad in self.etree.findall("./mods/physicalDescription/formBroad"):
+            if formBroad.text in form_broad_map:
+                return {"id": form_broad_map[formBroad.text.lower()]}
+
         # Take the first typeOfResource value we find
         for rtype in self.etree.findall("./mods/typeOfResourceWrapper/typeOfResource"):
             if rtype.text in resource_type_map:
                 return {"id": resource_type_map[rtype.text]}
 
         # TODO local/courseWorkType
-
-        # physicalDescription/formBroad e.g. in Art Collection
-        for formBroad in self.etree.findall("./mods/physicalDescription/formBroad"):
-            if formBroad.text in form_broad_map:
-                return {"id": form_broad_map[formBroad.text]}
 
         # default to publication
         return {"id": "publication"}

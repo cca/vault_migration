@@ -59,12 +59,18 @@ resource_type_map: dict[str, str] = {
 }
 # Similar map to Invenio resource types, used in Art Collection & CSP
 form_broad_map: dict[str, str] = {
+    "article": "publication-article",
+    "artists' books (book)": "publication-book",
     "conference": "event",
     "exhibition": "event",
     "legal documents": "publication",
+    "maps": "image-map",
     "mixed media": "other",
+    "motion pictures": "video",
+    "multimedia": "other",
     "painting": "image-painting-drawing",
     "photo": "image-photo",
+    "photograph": "image-photo",
     "print or drawing": "image-painting-drawing",
     "sculpture/3D": "image-photo",  # most of these are photos of sculptures
 }
