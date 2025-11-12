@@ -502,6 +502,11 @@ def test_course(input, expect):
             "Eric Phetteplace ",
             {"family_name": "Phetteplace", "given_name": "Eric", "type": "personal"},
         ),
+        # Triple comma org hit an edge case
+        (
+            "Kaplan, McLaughlin, Diaz",
+            {"name": "Kaplan, McLaughlin, Diaz", "type": "organizational"},
+        ),
     ],
 )
 def test_parse_name(input, expect):
@@ -683,11 +688,11 @@ def test_desc(input, expect):
             ],
         ),
         (  # empty note does not get added
-            x("<mods><noteWrapper><note></note></noteWrapper></mods>"),
+            x("<mods><noteWrapper><note/></noteWrapper></mods>"),
             [],
         ),
         (  # empty second abstract does not get added
-            x("<mods><abstract>foo</abstract><abstract></abstract></mods>"),
+            x("<mods><abstract>foo</abstract><abstract/></mods>"),
             [],
         ),
         (  # relateditem[type=series] -> series-information description

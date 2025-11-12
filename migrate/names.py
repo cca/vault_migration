@@ -43,7 +43,7 @@ def entity_to_name(entity: dict[str, str], namePart: str):
         return parse_name(entity["entity"])
     else:
         # default to organization
-        return {"name": namePart}
+        return n({"name": namePart})
 
 
 def n(person_or_org: dict[str, str]) -> dict[str, str]:
