@@ -54,15 +54,12 @@ def n(person_or_org: dict[str, str]) -> dict[str, str]:
         and type(person_or_org.get("family_name")) is not str
     ):
         ntype: str = "organizational"
-    # ! family_name must exist, not sure about given_name
-    elif (
-        type(person_or_org.get("given_name")) is str
-        and type(person_or_org.get("family_name")) is str
-    ):
+    # family_name must exist
+    elif person_or_org.get("family_name", ""):
         ntype = "personal"
     else:
         raise Exception(
-            f"Invalid name dict, has neither name nor family_name & given_name: {person_or_org}"
+            f"Invalid name dict with no name nor family_name: {person_or_org}"
         )
     return {**person_or_org, "type": ntype}
 
