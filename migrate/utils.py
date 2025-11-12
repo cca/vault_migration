@@ -69,18 +69,6 @@ def get_url(url: str) -> str | None:
     return None
 
 
-def mklist(x) -> list:
-    # ensure value is a list
-    if type(x) is list:
-        return x
-    elif type(x) is str or type(x) is dict:
-        return [x]
-    elif x is None:
-        return []
-    else:
-        raise TypeError(f"mklist: invalid type: {type(x)}")
-
-
 # EDTF seasons conversion
 # https://www.loc.gov/standards/datetime/
 # "The values 21, 22, 23, 24 may be used used to signify ' Spring', 'Summer', 'Autumn', 'Winter', respectively, in place of a month value (01 through 12) for a year-and-month format string."

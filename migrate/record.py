@@ -33,7 +33,6 @@ from utils import (
     extent_page_range,
     find_items,
     get_url,
-    mklist,
     to_edtf,
     visual_mime_type_sort,
 )
@@ -286,24 +285,23 @@ class Record:
                         {frozenset(d.items()): d for d in affiliations}.values()
                     )
 
-                    names = parse_name(name_part_text)
-                    if type(names) is dict:
+                    names: list[dict[str, str]] = parse_name(name_part_text)
+                    if creator.get("role") or len(creator.get("affiliations", [])):
+                        # if we have role/affiliation, we can only handle single names
+                        if len(names) > 1:
+                            raise Exception(
+                                f"Unexpected mods/name structure: parse_name(namePart) returned multiple names but we also have role/affiliation.\nName text: {' '.join([t for t in name_element.itertext()])}\n{self.vault_url}"
+                            )
                         creators.append(
                             {
                                 "affiliations": creator["affiliations"],
-                                "person_or_org": names,
+                                "person_or_org": names[0],
                                 "role": creator["role"],
                             }
                         )
-                    # implies type(names) == list, similar to below, if parse_name returns a
-                    # list of names but we have role/affiliation then something is wrong
-                    elif creator.get("role") or len(creator.get("affiliation", [])):
-                        raise Exception(
-                            f"Unexpected mods/name structure: parse_name(namePart) returned a list but we also have role/affiliation.\nName text: {' '.join([t for t in name_element.itertext()])}\n{self.vault_url}"
-                        )
-                    elif type(names) is list:
-                        for name in names:
-                            creators.append({"person_or_org": name})
+                    else:
+                        # no role/affiliation, add all names
+                        creators.extend([{"person_or_org": name} for name in names])
             elif len(name_parts) > 1:
                 # if we have a list of nameParts then the other mods/name fields & attributes must not
                 # be present, but check this assumption
@@ -319,26 +317,28 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                     )
                 for name_part in name_parts:
                     if name_part.text:
-                        # TODO fix parse_name to always return a list then delete mklist
-                        for name in mklist(parse_name(name_part.text)):
-                            creators.append({"person_or_org": name})
+                        # parse_name now always returns a list
+                        creators.extend(
+                            [
+                                {"person_or_org": name}
+                                for name in parse_name(name_part.text)
+                            ]
+                        )
 
         # Syllabi: we have no mods/name but list faculty in courseInfo/faculty
         if len(creators) == 0:
             faculty: str | None = self.etree.findtext("./local/courseInfo/faculty")
             if faculty:
-                names = parse_name(faculty)
-                if type(names) is dict:
-                    creators.append(
+                creators.extend(
+                    [
                         {
                             "affiliations": cca_affiliation,
-                            "person_or_org": names,
+                            "person_or_org": name,
                             "role": {"id": "creator"},
                         }
-                    )
-                elif type(names) is list:
-                    for name in names:
-                        creators.append({"person_or_org": name})
+                        for name in parse_name(faculty)
+                    ]
+                )
 
         # artists books have creator in title like "title / author"
         if self._is_artists_book:
@@ -353,12 +353,14 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
             self.title = title_parts[0].strip()
             author: str = title_parts[1].strip()
             if author:
-                names = parse_name(author)
-                if type(names) is dict:
-                    creators.append({"person_or_org": names})
-                elif type(names) is list:
-                    for name in names:
-                        creators.append({"person_or_org": name})
+                creators.extend(
+                    [
+                        {
+                            "person_or_org": name,
+                        }
+                        for name in parse_name(author)
+                    ]
+                )
 
         # If we _still_ have no creators, log a warning & use [Unknown]
         if len(creators) == 0:

@@ -10,7 +10,6 @@ from utils import (
     collection_uuids,
     extent_page_range,
     get_url,
-    mklist,
     to_edtf,
     visual_mime_type_sort,
 )
@@ -29,19 +28,6 @@ from utils import (
 )
 def test_get_url(input, expect):
     assert get_url(input) == expect
-
-
-@pytest.mark.parametrize(
-    "input, expect",
-    [
-        ("string", ["string"]),
-        ([1, 2], [1, 2]),
-        ({"a": 1, "b": 2}, [{"a": 1, "b": 2}]),
-        (None, []),
-    ],
-)
-def test_mklist(input, expect):
-    assert mklist(input) == expect
 
 
 @pytest.mark.parametrize(  # ensure edtf library works with our date formats
@@ -418,27 +404,27 @@ def test_course(input, expect):
     [
         (
             "Phetteplace, Eric",
-            {"family_name": "Phetteplace", "given_name": "Eric", "type": "personal"},
+            [{"family_name": "Phetteplace", "given_name": "Eric", "type": "personal"}],
         ),
         (
             "Stephen Beal",
-            {"family_name": "Beal", "given_name": "Stephen", "type": "personal"},
+            [{"family_name": "Beal", "given_name": "Stephen", "type": "personal"}],
         ),
         (
             "Phetteplace, Eric, 1984-",
-            {"family_name": "Phetteplace", "given_name": "Eric", "type": "personal"},
+            [{"family_name": "Phetteplace", "given_name": "Eric", "type": "personal"}],
         ),
         (
             "Joyce, James, 1882-1941",
-            {"family_name": "Joyce", "given_name": "James", "type": "personal"},
+            [{"family_name": "Joyce", "given_name": "James", "type": "personal"}],
         ),
         (
             "CCA Alumni Association",
-            {"name": "CCA Alumni Association", "type": "organizational"},
+            [{"name": "CCA Alumni Association", "type": "organizational"}],
         ),
         (
             "CCA Student Council",
-            {"name": "CCA Student Council", "type": "organizational"},
+            [{"name": "CCA Student Council", "type": "organizational"}],
         ),
         (
             "Teri Dowling, John Smith, Annemarie Haar",
@@ -469,10 +455,12 @@ def test_course(input, expect):
         ),
         (
             "California College of Arts and Crafts (Oakland, Calif.)",
-            {
-                "name": "California College of Arts and Crafts (Oakland, Calif.)",
-                "type": "organizational",
-            },
+            [
+                {
+                    "name": "California College of Arts and Crafts (Oakland, Calif.)",
+                    "type": "organizational",
+                }
+            ],
         ),
         (
             "CCAC Libraries; CCA Sputnik",
@@ -484,10 +472,12 @@ def test_course(input, expect):
         # Don't let Spacy split CSAC into two ORG entities
         (
             "California School of Arts and Crafts",
-            {
-                "name": "California School of Arts and Crafts",
-                "type": "organizational",
-            },
+            [
+                {
+                    "name": "California School of Arts and Crafts",
+                    "type": "organizational",
+                }
+            ],
         ),
         # Support multiple ORG entities in one string
         (
@@ -500,12 +490,12 @@ def test_course(input, expect):
         # Space at end of name string should not cause issues
         (
             "Eric Phetteplace ",
-            {"family_name": "Phetteplace", "given_name": "Eric", "type": "personal"},
+            [{"family_name": "Phetteplace", "given_name": "Eric", "type": "personal"}],
         ),
         # Triple comma org hit an edge case
         (
             "Kaplan, McLaughlin, Diaz",
-            {"name": "Kaplan, McLaughlin, Diaz", "type": "organizational"},
+            [{"name": "Kaplan, McLaughlin, Diaz", "type": "organizational"}],
         ),
     ],
 )
@@ -604,7 +594,7 @@ def test_creator_affiliations(input, expect):
     # flatten to a list of all creators' affiliations and sort
     # order of affiliations can vary depending how tests are run (lol?)
     assert [
-        sorted(c["affiliations"], key=lambda d: d.get("name", "0"))
+        sorted(c.get("affiliations", []), key=lambda d: d.get("name", "0"))
         for c in m(r)["creators"]
     ] == expect
 
@@ -640,7 +630,7 @@ def test_creator_affiliations(input, expect):
 def test_creator_roles(input, expect):
     r = Record(input)
     # flatten to a list of all creators' roles
-    assert [c["role"] for c in m(r)["creators"]] == expect
+    assert [c.get("role", {}) for c in m(r)["creators"]] == expect
 
 
 # Description

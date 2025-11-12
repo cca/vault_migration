@@ -38,9 +38,11 @@ def ner(text: str) -> list[dict[str, str]]:
     ]
 
 
-def entity_to_name(entity: dict[str, str], namePart: str):
+def entity_to_name(entity: dict[str, str], namePart: str) -> dict[str, str]:
     if entity["type"] == "PERSON":
-        return parse_name(entity["entity"])
+        # parse_name returns a list, but for single entities we expect one result
+        parsed = parse_name(entity["entity"])
+        return parsed[0] if parsed else n({"name": namePart})
     else:
         # default to organization
         return n({"name": namePart})
@@ -64,17 +66,22 @@ def n(person_or_org: dict[str, str]) -> dict[str, str]:
     return {**person_or_org, "type": ntype}
 
 
-def parse_name(namePart: str):
-    """Parse wild variety of name strings into {given_name, family_name}
-    or, if it looks like an organization name, return only {name}."""
-    # ! The wild variation of this fns return values is really a problem
+def parse_name(namePart: str) -> list[dict[str, str]]:
+    """Parse wild variety of name strings into a list of name dicts.
+    Each dict contains either {given_name, family_name, type} for persons
+    or {name, type} for organizations."""
 
+    results: list[dict[str, str]] = []
     # semi-colon separated list of names
     if "; " in namePart:
-        return [parse_name(p) for p in namePart.split("; ")]
+        for p in namePart.split("; "):
+            results.extend(parse_name(p))
+        return results
     # there are two plus-separated lists of names in the data
     if " + " in namePart:
-        return [parse_name(p) for p in namePart.split(" + ")]
+        for p in namePart.split(" + "):
+            results.extend(parse_name(p))
+        return results
 
     # usually Surname, Given Name but sometimes other things
     if "," in namePart:
@@ -83,24 +90,27 @@ def parse_name(namePart: str):
         if len(parts) == 2:
             # other than a few org names with place parentheticals, these are names
             if "Calif.)" in namePart:
-                return n({"name": namePart})
-            return n({"given_name": parts[1], "family_name": parts[0]})
+                return [n({"name": namePart})]
+            return [n({"given_name": parts[1], "family_name": parts[0]})]
         # name with a DOB/death date string after a second comma
         if len(parts) == 3 and re.match(r"[0-9]{4}\-([0-9]{4})?", parts[2].strip()):
-            return n({"given_name": parts[1], "family_name": parts[0]})
+            return [n({"given_name": parts[1], "family_name": parts[0]})]
         # two or more commas, maybe we have a comma-separated list of names?
         if len(parts) > 2:
             entities: list[dict[str, str]] = ner(namePart)
             if len(entities) == 0:
                 # weird, no entities, assume organization
-                return n({"name": namePart})
+                return [n({"name": namePart})]
             if len(entities) == 1:
                 # just one entity, easy, assume the NER type inference is correct
-                return entity_to_name(entities[0], namePart)
+                return [entity_to_name(entities[0], namePart)]
             if len(entities) > 1:
                 # if we have more than one PERSON entity, assume we have a list of names
                 if len([e for e in entities if e["type"] == "PERSON"]) > 1:
-                    return [parse_name(p) for p in parts]
+                    result = []
+                    for p in parts:
+                        result.extend(parse_name(p))
+                    return result
                 # multiple entities of mixed types
                 raise Exception(
                     f'Found multiple entities of different types in namePart "{namePart}": {entities}'
@@ -109,33 +119,37 @@ def parse_name(namePart: str):
     else:
         # various CCA(C) org names are easily mistaken for personal names
         if re.match(r"\bCCAC?", namePart):
-            return n({"name": namePart})
+            return [n({"name": namePart})]
         parts: list[str] = namePart.strip().split(" ")
         num_parts: int = len(parts)
         if num_parts == 1:
             # looks like an organization name
-            return n({"name": namePart})
+            return [n({"name": namePart})]
         if num_parts == 2:
-            return n({"given_name": parts[0], "family_name": parts[1]})
+            return [n({"given_name": parts[0], "family_name": parts[1]})]
         if num_parts > 2:
             # could be "First Second Third" name or an organization
             entities: list[dict[str, str]] = ner(namePart)
             num_entities: int = len(entities)
             if num_entities == 0:
                 # no entities, most likely an organization
-                return n({"name": namePart})
+                return [n({"name": namePart})]
             elif num_entities == 1 and entities[0]["type"] == "PERSON":
-                return n({"given_name": " ".join(parts[0:2]), "family_name": parts[2]})
+                return [
+                    n({"given_name": " ".join(parts[0:2]), "family_name": parts[2]})
+                ]
             elif num_entities == 1 and entities[0]["type"] == "ORG":
-                return n({"name": namePart})
+                return [n({"name": namePart})]
             # more than one entity but they're all PERSON, assume one name
             elif len([e for e in entities if e["type"] == "PERSON"]) == num_entities:
-                return n(
-                    {
-                        "given_name": " ".join(parts[0 : (num_parts - 1)]),
-                        "family_name": parts[num_parts - 1],
-                    }
-                )
+                return [
+                    n(
+                        {
+                            "given_name": " ".join(parts[0 : (num_parts - 1)]),
+                            "family_name": parts[num_parts - 1],
+                        }
+                    )
+                ]
             # more than one entity but they're all ORG, assume multiple orgs
             elif len([e for e in entities if e["type"] == "ORG"]) == num_entities:
                 return [n({"name": e["entity"]}) for e in entities]
@@ -144,3 +158,6 @@ def parse_name(namePart: str):
                 raise Exception(
                     f'Found multiple entities of different types in namePart "{namePart}": {entities}'
                 )
+
+    # fallback case - should not reach here, but just in case
+    return [n({"name": namePart})]
