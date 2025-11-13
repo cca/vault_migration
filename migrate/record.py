@@ -493,6 +493,9 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                     }
                 )
 
+        # TODO Full affiliation info in subNameWrapper, examples:
+        # https://vault.cca.edu/items/8b259c1f-ce9e-4f50-9b56-748e65e4d469/1/
+        # https://vault.cca.edu/items/a5db552e-01f4-4ad5-89ff-43cf5bf66528/1/
         for name_desc in self.etree.findall("./mods/name/subNameWrapper/description"):
             if name_desc.text:
                 descriptions.append(
