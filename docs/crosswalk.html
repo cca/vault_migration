@@ -15,44 +15,48 @@
     flowchart LR
     TITLE[titleInfo/title] --> |titles <i>after the 1st</i>, type based on <code>@type</code>| ADTITLE["Additional Titles (0-n)"]
     TITLE --> |Split author out of artists books| CREATORS
-    SUBTITLE[titleInfo/subtitle] -->|type=subtitle| ADTITLE
-    PARTNUMBER[titleInfo/partNumber] -->|type=other, Number prefix| ADTITLE
+    SUBTITLE[titleInfo/subtitle] -->|type=<code>subtitle</code>| ADTITLE
+    PARTNUMBER[titleInfo/partNumber] -->|type=<code>other</code>, Number prefix| ADTITLE
     ABSTRACTS[abstract] ---> |1st one| DESCRIPTION["Description (0-1)"]
-    ABSTRACTS --> |abstracts <i>after the 1st</i>, type=abstract| ADDLDESC["Additional Descriptions (0-n)"]
-    NAMENOTE[name/subNameWrapper/description] -->|type=other, Author note prefix| ADDLDESC
-    NOTES[noteWrapper/note] -->|See <a href="https://www.loc.gov/standards/mods/mods-notes.html">MODS note types</a>, type=other| ADDLDESC
-    PHYSDESCNOTE[physicalDescriptionNote] -->|type=other| ADDLDESC
-    BOOKCHAPTER["Faculty Research book chapter"] -->|"'Published in <i>title</i>', type=series"| ADDLDESC
-    TOC[tableOfContents] -->|type=table-of-contents| ADDLDESC
-    RTYPE[typeOfResourceWrapper/typeOfResource] -->|Use the 1st one| TYPE["Resource Type (1)"]
-    FORMBROAD[physicalDescription/formBroad] -->|In the absence of <code>typeOfResource</code>| TYPE
+    ABSTRACTS --> |abstracts <i>after the 1st</i>, type=<code>abstract</code>| ADDLDESC["Additional Descriptions (0-n)"]
+    NAMENOTE[name/subNameWrapper/description] --> CREATORNOTE["Combined into creator note"]
+    NAMEAFFILIATION[name/subNameWrapper/affiliation] -->|Non-CCA affiliation| CREATORNOTE
+    NAMECONSTITUENT[name/subNameWrapper/constituent] -->|CCA type, e.g. faculty/student| CREATORNOTE
+    NAMEDEPARTMENT[name/subNameWrapper/department] -->|CCA departments| CREATORNOTE
+    NAMEGRAD[name/subNameWrapper/gradDates] -->|Graduation/employment dates| CREATORNOTE
+    CREATORNOTE -->|type=<code>other</code>, Creator note prefix| ADDLDESC
+    NOTES[noteWrapper/note] -->|See <a href="https://www.loc.gov/standards/mods/mods-notes.html">MODS note types</a>, type=<code>other</code>| ADDLDESC
+    PHYSDESCNOTE[physicalDescriptionNote] -->|type=<code>other</code>| ADDLDESC
+    BOOKCHAPTER["Faculty Research book chapter"] -->|"'Published in <i>title</i>', type=<code>series</code>"| ADDLDESC
+    TOC[tableOfContents] -->|type=<code>table-of-contents</code>| ADDLDESC
+    RTYPE[typeOfResourceWrapper/typeOfResource] -->|Use the 1st in the absence of <code>formBroad</code>| TYPE["Resource Type (1)"]
+    FORMBROAD[physicalDescription/formBroad] -->|Prefer specificity over <code>typeOfResource</code>| TYPE
     NAMES[name/namePart] -->|Parse, org or person, 1 or many| NAMEDETAILS["roleTerm -> role, subName affiliations"]
     NAMEDETAILS --> CREATORS["Creators (1-n)"]
     DATECREATED[origininfo/dateCreatedWrapper/dateCreated] -->DATELOGIC["Use MODS if present else item.dateCreated"]
     SEMCREATED[origininfo/semesterCreated] -->DATELOGIC
     RELITEMDATE[relatedItem/part/date] -->DATELOGIC
     DATELOGIC -->PUBDATE["Publication Date (1)"]
-    DATECAPT["origininfo/dateCaptured"] -->|"date.type=collected"| DATES["Dates (0-n)"]
-    DATEOTHER["origininfo/dateOtherWrapper/dateOther"] -->|"date.type=other"| DATES
+    DATECAPT["origininfo/dateCaptured"] -->|date.type=<code>collected</code>| DATES["Dates (0-n)"]
+    DATEOTHER["origininfo/dateOtherWrapper/dateOther"] -->|date.type=<code>other</code>| DATES
     %% CONTRIBUTORS["Contributors (0-n)"]
     ACCESSCONDITION["accessCondition"] -->|default to copyright if no license| RIGHTS["Rights (Licenses) (0-n)"]
     FORMBROAD --> SUBJECTSMAP["Subjects Map Lookup"]
     FORMSPECIFIC["physicalDescription/formSpecific"] --> SUBJECTSMAP
     GENRE["genreWrapper/genre"] --> SUBJECTSMAP
     MODSUBJECT["subject"] --> SUBJECTSMAP
+    PHOTOCLASSIFICATION["photoClassification (CCA/C Subject)"] -->SUBJECTSMAP
     SUBJECTSMAP -->|id if found, keyword otherwise| SUBJECTS["Subjects (0-n)"]
     OIPUB["originInfo/publisher"] --> PUBLISHER["Publisher (0-1)"]
     DBR["relatedItem/title = Design Book Review"] --> |different depending on date| PUBLISHER
-    HOSTCOLLECTION["relatedItem[@type=host]/title"] -->|Libraries Subcollections e.g. Mudflats| COMM["Communities (1-n)"]
+    HOSTCOLLECTION["relatedItem[@type=<code>host</code>]/title"] -->|Libraries Subcollections e.g. Mudflats| COMM["Communities (1-n)"]
     RELATEDURL["relateditem/location"] -->|verify URL, use relateditem@type for relation_type| REL["Related Identifiers/Works (0-n)"]
-    RELATEDSTANDARDNUM["relatedItem[@type=host]/identifier[@type=ISSN|ISBN]"] -->|relation_type=<code>ispublishedin</code>|REL
-    DOI["identifier[@type=doi]"] -->|relation_type=<code>isidenticalto</code>| REL
-    LOCATIONURL["location/url"] -->|verify URL, relation_type=<code>isidenticalto</code>| REL
+    RELATEDSTANDARDNUM["relatedItem[@type=<code>host</code>]/identifier[@type=<code>ISSN</code>|ISBN]"] -->|relation_type=<code></code><code>ispublishedin</code>|REL
+    DOI["identifier@type=<code>doi</code>"] -->|relation_type=<code></code><code>isidenticalto</code>| REL
+    LOCATIONURL["location/url"] -->|verify URL, relation_type=<code></code><code>isidenticalto</code>| REL
     EXTENT["physicalDescription/extent"] --> SIZES["Sizes (0-n)"]
     LOCATION["location"] --> |physicalLocation->place, copyInformation->description| LOCATIONS["Locations (0-n)"]
-    %% We don't have structured location information & it does not display in Invenio, skip
-    %% LOCATIONS["Locations. We only have place names, no IDs or coordinates. (0-n)"]
-    ID[identifier] -->|@type=DOI in Faculty Research collection| ALTID["Alternate Identifiers (0-n)"]
+    ID[identifier] -->|"@type=<code>DOI</code> in Faculty Research collection"| ALTID["Alternate Identifiers (0-n)"]
 </pre>
 
 <p>We are not using the Funders or References fields. Few (no?) VAULT items have funding information and none have the identifiers that Invenio expects. We don't have References lists for any items.</p>
@@ -84,12 +88,12 @@
     ---
     flowchart TB
     GENRE["mods/genre or mods/genreWrapper/genre"] --> |Check for article, journal article, or journal| GENRECHECK{"Is article?"}
-    GENRECHECK -->|Yes| RELATEDHOST["mods/relatedItem[@type=host]"]
+    GENRECHECK -->|Yes| RELATEDHOST["mods/relatedItem[@type=<code>host</code>]"]
     GENRECHECK -->|No| NOJOURNAL["No journal custom field"]
     RELATEDHOST --> JOURNALTITLE["title or titleInfo/title"]
-    RELATEDHOST --> ISSN["identifier[@type=issn]"]
-    RELATEDHOST --> VOLISSUE["part/detail[@type=volume|number]"]
-    RELATEDHOST --> PAGES["part/extent[@unit=page]"]
+    RELATEDHOST --> ISSN["identifier[@type=<code>issn</code>]"]
+    RELATEDHOST --> VOLISSUE["part/detail[@type=<code>volume</code>|<code>number</code>]"]
+    RELATEDHOST --> PAGES["part/extent[@unit=<code>page</code>]"]
     JOURNALTITLE --> JFIELD["journal.title"]
     ISSN --> JFIELD2["journal.issn"]
     VOLISSUE --> JFIELD3["journal.volume & journal.issue"]
@@ -108,39 +112,38 @@
     ---
     flowchart LR
     NAME["item.name"] --> |Use 'Untitled' if absent| TITLE["Title (1)"]
-    VAULTID["item.uuid + item.version"] -->|"'is new version of' VAULT URL"| REL["Related Identifiers/Works (0-n)"]
+    VAULTID["item.uuid + item.version"] -->|"<code>isnewversionof</code> VAULT URL"| REL["Related Identifiers/Works (0-n)"]
     OWNER["item.owner.id"] -->|TODO <a href="https://github.com/cca/cca_invenio/tree/main/site#set-owner">set_owner</a> script| PARENT["parent.owned_by.id"]
     COLLABORATORS["item.collaborators.id"] --> |TODO share item with them?| PARENT
-    COLLECTION["item.collection.uuid"] -->|see also mods/relatedItem@type=host| COMM["Communities (1-n)"]
+    COLLECTION["item.collection.uuid"] -->|see also mods/relatedItem@type=<code>host</code>| COMM["Communities (1-n)"]
     DATECREATED["item.dateCreated"] -->|Use item creation timestamp if no date in MODS| PUBDATE["Publication Date (1)"]
     ATTACHMENTS[item.attachments] -->|guess MIME type from filenames| FORMATS["Formats (0-n)"]
     ATTACHMENTS -->|File, HTML, & Zip attachments| FILES["Files (0-n)"]
     ATTACHMENTS -->|URL, YouTube attachments are related works| REL
     STATUS["item.status"] -->|if <code>item.status = 'live'</code>| PUBLISH["Don't publish draft/archived items"]
-    DISPLAYFIELDS("item.displayFields")
-    DISPLAYOPTIONS("item.displayOptions")
-    DRM("item.drm")
-    MODIFIED("item.modifiedDate")
-    NAVIGATION("item.navigation")
-    RATING("item.rating")
-    THUMBNAIL("item.thumbnail")
 </pre>
 
 <p>There's additional, mostly administrative, metadata in the EQUELLA item JSON outside the XML. We represent file/attachment operations here, too.</p>
 
 <p>While VAULT has version information, we plan only to migrate the most recent, live versions of items, so displaying the version number with no way to access prior iterations can only lead to confusion. The version number will still be accessible in the copies of VAULT metadata we store on migrated items.</p>
 
+<p>We do not use displayFields, displayOptions, DRM, modifiedDate, navigation, rating, or thumbnail in the migration. Most of these are specific to EQUELLA's display features.</p>
+
 <script type="module">
-import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+function todoStyles() {
+    document.querySelectorAll('.edgeLabel').forEach(el => {
+        el.innerHTML = el.innerHTML.replace(/TODO/g, '<strong class="todo">TODO</strong>')
+    })
+}
 mermaid.run({
     // find all "TODO" strings in labels and make them bold
-    postRenderCallback: id => {
-        document.querySelectorAll('.edgeLabel').forEach(el => {
-            el.innerHTML = el.innerHTML.replace(/TODO/g, '<strong class="todo">TODO</strong>')
-        })
-    },
+    postRenderCallback: id => todoStyles(),
     querySelector: '.mermaid'
 })
+setTimeout(() => {
+    todoStyles()
+}, 1000);
 </script>
 
 <style>
