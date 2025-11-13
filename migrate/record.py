@@ -65,7 +65,7 @@ class Record:
         # default to current date in ISO 8601 format
         self.createdDate: str = item.get("createdDate", date.today().isoformat())
         # expose EQUELLA item XML as an element tree
-        self.etree = ElementTree.XML(item["metadata"])
+        self.etree: Element[str] = ElementTree.XML(item["metadata"])
         # url and "custom" youtube attachments
         self.references: list[dict[str, Any]] = [
             a for a in item.get("attachments", []) if a["type"] in ("url", "youtube")
@@ -77,6 +77,8 @@ class Record:
             self.vault_url = (
                 f"https://vault.cca.edu/items/{item['uuid']}/{item['version']}/"
             )
+        # a convenience property for the import script's id map
+        self.viewlevel: str | None = self.etree.findtext("./local/viewLevel")
 
     @cached_property
     def abstracts(self) -> list[str]:

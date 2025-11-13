@@ -10,3 +10,4 @@ vocab/
 .tmp.driveupload/
 vm/
 .venv/
+id-map.json

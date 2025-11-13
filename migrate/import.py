@@ -38,6 +38,38 @@ def get_item(json_path: Path) -> dict:
         return json.load(f)
 
 
+def read_map(map_file: str) -> dict[str, Any]:
+    if os.path.exists(map_file):
+        with open(map_file, "r") as f:
+            return json.load(f)
+    else:
+        verbose_print(f"No mapping file found at {map_file}, creating an empty one")
+        return {}
+
+
+def update_map(
+    map: dict[str, Any], vault: dict[str, Any], record: Record, invenio_id: str
+) -> dict[str, Any]:
+    url = vault["links"]["view"]
+    if url in map:
+        verbose_print(f"Warning: VAULT item {url} already in mapping, overwriting")
+    map[url] = {
+        "id": invenio_id,
+        "title": record.title,
+        "owner": vault.get("owner", {}).get("id"),
+        "collaborators": [c.get("id") for c in vault.get("collaborators", [])],
+        "viewlevel": record.viewlevel,
+        "status": "imported",
+    }
+    return map
+
+
+def write_map(map_file: str, id_map: dict[str, Any]) -> None:
+    with open(map_file, "w") as f:
+        json.dump(id_map, f, indent=2)
+        click.echo(f"Wrote ID mapping to {map_file}")
+
+
 def create_draft(record: dict[str, Any]) -> dict[str, Any]:
     draft_response: requests.Response = requests.post(
         f"{domain}/api/records",
@@ -206,14 +238,23 @@ def add_to_communities(published_record: dict[str, Any], communities: set[str]) 
 @click.help_option("-h", "--help")
 @click.argument("directory", type=click.Path(exists=True), required=True)
 @click.option("--ignore-errors", "-i", help="Ignore errors and continue", is_flag=True)
+@click.option("--no-map", help="Do not update the ID mapping file", is_flag=True)
+@click.option(
+    "--map-file",
+    default="id-map.json",
+    help="Path to ID mapping file (default: id-map.json)",
+)
 @click.option("--verbose", "-v", "is_verbose", help="Print more output", is_flag=True)
-def main(directory: str, is_verbose: bool, ignore_errors: bool):
+def main(
+    directory: str, is_verbose: bool, ignore_errors: bool, no_map: bool, map_file: str
+) -> None:
     global errors, verbose
     errors = not ignore_errors
     verbose = is_verbose
 
-    item = get_item(Path(directory) / "metadata" / "item.json")
-    record = Record(item)
+    item: dict[str, Any] = get_item(Path(directory) / "metadata" / "item.json")
+    id_map: dict[str, Any] = read_map(map_file) if not no_map else {}
+    record: Record = Record(item)
 
     click.echo(f"Importing {record.title} from {directory}")
     draft: dict[str, Any] = create_draft(record.get())
@@ -226,6 +267,11 @@ def main(directory: str, is_verbose: bool, ignore_errors: bool):
     add_to_communities(published_record, record.communities)
 
     click.echo(f"Published: {published_record['links']['self_html']}")
+
+    # ? should we update the map after publication or after communities?
+    if not no_map:
+        id_map = update_map(id_map, item, record, published_record["id"])
+        write_map(map_file, id_map)
 
 
 if __name__ == "__main__":
