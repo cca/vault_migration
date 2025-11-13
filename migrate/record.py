@@ -531,6 +531,18 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                     }
                 )
 
+        for usage_request in self.etree.findall(
+            "./local/usageRequestWrapper/usageRequest"
+        ):
+            ur_text: str | None = usage_request.text
+            if ur_text:
+                descriptions.append(
+                    {
+                        "type": {"id": "other"},
+                        "description": f"Usage Request: {ur_text.strip().rstrip('.')}.",
+                    }
+                )
+
         # Parent book title for Fac Research book chapter)
         if (
             self.vault_collection == collection_uuids["faculty_research"]

@@ -859,6 +859,17 @@ def test_desc(input, expect):
                 }
             ],
         ),
+        (  # Usage Request
+            x(
+                "<local><usageRequestWrapper><usageRequest>foo</usageRequest></usageRequestWrapper></local>"
+            ),
+            [
+                {
+                    "type": {"id": "other"},
+                    "description": "Usage Request: foo.",
+                }
+            ],
+        ),
     ],
 )
 def test_addl_desc(input, expect):

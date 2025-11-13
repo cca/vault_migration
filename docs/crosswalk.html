@@ -66,6 +66,7 @@
     title: Local (/xml/local) Mappings
     ---
     flowchart LR
+    USAGEREQUESTS["usageRequestWrapper/usageRequest"] --> ADDLDESC["Additional Descriptions (0-n)"]
     ASERIESV["archivesWrapper/series & subseries"] --> ASERIESI["cca:archive_series custom field"]
     VLDEPT["department"] --> CDEPTCODE["cca:course.department"]
     VCIDEPT["courseInfo/department"] --> CDEPT["cca:course.department_code"]
