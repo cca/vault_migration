@@ -496,12 +496,33 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
         # TODO Full affiliation info in subNameWrapper, examples:
         # https://vault.cca.edu/items/8b259c1f-ce9e-4f50-9b56-748e65e4d469/1/
         # https://vault.cca.edu/items/a5db552e-01f4-4ad5-89ff-43cf5bf66528/1/
-        for name_desc in self.etree.findall("./mods/name/subNameWrapper/description"):
-            if name_desc.text:
+        for wrapper in self.etree.findall("./mods/name/subNameWrapper"):
+            affiliation: str = wrapper.findtext("./affiliation") or ""
+            # for CCA only we also have constituent (Alum, Student...), department,
+            # and dates (alum grad dates but also faculty/staff work dates)
+            constituent: str = wrapper.findtext("./constituent") or ""
+            departments: list[str] = [
+                e.text for e in wrapper.findall("./department") if e.text
+            ]
+            dates: str = wrapper.findtext("./gradDates") or ""
+            description: str = (wrapper.findtext("./description") or "").strip()
+            creator_note: str = ""
+            if affiliation and affiliation not in ["CCA", "CCAC", "CSAC"]:
+                creator_note += affiliation.strip()
+            if constituent:
+                creator_note += constituent.strip()
+            if len(departments):
+                creator_note += f" {', '.join([d.strip() for d in departments])}"
+            if dates:
+                creator_note += f" ({dates.strip()})"
+            if description:
+                creator_note += f". {description}" if creator_note else description
+            if creator_note:
                 descriptions.append(
                     {
                         "type": {"id": "other", "title": {"en": "Other"}},
-                        "description": f"Creator note: {name_desc.text.strip()}",
+                        # ensure period at end
+                        "description": f"Creator note: {creator_note.strip('.')}.",
                     }
                 )
 

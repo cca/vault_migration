@@ -745,7 +745,7 @@ def test_desc(input, expect):
             },
             [],
         ),
-        (  # name descriptions
+        (  # name descriptions on their own
             x(
                 "<mods><name><subNameWrapper><description>foo</description></subNameWrapper></name></mods>"
             ),
@@ -755,9 +755,139 @@ def test_desc(input, expect):
                         "id": "other",
                         "title": {"en": "Other"},
                     },
-                    "description": "Creator note: foo",
+                    "description": "Creator note: foo.",
                 }
             ],
+        ),
+        (  # CCA affiliation with constituent only
+            x(
+                "<mods><name><subNameWrapper><affiliation>CCA</affiliation><constituent>Student</constituent></subNameWrapper></name></mods>"
+            ),
+            [
+                {
+                    "type": {
+                        "id": "other",
+                        "title": {"en": "Other"},
+                    },
+                    "description": "Creator note: Student.",
+                }
+            ],
+        ),
+        (  # CCA affiliation with constituent and department
+            x(
+                "<mods><name><subNameWrapper><affiliation>CCA</affiliation><constituent>Faculty</constituent><department>Sculpture</department></subNameWrapper></name></mods>"
+            ),
+            [
+                {
+                    "type": {
+                        "id": "other",
+                        "title": {"en": "Other"},
+                    },
+                    "description": "Creator note: Faculty Sculpture.",
+                }
+            ],
+        ),
+        (  # CCA affiliation with constituent, multiple departments, and dates
+            x(
+                "<mods><name><subNameWrapper><affiliation>CCA</affiliation><constituent>Alum</constituent><department>Painting</department><department>Drawing</department><gradDates>2020-2024</gradDates></subNameWrapper></name></mods>"
+            ),
+            [
+                {
+                    "type": {
+                        "id": "other",
+                        "title": {"en": "Other"},
+                    },
+                    "description": "Creator note: Alum Painting, Drawing (2020-2024).",
+                }
+            ],
+        ),
+        (  # CCA affiliation with all fields including description
+            x(
+                "<mods><name><subNameWrapper><affiliation>CCAC</affiliation><constituent>Staff</constituent><department>Library</department><gradDates>2010-2015</gradDates><description>Worked as reference librarian</description></subNameWrapper></name></mods>"
+            ),
+            [
+                {
+                    "type": {
+                        "id": "other",
+                        "title": {"en": "Other"},
+                    },
+                    "description": "Creator note: Staff Library (2010-2015). Worked as reference librarian.",
+                }
+            ],
+        ),
+        (  # CSAC affiliation with dates only
+            x(
+                "<mods><name><subNameWrapper><affiliation>CSAC</affiliation><gradDates>1975-1980</gradDates></subNameWrapper></name></mods>"
+            ),
+            [
+                {
+                    "type": {
+                        "id": "other",
+                        "title": {"en": "Other"},
+                    },
+                    "description": "Creator note:  (1975-1980).",
+                }
+            ],
+        ),
+        (  # Non-CCA affiliation with description
+            x(
+                "<mods><name><subNameWrapper><affiliation>Stanford University</affiliation><description>Professor of Art History</description></subNameWrapper></name></mods>"
+            ),
+            [
+                {
+                    "type": {
+                        "id": "other",
+                        "title": {"en": "Other"},
+                    },
+                    "description": "Creator note: Stanford University. Professor of Art History.",
+                }
+            ],
+        ),
+        (  # Non-CCA affiliation without description
+            x(
+                "<mods><name><subNameWrapper><affiliation>UC Berkeley</affiliation></subNameWrapper></name></mods>"
+            ),
+            [
+                {
+                    "type": {
+                        "id": "other",
+                        "title": {"en": "Other"},
+                    },
+                    "description": "Creator note: UC Berkeley.",
+                }
+            ],
+        ),
+        (  # Non-CCA affiliation with constituent (should still include affiliation name)
+            x(
+                "<mods><name><subNameWrapper><affiliation>SFMOMA</affiliation><constituent>Curator</constituent><description>Contemporary Art specialist</description></subNameWrapper></name></mods>"
+            ),
+            [
+                {
+                    "type": {
+                        "id": "other",
+                        "title": {"en": "Other"},
+                    },
+                    "description": "Creator note: SFMOMACurator. Contemporary Art specialist.",
+                }
+            ],
+        ),
+        (  # CCA affiliation with description only
+            x(
+                "<mods><name><subNameWrapper><affiliation>CCA</affiliation><description>Visiting artist</description></subNameWrapper></name></mods>"
+            ),
+            [
+                {
+                    "type": {
+                        "id": "other",
+                        "title": {"en": "Other"},
+                    },
+                    "description": "Creator note: Visiting artist.",
+                }
+            ],
+        ),
+        (  # Empty subNameWrapper should not create description
+            x("<mods><name><subNameWrapper></subNameWrapper></name></mods>"),
+            [],
         ),
         (  # TOC
             x("<mods><tableOfContents>foo</tableOfContents></mods>"),
@@ -1522,6 +1652,11 @@ def test_sizes(input, expect):
         (
             "<physicalDescription><formBroad>Exhibition</formBroad></physicalDescription>",
             [Subject("Genre", "Exhibition")],
+        ),
+        # CCA/C Subject
+        (
+            "<photoClassification>Work by faculty</photoClassification>",
+            [Subject("Topic", "Work by faculty")],
         ),
     ],
 )

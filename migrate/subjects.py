@@ -101,7 +101,6 @@ def find_subjects(xml: Element) -> set[Subject]:
         if form.text:
             subjects.add(Subject("genre", form.text))
 
-    # TODO tests
     # "CCA/C Subject" in Libraries collection
     for photo_class in xml.findall("./mods/photoClassification"):
         if photo_class.text:
