@@ -789,7 +789,7 @@ def test_desc(input, expect):
         ),
         (  # CCA affiliation with constituent, multiple departments, and dates
             x(
-                "<mods><name><subNameWrapper><affiliation>CCA</affiliation><constituent>Alum</constituent><department>Painting</department><department>Drawing</department><gradDates>2020-2024</gradDates></subNameWrapper></name></mods>"
+                "<mods><name><subNameWrapper><affiliation>CCA</affiliation><constituent>Alum</constituent><department>Painting</department><department>Drawing</department><gradDate>2020-2024</gradDate></subNameWrapper></name></mods>"
             ),
             [
                 {
@@ -803,7 +803,7 @@ def test_desc(input, expect):
         ),
         (  # CCA affiliation with all fields including description
             x(
-                "<mods><name><subNameWrapper><affiliation>CCAC</affiliation><constituent>Staff</constituent><department>Library</department><gradDates>2010-2015</gradDates><description>Worked as reference librarian</description></subNameWrapper></name></mods>"
+                "<mods><name><subNameWrapper><affiliation>CCAC</affiliation><constituent>Staff</constituent><department>Library</department><gradDate>2010-2015</gradDate><description>Worked as reference librarian</description></subNameWrapper></name></mods>"
             ),
             [
                 {
@@ -817,7 +817,7 @@ def test_desc(input, expect):
         ),
         (  # CSAC affiliation with dates only
             x(
-                "<mods><name><subNameWrapper><affiliation>CSAC</affiliation><gradDates>1975-1980</gradDates></subNameWrapper></name></mods>"
+                "<mods><name><subNameWrapper><affiliation>CSAC</affiliation><gradDate>1975-1980</gradDate></subNameWrapper></name></mods>"
             ),
             [
                 {

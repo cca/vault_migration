@@ -504,7 +504,7 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
             departments: list[str] = [
                 e.text for e in wrapper.findall("./department") if e.text
             ]
-            dates: str = wrapper.findtext("./gradDates") or ""
+            dates: str = wrapper.findtext("./gradDate") or ""
             description: str = (wrapper.findtext("./description") or "").strip()
             creator_note: str = ""
             if affiliation and affiliation not in ["CCA", "CCAC", "CSAC"]:
