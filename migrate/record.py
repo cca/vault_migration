@@ -457,7 +457,7 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
             descriptions.extend(
                 [
                     {
-                        "type": {"id": "abstract", "title": {"en": "Abstract"}},
+                        "type": {"id": "abstract"},
                         "description": a,
                     }
                     for a in self.abstracts[1:]
@@ -469,10 +469,7 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
             if toc.text:
                 descriptions.append(
                     {
-                        "type": {
-                            "id": "table-of-contents",
-                            "title": {"en": "Table of contents"},
-                        },
+                        "type": {"id": "table-of-contents"},
                         "description": toc.text.strip(),
                     }
                 )
@@ -485,15 +482,12 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
             if title:
                 descriptions.append(
                     {
-                        "type": {
-                            "id": "series-information",
-                            "title": {"en": "Series information"},
-                        },
+                        "type": {"id": "series-information"},
                         "description": title.strip(),
                     }
                 )
 
-        # TODO Full affiliation info in subNameWrapper, examples:
+        # CCA and other affiliation info in subNameWrapper, examples:
         # https://vault.cca.edu/items/8b259c1f-ce9e-4f50-9b56-748e65e4d469/1/
         # https://vault.cca.edu/items/a5db552e-01f4-4ad5-89ff-43cf5bf66528/1/
         for wrapper in self.etree.findall("./mods/name/subNameWrapper"):
@@ -520,7 +514,7 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
             if creator_note:
                 descriptions.append(
                     {
-                        "type": {"id": "other", "title": {"en": "Other"}},
+                        "type": {"id": "other"},
                         # ensure period at end
                         "description": f"Creator note: {creator_note.strip('.')}.",
                     }
@@ -532,7 +526,7 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                 note_text: str = f"{note_type}: {note.text}" if note_type else note.text
                 descriptions.append(
                     {
-                        "type": {"id": "other", "title": {"en": "Other"}},
+                        "type": {"id": "other"},
                         "description": note_text.strip(),
                     }
                 )
@@ -554,12 +548,8 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                         desc_text += f", pages {pages}"
                     desc_text += "."
                     descriptions.append(
-                        {
-                            "type": {
-                                # series or other? Series is closer but misleading
-                                "id": "series-information",
-                                "title": {"en": "Series information"},
-                            },
+                        {  # series or other? Series is closer but misleading
+                            "type": {"id": "series-information"},
                             "description": desc_text,
                         }
                     )
@@ -576,7 +566,7 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                 note_text: str = f"{note_type}: {note.text}" if note_type else note.text
                 descriptions.append(
                     {
-                        "type": {"id": "other", "title": {"en": "Other"}},
+                        "type": {"id": "other"},
                         "description": note_text.strip(),
                     }
                 )

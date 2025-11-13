@@ -668,14 +668,14 @@ def test_desc(input, expect):
             x("<mods><abstract>foo</abstract><abstract>bar</abstract></mods>"),
             [
                 {
-                    "type": {"id": "abstract", "title": {"en": "Abstract"}},
+                    "type": {"id": "abstract"},
                     "description": "bar",
                 }
             ],
         ),
         (  # note
             x("<mods><noteWrapper><note>foo</note></noteWrapper></mods>"),
-            [{"type": {"id": "other", "title": {"en": "Other"}}, "description": "foo"}],
+            [{"type": {"id": "other"}, "description": "foo"}],
         ),
         (  # note with type
             x(
@@ -683,7 +683,7 @@ def test_desc(input, expect):
             ),
             [
                 {
-                    "type": {"id": "other", "title": {"en": "Other"}},
+                    "type": {"id": "other"},
                     "description": "Handwritten: foo",
                 }
             ],
@@ -702,10 +702,7 @@ def test_desc(input, expect):
             ),
             [
                 {
-                    "type": {
-                        "id": "series-information",
-                        "title": {"en": "Series information"},
-                    },
+                    "type": {"id": "series-information"},
                     "description": "CCA Libraries Exhibit Documentation",
                 }
             ],
@@ -716,10 +713,7 @@ def test_desc(input, expect):
             ),
             [
                 {
-                    "type": {
-                        "id": "other",
-                        "title": {"en": "Other"},
-                    },
+                    "type": {"id": "other"},
                     "description": "Medium: screenprint",
                 }
             ],
@@ -730,10 +724,7 @@ def test_desc(input, expect):
             ),
             [
                 {
-                    "type": {
-                        "id": "other",
-                        "title": {"en": "Other"},
-                    },
+                    "type": {"id": "other"},
                     "description": "screenprint",
                 }
             ],
@@ -751,10 +742,7 @@ def test_desc(input, expect):
             ),
             [
                 {
-                    "type": {
-                        "id": "other",
-                        "title": {"en": "Other"},
-                    },
+                    "type": {"id": "other"},
                     "description": "Creator note: foo.",
                 }
             ],
@@ -765,10 +753,7 @@ def test_desc(input, expect):
             ),
             [
                 {
-                    "type": {
-                        "id": "other",
-                        "title": {"en": "Other"},
-                    },
+                    "type": {"id": "other"},
                     "description": "Creator note: Student.",
                 }
             ],
@@ -779,10 +764,7 @@ def test_desc(input, expect):
             ),
             [
                 {
-                    "type": {
-                        "id": "other",
-                        "title": {"en": "Other"},
-                    },
+                    "type": {"id": "other"},
                     "description": "Creator note: Faculty Sculpture.",
                 }
             ],
@@ -793,10 +775,7 @@ def test_desc(input, expect):
             ),
             [
                 {
-                    "type": {
-                        "id": "other",
-                        "title": {"en": "Other"},
-                    },
+                    "type": {"id": "other"},
                     "description": "Creator note: Alum Painting, Drawing (2020-2024).",
                 }
             ],
@@ -807,10 +786,7 @@ def test_desc(input, expect):
             ),
             [
                 {
-                    "type": {
-                        "id": "other",
-                        "title": {"en": "Other"},
-                    },
+                    "type": {"id": "other"},
                     "description": "Creator note: Staff Library (2010-2015). Worked as reference librarian.",
                 }
             ],
@@ -821,10 +797,7 @@ def test_desc(input, expect):
             ),
             [
                 {
-                    "type": {
-                        "id": "other",
-                        "title": {"en": "Other"},
-                    },
+                    "type": {"id": "other"},
                     "description": "Creator note:  (1975-1980).",
                 }
             ],
@@ -835,10 +808,7 @@ def test_desc(input, expect):
             ),
             [
                 {
-                    "type": {
-                        "id": "other",
-                        "title": {"en": "Other"},
-                    },
+                    "type": {"id": "other"},
                     "description": "Creator note: Stanford University. Professor of Art History.",
                 }
             ],
@@ -849,10 +819,7 @@ def test_desc(input, expect):
             ),
             [
                 {
-                    "type": {
-                        "id": "other",
-                        "title": {"en": "Other"},
-                    },
+                    "type": {"id": "other"},
                     "description": "Creator note: UC Berkeley.",
                 }
             ],
@@ -863,10 +830,7 @@ def test_desc(input, expect):
             ),
             [
                 {
-                    "type": {
-                        "id": "other",
-                        "title": {"en": "Other"},
-                    },
+                    "type": {"id": "other"},
                     "description": "Creator note: SFMOMACurator. Contemporary Art specialist.",
                 }
             ],
@@ -877,10 +841,7 @@ def test_desc(input, expect):
             ),
             [
                 {
-                    "type": {
-                        "id": "other",
-                        "title": {"en": "Other"},
-                    },
+                    "type": {"id": "other"},
                     "description": "Creator note: Visiting artist.",
                 }
             ],
@@ -893,10 +854,7 @@ def test_desc(input, expect):
             x("<mods><tableOfContents>foo</tableOfContents></mods>"),
             [
                 {
-                    "type": {
-                        "id": "table-of-contents",
-                        "title": {"en": "Table of contents"},
-                    },
+                    "type": {"id": "table-of-contents"},
                     "description": "foo",
                 }
             ],
