@@ -248,6 +248,7 @@ def add_to_communities(published_record: dict[str, Any], communities: set[str]) 
 def main(
     directory: str, is_verbose: bool, ignore_errors: bool, no_map: bool, map_file: str
 ) -> None:
+    # cannot annotate these global vars
     global errors, verbose
     errors = not ignore_errors
     verbose = is_verbose

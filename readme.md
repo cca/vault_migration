@@ -24,7 +24,7 @@ Notable scripts that create Invenio vocabularies:
 
 ### Subjects
 
-We create two subject vocabularies: "lc" for terms with URIs in an external authority and "cca_local" with UUIDs for local terms not present in any authority. **NOTE**: we are probably restructuring this. We are considering multiple subjects organized by theme (name, subject, genre/form, etc.) and using Getty/Wikidata instead of LC.
+We create a few subject vocabularies for different types of terms: "name" for person/org names, "place" for geographic locations, "form" for genre or form terms, and "topic" for topical subjects. We attempt to match terms to URIs from Getty Vocabs or Wikidata, but some local terms use generated UUIDs for identifiers.
 
 Download the [subjects sheet](https://docs.google.com/spreadsheets/d/1la_wsFPOkHLjpv4-f3tWwMsCd0_xzuqZ5xp_p1zAAoA/edit#gid=1465207925) and run `python migrate/mk_subjects.py data/subjects.csv` to create the YAML vocabularies in the vocab dir (lc.yaml and cca_local.yaml) as well as migrate/subjects_map.json which is used by `Record`'s [`find_subjects`](./migrate/subjects.py) to convert the text of VAULT subject terms into Invenio identifiers or keyword subjects without an id.
 
