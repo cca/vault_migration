@@ -1660,7 +1660,7 @@ def test_find_subjects(input, expect):
             x(
                 "<mods><subject><subjectType>geographic</subjectType><geographic authority='lcsh'>Emeryville (Calif.)</geographic></subject></mods>"
             ),
-            [{"id": "https://id.loc.gov/authorities/names/n81081214.html"}],
+            [{"id": "http://vocab.getty.edu/page/tgn/2011247"}],
         ),
         # multiple subjects, one genre
         (
@@ -1669,7 +1669,7 @@ def test_find_subjects(input, expect):
             ),
             [
                 {
-                    "id": "https://id.loc.gov/authorities/genreForms/gf2014026362.html",
+                    "id": "http://vocab.getty.edu/page/aat/300265568",
                 },
                 {"subject": "Subject not in our mapping"},
             ],
