@@ -2,6 +2,7 @@
 # and https://inveniordm.docs.cern.ch/reference/rest_api_index/
 import json
 import os
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -54,13 +55,21 @@ def update_map(
     if url in map:
         verbose_print(f"Warning: VAULT item {url} already in mapping, overwriting")
     map[url] = {
-        "id": invenio_id,
-        "title": record.title,
-        "owner": vault.get("owner", {}).get("id"),
         "collaborators": [c.get("id") for c in vault.get("collaborators", [])],
+        "events": map.get(url, {}).get("events", []),
+        "id": invenio_id,
+        "owner": vault.get("owner", {}).get("id"),
+        "title": record.title,
         "viewlevel": record.viewlevel,
-        "status": "imported",
     }
+    # we can track multiple import events this way, save invenio_id which could be overwritten
+    map[url]["events"].append(
+        {
+            "name": "import",
+            "data": {"id": invenio_id},
+            "time": datetime.now().isoformat(),
+        }
+    )
     return map
 
 
