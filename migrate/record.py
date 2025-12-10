@@ -476,7 +476,14 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
                     }
                 )
 
-        # TODO add artists books description
+        # Artists' Books Collection note
+        if self._is_artists_book:
+            descriptions.append(
+                {
+                    "type": {"id": "other"},
+                    "description": "<h3>The Artists' Books Collection</h3><p>This book is part of the CCA Libraries <cite>Artists' Books Collection</cite>, comprised of approximately 340 unique works. The collection includes works by faculty members, students, alumni, and internationally recognized artists. <a href='https://library.cca.edu/cgi-bin/koha/opac-search.pl?count=20&limit=subject:Artists%E2%80%99%20books%20collection'>The Artists' Books Collection</a>, housed in the Meyer and Simpson Libraries, was developed to support study and teaching of bookworks as an art form. The collection is non-circulating but browsable within the library by request.</p>",
+                }
+            )
 
         # mods/relateditem[type=series] -> description[type=series-information]
         for series in self.etree.findall("./mods/relateditem[@type='series']"):
