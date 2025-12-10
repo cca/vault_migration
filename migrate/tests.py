@@ -314,7 +314,6 @@ def test_communities(input, expect):
     assert r.communities == expect
 
 
-# TODO test course
 @pytest.mark.parametrize(
     "input, expect",
     [

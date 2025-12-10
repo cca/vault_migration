@@ -114,7 +114,7 @@
     flowchart LR
     NAME["item.name"] --> |Use 'Untitled' if absent| TITLE["Title (1)"]
     VAULTID["item.uuid + item.version"] -->|"<code>isnewversionof</code> VAULT URL"| REL["Related Identifiers/Works (0-n)"]
-    OWNER["item.owner.id"] -->|TODO <a href="https://github.com/cca/cca_invenio/tree/main/site#set-owner">set_owner</a> script| PARENT["parent.owned_by.id"]
+    OWNER["item.owner.id"] -->|<a href="https://github.com/cca/cca_invenio/tree/main/site#set-owner">set_owner</a> script| PARENT["parent.owned_by.id"]
     COLLABORATORS["item.collaborators.id"] --> |TODO share item with them?| PARENT
     COLLECTION["item.collection.uuid"] -->|see also mods/relatedItem@type=<code>host</code>| COMM["Communities (1-n)"]
     DATECREATED["item.dateCreated"] -->|Use item creation timestamp if no date in MODS| PUBDATE["Publication Date (1)"]
