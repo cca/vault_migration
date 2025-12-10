@@ -70,7 +70,10 @@ class Record:
         self.references: list[dict[str, Any]] = [
             a for a in item.get("attachments", []) if a["type"] in ("url", "youtube")
         ]
-        self.title: str = item.get("name", "Untitled")
+        # minimum title length = 3 so pad with underscores if needed
+        self.title: str = (item.get("name", "Untitled") + "_" * 3)[
+            : max(3, len(item.get("name", "Untitled")))
+        ]
         self.vault_collection: str = item.get("collection", {}).get("uuid", "")
         self.vault_url: str = ""
         if item.get("uuid") and item.get("version"):
@@ -348,7 +351,10 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
             assert len(title_parts) == 2, (
                 f"Title is missing author part: {title} | {self.vault_url}"
             )
-            self.title = title_parts[0].strip()
+            # Remove author part from title _if_ it's still long enough without it, ex:
+            # https://vault.cca.edu/items/d246f7d5-6daa-4150-b7bf-ed149cb905f5/1/
+            if len(title_parts[0].strip()) > 2:
+                self.title = title_parts[0].strip()
             author: str = title_parts[1].strip()
             if author:
                 creators.extend(

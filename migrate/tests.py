@@ -1056,6 +1056,18 @@ def test_journal(input, expect):
     "input, expect",
     [
         ({"name": "foo", **x("")}, "foo"),
+        # names shorter than 3 chars get underscores appended
+        ({"name": "X", **x("")}, "X__"),
+        # artists books split their title out of title / author statement
+        (
+            {
+                "collection": {
+                    "uuid": collection_uuids["libraries_eresources"],
+                },
+                "metadata": "<xml><mods><physicalDescription><formBroad>artists' books (books)</formBroad></physicalDescription><titleInfo><title>Ulysses / James Joyce</title></titleInfo></mods></xml>",
+            },
+            "Ulysses",
+        ),
         (
             x(""),
             "Untitled",
