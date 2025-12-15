@@ -66,6 +66,7 @@ form_broad_map: dict[str, str] = {
     "exhibition": "event",
     "legal documents": "publication",
     "maps": "image-map",
+    "masters theses": "masters-thesis",
     "mixed media": "other",
     "motion pictures": "video",
     "multimedia": "other",
