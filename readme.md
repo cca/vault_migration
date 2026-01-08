@@ -32,11 +32,11 @@ If an `INVENIO_REPO` env var is set, vocabs are copied to the Invenio instance. 
 
 ## Creating Records in Invenio
 
-We need to load the necessary fixtures before creating records. Anywhere an identifier is used, whether in a subject, resource type, or relation, it must exist in Invenio. If we attempt to load a record with an `id` that doesn't exist yet, we get a 500 error.
+We need to load the necessary fixtures in Invenio before creating records. Anywhere an identifier is used, whether in a subject, resource type, or relation, it must exist prior to being referenced in a record. If we attempt to create a record with an `id` that doesn't exist, we get a 500 error.
 
 - **migrate/record.py**: converts EQUELLA item(s) into Invenio record JSON
-- **migrate/api.py**: converts an item and `POST`s it to Invenio to create a metadata-only record
-- **migrate/import.py**: imports an item _directory_ (created by [the export tool](https://github.com/cca/equella_scripts/tree/main/collection-export)) with its attachments to Invenio
+- **migrate/api.py**: converts an item and `POST`s it to Invenio to create a _metadata-only_ record
+- **migrate/import.py**: imports an item _directory_ (created by [our export tool](https://github.com/cca/equella_scripts/tree/main/collection-export)) with its attachments to Invenio
 
 The scripts rely on a personal access token for an administrator account in Invenio:
 
@@ -46,10 +46,8 @@ The scripts rely on a personal access token for an administrator account in Inve
 4. Copy it to clipboard and **Save**
 5. Paste in .env and/or set it as an env var, e.g. `set -x INVENIO_TOKEN=xyz` in fish
 
-Below, we migrate a VAULT item to an Invenio record and post it to Invenio.
-
 ```sh
-# fish shell
+# fish shell brief example
 set -x INVENIO_TOKEN abc123; set -x HOST 127.0.0.1:5000 # better: edit into .env
 python migrate/api.py items/item.json
 HTTP 201 https://127.0.0.1:5000/api/records/k7qk8-fqq15/draft
@@ -57,9 +55,22 @@ HTTP 202 https://127.0.0.1:5000/records/k7qk8-fqq15
 ...
 ```
 
-You can sometimes trip over yourself if the `.env` file in the project root is loaded and contains an outdated personal access token. If API calls fail with 403 errors, check that the `TOKEN` or `INVENIO_TOKEN` variable is set correctly.
+Invenio API calls can fail if the `.env` file in the project root is loaded and contains an outdated personal access token. If API calls fail with 403 errors, check that the `TOKEN` / `INVENIO_TOKEN` and `HOST` environment variables are set correctly.
 
 Rerunning a "migrate" script with the same input creates a new record, it doesn't update the existing one.
+
+## Post Migration Steps
+
+After records are created, they are added to their respective communities, but there are a few more steps that cannot be performed at creation time. We track the created records in an id-map.json file (updated by migrate/import.py) so we know which Invenio record corresponds to which EQUELLA item and what steps remain.
+
+- Change the record owner: records are created by the migration user and not the same EQUELLA account, `uv run invenio cca set-owner --map-file id-map.json`
+- Add collaborators: see the Syllabus Collection especially where faculty are collaborators on their syllabi and not owners, `uv run invenio cca add-editor --map-file id-map.json`
+- (TBD) Share with specific users or groups: to emulate EQUELLA's granular ACLs, we may need to share records with specific users or groups
+- (TBD) Update internal record references: references to other EQUELLA items in metadata must be updated to point to the other items' corresponding Invenio record
+
+There is no order to these steps or interdependencies between them. Code does not exist for the final two steps yet.
+
+The `set-owner` and `add-editor` commands skip internal (UUID) EQUELLA users. We do not plan to migrate those accounts.
 
 ## Items
 
