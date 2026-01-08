@@ -19,6 +19,7 @@ from xml.etree.ElementTree import Element
 
 from maps import (
     communities_map,
+    course_work_type_map,
     form_broad_map,
     license_href_map,
     license_text_map,
@@ -896,10 +897,10 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
     def resource_type(self) -> dict[str, str]:
         # https://inveniordm.docs.cern.ch/reference/metadata/#resource-type-1
         # https://github.com/cca/cca_invenio/blob/main/app_data/vocabularies/resource_types.yaml
-        # There are many fields that could be used to determine the resource type. Priority:
-        # 1. mods/typeOfResource, 2. local/courseWorkType, 3. TBD (there are more...)
-        # mods/typeOfResourceWrapper/typeOfResource
+        # There are many fields that could be used to determine the resource type.
+        # See the "VAULT -> Invenio Resource Type Analysis" sheet for why we prefer this order.
 
+        # 1. Collection-specific rules
         # Syllabus Collection only contains syllabi
         if self.vault_collection == collection_uuids["syllabus_collection"]:
             return {"id": "publication-syllabus"}
@@ -907,28 +908,37 @@ Children: {[(c.tag, c.text) for c in name_element]}"""
         # Faculty Research has type in genreWrapper/genre
         if self.vault_collection == collection_uuids["faculty_research"]:
             for genre in self.etree.findall("./mods/genreWrapper/genre"):
-                if genre.text in resource_type_map:
-                    return {"id": resource_type_map[genre.text]}
+                genre_text: str = genre.text.lower() if genre.text else ""
+                if genre_text in resource_type_map:
+                    return {"id": resource_type_map[genre_text]}
 
         # OA Journal Articles has type in genre
         if self.vault_collection == collection_uuids["oa"]:
             for genre in self.etree.findall("./mods/genre"):
-                if genre.text in resource_type_map:
-                    return {"id": resource_type_map[genre.text]}
+                genre_text: str = genre.text.lower() if genre.text else ""
+                if genre_text in resource_type_map:
+                    return {"id": resource_type_map[genre_text]}
 
+        # 2. Metadata field rules (formBroad > typeOfResource > courseWorkType)
         # physicalDescription/formBroad e.g. in Art Collection
         for formBroad in self.etree.findall("./mods/physicalDescription/formBroad"):
-            if formBroad.text in form_broad_map:
-                return {"id": form_broad_map[formBroad.text.lower()]}
+            formBroad_text: str = formBroad.text.lower() if formBroad.text else ""
+            if formBroad_text in form_broad_map:
+                return {"id": form_broad_map[formBroad_text]}
 
         # Take the first typeOfResource value we find
         for rtype in self.etree.findall("./mods/typeOfResourceWrapper/typeOfResource"):
-            if rtype.text in resource_type_map:
-                return {"id": resource_type_map[rtype.text]}
+            rtype_text: str = rtype.text.lower() if rtype.text else ""
+            if rtype_text in resource_type_map:
+                return {"id": resource_type_map[rtype_text]}
 
-        # TODO local/courseWorkType
+        # We map a few courseWorkType values, such as Thesis
+        for cw_type in self.etree.findall("./local/courseWorkWrapper/courseWorkType"):
+            cw_type_text: str = cw_type.text.lower() if cw_type.text else ""
+            if cw_type_text in course_work_type_map:
+                return {"id": course_work_type_map[cw_type_text]}
 
-        # default to publication
+        # 3. Default to publication
         return {"id": "publication"}
 
     @cached_property

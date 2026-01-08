@@ -68,7 +68,7 @@
     flowchart LR
     USAGEREQUESTS["usageRequestWrapper/usageRequest"] --> ADDLDESC["Additional Descriptions (0-n)"]
     ASERIESV["archivesWrapper/series & subseries"] --> ASERIESI["cca:archive_series"]
-    VLDEPT["department"] --> CDEPTCODE["cca:course.department"]{}
+    VLDEPT["department"] --> CDEPTCODE["cca:course.department"]
     VCIDEPT["courseInfo/department"] --> CDEPT["cca:course.department_code"]
     VFACULTY["courseInfo/faculty"] --> CINSTRUCTORS["cca:course.instructors"]
     VFACULTY --> |If we do not have a mods/name| CREATORS["Creators (1-n)"]
@@ -77,8 +77,11 @@
     VSECTION --> CSECTIONCALCID["cca:course.section_calc_id constructed from section & term"]
     VSEMESTER --> CSECTIONCALCID
     VCTITLE["courseInfo/title"] --> CTITLE["cca:course.title"]
-    VIEWLEVEL["viewLevel"] --> |public -> public, anything else -> restricted| ACCESS["<a href="https://inveniordm.docs.cern.ch/reference/metadata/#access">Access</a>"]
-    courseworktype[courseWorkWrapper/courseWorkType] --> |TODO if we have no mods/typeOfResource, map 1st| TYPE["Resource Type (1)"]
+    VIEWLEVEL["viewLevel"] --> |public -> public, anything else -> restricted| ACCESS["<a
+        href="https://inveniordm.docs.cern.ch/reference/metadata/#access">Access</a>"]
+    CWT[courseWorkWrapper/courseWorkType] --> |Map some values if no formBroad or typeOfResource| TYPE["Resource Type (1)"]
+    CWT --> SUBJECTS["Subjects (0-n)"]
+    CWTS[courseWorkWrapper/courseWorkTypeSpecific] --> SUBJECTS["Subjects (0-n)"]
 </pre>
 
 <p>Basically, <code>/local/courseInfo</code> maps to a <code>cca:course</code> custom field while <code>/local/archivesWrapper</code> maps to a <code>cca:archive</code> custom field.</p>

@@ -38,47 +38,74 @@ license_text_map: dict[str, str] = {
     "https://creativecommons.org/licenses/by-nc/4.0/": "cc-by-nc-4.0",
 }
 
-# everyone of our mods typeOfResource values => our Invenio resource types
+# ! CAST TERMS TO lowercase BEFORE USING THESE MAPS. VAULT metadata is inconsistent.
+# mods typeOfResourceWrapper/typeOfResource, genre, & genreWrapper/genre -> Invenio resource type
 # Our subset of the full list of Invenio resource types: publication, publication-article, publication-book, publication-syllabus, thesis, bachelors-thesis, masters-thesis, image, image-map, image-painting-drawing, image-photo, image-plans, video, event, other
 resource_type_map: dict[str, str] = {
-    "Event documentation": "event",
-    "Event promotion": "event",
-    "Group Field Trip": "event",
-    "Hold Harmless": "publication",
-    "Media Release": "publication",
     "article": "publication-article",
     "book chapter": "publication-book",
-    "journal article": "publication-article",
     "cartographic": "image-map",
+    "event documentation": "event",
+    "event promotion": "event",
+    "group field trip": "event",
+    "hold harmless": "publication",
+    "journal article": "publication-article",
+    "media release": "publication",
     "mixed material": "other",
     "moving image": "video",
-    "sound recording": "video",
     "sound recording-nonmusical": "video",
+    "sound recording": "video",
     "still image": "image",
     "text": "publication",
 }
-# Similar map to Invenio resource types, used in Art Collection & CSP
+# mods/physicalDescription/formBroad -> resource type, used in Art Collection & CSP
 form_broad_map: dict[str, str] = {
+    "animation": "video",
+    "architectural document": "image-plans",
+    "architectural drawing": "image-plans",
     "article": "publication-article",
     "artists' books (book)": "publication-book",
+    "audio": "video",  # video is described as Video/Audio
+    "book": "publication-book",
+    "books": "publication-book",
     "conference": "event",
     "drawing": "image-painting-drawing",
+    "drawings": "image-painting-drawing",
     "exhibition": "event",
+    "graphic-novel": "publication-book",
     "legal documents": "publication",
     "maps": "image-map",
     "masters theses": "masters-thesis",
     "mixed media": "other",
     "motion pictures": "video",
     "multimedia": "other",
+    "multiple": "other",
+    "observational and imaginary drawing": "image-painting-drawing",
+    "observational drawing": "image-painting-drawing",
+    "oral history": "video",
     "painting": "image-painting-drawing",
     "photo": "image-photo",
     "photograph": "image-photo",
     "print or drawing": "image-painting-drawing",
+    "realia": "other",
+    "sculpture": "other",
     "sculpture/3D": "image-photo",  # most of these are photos of sculptures
+    "serialized comic": "publication-book",
+    "video": "video",
+    "workshop (seminar)": "event",
+}
+# local/courseWorkWrapper/courseWorkType -> resource type, used in academic collections
+course_work_type_map: dict[str, str] = {
+    "animation show submission": "video",
+    "other": "other",
+    # Arguably we could map "senior packet" and "senior project" to bachelors-thesis, too
+    "senior thesis": "bachelors-thesis",
+    "senior thesis project": "bachelors-thesis",
+    "thesis": "masters-thesis",
+    "workshop / events": "event",
 }
 
 # creator/contributor roles
-# ! NOTE cast terms to LOWERCASE before using this map. Our metadata is inconsistent between title case and lowercase.
 # MODS (uses MARC list): https://www.loc.gov/marc/relators/relaterm.html | https://id.loc.gov/vocabulary/relators.html
 # Invenio roles: https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/roles.yaml
 # Another option: https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/relator.html

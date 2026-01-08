@@ -1332,7 +1332,7 @@ def test_dates(input, expect):
             x("<mods></mods>"),
             "publication",
         ),
-        (  # in the absence of typeOfResource look at formBroad
+        (  # formBroad
             x(
                 "<mods><physicalDescription><formBroad>photo</formBroad></physicalDescription></mods>"
             ),
@@ -1349,6 +1349,30 @@ def test_dates(input, expect):
                 "<mods><physicalDescription><formBroad>donkey</formBroad><formBroad>painting</formBroad></physicalDescription></mods>"
             ),
             "image-painting-drawing",
+        ),
+        (  # courseWorkType Thesis is mapped to masters-thesis
+            x(
+                "<local><courseWorkWrapper><courseWorkType>Thesis</courseWorkType></courseWorkWrapper></local>"
+            ),
+            "masters-thesis",
+        ),
+        (  # Unmapped courseWorkType defaults to publication
+            x(
+                "<local><courseWorkWrapper><courseWorkType>CORE Studio/First Year</courseWorkType></courseWorkWrapper></local>"
+            ),
+            "publication",
+        ),
+        (  # Prefer formBroad over typeOfResource & courseWorkType
+            x(
+                "<mods><physicalDescription><formBroad>conference</formBroad></physicalDescription><typeOfResourceWrapper><typeOfResource>still image</typeOfResource></typeOfResourceWrapper></mods><local><courseWorkWrapper><courseWorkType>Thesis</courseWorkType></courseWorkWrapper></local>"
+            ),
+            "event",
+        ),
+        (  # Prefer typeOfResource over courseWorkType
+            x(
+                "<mods><typeOfResourceWrapper><typeOfResource>still image</typeOfResource></typeOfResourceWrapper></mods><local><courseWorkWrapper><courseWorkType>Thesis</courseWorkType></courseWorkWrapper></local>"
+            ),
+            "image",
         ),
         (  # DBR article
             {
