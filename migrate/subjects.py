@@ -101,6 +101,14 @@ def find_subjects(xml: Element) -> set[Subject]:
         if form.text:
             subjects.add(Subject("genre", form.text))
 
+    # courseWorkType and courseWorkTypeSpecific as genres
+    for cw_type in xml.findall("./local/courseWorkWrapper/courseWorkType"):
+        if cw_type.text:
+            subjects.add(Subject("genre", cw_type.text))
+    for cwt_specific in xml.findall("./local/courseWorkWrapper/courseWorkTypeSpecific"):
+        if cwt_specific.text:
+            subjects.add(Subject("genre", cwt_specific.text))
+
     # "CCA/C Subject" in Libraries collection
     for photo_class in xml.findall("./mods/photoClassification"):
         if photo_class.text:

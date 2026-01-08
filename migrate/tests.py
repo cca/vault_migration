@@ -1597,9 +1597,9 @@ def test_sizes(input, expect):
 # Find Subjects function
 @pytest.mark.parametrize(
     "input, expect",
-    [  # <xml><mods> is wrapped around input values
+    [  # <xml> is wrapped around input values
         (  # several subjects, no authorities
-            "<subject><topic>Art</topic><topic>Design</topic></subject><genreWrapper><genre>creative non-fiction</genre><genre>poetry</genre></genreWrapper>",
+            "<mods><subject><topic>Art</topic><topic>Design</topic></subject><genreWrapper><genre>creative non-fiction</genre><genre>poetry</genre></genreWrapper></mods>",
             [
                 Subject("Genre", "creative non-fiction"),
                 Subject("Genre", "poetry"),
@@ -1609,39 +1609,39 @@ def test_sizes(input, expect):
         ),
         # real subject alongside empty subject tag
         (
-            "<subject><topic>Art</topic></subject><subject/>",
+            "<mods><subject><topic>Art</topic></subject><subject/></mods>",
             [Subject("Topic", "Art")],
         ),
         # empty genreWrapper
         (
-            "<genreWrapper/>",
+            "<mods><genreWrapper/></mods>",
             [],
         ),
         # empty, no subjects
-        ("<subject></subject>", []),
-        ("<subject><name/></subject>", []),
+        ("<mods><subject></subject></mods>", []),
+        ("<mods><subject><name/></subject></mods>", []),
         # single subject
         (
-            "<subject><subjectType>topic</subjectType><topic>Trees</topic></subject>",
+            "<mods><subject><subjectType>topic</subjectType><topic>Trees</topic></subject></mods>",
             [Subject("Topic", "Trees")],
         ),
         (  # subject with authority
-            "<subject><subjectType>geographic</subjectType><geographic authority='lcsh'>Berkeley, Calif.</geographic></subject>",
+            "<mods><subject><subjectType>geographic</subjectType><geographic authority='lcsh'>Berkeley, Calif.</geographic></subject></mods>",
             [Subject("Geographic", "Berkeley, Calif.", "lcsh")],
         ),
         # translate topicCona to topic
         (
-            "<subject><topicCona>performance</topicCona></subject>",
+            "<mods><subject><topicCona>performance</topicCona></subject></mods>",
             [Subject("Topic", "performance")],
         ),
         # genre
         (
-            "<genreWrapper><genre>creative non-fiction</genre></genreWrapper>",
+            "<mods><genreWrapper><genre>creative non-fiction</genre></genreWrapper></mods>",
             [Subject("Genre", "creative non-fiction")],
         ),
         # multiple genres
         (
-            "<genreWrapper><genre>creative non-fiction</genre><genre authority='aat'>poetry</genre></genreWrapper>",
+            "<mods><genreWrapper><genre>creative non-fiction</genre><genre authority='aat'>poetry</genre></genreWrapper></mods>",
             [
                 Subject("Genre", "creative non-fiction"),
                 Subject("Genre", "poetry", "aat"),
@@ -1649,23 +1649,33 @@ def test_sizes(input, expect):
         ),
         # formSpecific
         (
-            "<physicalDescription><formSpecific>watercolor</formSpecific></physicalDescription>",
+            "<mods><physicalDescription><formSpecific>watercolor</formSpecific></physicalDescription></mods>",
             [Subject("Genre", "watercolor")],
         ),
         # formBroad
         (
-            "<physicalDescription><formBroad>Exhibition</formBroad></physicalDescription>",
+            "<mods><physicalDescription><formBroad>Exhibition</formBroad></physicalDescription></mods>",
             [Subject("Genre", "Exhibition")],
+        ),
+        # courseWorkType
+        (
+            "<local><courseWorkWrapper><courseWorkType>Junior Review portfolio</courseWorkType></courseWorkWrapper></local>",
+            [Subject("Genre", "Junior Review portfolio")],
+        ),
+        # courseWorkTypeSpecific
+        (
+            "<local><courseWorkWrapper><courseWorkTypeSpecific>3D computer animation</courseWorkTypeSpecific></courseWorkWrapper></local>",
+            [Subject("Genre", "3D computer animation")],
         ),
         # CCA/C Subject
         (
-            "<photoClassification>Work by faculty</photoClassification>",
+            "<mods><photoClassification>Work by faculty</photoClassification></mods>",
             [Subject("Topic", "Work by faculty")],
         ),
     ],
 )
 def test_find_subjects(input, expect):
-    xml = ElementTree.fromstring(f"<xml><mods>{input}</mods></xml>")
+    xml = ElementTree.fromstring(f"<xml>{input}</xml>")
     assert sorted(find_subjects(xml)) == expect
 
 
