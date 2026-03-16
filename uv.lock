@@ -131,15 +131,14 @@ wheels = [
 
 [[package]]
 name = "edtf"
-version = "5.0.0"
+version = "5.0.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pyparsing" },
     { name = "python-dateutil" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/7b/24/0a9053bea41c2860046416f3d136283233ce307adb218d406dede64a8fac/edtf-5.0.0.tar.gz", hash = "sha256:7393c570b4838c8cbc05b0687c6ea0578039ba007c8ce125206f44f18f2dea5d", size = 45617, upload-time = "2024-07-18T08:01:52.882Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/cb/08/746096971fae3585928a631912bdd4393f5ab5696706bd34cbdcccf763fc/edtf-5.0.0-py3-none-any.whl", hash = "sha256:b38ca29fa166a5c628b899a76e73a9f4cc732da565b85e737af4c0e457775f5e", size = 40319, upload-time = "2024-07-18T08:01:50.873Z" },
+    { url = "https://files.pythonhosted.org/packages/76/23/e9f69255f67f55b03e2705bfd7a579a01c26146b9ea98f9cdb07d8156b4d/edtf-5.0.1-py3-none-any.whl", hash = "sha256:d3ed8c1307330d7563ae9efc4193988acddeb60dcfb740d4fe0abe739ef0944a", size = 36776, upload-time = "2026-03-15T03:22:56.53Z" },
 ]
 
 [[package]]
@@ -602,7 +601,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "click", specifier = "==8.3.1" },
-    { name = "edtf", specifier = "==5.0.0" },
+    { name = "edtf", specifier = "==5.0.1" },
     { name = "en-core-web-lg", url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.8.0/en_core_web_lg-3.8.0-py3-none-any.whl" },
     { name = "python-dotenv", specifier = "==1.2.1" },
     { name = "pyyaml", specifier = "==6.0.3" },
